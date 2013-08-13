@@ -1,5 +1,19 @@
 [user]
-	name = Jimmy Charnley Kromann, lat13
-	email = jimmy@charnley.dk
+  name = Jimmy Charnley Kromann
+  email = jimmy@charnley.dk
+
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+
+[color "diff"]
+  meta = yellow
+
 [core]
-	editor = vim
+  excludesfile = ~/.gitignore
+  editor = vim --noplugin
+
+[alias]
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+

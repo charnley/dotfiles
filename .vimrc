@@ -1,22 +1,104 @@
+" VIMRC
+" My Github repo for dot files
+" https:/github.com/charnley/dotfiles
+
+" BASED ON
+" https://github.com/mbrochh/vim-as-a-python-ide
+" https://github.com/r00k/dotfiles
+
+
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-" Disable underline in html documents
-let html_no_rendering=1
+
+" START VUNDLE
+" https://github.com/gmarik/vundle
+"
+" Brief help
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
+
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+Bundle 'gmarik/vundle'
 
 
-"custom copy'n'paste
-"copy the current visual selection to ~/.vbuf
-vmap <S-y> :w! ~/.vbuf<CR>
-"copy the current line to the buffer file if no visual selection
-nmap <S-y> :.w! ~/.vbuf<CR>
-"paste the contents of the buffer file
-nmap <S-p> :r ~/.vbuf<CR>
+" NerdTree
+" https://github.com/scrooloose/nerdtree
+Bundle 'scrooloose/nerdtree'
 
 
-" ================ Generel Settings  ================
-set number                      "Line numbers are good
+" Supertab
+" https://github.com/ervandew/supertab
+Bundle 'ervandew/supertab'
+
+
+" Themes
+Bundle 'CSApprox'
+Bundle 'flazz/vim-colorschemes'
+
+
+" L9
+Bundle 'L9'
+
+
+" FuzzyFinder
+" https://github.com/vim-scripts/FuzzyFinder
+Bundle 'FuzzyFinder'
+
+
+" TComment
+" https://github.com/tomtom/tcomment_vim
+" Handles commenting of multiple lines
+"    gc{motion}   :: Toggle comments (for small comments within one line 
+"                    the &filetype_inline style will be used, if 
+"                    defined)
+"    gc<Count>c{motion} :: Toggle comment text with count argument 
+"                    (see |tcomment#Comment()|)
+"    gcc          :: Toggle comment for the current line
+"    gC{motion}   :: Comment region
+"    gCc          :: Comment the current line
+"
+" In visual mode:
+"    gc           :: Toggle comments
+"    gC           :: Comment selected text
+Bundle 'tomtom/tcomment_vim'
+
+
+filetype plugin indent on
+
+
+" END VUNDLE
+
+
+
+
+
+" General VIM stuff
+
+" Set leader
+let mapleader=","
+
+" Colorscheme
+" http://agonzalezro.github.io/best-vim-colors-ever.html
+" colorscheme desertEx
+" colorscheme jellybeans
+" colorscheme wombat256mod
+set t_Co=256
+colorscheme jellybeans
+
+
+set number                      "Turn on line-numbers
 set backspace=indent,eol,start  "Allow backspace in insert mode
 set history=1000                "Store lots of :cmdline history
 set undolevels=700              "Store lots of undo's in history
@@ -27,10 +109,10 @@ set autoread                    "Reload files changed outside vim
 set nowrap                      "Don't wrap lines
 set linebreak                   "Wrap lines at convenient points
 
-" Width of document
-"set tw=79                       "Width of document (used by gd)
-"set colorcolumn=80              "Visually show the width of document
-"highlight ColorColumn ctermbg=black "Change the color too a dark one
+" Turn off swap files
+set noswapfile
+set nobackup
+set nowb
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
@@ -40,22 +122,29 @@ set hidden
 " turn on syntax highlighting
 syntax on
 
-
-" ================ Search Settings  =================
+" Search Settings
 set incsearch        "Find the next match as we type the search
-"set hlsearch         "Hilight searches by default
 set viminfo='100,f1  "Save up to 100 marks, enable capital marks
 set ignorecase
 set smartcase
 
 
-" ================ Tab Settings =====================
-" I have Tab settings like any other program with ctrl+tab
-" because i use xterm, should be something else,
-" if you use gnome or something with tabs
+" Persistent Undo
+" Keep undo history across sessions, by storing in file.
+" Only works all the time.
+silent !mkdir ~/.vim/backups > /dev/null 2>&1
+set undodir=~/.vim/backups
+set undofile
+
+
+" Tab Settings
+" Standard tab shortcuts:
+" gt -> go to next tab
+" gT -> go to previous tab
+" nnn gt -> go to nnn tab
 "
-" NOTE: "C-tab", does not work in xterm,
-" because xterm does not support it
+" NOTE: "C-tab", does not work in terminals,
+" because terminals does not support it
 " and will just send "tab" instead.
 "nnoremap <C-S-tab> :tabprevious<CR>
 "nnoremap <C-tab>   :tabnext<CR>
@@ -63,6 +152,7 @@ set smartcase
 "inoremap <C-S-tab> <Esc>:tabprevious<CR>i
 "inoremap <C-tab>   <Esc>:tabnext<CR>i
 "inoremap <C-t>     <Esc>:tabnew<CR>
+" Mapping to alt+arrow instead
 nnoremap <A-left>   :tabprevious<CR>
 nnoremap <A-right>  :tabnext<CR>
 nnoremap <C-t>      :tabnew<CR>
@@ -71,21 +161,7 @@ inoremap <A-right>  <Esc>:tabnext<CR>i
 inoremap <C-t>      <Esc>:tabnew<CR>
 
 
-" ================ Turn Off Swap Files ==============
-set noswapfile
-set nobackup
-set nowb
-
-
-" ================ Persistent Undo ==================
-" Keep undo history across sessions, by storing in file.
-" Only works all the time.
-silent !mkdir ~/.vim/backups > /dev/null 2>&1
-set undodir=~/.vim/backups
-set undofile
-
-
-" ================ Indentation ======================
+" Indentation
 set pastetoggle=<F2> " Press F2 in insert mode for better paste
 set tabstop=2
 set softtabstop=2
@@ -93,40 +169,201 @@ set shiftwidth=2
 set shiftround
 set expandtab
 
-" TODO Not sure what these does:
-filetype plugin on
-filetype indent on
+
+" easier formatting of paragraphs
+" with line-breaks
+vmap Q gq
+nmap Q gqap
+
 
 " easier moving of code blocks
 vnoremap < <gv " better indentation
 vnoremap > >gv " better indentation
 
-set list listchars=tab:\ \ ,trail:· " Display tabs and trailing spaces visually
+" Display tabs and trailing spaces visually
+set list listchars=tab:\ \ ,trail:·
 
 
-" ================ Folds ============================
-set foldmethod=indent   "fold based on indent
-set foldnestmax=3       "deepest fold is 3 levels
-set nofoldenable        "dont fold by default
-
-
-" ================ Completion =======================
-set wildmode=list:longest
-set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
-set wildignore+=*vim/backups*
-set wildignore+=*sass-cache*
-set wildignore+=*DS_Store*
-set wildignore+=vendor/rails/**
-set wildignore+=vendor/cache/**
-set wildignore+=*.gem
-set wildignore+=log/**
-set wildignore+=tmp/**
-set wildignore+=*.png,*.jpg,*.gif
-
-
-" ================ Scrolling ========================
-set scrolloff=4         "Start scrolling when we're 8 lines away from margins
+" Scrolling
+set scrolloff=4         "Start scrolling when we're 4 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
+
+
+" Spelling
+"
+" Correct word:
+" z=
+"
+" Add word:
+" zg
+"
+" Disable Spelling
+" :set nospell
+"
+setlocal spell spelllang=en_us
+" hi clear SpellBad
+" hi SpellBad cterm=underline ctermfg=red
+highlight clear SpellBad
+highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+highlight clear SpellCap
+highlight SpellCap term=underline cterm=underline
+highlight clear SpellRare
+highlight SpellRare term=underline cterm=underline
+highlight clear SpellLocal
+highlight SpellLocal term=underline cterm=underline
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+
+" Custom copy'n'paste
+" Shift+y will save the selection to work
+" with multiple sessions of VIM
+"
+" Copy the current visual slection to ~/.vbuf
+vmap <S-y> :w! ~/.vbuf<CR>
+" Copy the current line to the buffer file if no visual selection
+nmap <S-y> :.w! ~/.vbuf<CR>
+" Paste the contents of the buffer file
+nmap <S-p> :r ~/.vbuf<CR>
+
+
+" Say no to code folding...
+set nofoldenable
+
+" Disable K looking stuff up
+map K <Nop>
+
+" (Hopefully) removes the delay when hitting esc in insert mode
+"set noesckeys
+set ttimeout
+set ttimeoutlen=1
+
+" Easy way of re-naming file when editing it
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+
+map <Leader>re :call RenameFile()<cr>
+
+
+if has('cmdline_info')
+  set ruler                   " show the ruler
+  set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
+  set showcmd                 " show partial commands in status line and
+endif
+set laststatus=2  " Always show the statusline
+set cmdheight=2
+
+
+" ---------------
+" Behaviors
+" ---------------
+set clipboard+=unnamed " Yanks go on clipboard instead.
+
+
+
+set showmatch  " Show matching brackets.
+
+
+
+" Window Movement
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+
+
+" Fixes common typos
+command W w
+command Q q
+map <F1> <Esc>
+imap <F1> <Esc>
+
+
+" ---------------
+" Leader
+" ---------------
+
+nmap <silent> <leader>sp :set spell!<CR>
+
+
+
+
+" ----------------------------------------
+" Auto Commands
+" ----------------------------------------
+
+if has("autocmd")
+  " No more complaining about untitled documents
+  autocmd FocusLost silent! :wa
+
+  " When editing a file, always jump to the last cursor position.
+  " This must be after the uncompress commands.
+  autocmd BufReadPost *
+        \ if line("'\"") > 1 && line ("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
+endif
+
+
+" ----------------------------------------
+" Bundles/Plugin Configuration
+" ----------------------------------------
+
+" ---------------
+" NERDTree
+" ---------------
+nnoremap <leader>n  :NERDTreeToggle<CR>
+nnoremap <leader>nn :NERDTreeToggle<CR>
+nnoremap <leader>nf :NERDTreeFind<CR>
+
+
+" ---------------
+" FuzzyFinder
+" ---------------
+" |:FufBuffer|       - Buffer mode (|fuf-buffer-mode|)
+" |:FufFile|         - File mode (|fuf-file-mode|)
+" |:FufCoverageFile| - Coverage-File mode (|fuf-coveragefile-mode|)
+" |:FufDir|          - Directory mode (|fuf-dir-mode|)
+" |:FufMruFile|      - MRU-File mode (|fuf-mrufile-mode|)
+" |:FufMruCmd|       - MRU-Command mode (|fuf-mrucmd-mode|)
+" |:FufBookmarkFile| - Bookmark-File mode (|fuf-bookmarkfile-mode|)
+" |:FufBookmarkDir|  - Bookmark-Dir mode (|fuf-bookmarkdir-mode|)
+" |:FufTag|          - Tag mode (|fuf-tag-mode|)
+" |:FufBufferTag|    - Buffer-Tag mode (|fuf-buffertag-mode|)
+" |:FufTaggedFile|   - Tagged-File mode (|fuf-taggedfile-mode|)
+" |:FufJumpList|     - Jump-List mode (|fuf-jumplist-mode|)
+" |:FufChangeList|   - Change-List mode (|fuf-changelist-mode|)
+" |:FufQuickfix|     - Quickfix mode (|fuf-quickfix-mode|)
+" |:FufLine|         - Line mode (|fuf-line-mode|)
+" |:FufHelp|         - Help mode (|fuf-help-mode|)
+nnoremap <leader>o  :FufFile<CR>
+nnoremap <leader>no :FufBuffer<CR>
+
+" Fuzzy finder: ignore stuff that can't be opened, and generated files
+let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;*.pyc"
+
+
+" ----------------------------------------
+" Thinkpad X1 Configuration
+" ----------------------------------------
+
+" ---------------
+" Home/End
+" ---------------
+" Shortcuts for Home/end because my home/end is position
+" crap on my thinkpad
+" Ctrl+Shift+Left/Right -> Home/End
+nnoremap <C-S-Left> <Home>
+inoremap <C-S-Left> <Home>
+nnoremap <C-S-Right> <End>
+inoremap <C-S-Right> <End>
+
 

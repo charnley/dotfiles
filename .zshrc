@@ -16,7 +16,7 @@ ZSH_THEME="daveverwer"
 # CASE_SENSITIVE="true"
 
 # Comment this out to disable weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment following line if you want to disable colors in ls
 # DISABLE_LS_COLORS="true"
@@ -34,15 +34,5 @@ plugins=(git git-flow)
 
 source $ZSH/oh-my-zsh.sh
 
-# Customize to your needs...
+source ~/.profile
 
-# git pull and push
-alias gitpp='git pull && git push'
-# update and upgrade
-alias updateupgrade='sudo apt-get update && sudo apt-get upgrade'
-# matlab
-#alias matlab='/usr/local/MATLAB/R2011b/bin/matlab -nodesktop -nosplash'
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
