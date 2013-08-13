@@ -1,18 +1,26 @@
-" VIMRC
+
+" ----------------------------------------
+" VI Improved Configuration
+" ----------------------------------------
+
 " My Github repo for dot files
 " https:/github.com/charnley/dotfiles
 
-" BASED ON
+" Inspired by (copied from):
 " https://github.com/mbrochh/vim-as-a-python-ide
 " https://github.com/r00k/dotfiles
-
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
 
-" START VUNDLE
+" ----------------------------------------
+" Vundle
+" ----------------------------------------
+
+" Vundle is a bundle manager for VIM.
+" Baiscly a must have!
 " https://github.com/gmarik/vundle
 "
 " Brief help
@@ -27,6 +35,7 @@ set nocompatible
 filetype off
 
 set rtp+=~/.vim/bundle/vundle/
+
 call vundle#rc()
 
 " let Vundle manage Vundle
@@ -43,12 +52,17 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'ervandew/supertab'
 
 
-" Themes
+" CSApprox
+" Makes GVIM themes work in terminals
 Bundle 'CSApprox'
+
+
+" Theme Bundle
 Bundle 'flazz/vim-colorschemes'
 
 
 " L9
+" Dependency for a lot of plugins
 Bundle 'L9'
 
 
@@ -59,6 +73,7 @@ Bundle 'FuzzyFinder'
 
 " TComment
 " https://github.com/tomtom/tcomment_vim
+"
 " Handles commenting of multiple lines
 "    gc{motion}   :: Toggle comments (for small comments within one line 
 "                    the &filetype_inline style will be used, if 
@@ -72,32 +87,37 @@ Bundle 'FuzzyFinder'
 " In visual mode:
 "    gc           :: Toggle comments
 "    gC           :: Comment selected text
+"
 Bundle 'tomtom/tcomment_vim'
 
 
 filetype plugin indent on
 
 
-" END VUNDLE
+" ----------------------------------------
+" VIM Configuration
+" ----------------------------------------
 
-
-
-
-
-" General VIM stuff
-
+" ---------------
+" Leader
+" ---------------
 " Set leader
 let mapleader=","
 
-" Colorscheme
+" ---------------
+" Color Scheme
+" ---------------
 " http://agonzalezro.github.io/best-vim-colors-ever.html
 " colorscheme desertEx
 " colorscheme jellybeans
 " colorscheme wombat256mod
 set t_Co=256
 colorscheme jellybeans
+syntax on
 
-
+" ---------------
+" Config
+" ---------------
 set number                      "Turn on line-numbers
 set backspace=indent,eol,start  "Allow backspace in insert mode
 set history=1000                "Store lots of :cmdline history
@@ -109,6 +129,11 @@ set autoread                    "Reload files changed outside vim
 set nowrap                      "Don't wrap lines
 set linebreak                   "Wrap lines at convenient points
 
+" Scrolling
+set scrolloff=4         "Start scrolling when we're 4 lines away from margins
+set sidescrolloff=15
+set sidescroll=1
+
 " Turn off swap files
 set noswapfile
 set nobackup
@@ -119,17 +144,36 @@ set nowb
 " http://items.sjbach.com/319/configuring-vim-right
 set hidden
 
-" turn on syntax highlighting
-syntax on
+" Say no to code folding...
+set nofoldenable
 
-" Search Settings
+" Disable K looking stuff up
+map K <Nop>
+
+" (Hopefully) removes the delay when hitting esc in insert mode
+"set noesckeys
+set ttimeout
+set ttimeoutlen=1
+
+" Yanks go on clipboard instead.
+set clipboard+=unnamed
+
+" Show matching brackets.
+"set showmatch
+
+
+" ---------------
+" Search
+" ---------------
 set incsearch        "Find the next match as we type the search
 set viminfo='100,f1  "Save up to 100 marks, enable capital marks
 set ignorecase
 set smartcase
 
 
+" ---------------
 " Persistent Undo
+" ---------------
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
 silent !mkdir ~/.vim/backups > /dev/null 2>&1
@@ -137,7 +181,9 @@ set undodir=~/.vim/backups
 set undofile
 
 
+" ---------------
 " Tab Settings
+" ---------------
 " Standard tab shortcuts:
 " gt -> go to next tab
 " gT -> go to previous tab
@@ -161,7 +207,9 @@ inoremap <A-right>  <Esc>:tabnext<CR>i
 inoremap <C-t>      <Esc>:tabnew<CR>
 
 
+" ---------------
 " Indentation
+" ---------------
 set pastetoggle=<F2> " Press F2 in insert mode for better paste
 set tabstop=2
 set softtabstop=2
@@ -170,11 +218,13 @@ set shiftround
 set expandtab
 
 
+" ---------------
+" Format Help
+" ---------------
 " easier formatting of paragraphs
 " with line-breaks
 vmap Q gq
 nmap Q gqap
-
 
 " easier moving of code blocks
 vnoremap < <gv " better indentation
@@ -184,13 +234,9 @@ vnoremap > >gv " better indentation
 set list listchars=tab:\ \ ,trail:·
 
 
-" Scrolling
-set scrolloff=4         "Start scrolling when we're 4 lines away from margins
-set sidescrolloff=15
-set sidescroll=1
-
-
+" ---------------
 " Spelling
+" ---------------
 "
 " Correct word:
 " z=
@@ -214,9 +260,14 @@ highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" Toggle Spelling
+nmap <silent> <leader>sp :set spell!<CR>
 
+
+" ---------------
 " Custom copy'n'paste
-" Shift+y will save the selection to work
+" ---------------
+" Shift+y will yank the selection to work
 " with multiple sessions of VIM
 "
 " Copy the current visual slection to ~/.vbuf
@@ -227,31 +278,10 @@ nmap <S-y> :.w! ~/.vbuf<CR>
 nmap <S-p> :r ~/.vbuf<CR>
 
 
-" Say no to code folding...
-set nofoldenable
 
-" Disable K looking stuff up
-map K <Nop>
-
-" (Hopefully) removes the delay when hitting esc in insert mode
-"set noesckeys
-set ttimeout
-set ttimeoutlen=1
-
-" Easy way of re-naming file when editing it
-function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
-endfunction
-
-map <Leader>re :call RenameFile()<cr>
-
-
+" ---------------
+" UI
+" ---------------
 if has('cmdline_info')
   set ruler                   " show the ruler
   set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
@@ -262,38 +292,21 @@ set cmdheight=2
 
 
 " ---------------
-" Behaviors
-" ---------------
-set clipboard+=unnamed " Yanks go on clipboard instead.
-
-
-
-set showmatch  " Show matching brackets.
-
-
-
 " Window Movement
+" ---------------
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
 
-
+" ---------------
 " Fixes common typos
+" ---------------
 command W w
 command Q q
 map <F1> <Esc>
 imap <F1> <Esc>
-
-
-" ---------------
-" Leader
-" ---------------
-
-nmap <silent> <leader>sp :set spell!<CR>
-
-
 
 
 " ----------------------------------------
@@ -352,6 +365,27 @@ let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;*.pyc"
 
 
 " ----------------------------------------
+" Functions
+" ----------------------------------------
+
+" ---------------
+" Rename File
+" ---------------
+" Easy way of re-naming file when editing it
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+
+map <Leader>re :call RenameFile()<cr>
+
+
+" ----------------------------------------
 " Thinkpad X1 Configuration
 " ----------------------------------------
 
@@ -365,5 +399,4 @@ nnoremap <C-S-Left> <Home>
 inoremap <C-S-Left> <Home>
 nnoremap <C-S-Right> <End>
 inoremap <C-S-Right> <End>
-
 
