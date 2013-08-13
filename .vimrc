@@ -337,6 +337,9 @@ nnoremap <leader>n  :NERDTreeToggle<CR>
 nnoremap <leader>nn :NERDTreeToggle<CR>
 nnoremap <leader>nf :NERDTreeFind<CR>
 
+let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$',
+            \ '\.o$', '\.so$', '\.egg$', '^\.git$' ]
+
 
 " ---------------
 " FuzzyFinder
@@ -361,7 +364,7 @@ nnoremap <leader>o  :FufFile<CR>
 nnoremap <leader>no :FufBuffer<CR>
 
 " Fuzzy finder: ignore stuff that can't be opened, and generated files
-let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;*.pyc"
+let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;*.pyc;*.obj;*.o;.so;.git/*"
 
 
 " ----------------------------------------
