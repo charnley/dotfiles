@@ -12,9 +12,10 @@ else
 fi
 
 # Show contents of directory after cd-ing into it
-chpwd() {
-  ls -lrthG
-}
+# Annoying for anything other than a websever
+#chpwd() {
+#  ls -lrthG
+#}
 
 # Save a ton of history
 HISTSIZE=20000

@@ -71,6 +71,10 @@ Bundle 'L9'
 Bundle 'FuzzyFinder'
 
 
+" Line Numbers
+" https://github.com/myusuf3/numbers.vim
+Bundle 'myusuf3/numbers.vim'
+
 " TComment
 " https://github.com/tomtom/tcomment_vim
 "
@@ -212,9 +216,9 @@ inoremap <C-t>      <Esc>:tabnew<CR>
 " Indentation
 " ---------------
 set pastetoggle=<F2> " Press F2 in insert mode for better paste
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 set shiftround
 set expandtab
 
@@ -263,7 +267,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Toggle Spelling
 nmap <silent> <leader>sp :set spell!<CR>
-
+set nospell
 
 " ---------------
 " Custom copy'n'paste
@@ -309,6 +313,10 @@ command Q q
 map <F1> <Esc>
 imap <F1> <Esc>
 
+"
+" Word wrap
+"
+au BufRead,BufNewFile *.md,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0
 
 " ----------------------------------------
 " Auto Commands
@@ -366,6 +374,55 @@ nnoremap <leader>no :FufBuffer<CR>
 
 " Fuzzy finder: ignore stuff that can't be opened, and generated files
 let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;*.pyc;*.obj;*.o;.so;.git/*"
+
+
+" Numbers
+" Only show relative numbers in visual mode
+let g:enable_numbers = 0
+
+" Colorize line numbers in insert and visual modes
+" ------------------------------------------------
+function! SetCursorLineNrColorInsert(mode)
+    " Insert mode: blue
+    if a:mode == "i"
+        highlight CursorLineNr ctermfg=4 guifg=#268bd2
+
+    " Replace mode: red
+    elseif a:mode == "r"
+        highlight CursorLineNr ctermfg=1 guifg=#dc322f
+
+    endif
+endfunction
+
+
+function! SetCursorLineNrColorVisual()
+    set updatetime=0
+
+    " Visual mode: orange
+    highlight CursorLineNr cterm=none ctermfg=9 guifg=#cb4b16
+endfunction
+
+
+function! ResetCursorLineNrColor()
+    set updatetime=4000
+    highlight CursorLineNr cterm=none ctermfg=0 guifg=#073642
+endfunction
+
+
+" vnoremap <silent> <expr> <SID>SetCursorLineNrColorVisual SetCursorLineNrColorVisual()
+" nnoremap <silent> <script> v v<SID>SetCursorLineNrColorVisual
+" nnoremap <silent> <script> V V<SID>SetCursorLineNrColorVisual
+" nnoremap <silent> <script> <C-v> <C-v><SID>SetCursorLineNrColorVisual
+
+
+augroup CursorLineNrColorSwap
+    autocmd!
+    autocmd InsertEnter * call SetCursorLineNrColorInsert(v:insertmode)
+    autocmd InsertLeave * call ResetCursorLineNrColor()
+    autocmd CursorHold * call ResetCursorLineNrColor()
+augroup END
+
+
 
 
 " ----------------------------------------
