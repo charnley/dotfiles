@@ -11,15 +11,9 @@ else
     export TERM='xterm-color'
 fi
 
-# Show contents of directory after cd-ing into it
-# Annoying for anything other than a websever
-#chpwd() {
-#  ls -lrthG
-#}
-
 # Save a ton of history
 HISTSIZE=20000
-HISTFILE=~/.zsh_history
+HISTFILE=~/.history
 SAVEHIST=20000
 
 ## ALIASES
