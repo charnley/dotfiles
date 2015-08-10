@@ -1,0 +1,2 @@
+set completion-ignore-case On
+$include /etc/inputrc
