@@ -94,6 +94,7 @@ Bundle 'myusuf3/numbers.vim'
 "
 Bundle 'tomtom/tcomment_vim'
 
+Bundle 'easymotion/vim-easymotion'
 
 filetype plugin indent on
 
@@ -338,6 +339,27 @@ endif
 " ----------------------------------------
 " Bundles/Plugin Configuration
 " ----------------------------------------
+
+" ----------------------------------------
+" EasyMotion
+" ----------------------------------------
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_keys = 'hklyuiopnmqwertasdgzxcvbjf'
+let g:EasyMotion_use_upper = 0
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_startofline = 0
+map  f <Plug>(easymotion-s2)
+xmap f <Plug>(easymotion-s2)
+omap f <Plug>(easymotion-t2)
+map J <Plug>(easymotion-j)
+map K <Plug>(easymotion-k)
+hi link EasyMotionTarget Todo
+hi link EasyMotionShade  Comment
+hi link EasyMotionTarget2First Todo
+hi link EasyMotionTarget2Second Todo
+hi link EasyMotionIncSearch IncSearch
+hi link EasyMotionIncCursor Search
+
 
 " ---------------
 " NERDTree
