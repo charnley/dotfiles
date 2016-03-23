@@ -42,11 +42,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 
-" NerdTree
-" https://github.com/scrooloose/nerdtree
-Bundle 'scrooloose/nerdtree'
-
-
 " Supertab
 " https://github.com/ervandew/supertab
 Bundle 'ervandew/supertab'
@@ -66,14 +61,10 @@ Bundle 'flazz/vim-colorschemes'
 Bundle 'L9'
 
 
-" FuzzyFinder
-" https://github.com/vim-scripts/FuzzyFinder
-Bundle 'FuzzyFinder'
-
-
 " Line Numbers
 " https://github.com/myusuf3/numbers.vim
 Bundle 'myusuf3/numbers.vim'
+
 
 " TComment
 " https://github.com/tomtom/tcomment_vim
@@ -94,7 +85,10 @@ Bundle 'myusuf3/numbers.vim'
 "
 Bundle 'tomtom/tcomment_vim'
 
+" Easymotion
+" https://github.com/easymotion/vim-easymotion
 Bundle 'easymotion/vim-easymotion'
+
 
 filetype plugin indent on
 
@@ -164,7 +158,7 @@ set ttimeoutlen=1
 set clipboard+=unnamed
 
 " Show matching brackets.
-"set showmatch
+set showmatch
 
 
 " ---------------
@@ -186,6 +180,7 @@ if has('persistent_undo')
   set undodir=~/.vim/backups
   set undofile
 endif
+
 
 " ---------------
 " Tab Settings
@@ -361,43 +356,6 @@ hi link EasyMotionIncSearch IncSearch
 hi link EasyMotionIncCursor Search
 
 
-" ---------------
-" NERDTree
-" ---------------
-nnoremap <leader>n  :NERDTreeToggle<CR>
-nnoremap <leader>nn :NERDTreeToggle<CR>
-nnoremap <leader>nf :NERDTreeFind<CR>
-
-let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$',
-            \ '\.o$', '\.so$', '\.egg$', '^\.git$' ]
-
-
-" ---------------
-" FuzzyFinder
-" ---------------
-" |:FufBuffer|       - Buffer mode (|fuf-buffer-mode|)
-" |:FufFile|         - File mode (|fuf-file-mode|)
-" |:FufCoverageFile| - Coverage-File mode (|fuf-coveragefile-mode|)
-" |:FufDir|          - Directory mode (|fuf-dir-mode|)
-" |:FufMruFile|      - MRU-File mode (|fuf-mrufile-mode|)
-" |:FufMruCmd|       - MRU-Command mode (|fuf-mrucmd-mode|)
-" |:FufBookmarkFile| - Bookmark-File mode (|fuf-bookmarkfile-mode|)
-" |:FufBookmarkDir|  - Bookmark-Dir mode (|fuf-bookmarkdir-mode|)
-" |:FufTag|          - Tag mode (|fuf-tag-mode|)
-" |:FufBufferTag|    - Buffer-Tag mode (|fuf-buffertag-mode|)
-" |:FufTaggedFile|   - Tagged-File mode (|fuf-taggedfile-mode|)
-" |:FufJumpList|     - Jump-List mode (|fuf-jumplist-mode|)
-" |:FufChangeList|   - Change-List mode (|fuf-changelist-mode|)
-" |:FufQuickfix|     - Quickfix mode (|fuf-quickfix-mode|)
-" |:FufLine|         - Line mode (|fuf-line-mode|)
-" |:FufHelp|         - Help mode (|fuf-help-mode|)
-nnoremap <leader>o  :FufFile<CR>
-nnoremap <leader>no :FufBuffer<CR>
-
-" Fuzzy finder: ignore stuff that can't be opened, and generated files
-let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;*.pyc;*.obj;*.o;.so;.git/*"
-
-
 " Numbers
 " Only show relative numbers in visual mode
 let g:enable_numbers = 0
@@ -443,8 +401,6 @@ augroup CursorLineNrColorSwap
     autocmd InsertLeave * call ResetCursorLineNrColor()
     autocmd CursorHold * call ResetCursorLineNrColor()
 augroup END
-
-
 
 
 " ----------------------------------------
