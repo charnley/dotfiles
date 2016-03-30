@@ -9,7 +9,7 @@ alias gd='git diff'
 alias gdc='git diff --cached'
 alias gg='git lg'
 
-alias gs='git status'
+alias gs='git status -s'
 alias gph='git push --rebase'
 alias gpl='git pull'
 
