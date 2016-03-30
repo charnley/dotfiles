@@ -15,6 +15,7 @@ alias gpl='git pull'
 alias gc='git clone'
 
 # Others Shortcuts
+alias ls='ls --color'
 alias l='ls -lh'
 alias cd.='cd ..'
 alias cd..='cd ..'
