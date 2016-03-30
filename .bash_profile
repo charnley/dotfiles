@@ -4,6 +4,10 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+
 # Use ALL the colors!
 if [ -e /usr/share/terminfo/x/xterm-256color ]; then
     export TERM='xterm-256color'
