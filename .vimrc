@@ -439,3 +439,9 @@ inoremap <C-S-Left> <Home>
 nnoremap <C-S-Right> <End>
 inoremap <C-S-Right> <End>
 
+
+" ---------------
+" Force syntax
+" ---------------
+" associate *.src with fortran filetype
+au BufRead,BufNewFile *.src setfiletype fortran
