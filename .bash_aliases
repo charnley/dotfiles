@@ -1,6 +1,9 @@
 
+# Set host
 alias sunray='ssh -YC sunray'
 
+# Set standard editor
+export EDITOR=vi
 
 # Git Shortcuts
 alias amend='git commit --amend'
@@ -20,6 +23,7 @@ alias ls='ls --color'
 alias l='ls -lh'
 alias cd.='cd ..'
 alias cd..='cd ..'
+alias cd...='cd ../..'
 alias u='cd ..'
 alias v='vim -p'
 alias vi='vim -p'
@@ -29,8 +33,6 @@ function take {
   mkdir $1
   cd $1
 }
-
-
 
 extract () {
     if [ -f $1 ] ; then
@@ -52,3 +54,4 @@ extract () {
         echo "'$1' is not a valid file!"
     fi
 }
+
