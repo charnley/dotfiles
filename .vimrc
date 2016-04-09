@@ -220,6 +220,14 @@ set expandtab
 
 
 " ---------------
+" Undo/redo
+" ---------------
+:map <C-z> <Esc>u<CR>
+" ctrl + r redo
+":map <C-Z> <Esc>:redo<CR>
+
+
+" ---------------
 " Format Help
 " ---------------
 " easier formatting of paragraphs
@@ -360,6 +368,14 @@ hi link EasyMotionIncCursor Search
 " Only show relative numbers in visual mode
 let g:enable_numbers = 0
 
+:au FocusLost * :set number
+:au FocusGained * :set relativenumber
+
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
+set relativenumber
+
+" TODO Does this work?
 " Colorize line numbers in insert and visual modes
 " ------------------------------------------------
 function! SetCursorLineNrColorInsert(mode)
@@ -445,3 +461,7 @@ inoremap <C-S-Right> <End>
 " ---------------
 " associate *.src with fortran filetype
 au BufRead,BufNewFile *.src setfiletype fortran
+
+
+
+
