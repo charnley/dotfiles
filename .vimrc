@@ -38,6 +38,10 @@ set rtp+=~/.vim/bundle/vundle/
 
 call vundle#rc()
 
+" let html tags be close automatic
+Bundle 'alvan/vim-closetag'
+
+
 " let Vundle manage Vundle
 Bundle 'gmarik/vundle'
 
@@ -342,6 +346,12 @@ endif
 " ----------------------------------------
 " Bundles/Plugin Configuration
 " ----------------------------------------
+
+" ----------------------------------------
+" closetag.vim
+" ----------------------------------------
+" filenames like *.xml, *.html, *.xhtml, ...
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php"
 
 " ----------------------------------------
 " EasyMotion
