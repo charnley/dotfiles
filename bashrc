@@ -131,8 +131,18 @@ PathFull="\W"
 NewLine="\n"
 Jobs="\j"
 
+# export PS1="$Blue\h$Color_Off $Cyan\W$Color_Off"
 
-export PS1="$Blue\h$Color_Off $Cyan\W$Color_Off"
+case $HOSTNAME in
+    sunray )
+        export PS1="$Red\h$Color_Off $Cyan\W$Color_Off";;
+    london )
+        export PS1="$Black\h$Color_Off $Cyan\W$Color_Off";;
+    macragge )
+        export PS1="$Black\h$Color_Off $Cyan\W$Color_Off";;
+    * )
+        export PS1="$Blue\h$Color_Off $Cyan\W$Color_Off";;
+esac
 
 export PS1="$PS1"'$(git branch &>/dev/null;\
 if [ $? -eq 0 ]; then \
