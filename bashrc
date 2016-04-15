@@ -25,7 +25,10 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-
+if [ $TERM == "xterm" ]
+then
+    export TERM=xterm-256color
+fi
 
 # PS1
 # 

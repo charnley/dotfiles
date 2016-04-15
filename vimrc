@@ -98,8 +98,6 @@ Bundle 'easymotion/vim-easymotion'
 " fuzzy finder
 Bundle 'ctrlpvim/ctrlp.vim'
 
-filetype plugin indent on
-
 
 " ----------------------------------------
 " VIM Configuration
