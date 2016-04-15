@@ -1,11 +1,13 @@
 
 all:
-	cp `pwd`/vimrc ~/.vimrc
+	cp vimrc ~/.vimrc
 	cp gitconfig ~/.gitconfig
 	cp bashrc ~/.bashrc
 	cp bash_aliases ~/.bash_aliases
 	cp bash_profile ~/.bash_profile
 	cp inputrc ~/.inputrc
+	
+	./vundle_update.sh
 
 symlink:
 	ln -s `pwd`/vimrc ~/.vimrc
@@ -26,5 +28,8 @@ symlink_clean:
 	rm ~/.inputrc
 
 vundle:
+	./vundle_update.sh
+
+vundle_install:
 	./vundle_setup.sh
 
