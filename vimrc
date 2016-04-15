@@ -234,7 +234,6 @@ set list listchars=tab:\ \ ,trail:·
 " Add word:
 "   zg
 nmap <silent> <leader>sp :set spell!<CR>
-set nospell
 setlocal spell spelllang=en_us
 " hi clear SpellBad
 " hi SpellBad cterm=underline ctermfg=red
@@ -247,6 +246,7 @@ highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+set nospell
 
 " copy'n'paste multisession
 " Shift+y will yank the selection to work
