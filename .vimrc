@@ -46,6 +46,10 @@ Bundle 'alvan/vim-closetag'
 Bundle 'gmarik/vundle'
 
 
+" Tagbar
+Bundle 'majutsushi/tagbar'
+
+
 " Supertab
 " https://github.com/ervandew/supertab
 Bundle 'ervandew/supertab'
@@ -66,7 +70,6 @@ Bundle 'L9'
 
 
 " Line Numbers
-" https://github.com/myusuf3/numbers.vim
 Bundle 'myusuf3/numbers.vim'
 
 
@@ -86,11 +89,9 @@ Bundle 'myusuf3/numbers.vim'
 " In visual mode:
 "    gc           :: Toggle comments
 "    gC           :: Comment selected text
-"
 Bundle 'tomtom/tcomment_vim'
 
 " Easymotion
-" https://github.com/easymotion/vim-easymotion
 Bundle 'easymotion/vim-easymotion'
 
 
@@ -101,10 +102,7 @@ filetype plugin indent on
 " VIM Configuration
 " ----------------------------------------
 
-" ---------------
 " Leader
-" ---------------
-" Set leader
 let mapleader=","
 
 " ---------------
@@ -118,9 +116,7 @@ set t_Co=256
 colorscheme jellybeans
 syntax on
 
-" ---------------
 " Config
-" ---------------
 set number                      "Turn on line-numbers
 set backspace=indent,eol,start  "Allow backspace in insert mode
 set history=1000                "Store lots of :cmdline history
@@ -164,19 +160,14 @@ set clipboard+=unnamed
 " Show matching brackets.
 set showmatch
 
-
-" ---------------
 " Search
-" ---------------
 set incsearch        "Find the next match as we type the search
 set viminfo='100,f1  "Save up to 100 marks, enable capital marks
 set ignorecase
 set smartcase
 
 
-" ---------------
 " Persistent Undo
-" ---------------
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
 if has('persistent_undo')
@@ -186,9 +177,7 @@ if has('persistent_undo')
 endif
 
 
-" ---------------
 " Tab Settings
-" ---------------
 " Standard tab shortcuts:
 " gt -> go to next tab
 " gT -> go to previous tab
@@ -212,9 +201,7 @@ inoremap <A-right>  <Esc>:tabnext<CR>i
 inoremap <C-t>      <Esc>:tabnew<CR>
 
 
-" ---------------
 " Indentation
-" ---------------
 set pastetoggle=<F2> " Press F2 in insert mode for better paste
 set tabstop=4
 set softtabstop=4
@@ -222,44 +209,32 @@ set shiftwidth=4
 set shiftround
 set expandtab
 
+" easier moving of code blocks
+vnoremap < <gv " better indentation
+vnoremap > >gv " better indentation
 
-" ---------------
 " Undo/redo
-" ---------------
 :map <C-z> <Esc>u<CR>
 " ctrl + r redo
 ":map <C-Z> <Esc>:redo<CR>
 
-
-" ---------------
 " Format Help
-" ---------------
 " easier formatting of paragraphs
 " with line-breaks
 vmap Q gq
 nmap Q gqap
 
-" easier moving of code blocks
-vnoremap < <gv " better indentation
-vnoremap > >gv " better indentation
-
 " Display tabs and trailing spaces visually
 set list listchars=tab:\ \ ,trail:·
 
 
-" ---------------
 " Spelling
-" ---------------
-"
 " Correct word:
-" z=
-"
+"   z=
 " Add word:
-" zg
-"
-" Disable Spelling
-" :set nospell
-"
+"   zg
+nmap <silent> <leader>sp :set spell!<CR>
+set nospell
 setlocal spell spelllang=en_us
 " hi clear SpellBad
 " hi SpellBad cterm=underline ctermfg=red
@@ -273,13 +248,7 @@ highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-" Toggle Spelling
-nmap <silent> <leader>sp :set spell!<CR>
-set nospell
-
-" ---------------
-" Custom copy'n'paste
-" ---------------
+" copy'n'paste multisession
 " Shift+y will yank the selection to work
 " with multiple sessions of VIM
 "
@@ -290,46 +259,17 @@ nmap <S-y> :.w! ~/.vbuf<CR>
 " Paste the contents of the buffer file
 nmap <S-p> :r ~/.vbuf<CR>
 
-
-
-" ---------------
-" UI
-" ---------------
-if has('cmdline_info')
-  set ruler                   " show the ruler
-  set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
-  set showcmd                 " show partial commands in status line and
-endif
-set laststatus=2  " Always show the statusline
-set cmdheight=2
-
-
-" ---------------
-" Window Movement
-" ---------------
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-
-
-" ---------------
 " Fixes common typos
-" ---------------
 command W w
 command Q q
 map <F1> <Esc>
 imap <F1> <Esc>
 
-"
 " Word wrap
-"
 au BufRead,BufNewFile *.md,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0
 
-" ----------------------------------------
-" Auto Commands
-" ----------------------------------------
 
+" Auto Commands
 if has("autocmd")
   " No more complaining about untitled documents
   autocmd FocusLost silent! :wa
@@ -343,19 +283,44 @@ if has("autocmd")
 endif
 
 
+" Window Movement
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+
+" ----------------------------------------
+" User Experience
+" ----------------------------------------
+
+" UI
+if has('cmdline_info')
+  set ruler                   " show the ruler
+  set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
+  set showcmd                 " show partial commands in status line and
+endif
+set laststatus=2  " Always show the statusline
+set cmdheight=2
+
+
 " ----------------------------------------
 " Bundles/Plugin Configuration
 " ----------------------------------------
 
-" ----------------------------------------
+" TagBar
+map <leader>l :TagbarToggle<CR>
+
+" SuperTab
+let g:SuperTabDefaultCompletionType = "context"
+
+
 " closetag.vim
-" ----------------------------------------
 " filenames like *.xml, *.html, *.xhtml, ...
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php"
 
-" ----------------------------------------
+
 " EasyMotion
-" ----------------------------------------
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_keys = 'hklyuiopnmqwertasdgzxcvbjf'
 let g:EasyMotion_use_upper = 0
@@ -378,12 +343,13 @@ hi link EasyMotionIncCursor Search
 " Only show relative numbers in visual mode
 let g:enable_numbers = 0
 
-:au FocusLost * :set number
-:au FocusGained * :set relativenumber
+" :au FocusLost * :set number
+" :au FocusGained * :set relativenumber
+"
+" autocmd InsertEnter * :set number
+" autocmd InsertLeave * :set relativenumber
+" set relativenumber
 
-autocmd InsertEnter * :set number
-autocmd InsertLeave * :set relativenumber
-set relativenumber
 
 " TODO Does this work?
 " Colorize line numbers in insert and visual modes
@@ -429,13 +395,12 @@ augroup CursorLineNrColorSwap
 augroup END
 
 
+
 " ----------------------------------------
 " Functions
 " ----------------------------------------
 
-" ---------------
 " Rename File
-" ---------------
 " Easy way of re-naming file when editing it
 function! RenameFile()
     let old_name = expand('%')
@@ -466,12 +431,10 @@ nnoremap <C-S-Right> <End>
 inoremap <C-S-Right> <End>
 
 
-" ---------------
-" Force syntax
-" ---------------
+" ----------------------------------------
+" Sunray Settings
+" ----------------------------------------
 " associate *.src with fortran filetype
 au BufRead,BufNewFile *.src setfiletype fortran
-
-
 
 
