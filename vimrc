@@ -15,6 +15,11 @@
 set nocompatible
 
 
+if !has('gui_running')
+  set t_Co=256
+endif
+
+
 " ----------------------------------------
 " Vundle
 " ----------------------------------------
@@ -41,6 +46,8 @@ call vundle#rc()
 " let html tags be close automatic
 Bundle 'alvan/vim-closetag'
 
+" bookmarks
+Bundle 'MattesGroeger/vim-bookmarks'
 
 " let Vundle manage Vundle
 Bundle 'gmarik/vundle'
@@ -97,6 +104,9 @@ Bundle 'easymotion/vim-easymotion'
 " ctrlp
 " fuzzy finder
 Bundle 'ctrlpvim/ctrlp.vim'
+
+" Buttomline
+Bundle 'itchyny/lightline.vim'
 
 
 " ----------------------------------------
@@ -309,6 +319,23 @@ set cmdheight=2
 " ----------------------------------------
 " Bundles/Plugin Configuration
 " ----------------------------------------
+
+" user experience
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'component': {
+      \   'readonly': '%{&readonly?"x":""}',
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '|', 'right': '|' }
+      \ }
+
+
+" vim-bookmarks
+" highlight BookmarkSign ctermbg=NONE ctermfg=160
+" highlight BookmarkLine ctermbg=194 ctermfg=NONE
+let g:bookmark_sign = 'B'
+
 
 " ctrlp (fuzzy finder)
 map <leader>f :CtrlP<CR>
