@@ -94,6 +94,9 @@ Bundle 'tomtom/tcomment_vim'
 " Easymotion
 Bundle 'easymotion/vim-easymotion'
 
+" ctrlp
+" fuzzy finder
+Bundle 'ctrlpvim/ctrlp.vim'
 
 filetype plugin indent on
 
@@ -196,9 +199,10 @@ endif
 nnoremap <A-left>   :tabprevious<CR>
 nnoremap <A-right>  :tabnext<CR>
 nnoremap <C-t>      :tabnew<CR>
+nnoremap <C-t>      <Esc>:tabnew<enter>:CtrlP<CR>
 inoremap <A-left>   <Esc>:tabprevious<CR>i
 inoremap <A-right>  <Esc>:tabnext<CR>i
-inoremap <C-t>      <Esc>:tabnew<CR>
+inoremap <C-t>      <Esc>:tabnew<enter>:CtrlP<CR>
 
 
 " Indentation
@@ -308,8 +312,14 @@ set cmdheight=2
 " Bundles/Plugin Configuration
 " ----------------------------------------
 
+" ctrlp (fuzzy finder)
+map <leader>f :CtrlP<CR>
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+
 " TagBar
 map <leader>l :TagbarToggle<CR>
+
 
 " SuperTab
 let g:SuperTabDefaultCompletionType = "context"
