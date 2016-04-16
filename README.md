@@ -17,3 +17,7 @@ run
   vim +BundleInstall +qall
 
 
+# TODO
+
+add https://github.com/junegunn/fzf to the dotfiles
+
