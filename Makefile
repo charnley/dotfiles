@@ -33,3 +33,9 @@ vundle:
 vundle_install:
 	./vundle_setup.sh
 
+fuzzyshell:
+	./fzf_setup.sh
+
+
+
+
