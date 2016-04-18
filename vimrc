@@ -327,7 +327,7 @@ let g:lightline = {
       \   'readonly': '%{&readonly?"x":""}',
       \ },
       \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '|', 'right': '|' }
+      \ 'subseparator': { 'left': '', 'right': '' }
       \ }
 
 
