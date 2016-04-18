@@ -9,6 +9,9 @@ all:
 	
 	./vundle_update.sh
 
+install: vundle_install fuzzyshell symlink_clean symlink
+	bash --login
+
 symlink:
 	ln -s `pwd`/vimrc ~/.vimrc
 	ln -s `pwd`/gitconfig ~/.gitconfig
@@ -20,12 +23,7 @@ symlink:
 	./vundle_update.sh
 
 symlink_clean:
-	rm ~/.vimrc
-	rm ~/.gitconfig
-	rm ~/.bashrc
-	rm ~/.bash_aliases
-	rm ~/.bash_profile
-	rm ~/.inputrc
+	rm ~/.vimrc ~/.gitconfig  ~/.bashrc ~/.bash_aliases ~/.bash_profile ~/.inputrc
 
 vundle:
 	./vundle_update.sh
@@ -35,7 +33,4 @@ vundle_install:
 
 fuzzyshell:
 	./fzf_setup.sh
-
-
-
 
