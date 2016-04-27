@@ -25,6 +25,17 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+if [ -d "/opt/bin" ] ; then
+    PATH="/opt/bin:$PATH"
+fi
+if [ -d "/opt/sbin" ] ; then
+    PATH="/opt/sbin:$PATH"
+fi
+
 if [ $TERM == "xterm" ]
 then
     export TERM=xterm-256color

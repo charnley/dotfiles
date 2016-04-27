@@ -1,14 +1,4 @@
 
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-
-if [ -d "/opt/bin" ] ; then
-    PATH="/opt/bin:$PATH"
-fi
-if [ -d "/opt/sbin" ] ; then
-    PATH="/opt/sbin:$PATH"
-fi
 
 if [ -f ~/.bashrc ]; then
     . ~/.bashrc
