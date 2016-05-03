@@ -7,9 +7,9 @@ all:
 	cp bash_profile ~/.bash_profile
 	cp inputrc ~/.inputrc
 	
-	./vundle_update.sh
+	./vim_update.sh
 
-install: vundle_install fuzzyshell symlink_clean symlink
+install: vim_install fuzzyshell symlink_clean symlink
 	bash --login
 
 symlink:
@@ -20,16 +20,16 @@ symlink:
 	ln -s `pwd`/bash_profile ~/.bash_profile
 	ln -s `pwd`/inputrc ~/.inputrc
 	
-	./vundle_update.sh
+	./vim_update.sh
 
 symlink_clean:
 	rm ~/.vimrc ~/.gitconfig  ~/.bashrc ~/.bash_aliases ~/.bash_profile ~/.inputrc
 
-vundle:
-	./vundle_update.sh
+vim:
+	./vim_update.sh
 
-vundle_install:
-	./vundle_setup.sh
+vim_install:
+	./vim_install.sh
 
 fuzzyshell:
 	./fzf_setup.sh

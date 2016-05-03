@@ -21,63 +21,50 @@ endif
 
 
 " ----------------------------------------
-" Vundle
+" https://github.com/junegunn/vim-plug
 " ----------------------------------------
 
-" Vundle is a bundle manager for VIM.
-" Baiscly a must have!
-" https://github.com/gmarik/vundle
-"
-" Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle command are not allowed..
 
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
 
-call vundle#rc()
+call plug#begin()
 
 " let html tags be close automatic
-Bundle 'alvan/vim-closetag'
+Plug 'alvan/vim-closetag'
 
 " bookmarks
-Bundle 'MattesGroeger/vim-bookmarks'
+Plug 'MattesGroeger/vim-bookmarks'
 
 " let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+Plug 'gmarik/vundle'
 
 
 " Tagbar
-Bundle 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 
 
 " Supertab
 " https://github.com/ervandew/supertab
-Bundle 'ervandew/supertab'
+Plug 'ervandew/supertab'
 
 
 " CSApprox
 " Makes GVIM themes work in terminals
-Bundle 'CSApprox'
+Plug 'CSApprox'
 
 
-" Theme Bundle
-Bundle 'flazz/vim-colorschemes'
+" Theme Plug
+Plug 'flazz/vim-colorschemes'
 
 
 " L9
 " Dependency for a lot of plugins
-Bundle 'L9'
+Plug 'L9'
 
 
 " Line Numbers
-Bundle 'myusuf3/numbers.vim'
+Plug 'myusuf3/numbers.vim'
 
 
 " TComment
@@ -96,17 +83,19 @@ Bundle 'myusuf3/numbers.vim'
 " In visual mode:
 "    gc           :: Toggle comments
 "    gC           :: Comment selected text
-Bundle 'tomtom/tcomment_vim'
+Plug 'tomtom/tcomment_vim'
 
 " Easymotion
-Bundle 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 
 " ctrlp
 " fuzzy finder
-Bundle 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " Buttomline
-Bundle 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'
+
+call plug#end()
 
 
 " ----------------------------------------
@@ -318,7 +307,7 @@ set cmdheight=2
 
 
 " ----------------------------------------
-" Bundles/Plugin Configuration
+" Plugs/Plugin Configuration
 " ----------------------------------------
 
 " user experience
