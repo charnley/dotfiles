@@ -220,6 +220,7 @@ set softtabstop=4
 set shiftwidth=4
 set shiftround
 set expandtab
+autocmd FileType make setlocal noexpandtab " do not change it for makefiles
 
 " easier moving of code blocks
 vnoremap < <gv " better indentation
