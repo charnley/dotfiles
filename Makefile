@@ -31,6 +31,6 @@ vim:
 vim_install:
 	./vim_install.sh
 
-fuzzyshell:
+fuzzy:
 	./fzf_setup.sh
 
