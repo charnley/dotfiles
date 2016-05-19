@@ -1,15 +1,8 @@
 
 all:
-	cp vimrc ~/.vimrc
-	cp gitconfig ~/.gitconfig
-	cp bashrc ~/.bashrc
-	cp bash_aliases ~/.bash_aliases
-	cp bash_profile ~/.bash_profile
-	cp inputrc ~/.inputrc
-	
 	./vim_update.sh
 
-install: vundle_install fuzzyshell symlink_clean symlink bash_completion
+install: vim_install fuzzyshell symlink_clean symlink vim
 	bash --login
 
 symlink:
