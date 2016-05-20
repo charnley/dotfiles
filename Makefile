@@ -2,7 +2,7 @@
 all:
 	./vim_update.sh
 
-install: vim_install fuzzyshell symlink_clean symlink vim
+install: vim_install fuzzy symlink_clean symlink vim
 	bash --login
 
 symlink:
@@ -33,7 +33,7 @@ fuzzy:
 
 depends:
 	sudo apt-get install silversearcher-ag # for fast searching
-	sudo apt-get install vim-nox # for python binding vim
+	sudo apt-get install vim-nox # for python binding vim, for vim-plug (plugin manager)
 	sudo apt-get install tmux # keep my sessions alive
 
 
