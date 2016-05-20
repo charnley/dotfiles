@@ -9,7 +9,7 @@ all:
 	
 	./vim_update.sh
 
-install: vim_install fuzzyshell symlink_clean symlink
+install: vundle_install fuzzyshell symlink_clean symlink bash_completion
 	bash --login
 
 symlink:
@@ -19,6 +19,7 @@ symlink:
 	ln -s `pwd`/bash_aliases ~/.bash_aliases
 	ln -s `pwd`/bash_profile ~/.bash_profile
 	ln -s `pwd`/inputrc ~/.inputrc
+	ln -s `pwd`/tmux.conf ~/.tmux.conf
 	
 	./vim_update.sh
 
@@ -28,9 +29,13 @@ symlink_clean:
 vim:
 	./vim_update.sh
 
+bash_completion:
+	sudo cp bash_completion/tma /etc/bash_completion.d/tma
+
 vim_install:
 	./vim_install.sh
 
 fuzzy:
 	./fzf_setup.sh
+
 

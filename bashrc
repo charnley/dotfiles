@@ -18,6 +18,10 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+if [ -f /etc/bash_completion.d/tma ]; then
+    . /etc/bash_completion.d/tma
+fi
+
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi

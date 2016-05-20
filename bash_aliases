@@ -18,6 +18,13 @@ alias gpl='git pull --rebase'
 
 alias gc='git clone'
 
+# tmux shortcuts
+alias tm='tmux -2'
+alias tml='tmux ls'
+alias tmk='tmux kill-session -t $1'
+alias tma='tmux -2 attach -t $1'
+
+
 # Others Shortcuts
 alias ls='ls --color'
 alias l='ls -lh'
@@ -40,7 +47,7 @@ extract () {
             *.tar.bz2)   tar xvjf $1    ;;
             *.tar.gz)    tar xvzf $1    ;;
             *.bz2)       bunzip2 $1     ;;
-            *.rar)       unrar x $1       ;;
+            *.rar)       unrar x $1     ;;
             *.gz)        gunzip $1      ;;
             *.tar)       tar xvf $1     ;;
             *.tbz2)      tar xvjf $1    ;;
