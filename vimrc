@@ -88,9 +88,9 @@ Plug 'tomtom/tcomment_vim'
 " Easymotion
 Plug 'easymotion/vim-easymotion'
 
-" ctrlp
-" fuzzy finder
-Plug 'ctrlpvim/ctrlp.vim'
+" fzf
+Plug 'junegunn/fzf', { 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " Buttomline
 Plug 'itchyny/lightline.vim'
@@ -196,10 +196,10 @@ endif
 nnoremap <A-left>   :tabprevious<CR>
 nnoremap <A-right>  :tabnext<CR>
 nnoremap <C-t>      :tabnew<CR>
-nnoremap <C-t>      <Esc>:tabnew<enter>:CtrlP<CR>
+nnoremap <C-t>      <Esc>:tabnew<enter>:FZF<CR>
 inoremap <A-left>   <Esc>:tabprevious<CR>i
 inoremap <A-right>  <Esc>:tabnext<CR>i
-inoremap <C-t>      <Esc>:tabnew<enter>:CtrlP<CR>
+inoremap <C-t>      <Esc>:tabnew<enter>:FZF<CR>
 
 
 " Indentation
@@ -327,9 +327,8 @@ let g:lightline = {
 let g:bookmark_sign = 'B'
 
 
-" ctrlp (fuzzy finder)
-map <leader>f :CtrlP<CR>
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+" fzf (fuzzy finder)
+map <leader>f :FZF<CR>
 
 
 " TagBar

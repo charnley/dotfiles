@@ -34,4 +34,6 @@ fuzzy:
 depends:
 	sudo apt-get install silversearcher-ag # for fast searching
 	sudo apt-get install vim-nox # for python binding vim
+	sudo apt-get install tmux # keep my sessions alive
+
 
