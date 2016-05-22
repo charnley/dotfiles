@@ -17,7 +17,7 @@ symlink:
 	./vim_update.sh
 
 symlink_clean:
-	rm ~/.vimrc ~/.gitconfig  ~/.bashrc ~/.bash_aliases ~/.bash_profile ~/.inputrc
+	rm ~/.vimrc ~/.gitconfig  ~/.bashrc ~/.bash_aliases ~/.bash_profile ~/.inputrc ~/.tmux.conf
 
 vim:
 	./vim_update.sh
