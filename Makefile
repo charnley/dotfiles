@@ -13,8 +13,6 @@ symlink:
 	ln -s `pwd`/bash_profile ~/.bash_profile
 	ln -s `pwd`/inputrc ~/.inputrc
 	ln -s `pwd`/tmux.conf ~/.tmux.conf
-	
-	./vim_update.sh
 
 symlink_clean:
 	rm ~/.vimrc ~/.gitconfig  ~/.bashrc ~/.bash_aliases ~/.bash_profile ~/.inputrc ~/.tmux.conf
