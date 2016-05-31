@@ -35,6 +35,8 @@ alias u='cd ..'
 alias v='vim -p'
 alias vi='vim -p'
 
+alias x='xterm &'
+
 # Functions
 function take {
   mkdir $1

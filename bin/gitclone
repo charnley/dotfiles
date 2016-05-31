@@ -1,0 +1,13 @@
+#!/bin/bash
+
+url=$1
+out=$2
+
+if [[ $url != *"@"* && $url != *"http"* ]]
+then
+    git clone git@github.com:$url $out
+    exit 4
+fi
+
+git clone $1 $out
+
