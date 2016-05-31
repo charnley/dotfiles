@@ -16,7 +16,8 @@ alias gs='git status -s'
 alias gph='git push'
 alias gpl='git pull --rebase'
 
-alias gc='git clone'
+# alias gc='git clone'
+alias gc='gitclone' # from bin
 
 # tmux shortcuts
 alias tm='tmux -2'
