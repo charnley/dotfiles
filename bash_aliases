@@ -65,3 +65,5 @@ extract () {
     fi
 }
 
+alias x="xterm &"
+
