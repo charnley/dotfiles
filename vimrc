@@ -106,6 +106,47 @@ call plug#end()
 let mapleader=","
 
 " ---------------
+" Navigation
+" ---------------
+" Peter is going to hate this for sure
+map i <Up>
+map j <Left>
+map k <Down>
+" swap h and i
+noremap h i
+
+" Window Movement
+" TODO buggy fix it
+map <C-i> <C-w>i
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" Tab Settings
+" Standard tab shortcuts:
+" gt -> go to next tab
+" gT -> go to previous tab
+" nnn gt -> go to nnn tab
+"
+" NOTE: "C-tab", does not work in terminals,
+" because terminals does not support it
+" and will just send "tab" instead.
+"nnoremap <C-S-tab> :tabprevious<CR>
+"nnoremap <C-tab>   :tabnext<CR>
+"nnoremap <C-t>     :tabnew<CR>
+"inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+"inoremap <C-tab>   <Esc>:tabnext<CR>i
+"inoremap <C-t>     <Esc>:tabnew<CR>
+" Mapping to alt+arrow instead
+nnoremap <A-left>   :tabprevious<CR>
+nnoremap <A-right>  :tabnext<CR>
+nnoremap <C-t>      :tabnew<CR>
+nnoremap <C-t>      <Esc>:tabnew<enter>:FZF<CR>
+inoremap <A-left>   <Esc>:tabprevious<CR>i
+inoremap <A-right>  <Esc>:tabnext<CR>i
+inoremap <C-t>      <Esc>:tabnew<enter>:FZF<CR>
+
+" ---------------
 " Color Scheme
 " ---------------
 " http://agonzalezro.github.io/best-vim-colors-ever.html
@@ -177,29 +218,6 @@ if has('persistent_undo')
 endif
 
 
-" Tab Settings
-" Standard tab shortcuts:
-" gt -> go to next tab
-" gT -> go to previous tab
-" nnn gt -> go to nnn tab
-"
-" NOTE: "C-tab", does not work in terminals,
-" because terminals does not support it
-" and will just send "tab" instead.
-"nnoremap <C-S-tab> :tabprevious<CR>
-"nnoremap <C-tab>   :tabnext<CR>
-"nnoremap <C-t>     :tabnew<CR>
-"inoremap <C-S-tab> <Esc>:tabprevious<CR>i
-"inoremap <C-tab>   <Esc>:tabnext<CR>i
-"inoremap <C-t>     <Esc>:tabnew<CR>
-" Mapping to alt+arrow instead
-nnoremap <A-left>   :tabprevious<CR>
-nnoremap <A-right>  :tabnext<CR>
-nnoremap <C-t>      :tabnew<CR>
-nnoremap <C-t>      <Esc>:tabnew<enter>:FZF<CR>
-inoremap <A-left>   <Esc>:tabprevious<CR>i
-inoremap <A-right>  <Esc>:tabnext<CR>i
-inoremap <C-t>      <Esc>:tabnew<enter>:FZF<CR>
 
 
 " Indentation
@@ -284,12 +302,6 @@ if has("autocmd")
         \ endif
 endif
 
-
-" Window Movement
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
 
 
 " ----------------------------------------
