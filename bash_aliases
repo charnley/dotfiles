@@ -36,7 +36,7 @@ alias u='cd ..'
 alias v='vim -p'
 alias vi='vim -p'
 
-alias x='xterm &'
+alias x='rxvt &'
 
 # Functions
 function take {
