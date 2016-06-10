@@ -219,6 +219,10 @@ endif
 
 
 
+nmap ^[{ :tabnext<cr>
+imap ^[{ <ESC>:tabnext<cr>
+nmap ^[} :tabprevious<cr>
+imap ^[} <ESC>:tabprevious<cr>
 
 " Indentation
 set pastetoggle=<F2> " Press F2 in insert mode for better paste
