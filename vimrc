@@ -108,19 +108,19 @@ let mapleader=","
 " ---------------
 " Navigation
 " ---------------
-" Peter is going to hate this for sure
-map i <Up>
-map j <Left>
-map k <Down>
-" swap h and i
-noremap h i
-
-" Window Movement
-" TODO buggy fix it
-map <C-i> <C-w>i
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+" " Peter is going to hate this for sure
+" map i <Up>
+" map j <Left>
+" map k <Down>
+" " swap h and i
+" noremap h i
+"
+" " Window Movement
+" " TODO buggy fix it
+" map <C-i> <C-w>i
+" map <C-j> <C-w>j
+" map <C-k> <C-w>k
+" map <C-l> <C-w>l
 
 " Tab Settings
 " Standard tab shortcuts:
