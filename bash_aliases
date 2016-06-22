@@ -65,5 +65,5 @@ extract () {
     fi
 }
 
-alias x="xterm &"
+alias x="rxvt &"
 
