@@ -179,5 +179,4 @@ esac
 # fuzzy search
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-
-
+sleep 0.3
