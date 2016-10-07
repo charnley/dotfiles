@@ -148,9 +148,16 @@ case $HOSTNAME in
         export PS1="$Black\h$Color_Off $Cyan\W$Color_Off";;
     macragge )
         export PS1="$Black\h$Color_Off $Cyan\W$Color_Off";;
+    fend0[1-5].cluster )
+        export PS1="$Yellow\h$Color_Off $Cyan\W$Color_Off"
+        export PS1NOGIT="True";;
     * )
         export PS1="$Blue\h$Color_Off $Cyan\W$Color_Off";;
 esac
+
+
+if [ -z "$PS1NOGIT" ]
+then
 
 export PS1="$PS1"'$(git branch &>/dev/null;\
 if [ $? -eq 0 ]; then \
@@ -163,6 +170,8 @@ if [ $? -eq 0 ]; then \
     echo "'$Red'"$(__git_ps1 " {%s}"); \
   fi)"; \
 fi)'
+
+fi
 
 export PS1=$PS1"$Color_Off \$ "
 
