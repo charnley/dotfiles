@@ -2,6 +2,18 @@
 # Set host
 alias sunray='ssh -YC sunray'
 
+# sunray specific commands
+if [ $HOSTNAME = "sunray" ]; then
+    alias sun_idle='sinfo | grep idle'
+    alias sun_busy='sinfo | grep alloc'
+
+    alias q='squeue -u charnley'
+    alias ql='squeue | grep charnley | wc -l'
+
+    # http://slurm.schedmd.com/squeue.html
+    alias sq='squeue -o "%.10i %.9P %.8u %.10j %.5D %.4C %T %B"'
+fi
+
 # Set standard editor
 export EDITOR=vi
 

@@ -22,15 +22,15 @@ if [ -f /etc/bash_completion.d/tma ]; then
     . /etc/bash_completion.d/tma
 fi
 
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-
 if [ -d "/opt/bin" ] ; then
     PATH="/opt/bin:$PATH"
 fi
 if [ -d "/opt/sbin" ] ; then
     PATH="/opt/sbin:$PATH"
+fi
+
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
 fi
 
 if [ $TERM == "xterm" ]
