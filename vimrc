@@ -95,6 +95,9 @@ Plug 'junegunn/fzf.vim'
 " Buttomline
 Plug 'itchyny/lightline.vim'
 
+" Auto pair brackets and others
+Plug 'jiangmiao/auto-pairs'
+
 call plug#end()
 
 
@@ -488,5 +491,17 @@ inoremap <C-S-Right> <End>
 " ----------------------------------------
 " associate *.src with fortran filetype
 au BufRead,BufNewFile *.src setfiletype fortran
+" au BufRead,BufNewFile *.F90 setfiletype fortran
+
+let fortran_more_precise=1
+
+let s:extfname = expand("%:e")
+if s:extfname ==? "f90"
+    let fortran_free_source=1
+    unlet! fortran_fixed_source
+else
+    let fortran_fixed_source=1
+    unlet! fortran_free_source
+endif
 
 
