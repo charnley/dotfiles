@@ -98,6 +98,10 @@ Plug 'itchyny/lightline.vim'
 " Auto pair brackets and others
 Plug 'jiangmiao/auto-pairs'
 
+" Indentation lines
+" usage: <leader>ig
+Plug 'nathanaelkane/vim-indent-guides'
+
 call plug#end()
 
 
@@ -328,6 +332,11 @@ set cmdheight=2
 " ----------------------------------------
 " Plugs/Plugin Configuration
 " ----------------------------------------
+
+" indentation
+" hi IndentGuidesOdd  ctermbg=black
+" hi IndentGuidesEven ctermbg=darkgrey
+set ts=4 sw=4 noet
 
 " user experience
 let g:lightline = {
