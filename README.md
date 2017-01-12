@@ -1,23 +1,26 @@
 
 # Dotfiles
 
-Just my dotfiles.
+
+## Installation
+
+very straight forward. 
+I like to keep all my dotfiles in a git repo lime `~/git/dotfiles`
+
+will remove your current dotfiles and symbolic link those in this repo
+
+    cd ~
+    mkdir git
+    cd git
+    git clone http://github.com/charnley/dotfiles
+    cd dotfiles
+    # if you need dependencies
+    make depend
+    # end if
+    make install
 
 
-# Setup
+## TODO
 
-clone my repo
-
-copy and paste all dot files into /home/
-
-run setup\_vundle.sh
-
-run
-
-  vim +BundleInstall +qall
-
-
-# TODO
-
-add https://github.com/junegunn/fzf to the dotfiles
+    - Map Ctrl+Tab and Ctrl+Shift+Tab to something else in the terminal, so I can use it for vim tabs
 
