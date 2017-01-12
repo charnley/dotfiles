@@ -21,7 +21,7 @@ symlink_clean:
 vim:
 	./vim_update.sh
 
-bash_completion:
+bash_autocomplete:
 	sudo cp bash_completion/tma /etc/bash_completion.d/tma
 	sudo cp bash_completion/tmk /etc/bash_completion.d/tmk
 
