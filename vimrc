@@ -336,7 +336,6 @@ set cmdheight=2
 " indentation
 " hi IndentGuidesOdd  ctermbg=black
 " hi IndentGuidesEven ctermbg=darkgrey
-set ts=4 sw=4 noet
 
 " user experience
 let g:lightline = {
