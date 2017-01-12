@@ -23,6 +23,7 @@ vim:
 
 bash_completion:
 	sudo cp bash_completion/tma /etc/bash_completion.d/tma
+	sudo cp bash_completion/tmk /etc/bash_completion.d/tmk
 
 vim_install:
 	./vim_install.sh
@@ -35,5 +36,4 @@ depends:
 	sudo apt-get install vim-nox # for python binding vim, for vim-plug (plugin manager)
 	sudo apt-get install tmux # keep my sessions alive
 	sudo apt-get install curl # vim install
-
 
