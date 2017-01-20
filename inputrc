@@ -1,0 +1,5 @@
+set completion-ignore-case On
+set meta-flag on
+set convert-meta off
+set output-meta on
+$include /etc/inputrc
