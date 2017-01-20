@@ -11,7 +11,7 @@ if [ $HOSTNAME = "sunray" ]; then
     alias ql='squeue | grep charnley | wc -l'
 
     # http://slurm.schedmd.com/squeue.html
-    alias sq='squeue -o "%.10i %.9P %.8u %.10j %.10M %.5D %.4C %R"'
+    alias sq='squeue -o "%.10i %.9P %.8u %.10j %.12M %.5D %.4C %R"'
 fi
 
 # Set standard editor
