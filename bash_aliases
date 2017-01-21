@@ -37,7 +37,7 @@ alias v='vim -p'
 alias vi='vim -p'
 
 alias rs='rsync -azvh --progress'
-alias yd='youtube-dl --extract-audio --audio-format best'
+alias youtube-mp3='youtube-dl --extract-audio --audio-format best'
 
 alias x='rxvt &'
 
