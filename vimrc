@@ -55,7 +55,8 @@ Plug 'CSApprox'
 
 
 " Theme Plug
-Plug 'flazz/vim-colorschemes'
+" Plug 'flazz/vim-colorschemes'
+Plug 'nanotech/jellybeans.vim'
 
 
 " L9
@@ -163,6 +164,13 @@ inoremap <C-t>      <Esc>:tabnew<enter>:FZF<CR>
 set t_Co=256
 colorscheme jellybeans
 syntax on
+
+let g:jellybeans_overrides = {
+\    'background': { 'guibg': 'ffffff' },
+\}
+
+
+
 
 " Config
 set number                      "Turn on line-numbers
