@@ -103,6 +103,9 @@ Plug 'jiangmiao/auto-pairs'
 " usage: <leader>ig
 Plug 'nathanaelkane/vim-indent-guides'
 
+" keep vim sessions
+Plug 'tpope/vim-obsession'
+
 call plug#end()
 
 
