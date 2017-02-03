@@ -36,4 +36,5 @@ depends:
 	sudo apt-get install vim-nox # for python binding vim, for vim-plug (plugin manager)
 	sudo apt-get install tmux # keep my sessions alive
 	sudo apt-get install curl # vim install
+	sudo apt-get install tree # nice tool for showing tree of dir
 
