@@ -21,9 +21,13 @@ alias gc='gitclone' # from bin
 
 # tmux shortcuts
 alias tm='tmux -2'
+alias tma='tmux -2 attach -t $1'
 alias tml='tmux ls'
 alias tmk='tmux kill-session -t $1'
-alias tma='tmux -2 attach -t $1'
+alias tmg='tmux new -s $(basename $(pwd))'
+
+# tmux clean. Kill all integer tmux sessions
+alias tmclean='tmux ls -F "#{session_name}" | while read -r line; do if [[ $line =~ ^-?[0-9]+$  ]]; then tmux kill-session -t $line; fi; done '
 
 
 # Others Shortcuts
@@ -36,9 +40,13 @@ alias u='cd ..'
 alias v='vim -p'
 alias vi='vim -p'
 
+# easy rsync
 alias rs='rsync -azvh --progress'
+
+# download a song easy
 alias youtube-mp3='youtube-dl --extract-audio --audio-format best'
 
+# open a new terminal
 alias x='rxvt &'
 
 # Functions
