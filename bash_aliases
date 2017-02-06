@@ -27,7 +27,7 @@ alias tmk='tmux kill-session -t $1'
 alias tmg='tmux new -s $(basename $(pwd))'
 
 # tmux clean. Kill all integer tmux sessions
-alias tmclean='tmux ls -F "#{session_name}" | while read -r line; do if [[ $line =~ ^-?[0-9]+$  ]]; then tmux kill-session -t $line; fi; done '
+alias tmclean='tmux ls -F "#{session_name}" | while read -r line; do if [[ $line =~ ^-?[0-9]+$  ]]; then tmux kill-session -t $line; fi; done'
 
 
 # Others Shortcuts
