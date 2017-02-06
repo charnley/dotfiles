@@ -2,30 +2,33 @@
 all:
 	./vim_update.sh
 
-install: vim_install fuzzy symlink_clean symlink vim
+install: depends fuzzy symlink_clean symlink fuzzy vim_install vim_update
 	bash --login
 
 symlink:
-	ln -s `pwd`/vimrc ~/.vimrc
-	ln -s `pwd`/gitconfig ~/.gitconfig
-	ln -s `pwd`/bashrc ~/.bashrc
-	ln -s `pwd`/bash_aliases ~/.bash_aliases
-	ln -s `pwd`/bash_profile ~/.bash_profile
-	ln -s `pwd`/inputrc ~/.inputrc
-	ln -s `pwd`/tmux.conf ~/.tmux.conf
-	ln -s `pwd`/bin/gitclone ~/bin/gitclone
+	ln -sf `pwd`/vimrc ~/.vimrc
+	ln -sf `pwd`/gitconfig ~/.gitconfig
+	ln -sf `pwd`/bashrc ~/.bashrc
+	ln -sf `pwd`/bash_aliases ~/.bash_aliases
+	ln -sf `pwd`/bash_profile ~/.bash_profile
+	ln -sf `pwd`/inputrc ~/.inputrc
+	ln -sf `pwd`/tmux.conf ~/.tmux.conf
+	ln -sf `pwd`/ssh_config ~/.ssh/config
+	
+	ln -sf `pwd`/bin/gitclone ~/bin/gitclone
+	ln -sf `pwd`/bin/mnt ~/bin/mnt
 
 symlink_clean:
 	rm ~/.vimrc ~/.gitconfig  ~/.bashrc ~/.bash_aliases ~/.bash_profile ~/.inputrc ~/.tmux.conf
-
-vim:
-	./vim_update.sh
 
 bash_autocomplete:
 	sudo cp bash_completion/tma /etc/bash_completion.d/tma
 	sudo cp bash_completion/tmk /etc/bash_completion.d/tmk
 
 vim_install:
+	./vim_install.sh
+
+vim_update:
 	./vim_install.sh
 
 fuzzy:
