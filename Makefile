@@ -29,7 +29,7 @@ vim_install:
 	./vim_install.sh
 
 vim_update:
-	./vim_install.sh
+	./vim_update.sh
 
 fuzzy:
 	./fzf_setup.sh
