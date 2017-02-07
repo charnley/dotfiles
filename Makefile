@@ -41,3 +41,6 @@ depends:
 	sudo apt-get install curl # vim install
 	sudo apt-get install tree # nice tool for showing tree of dir
 
+tmux:
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
