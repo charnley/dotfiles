@@ -1,6 +1,7 @@
 
 # Dotfiles
 
+![Screenshot](https://raw.githubusercontent.com/charnley/dotfiles/master/scrot.png)
 
 ## Installation
 
