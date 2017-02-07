@@ -67,6 +67,8 @@ Plug 'L9'
 " Line Numbers
 Plug 'myusuf3/numbers.vim'
 
+" latex support
+Plug 'lervag/vimtex'
 
 " TComment
 " https://github.com/tomtom/tcomment_vim
@@ -347,6 +349,10 @@ set cmdheight=2
 " indentation
 " hi IndentGuidesOdd  ctermbg=black
 " hi IndentGuidesEven ctermbg=darkgrey
+
+" latex
+let g:vimtex_disable_version_warning = 1
+let g:vimtex_echo_ignore_wait = 1
 
 " user experience
 let g:lightline = {
