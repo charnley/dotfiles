@@ -5,7 +5,7 @@ alias sunray='ssh -YC sunray'
 # sunray specific commands
 if [ $HOSTNAME = "sunray" ]; then
     alias sun_idle='sinfo | grep idle'
-    alias sun_busy='sinfo | grep alloc'
+    alias sun_busy='sinfo | grep alloc; sinfo | grep mix'
 
     alias q='squeue -u charnley'
     alias ql='squeue | grep charnley | wc -l'
