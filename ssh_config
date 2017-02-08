@@ -1,3 +1,10 @@
 Host *
     PermitLocalCommand yes
     LocalCommand if [[ $TERM == screen*  ]]; then printf "\033k%h\033\\"; fi
+
+Host sunray
+    ForwardX11 yes
+
+Host london
+    ForwardX11 yes
+
