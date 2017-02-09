@@ -2,7 +2,7 @@
 all:
 	./vim_update.sh
 
-install: depends fuzzy symlink_clean symlink fuzzy vim_install vim_update
+install: depends fuzzy symlink_clean symlink fuzzy vim_install vim_update tmux_install bin_folder
 	bash --login
 
 symlink:
@@ -14,9 +14,6 @@ symlink:
 	ln -sf `pwd`/inputrc ~/.inputrc
 	ln -sf `pwd`/tmux.conf ~/.tmux.conf
 	ln -sf `pwd`/ssh_config ~/.ssh/config
-	
-	ln -sf `pwd`/bin/gitclone ~/bin/gitclone
-	ln -sf `pwd`/bin/mnt ~/bin/mnt
 
 symlink_clean:
 	rm ~/.vimrc ~/.gitconfig  ~/.bashrc ~/.bash_aliases ~/.bash_profile ~/.inputrc ~/.tmux.conf
@@ -41,6 +38,14 @@ depends:
 	sudo apt-get install curl # vim install
 	sudo apt-get install tree # nice tool for showing tree of dir
 
-tmux:
+tmux_install:
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+bin_folder:
+	# Don't overwrite anything
+	for x in bin/*; do \
+		if [ ! -f ~/$$x  ]; then\
+			ln -s `pwd`/$$x ~/$$x;\
+		fi; \
+	done
 
