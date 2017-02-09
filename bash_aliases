@@ -56,7 +56,7 @@ alias vi='vim -p'
 alias rs='rsync -azvh --progress'
 
 # download a song easy
-alias youtube-mp3='youtube-dl --extract-audio --audio-format best'
+alias youtube-audio='youtube-dl --extract-audio --audio-format best'
 
 # open a new terminal
 alias x='rxvt &'
