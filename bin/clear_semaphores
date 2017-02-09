@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for id in `ipcs -s | awk '{print $2}' | xargs`
+do
+      echo "$id"
+      ipcrm -s $id
+done
+

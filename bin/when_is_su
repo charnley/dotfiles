@@ -1,0 +1,4 @@
+#!/bin/bash
+
+env TZ=America/Chicago date +"%Y-%m-%d %H:%M"
+
