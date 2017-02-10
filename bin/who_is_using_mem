@@ -1,0 +1,48 @@
+#!/usr/bin/env python
+
+from subprocess import Popen, PIPE
+import sys
+import numpy
+
+def shell(cmd, shell=False):
+
+    if shell:
+        p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    else:
+        cmd = cmd.split()
+        p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+
+    output, err = p.communicate()
+    return output
+
+
+if __name__ == '__main__':
+
+    ps = shell("ps aux  | awk '{print $6/1024 \" MB\t\t\", $1}'", shell=True)
+
+    ps = ps.split("\n")
+    ps = ps[1:-1]
+
+    who = []
+    mem = []
+
+    for line in ps:
+
+        line = line.split()
+        me, x, name = line
+        me = float(me)
+
+        if name in who:
+            i = who.index(name)
+            mem[i] += me
+        else:
+            who.append(name)
+            mem.append(me)
+
+    index = numpy.argsort(mem)
+
+    for i in index:
+
+        print "{:10.2f} MB  {}".format(mem[i], who[i])
+
+    print "total {:10.2f} MB".format(sum(mem))
