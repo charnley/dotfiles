@@ -193,4 +193,9 @@ if [ $HOSTNAME = "sunray" ]; then
     source /home/cstein/intel/bin/compilervars.sh intel64
 fi
 
+if [ $HOSTNAME = "kraken" ]; then
+    # intel
+    export INTEL_LICENSE_FILE=/opt/intel/composer_xe_2013.1.117/licenses/l_PZD5J4XH.lic
+    source /opt/intel/composer_xe_2013.1.117/bin/compilervars.sh intel64
+fi
 
