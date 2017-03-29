@@ -187,3 +187,10 @@ esac
 # fuzzy search
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+if [ $HOSTNAME = "sunray" ]; then
+    # intel
+    export INTEL_LICENSE_FILE=/home/cstein/intel/licenses/l_B93KN3BR.lic
+    source /home/cstein/intel/bin/compilervars.sh intel64
+fi
+
+
