@@ -99,7 +99,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 
 " Auto pair brackets and others
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
+" Plug 'LucHermitte/lh-brackets'
+Plug 'Townk/vim-autoclose'
 
 " Indentation lines
 " usage: <leader>ig
@@ -306,8 +308,8 @@ nmap <S-p> :r ~/.vbuf<CR>
 " Fixes common typos
 command W w
 command Q q
-map <F1> <Esc>
-imap <F1> <Esc>
+" map <F1> <Esc>
+" imap <F1> <Esc>
 
 " Word wrap
 au BufRead,BufNewFile *.md,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0
@@ -532,4 +534,9 @@ endif
 " :w!!
 " write the file when you accidentally opened it without the right (root) privileges
 cmap w!! w !sudo tee % > /dev/null
+
+
+" what is up with aa
+" iunmap <buffer> å
+" inoremap å <C-v>229
 
