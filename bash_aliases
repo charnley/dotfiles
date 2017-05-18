@@ -20,13 +20,27 @@ export EDITOR=vi
 # Git Shortcuts
 alias amend='git commit --amend'
 alias gca='git commit -a'
-alias gd='git diff'
+alias gd='git diff --color-words'
 alias gdc='git diff --cached'
 alias gg='git lg'
 
 alias gs='git status -s'
 alias gph='git push'
 alias gpl='git pull --rebase'
+
+function gitclone {
+
+    url=$1
+    out=$2
+
+    if [[ $url != *"@"* && $url != *"http"* ]]
+    then
+        git clone git@github.com:$url $out
+    else
+        git clone $1 $out
+    fi
+
+}
 
 # alias gc='git clone'
 alias gc='gitclone' # from bin
@@ -41,6 +55,11 @@ alias tmg='tmux new -s $(basename $(pwd))'
 # tmux clean. Kill all integer tmux sessions
 alias tmclean='tmux ls -F "#{session_name}" | while read -r line; do if [[ $line =~ ^-?[0-9]+$  ]]; then tmux kill-session -t $line; fi; done'
 
+# Calendar
+alias today='gcalcli agenda now tomorrow'
+alias week='gcalcli agenda now'
+alias todo='gcalcli agenda now'
+alias month='gcalcli calm'
 
 # Others Shortcuts
 alias ls='ls --color'
