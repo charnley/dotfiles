@@ -51,7 +51,7 @@ Plug 'ervandew/supertab'
 
 " CSApprox
 " Makes GVIM themes work in terminals
-Plug 'CSApprox'
+Plug 'vim-scripts/CSApprox'
 
 
 " Theme Plug
@@ -61,7 +61,7 @@ Plug 'nanotech/jellybeans.vim'
 
 " L9
 " Dependency for a lot of plugins
-Plug 'L9'
+Plug 'vim-scripts/L9'
 
 
 " Line Numbers
