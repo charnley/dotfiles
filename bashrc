@@ -194,8 +194,10 @@ esac
 
 if [ $HOSTNAME = "sunray" ]; then
     # intel
-    export INTEL_LICENSE_FILE=/home/cstein/intel/licenses/l_B93KN3BR.lic
-    source /home/cstein/intel/bin/compilervars.sh intel64
+    # export INTEL_LICENSE_FILE=/home/cstein/intel/licenses/l_B93KN3BR.lic
+    # source /home/cstein/intel/bin/compilervars.sh intel64
+    export INTEL_LICENSE_FILE=/home/charnley/intel/licenses/l_FR4Z3C6V.lic
+    source /home/charnley/intel/bin/compilervars.sh intel64
 fi
 
 if [ $HOSTNAME = "kraken" ]; then
