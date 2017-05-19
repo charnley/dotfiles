@@ -311,6 +311,9 @@ command Q q
 " map <F1> <Esc>
 " imap <F1> <Esc>
 
+"Remove all trailing whitespace by pressing F5
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
 " Word wrap
 au BufRead,BufNewFile *.md,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0
 
