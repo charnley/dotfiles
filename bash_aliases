@@ -80,12 +80,17 @@ alias youtube-audio='youtube-dl --extract-audio --audio-format best'
 # open a new terminal
 alias x='rxvt &'
 
+# Get the last output
+# makes vim crash
+# PROMPT_COMMAND='LAST="`cat /tmp/x`"; exec >/dev/tty; exec > >(tee /tmp/x)'
+
 # Functions
 function take {
   mkdir $1
   cd $1
 }
 
+# Can't remmeber all the different extraction commands
 extract () {
     if [ -f $1 ] ; then
         case $1 in

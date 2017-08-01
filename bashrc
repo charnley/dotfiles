@@ -8,43 +8,27 @@ shopt -s histappend                      # append to history, don't overwrite it
 # Save and reload the history after each command finishes
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+# all my aliases
+if test -f ~/.bash_aliases; then . ~/.bash_aliases; fi
 
 # bash completion
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
+if test -f /etc/bash_completion; then . /etc/bash_completion; fi
+if test -f /etc/bash_completion.d/tma; then . /etc/bash_completion.d/tma; fi
 
-if [ -f /etc/bash_completion.d/tma ]; then
-    . /etc/bash_completion.d/tma
-fi
-
-if [ -d "/opt/bin" ] ; then
-    PATH="/opt/bin:$PATH"
-fi
-if [ -d "/opt/sbin" ] ; then
-    PATH="/opt/sbin:$PATH"
-fi
-
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
+# Extend $PATH envirument
+if test -d "/opt/bin"; then PATH="/opt/bin:$PATH"; fi
+if test -d "/opt/sbin"; then PATH="/opt/sbin:$PATH"; fi
+if test -d "$HOME/bin"; then PATH="$HOME/bin:$PATH"; fi
 
 # pip local
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
+if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi
 
-if [ $TERM == "xterm" ]
-then
-    export TERM=xterm-256color
-fi
+# I would like to have colours in my terminal
+if test $TERM == "xterm"; then export TERM=xterm-256color; fi
+
 
 # PS1
-# 
+#
 # 0;30m   Black
 # 0;31m   Red
 # 0;32m   Green
