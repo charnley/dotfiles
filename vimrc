@@ -46,8 +46,13 @@ Plug 'majutsushi/tagbar'
 
 " Supertab
 " https://github.com/ervandew/supertab
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 
+" Syntax checker
+Plug 'vim-syntastic/syntastic'
+
+" completer
+Plug 'Valloric/YouCompleteMe'
 
 " CSApprox
 " Makes GVIM themes work in terminals
@@ -63,6 +68,8 @@ Plug 'nanotech/jellybeans.vim'
 " Dependency for a lot of plugins
 Plug 'vim-scripts/L9'
 
+" gitgutter see where the file is changed
+Plug 'airblade/vim-gitgutter'
 
 " Line Numbers
 Plug 'myusuf3/numbers.vim'
@@ -101,7 +108,7 @@ Plug 'itchyny/lightline.vim'
 " Auto pair brackets and others
 " Plug 'jiangmiao/auto-pairs'
 " Plug 'LucHermitte/lh-brackets'
-Plug 'Townk/vim-autoclose'
+" Plug 'Townk/vim-autoclose'
 
 " Indentation lines
 " usage: <leader>ig
@@ -111,6 +118,9 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-obsession'
 
 call plug#end()
+
+
+
 
 
 " ----------------------------------------
@@ -344,7 +354,7 @@ if has('cmdline_info')
   set showcmd                 " show partial commands in status line and
 endif
 set laststatus=2  " Always show the statusline
-set cmdheight=2
+set cmdheight=1
 
 
 " ----------------------------------------
@@ -397,7 +407,8 @@ map <leader>l :TagbarToggle<CR>
 
 
 " SuperTab
-let g:SuperTabDefaultCompletionType = "context"
+" let g:SuperTabDefaultCompletionType = "context"
+let g:ycm_autoclose_preview_window_after_completion=1
 
 
 " closetag.vim
@@ -500,10 +511,6 @@ endfunction
 map <Leader>re :call RenameFile()<cr>
 
 
-" ----------------------------------------
-" Thinkpad X1 Configuration
-" ----------------------------------------
-
 " ---------------
 " Home/End
 " ---------------
@@ -517,7 +524,7 @@ inoremap <C-S-Right> <End>
 
 
 " ----------------------------------------
-" Sunray Settings
+" GAMESS Settings
 " ----------------------------------------
 " associate *.src with fortran filetype
 au BufRead,BufNewFile *.src setfiletype fortran
@@ -537,9 +544,4 @@ endif
 " :w!!
 " write the file when you accidentally opened it without the right (root) privileges
 cmap w!! w !sudo tee % > /dev/null
-
-
-" what is up with aa
-" iunmap <buffer> å
-" inoremap å <C-v>229
 
