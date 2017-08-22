@@ -18,8 +18,11 @@ fi
 export EDITOR=vi
 
 # Git Shortcuts
-alias amend='git commit --amend'
+alias gco='git commit'
 alias gca='git commit -a'
+alias gad='git add .'
+alias gamend='git commit --amend'
+
 alias gd='git diff --color-words'
 alias gdc='git diff --cached'
 alias gg='git lg'
