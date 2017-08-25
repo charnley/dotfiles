@@ -1,0 +1,80 @@
+#!/usr/bin/env python
+
+"""
+
+bindsym Control+Up           exec amixer -q sset Master 2%+ unmute
+bindsym Control+Down         exec amixer -q sset Master 2%- unmute
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
+bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
+bindsym XF86AudioMute exec amixer -q set Master toggle; exec amixer -q set Headphone unmute; exec amixer -q set Speaker unmute # does not work proberbly
+
+"""
+
+from subprocess import Popen, PIPE
+import sys
+import numpy
+import re
+
+
+def shell(cmd, shell=False):
+
+    if shell:
+        p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    else:
+        cmd = cmd.split()
+        p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+
+    output, err = p.communicate()
+    return output
+
+
+if __name__ == "__main__":
+
+    # shell('notify-send " " "volume changed"', shell=True)
+
+    args = sys.argv[1:]
+
+    if len(args) < 1:
+        print "Not enough parameters"
+
+    change = args[0]
+
+    sinks = shell('pactl list short sinks')
+    sinks = sinks.split('\n')
+
+    if len(sinks) == 2:
+
+        if change == "mute":
+            shell('pactl set-sink-volume 0 0%'.format(sink))
+            quit()
+
+        shell('pactl set-sink-volume 0 {}%'.format(change))
+        quit()
+
+    pactl_info = shell('pactl info')
+    pactl_info = pactl_info.split('\n')
+
+    default_sink = pactl_info[12]
+
+    sink = sinks[-2]
+    sink = sink.split()
+    sink = sink[0]
+
+    if not "blue" in default_sink:
+        shell('pactl set-default-sink {}'.format(sink))
+
+        # Set default sound volume to 30%
+        # so it does not blow my head off
+        change = "30"
+
+    if change == "info":
+        print shell('pactl info')
+        quit()
+
+    if change == "mute":
+        shell('pactl set-sink-volume {} 0%'.format(sink))
+        quit()
+
+    shell('pactl set-sink-volume 0 0%')
+    shell('pactl set-sink-volume {} {}%'.format(sink, change))
+
