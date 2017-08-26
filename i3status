@@ -1,0 +1,103 @@
+general {
+    colors = true
+    color_good = "#049cfb"
+    color_bad = "#cc3366"
+    color_degraded = "#999999"
+    interval = 3
+}
+
+order += "wireless wlp4s0"
+order += "ethernet enp0s31f6"
+order += "path_exists VPN"
+order += "volume master"
+order += "disk /"
+order += "battery 0"
+order += "cpu_temperature 0"
+order += "load"
+order += "tztime date"
+order += "tztime hours"
+
+wireless wlan0 {
+    format_up = "(%quality at %essid) %ip"
+    format_down = "wlan0"
+}
+
+wireless wlp4s0 {
+    format_up = "(%quality at %essid) %ip"
+    format_down = "wifi "
+}
+
+ethernet enp0s31f6 {
+    # if you use %speed, i3status requires root privileges
+    format_up = "%ip (%speed)"
+    format_down = " lan "
+}
+
+ethernet eth0 {
+    # if you use %speed, i3status requires root privileges
+    format_up = "%ip (%speed)"
+    format_down = "eth0"
+}
+
+ethernet eth1 {
+    # if you use %speed, i3status requires root privileges
+    format_up = "%ip (%speed)"
+    format_down = "eth1"
+}
+
+battery 0 {
+    format = " %status %percentage %remaining "
+    hide_seconds = true
+    low_threshold = 15
+    threshold_type = "percentage"
+    status_bat = 🔋
+    status_chr = •
+    status_full = ♥
+    integer_battery_capacity = true
+}
+
+
+#battery 0 {
+#    format = "%status %percentage %remaining"
+#}
+
+run_watch DHCP {
+    pidfile = "/var/run/dhclient*.pid"
+}
+
+run_watch VPN {
+    pidfile = "/var/run/vpnc/pid"
+}
+
+path_exists VPN {
+    # path exists when a VPN tunnel launched by nmcli/nm-applet is active
+    path = "/proc/sys/net/ipv4/conf/tun0"
+    # format = "vpn %status"
+    format = " vpn "
+}
+
+tztime date {
+    format = " %Y %m %d "
+}
+tztime hours {
+    format = " %H:%M "
+}
+
+load {
+    format = " cpu %1min "
+}
+
+disk "/" {
+    format = " %avail "
+}
+
+volume master {
+    format = " ♪ %volume "
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
+}
+
+cpu_temperature 0 {
+    format = " %degrees °C "
+}
