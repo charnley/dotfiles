@@ -1,0 +1,202 @@
+! xft
+Xft.dpi: 150
+
+! Terminal Color scheme
+URxvt*background:            #121212
+URxvt*foreground:            #CCCCCC
+URxvt*cursorColor:           #999999
+URxvt*colorBD:               #FFFFFF
+URxvt*colorUL:               #CCCC66
+
+xterm*background:            #111111
+xterm*foreground:            #CCCCCC
+xterm*cursorColor:           #999999
+xterm*colorBD:               #FFFFFF
+xterm*colorUL:               #CCCC66
+
+
+!!BLACK
+*color0:               #666666
+*color8:               #999999
+!!RED
+*color1:               #CC3366
+*color9:               #FF6699
+!!GREEN
+*color2:               #66CC33
+*color10:              #99FF66
+!!YELLOW
+*color3:               #CC9933
+*color11:              #FFCC66
+!!BLUE
+*color4:               #3366CC
+*color12:              #6699FF
+!!MAGENTA
+*color5:               #9933CC
+*color13:              #CC66FF
+!!CYAN
+*color6:               #33CC99
+*color14:              #66FFCC
+!!WHITE
+*color7:               #CCCCCC
+*color15:              #FFFFFF
+
+
+! RXVT Settings
+! https://wiki.archlinux.org/index.php/rxvt-unicode
+! rxvt-unicode-256-color
+
+URxvt*font: xft:mononoki:size=12:antialias=true
+URxvt.boldFont:
+URxvt*depth: 32
+URxvt*buffered: true
+URxvt*scrollBar: false
+URxvt*loginShell: true
+! Enable Shift-PageUp/Down in screen
+Urxvt*secondaryScroll: true
+URxvt*saveLines: 5000
+! URxvt*termName: rxvt-unicode
+URxvt*borderless: 1
+! URxvt.matcher.button: 1
+URxvt.iso14755: False
+URxvt.iso14755_52: false
+! Spacing issue in rxvt
+! Usually -1 is enough, but I like it tighter
+URxvt.letterSpace: -2
+
+! Keys
+! Have Alt/Control-<arrow> behave like xterm
+URxvt.keysym.Control-Up:    \033[1;5A
+URxvt.keysym.Control-Down:  \033[1;5B
+URxvt.keysym.Control-Left:  \033[1;5D
+URxvt.keysym.Control-Right: \033[1;5C
+
+URxvt.keysym.M-Down:        \033[1;3B
+URxvt.keysym.M-Up:          \033[1;3A
+URxvt.keysym.M-Left:        \033[1;3D
+URxvt.keysym.M-Right:       \033[1;3C
+
+! Remap control+i
+! map with \e[a5i
+! http://unix.stackexchange.com/questions/203418/bind-c-i-and-tab-keys-to-different-commands-in-terminal-applications-via-inputr
+! URxvt.keysym.Control-Shift-i: \033[a5i
+! URxvt.keysym.Control-i: \033w
+! URxvt.keysym.Control-w: \033w
+
+! Home / End
+! URxvt.keysym.Home: \033[1~
+! URxvt.keysym.End: \033[4~
+! URxvt.keysym.KP_Home: \033[1~
+! URxvt.keysym.KP_End:  \033[4~
+
+! My laptop has home/end a long way from my arrows
+URxvt.keysym.Control-M-Left: \033[1~
+URxvt.keysym.Control-M-Right: \033[4~
+
+! Shift + tab working
+URxvt.keysym.C-Tab: \033{
+URxvt.keysym.Control-Shift-ISO_Left_Tab: \033}
+! ! disable ctrl-shit
+URxvt*iso14755: False
+URxvt*iso14755_52: False
+
+! Copy paste
+! https://nixmeal.wordpress.com/2012/07/24/copypaste-text-in-urxvt-rxvt-unicode-using-keyboard/
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.perl-ext-common: default,clipboard
+
+! Fonts on the fly
+! Needs the 'urxvt-font-size-git' package and 'font-size' in perl-ext-common.
+
+! Increase font size Ctrl+'+' for all the URxvt tabs and windows (Plus keysum
+! does not work).
+! URxvt.keysym.Control-0x2b: perl:font-size:increase
+
+! Decrease font size Ctrl+'-' for all the URxvt tabs and windows (Minus keysum
+! does not work).
+! URxvt.keysym.Control-0x2d: perl:font-size:decrease
+
+
+! Xterm Settings
+
+! Use a nice truetype font and size by default
+xterm*faceName: Monaco
+xterm*faceSize: 10
+
+! Every shell is a login shell by default (for inclusion of all necessary environment variables)
+xterm*loginshell: true
+
+! I like a LOT of scrollback...
+xterm*savelines: 16384
+
+! double-click to select whole URLs
+xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+! stop output to terminal from jumping down to bottom of scroll again
+xterm*scrollTtyOutput: false
+
+! I REALLY dont like bold text in terminal
+! Disable boldmode
+xterm*font: fixed
+xterm*boldFont: fixed
+XTerm*allowBoldFonts: false
+XTerm*boldMode: false
+
+
+
+! https://awhan.wordpress.com/2010/06/20/alt-key-does-not-work-in-xterm-in-archlinux/
+! http://www.humbug.in/2010/enable-alt-key-in-xterm/
+! Key the alt ket working
+! STILL DOES NOT WORK
+! TODO
+! XTerm*metaSendsEscape: true
+! XTerm*eightBitInput: false
+
+!
+! http://blog.ssokolow.com/archives/2011/05/01/modernizing-xterms-paste/
+!
+! {{{ Quick Reference
+! !
+! ! Scrolling:
+! !   Scroll Wheel
+! !   Shift-PgUp/PgDn
+! !
+! ! Copy/Paste:
+! !   Mouse-Select        : Copy to PRIMARY
+! !   Shift + Mouse-Select: Copy to CLIPBOARD
+! !
+! !   Middle-Click        : Paste from PRIMARY
+! !   Shift + Middle-Click: Paste from CLIPBOARD
+! !
+! !   Ctrl+Shift+V        : Paste from CLIPBOARD
+! !   Ctrl+Alt+Shift+V    : Paste from PRIMARY
+! !
+! }}}
+
+xterm*VT100.Translations: #override \
+                    Shift <Key>Up:              scroll-back(1) \n\
+                    Shift <Key>Down:            scroll-forw(1) \n\
+                    ~Meta Shift Ctrl <Key>V:    insert-selection(CLIPBOARD) \n\
+                     Meta Shift Ctrl <Key>V:    insert-selection(PRIMARY) \n\
+                    ~Shift <Btn1Up>:            select-end(PRIMARY, CUT_BUFFER0) \n\
+                     Shift <Btn1Up>:            select-end(CLIPBOARD, CUT_BUFFER1) \n\
+                    ~Shift ~Ctrl ~Meta <Btn2Up>:insert-selection(PRIMARY, CUT_BUFFER0) \n\
+                     Shift ~Ctrl ~Meta <Btn2Up>:insert-selection(CLIPBOARD, CUT_BUFFER1)
+
+
+! Translations
+! http://www.ibb.net/~anne/keyboard.html
+! http://superuser.com/questions/453993/xterm-key-translations
+! http://superuser.com/questions/914817/separate-mappings-for-tab-and-c-i-in-inputrc
+
+
+! ------------------------------------------------------------------------------
+! ROFI Color theme
+! ------------------------------------------------------------------------------
+rofi.color-enabled: true
+rofi.color-window: #273238, #273238, #1e2529
+rofi.color-normal: #273238, #c1c1c1, #273238, #394249, #ffffff
+rofi.color-active: #273238, #80cbc4, #273238, #394249, #80cbc4
+rofi.color-urgent: #273238, #ff1844, #273238, #394249, #ff1844
+
+rofi.font: Mononoki 18
+
