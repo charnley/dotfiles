@@ -13,11 +13,11 @@ symlink:
 	ln -sf `pwd`/bash_profile ~/.bash_profile
 	ln -sf `pwd`/inputrc ~/.inputrc
 	ln -sf `pwd`/tmux.conf ~/.tmux.conf
-	mkdir ~/.ssh
+	mkdir -p ~/.ssh
 	ln -sf `pwd`/ssh_config ~/.ssh/config
 
 symlink_clean:
-	rm ~/.vimrc ~/.gitconfig  ~/.bashrc ~/.bash_aliases ~/.bash_profile ~/.inputrc ~/.tmux.conf
+	rm -f ~/.vimrc ~/.gitconfig  ~/.bashrc ~/.bash_aliases ~/.bash_profile ~/.inputrc ~/.tmux.conf
 
 bash_autocomplete:
 	sudo cp bash_completion/tma /etc/bash_completion.d/tma
@@ -43,7 +43,7 @@ tmux_install:
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 bin_folder:
-	mkdir ~/bin
+	mkdir -p ~/bin
 	# Don't overwrite anything
 	for x in bin/*; do \
 		if [ ! -f ~/$$x  ]; then\
