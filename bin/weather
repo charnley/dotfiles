@@ -1,0 +1,10 @@
+#!/bin/bash
+
+loc=$1
+
+if test -z $loc
+then
+    curl -s wttr.in/Copenhagen' -T 'Weather
+else
+    curl -s wttr.in/$loc' -T 'Weather
+fi
