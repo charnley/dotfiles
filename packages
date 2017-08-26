@@ -3,3 +3,4 @@ tmux
 parallel
 libboost-all-dev
 python3-dev python-dev
+dstat

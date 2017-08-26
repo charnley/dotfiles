@@ -5,6 +5,13 @@ arc-theme
 openvpn
 powertop
 xinput
-tlp
+tlp powertop
 xclip xsel
 xbacklight
+pcmanfm
+evince
+eog
+moc
+scrot
+pavucontrol
+
