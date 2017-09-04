@@ -5,7 +5,7 @@ arc-theme
 openvpn
 powertop
 xinput
-tlp powertop
+tlp powertop tp-smapi-dkms acpi-call-dkms
 xclip xsel
 xbacklight
 pcmanfm
