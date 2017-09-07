@@ -2,7 +2,7 @@ i3
 vlc
 blueman
 arc-theme
-openvpn
+net-tools openvpn
 powertop
 xinput
 tlp powertop tp-smapi-dkms acpi-call-dkms
