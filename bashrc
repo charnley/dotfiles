@@ -125,13 +125,17 @@ esac
 # fuzzy search
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# intel
+
 if [ $HOSTNAME = "sunray" ]; then
-    # intel
-    # export INTEL_LICENSE_FILE=/home/cstein/intel/licenses/l_B93KN3BR.lic
-    # source /home/cstein/intel/bin/compilervars.sh intel64
     export INTEL_LICENSE_FILE=/home/charnley/intel/licenses/l_FR4Z3C6V.lic
     source /home/charnley/intel/bin/compilervars.sh intel64
 fi
+
+# if [ $HOSTNAME = "anton" ]; then
+#     export INTEL_LICENSE_FILE=/home/charnley/intel/licenses/NCOM_L___2HWS-V94RP65L_1.lic
+#     source /home/charnley/intel/bin/compilervars.sh intel64
+# fi
 
 if [ $HOSTNAME = "kraken" ]; then
     # intel
