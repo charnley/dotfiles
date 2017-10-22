@@ -1,4 +1,11 @@
 
+" TODO
+" Clean plugins
+" https://github.com/tpope/vim-surround
+" https://github.com/tpope/vim-endwise
+" - add fortran?
+
+
 " ----------------------------------------
 " VI Improved Configuration
 " ----------------------------------------
@@ -30,6 +37,9 @@ filetype off
 
 call plug#begin()
 
+" css colors
+Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus', 'vim'] }
+
 " let html tags be close automatic
 Plug 'alvan/vim-closetag'
 
@@ -49,10 +59,19 @@ Plug 'majutsushi/tagbar'
 " Plug 'ervandew/supertab'
 
 " Syntax checker
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
+Plug 'w0rp/ale'
+let g:ale_sign_warning = '▴'
+let g:ale_sign_error = '❌'
+highlight link ALEWarningSign String
+highlight link ALEErrorSign Title
 
 " completer
 Plug 'Valloric/YouCompleteMe'
+
+" snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " CSApprox
 " Makes GVIM themes work in terminals
@@ -62,6 +81,7 @@ Plug 'vim-scripts/CSApprox'
 " Theme Plug
 " Plug 'flazz/vim-colorschemes'
 Plug 'nanotech/jellybeans.vim'
+Plug 'tomasiser/vim-code-dark'
 
 
 " L9
@@ -75,7 +95,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'myusuf3/numbers.vim'
 
 " latex support
-Plug 'lervag/vimtex'
+" Plug 'lervag/vimtex'
 
 " TComment
 " https://github.com/tomtom/tcomment_vim
@@ -102,8 +122,18 @@ Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" Buttomline
+" Bottomline
 Plug 'itchyny/lightline.vim'
+let g:lightline = {
+	\ 'colorscheme': 'wombat',
+	\ 'component': {
+	\   'readonly': '%{&readonly?"x":""}',
+	\ },
+	\ 'separator': { 'left': '', 'right': '' },
+	\ 'subseparator': { 'left': '', 'right': '' }
+	\ }
+
+
 
 " Auto pair brackets and others
 " Plug 'jiangmiao/auto-pairs'
@@ -116,6 +146,10 @@ Plug 'nathanaelkane/vim-indent-guides'
 
 " keep vim sessions
 Plug 'tpope/vim-obsession'
+
+
+" Write mode
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
@@ -133,6 +167,21 @@ let mapleader=","
 " ---------------
 " Navigation
 " ---------------
+
+" Turn off linewise keys. This is especially important when working with word
+" wrap documents
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up> gk
+vnoremap <Down> gj
+vnoremap <Up> gk
+inoremap <Down> <C-o>gj
+inoremap <Up> <C-o>gk
+
+
 " " Peter is going to hate this for sure
 " map i <Up>
 " map j <Left>
@@ -171,6 +220,26 @@ inoremap <A-left>   <Esc>:tabprevious<CR>i
 inoremap <A-right>  <Esc>:tabnext<CR>i
 inoremap <C-t>      <Esc>:tabnew<enter>:FZF<CR>
 
+
+" Move between open buffers.
+nmap <C-n> :bnext<CR>
+nmap <C-p> :bprev<CR>
+
+
+" TODO add movement via multiple windows
+
+
+
+" These are things that I mistype and want ignored.
+nmap Q  <silent>
+nmap q: <silent>
+nmap K  <silent>
+
+
+"
+nmap ; :Buffers<CR>
+
+
 " ---------------
 " Color Scheme
 " ---------------
@@ -179,13 +248,27 @@ inoremap <C-t>      <Esc>:tabnew<enter>:FZF<CR>
 " colorscheme jellybeans
 " colorscheme wombat256mod
 set t_Co=256
-colorscheme jellybeans
+set t_ut=
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
+try
+" colorscheme jellybeans
+colorscheme codedark
+catch
+set background=dark
+endtry
 syntax on
 
 let g:jellybeans_overrides = {
 \    'background': { 'guibg': 'ffffff' },
 \}
 
+
+" GitGutter styling to use · instead of +/-
+let g:gitgutter_sign_added = '∙'
+let g:gitgutter_sign_modified = '∙'
+let g:gitgutter_sign_removed = '∙'
+let g:gitgutter_sign_modified_removed = '∙'
 
 
 
@@ -302,6 +385,18 @@ highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" Don't mark URL-like things as spelling errors
+syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
+
+" Don't count acronyms / abbreviations as spelling errors
+" (all upper-case letters, at least three characters)
+" Also will not count acronym with 's' at the end a spelling error
+" Also will not count numbers that are part of this
+" Recognizes the following as correct:
+syn match AcronymNoSpell '\<\(\u\|\d\)\{3,}s\?\>' contains=@NoSpell
+
+" No spelling as default
 set nospell
 
 " copy'n'paste multisession
@@ -325,7 +420,7 @@ command Q q
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " Word wrap
-au BufRead,BufNewFile *.md,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0
+" au BufRead,BufNewFile *.md,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0
 
 
 " Auto Commands
@@ -341,6 +436,15 @@ if has("autocmd")
         \ endif
 endif
 
+
+" tab and auto complete
+let g:SuperTabDefaultCompletionType    = '<C-n>'
+let g:SuperTabCrMapping                = 0
+let g:UltiSnipsExpandTrigger           = '<tab>'
+let g:UltiSnipsJumpForwardTrigger      = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
+let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
 
 
 " ----------------------------------------
@@ -365,19 +469,7 @@ set cmdheight=1
 " hi IndentGuidesOdd  ctermbg=black
 " hi IndentGuidesEven ctermbg=darkgrey
 
-" latex
-let g:vimtex_disable_version_warning = 1
-let g:vimtex_echo_ignore_wait = 1
-
 " user experience
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'component': {
-      \   'readonly': '%{&readonly?"x":""}',
-      \ },
-      \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '', 'right': '' }
-      \ }
 
 
 " vim-bookmarks
@@ -544,4 +636,17 @@ endif
 " :w!!
 " write the file when you accidentally opened it without the right (root) privileges
 cmap w!! w !sudo tee % > /dev/null
+
+
+" https://github.com/statico/dotfiles/blob/master/.vim/vimrc
+function! ProseMode()
+	call goyo#execute(0, [])
+	" set spell " noci nosi noai nolist noshowmode noshowcmd
+	set complete+=s
+	:ALEToggle
+	set wrap
+endfunction
+
+command! ProseMode call ProseMode()
+map <leader>w :ProseMode<CR>
 
