@@ -90,6 +90,8 @@ case $HOSTNAME in
     fend0[1-5].cluster )
         export PS1="$Yellow\h$Color_Off $Cyan\W$Color_Off"
         export PS1NOGIT="True";;
+    tutu )
+        export PS1="$Blue\h $Cyan\W$Color_Off";;
     * )
         export PS1="$Blue\h$Color_Off $Cyan\W$Color_Off";;
 esac
