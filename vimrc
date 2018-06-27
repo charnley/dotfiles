@@ -5,22 +5,12 @@
 " https://github.com/tpope/vim-endwise
 " - add fortran?
 
-
-" ----------------------------------------
-" VI Improved Configuration
-" ----------------------------------------
-
-" My Github repo for dot files
-" https:/github.com/charnley/dotfiles
-
-" Inspired by (copied from):
-" https://github.com/mbrochh/vim-as-a-python-ide
-" https://github.com/r00k/dotfiles
-
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+" Leader
+let mapleader=","
 
 if !has('gui_running')
   set t_Co=256
@@ -45,6 +35,22 @@ Plug 'alvan/vim-closetag'
 
 " bookmarks
 Plug 'MattesGroeger/vim-bookmarks'
+" Add/remove bookmark at current line           mm  :BookmarkToggle
+" Add/edit/remove annotation at current line    mi  :BookmarkAnnotate <TEXT>
+" Jump to next bookmark in buffer               mn  :BookmarkNext
+" Jump to previous bookmark in buffer           mp  :BookmarkPrev
+" Show all bookmarks (toggle)                   ma  :BookmarkShowAll
+" Clear bookmarks in current buffer only        mc  :BookmarkClear
+" Clear bookmarks in all buffers                mx  :BookmarkClearAll
+" Move up bookmark at current line              mkk     :BookmarkMoveUp
+" Move down bookmark at current line            mjj     :BookmarkMoveDown
+" Save all bookmarks to a file                  :BookmarkSave <FILE_PATH>
+" Load bookmarks from a file                    :BookmarkLoad <FILE_PATH>
+" highlight BookmarkSign ctermbg=NONE ctermfg=160
+" highlight BookmarkLine ctermbg=194 ctermfg=NONE
+" let g:bookmark_sign = 'B'
+let g:bookmark_sign = '♥'
+
 
 " let Vundle manage Vundle
 Plug 'gmarik/vundle'
@@ -62,9 +68,20 @@ Plug 'majutsushi/tagbar'
 " Plug 'vim-syntastic/syntastic'
 Plug 'w0rp/ale'
 let g:ale_sign_warning = '▴'
-let g:ale_sign_error = '❌'
+let g:ale_sign_error = 'X'
+" Clear the background colors of ALe
 highlight link ALEWarningSign String
 highlight link ALEErrorSign Title
+" TODO add fortran 77 support,
+" removed fortran support until i find solution
+let g:ale_linters = {
+    \   'fortran': [],
+    \}
+
+
+" underscore is too common an false-positive error
+" for urls and files
+let tex_no_error=1
 
 " completer
 Plug 'Valloric/YouCompleteMe'
@@ -90,6 +107,11 @@ Plug 'vim-scripts/L9'
 
 " gitgutter see where the file is changed
 Plug 'airblade/vim-gitgutter'
+let g:gitgutter_sign_added = '∙'
+let g:gitgutter_sign_modified = '∙'
+let g:gitgutter_sign_removed = '∙'
+let g:gitgutter_sign_modified_removed = '∙'
+
 
 " Line Numbers
 Plug 'myusuf3/numbers.vim'
@@ -117,6 +139,23 @@ Plug 'tomtom/tcomment_vim'
 
 " Easymotion
 Plug 'easymotion/vim-easymotion'
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_keys = 'hklyuiopnmqwertasdgzxcvbjf'
+let g:EasyMotion_use_upper = 0
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_startofline = 0
+map  f <Plug>(easymotion-s)
+xmap f <Plug>(easymotion-s)
+omap f <Plug>(easymotion-t)
+map J <Plug>(easymotion-j)
+map K <Plug>(easymotion-k)
+hi link EasyMotionTarget Todo
+hi link EasyMotionShade  Comment
+hi link EasyMotionTarget2First Todo
+hi link EasyMotionTarget2Second Todo
+hi link EasyMotionIncSearch IncSearch
+hi link EasyMotionIncCursor Search
+
 
 " fzf
 Plug 'junegunn/fzf', { 'do': './install --all' }
@@ -150,19 +189,42 @@ Plug 'tpope/vim-obsession'
 
 " Write mode
 Plug 'junegunn/goyo.vim'
+let g:goyo_height= '80%'
+let g:goyo_width = '80'
+
+function! s:goyo_enter()
+    silent !tmux set status off
+    " silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+    set noshowmode
+    set noshowcmd
+    set scrolloff=999
+
+    ALEDisable
+    set wrap
+    Goyo 80x100%
+endfunction
+
+function! s:goyo_leave()
+    silent !tmux set status on
+    " silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+    set showmode
+    set showcmd
+    set scrolloff=5
+
+    ALEEnable
+    set nowrap
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+nmap <silent> <leader>w :Goyo<CR>
+
+" On window resize, if goyo is active, do <c-w>= to resize the window
+autocmd VimResized * if exists('#goyo') | exe "normal \<c-w>=" | endif
 
 call plug#end()
 
 
-
-
-
-" ----------------------------------------
-" VIM Configuration
-" ----------------------------------------
-
-" Leader
-let mapleader=","
 
 " ---------------
 " Navigation
@@ -180,6 +242,49 @@ vnoremap <Down> gj
 vnoremap <Up> gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
+"
+" nnoremap <Home> g<Home>
+" nnoremap <End> g<End>
+" inoremap <Home> <C-o>g<Home>
+" inoremap <End> <C-o>g<End>
+
+" noremap  <buffer> <silent> <Up>   gk
+" noremap  <buffer> <silent> <Down> gj
+" noremap  <buffer> <silent> <Home> g<Home>
+" noremap  <buffer> <silent> <End>  g<End>
+" inoremap <buffer> <silent> <Up>   <C-o>gk
+" inoremap <buffer> <silent> <Down> <C-o>gj
+" inoremap <buffer> <silent> <Home> <C-o>g<Home>
+" inoremap <buffer> <silent> <End>  <C-o>g<End>
+
+function EnableDisplayWrapping()
+  if !&wrap
+	setlocal wrap linebreak nolist
+    set virtualedit=
+    setlocal display+=lastline
+    noremap  <buffer> <silent> <Up>   gk
+    noremap  <buffer> <silent> <Down> gj
+    noremap  <buffer> <silent> <Home> g<Home>
+    noremap  <buffer> <silent> <End>  g<End>
+    inoremap <buffer> <silent> <Up>   <C-o>gk
+    inoremap <buffer> <silent> <Down> <C-o>gj
+    inoremap <buffer> <silent> <Home> <C-o>g<Home>
+    inoremap <buffer> <silent> <End>  <C-o>g<End>
+  endif
+endfunction
+
+function DisableDisplayWrapping()
+  if &wrap
+    setlocal nowrap
+    nunmap <buffer> <Up>
+    nunmap <buffer> <Down>
+    iunmap <buffer> <Up>
+    iunmap <buffer> <Down>
+    vunmap <buffer> <Up>
+    vunmap <buffer> <Down>
+  endif
+endfunction
+
 
 
 " " Peter is going to hate this for sure
@@ -262,13 +367,6 @@ syntax on
 let g:jellybeans_overrides = {
 \    'background': { 'guibg': 'ffffff' },
 \}
-
-
-" GitGutter styling to use · instead of +/-
-let g:gitgutter_sign_added = '∙'
-let g:gitgutter_sign_modified = '∙'
-let g:gitgutter_sign_removed = '∙'
-let g:gitgutter_sign_modified_removed = '∙'
 
 
 
@@ -446,6 +544,10 @@ let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
 let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
 
+" let g:SuperTabDefaultCompletionType = "context"
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+
 
 " ----------------------------------------
 " User Experience
@@ -472,23 +574,6 @@ set cmdheight=1
 " user experience
 
 
-" vim-bookmarks
-" Add/remove bookmark at current line           mm  :BookmarkToggle
-" Add/edit/remove annotation at current line    mi  :BookmarkAnnotate <TEXT>
-" Jump to next bookmark in buffer               mn  :BookmarkNext
-" Jump to previous bookmark in buffer           mp  :BookmarkPrev
-" Show all bookmarks (toggle)                   ma  :BookmarkShowAll
-" Clear bookmarks in current buffer only        mc  :BookmarkClear
-" Clear bookmarks in all buffers                mx  :BookmarkClearAll
-" Move up bookmark at current line              mkk     :BookmarkMoveUp
-" Move down bookmark at current line            mjj     :BookmarkMoveDown
-" Save all bookmarks to a file                  :BookmarkSave <FILE_PATH>
-" Load bookmarks from a file                    :BookmarkLoad <FILE_PATH>
-" highlight BookmarkSign ctermbg=NONE ctermfg=160
-" highlight BookmarkLine ctermbg=194 ctermfg=NONE
-" let g:bookmark_sign = 'B'
-let g:bookmark_sign = '♥'
-
 
 " fzf (fuzzy finder)
 map <leader>f :FZF<CR>
@@ -498,33 +583,11 @@ map <leader>f :FZF<CR>
 map <leader>l :TagbarToggle<CR>
 
 
-" SuperTab
-" let g:SuperTabDefaultCompletionType = "context"
-let g:ycm_autoclose_preview_window_after_completion=1
-
 
 " closetag.vim
 " filenames like *.xml, *.html, *.xhtml, ...
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php"
 
-
-" EasyMotion
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_keys = 'hklyuiopnmqwertasdgzxcvbjf'
-let g:EasyMotion_use_upper = 0
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_startofline = 0
-map  f <Plug>(easymotion-s2)
-xmap f <Plug>(easymotion-s2)
-omap f <Plug>(easymotion-t2)
-map J <Plug>(easymotion-j)
-map K <Plug>(easymotion-k)
-hi link EasyMotionTarget Todo
-hi link EasyMotionShade  Comment
-hi link EasyMotionTarget2First Todo
-hi link EasyMotionTarget2Second Todo
-hi link EasyMotionIncSearch IncSearch
-hi link EasyMotionIncCursor Search
 
 
 " Numbers
@@ -537,50 +600,6 @@ let g:enable_numbers = 0
 " autocmd InsertEnter * :set number
 " autocmd InsertLeave * :set relativenumber
 " set relativenumber
-
-
-" TODO Does this work?
-" Colorize line numbers in insert and visual modes
-" ------------------------------------------------
-function! SetCursorLineNrColorInsert(mode)
-    " Insert mode: blue
-    if a:mode == "i"
-        highlight CursorLineNr ctermfg=4 guifg=#268bd2
-
-    " Replace mode: red
-    elseif a:mode == "r"
-        highlight CursorLineNr ctermfg=1 guifg=#dc322f
-
-    endif
-endfunction
-
-
-function! SetCursorLineNrColorVisual()
-    set updatetime=0
-
-    " Visual mode: orange
-    highlight CursorLineNr cterm=none ctermfg=9 guifg=#cb4b16
-endfunction
-
-
-function! ResetCursorLineNrColor()
-    set updatetime=4000
-    highlight CursorLineNr cterm=none ctermfg=0 guifg=#073642
-endfunction
-
-
-" vnoremap <silent> <expr> <SID>SetCursorLineNrColorVisual SetCursorLineNrColorVisual()
-" nnoremap <silent> <script> v v<SID>SetCursorLineNrColorVisual
-" nnoremap <silent> <script> V V<SID>SetCursorLineNrColorVisual
-" nnoremap <silent> <script> <C-v> <C-v><SID>SetCursorLineNrColorVisual
-
-
-augroup CursorLineNrColorSwap
-    autocmd!
-    autocmd InsertEnter * call SetCursorLineNrColorInsert(v:insertmode)
-    autocmd InsertLeave * call ResetCursorLineNrColor()
-    autocmd CursorHold * call ResetCursorLineNrColor()
-augroup END
 
 
 
@@ -624,6 +643,8 @@ au BufRead,BufNewFile *.src setfiletype fortran
 
 let fortran_more_precise=1
 
+let fortran_dialect = "f77"
+
 let s:extfname = expand("%:e")
 if s:extfname ==? "f90"
     let fortran_free_source=1
@@ -633,20 +654,15 @@ else
     unlet! fortran_free_source
 endif
 
+
 " :w!!
 " write the file when you accidentally opened it without the right (root) privileges
 cmap w!! w !sudo tee % > /dev/null
 
 
-" https://github.com/statico/dotfiles/blob/master/.vim/vimrc
-function! ProseMode()
-	call goyo#execute(0, [])
-	" set spell " noci nosi noai nolist noshowmode noshowcmd
-	set complete+=s
-	:ALEToggle
-	set wrap
-endfunction
+"
+" Writing mode
+" For distraction free writing
+"
 
-command! ProseMode call ProseMode()
-map <leader>w :ProseMode<CR>
 
