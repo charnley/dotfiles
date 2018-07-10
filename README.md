@@ -3,6 +3,10 @@
 
 ![Screenshot](https://raw.githubusercontent.com/charnley/dotfiles/master/scrot.png)
 
+## Dependencies
+
+    git curl
+
 ## Installation
 
 very straight forward. 

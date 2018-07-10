@@ -2,7 +2,7 @@
 all:
 	./vim_update.sh
 
-install: depends fuzzy symlink_clean symlink fuzzy vim_install vim_update tmux_install bin_folder
+install: fuzzy symlink_clean symlink fuzzy vim_install vim_update tmux_install bin_folder
 	bash --login
 
 symlink:
