@@ -5,7 +5,7 @@
 
 ## Dependencies
 
-    git curl
+    git curl 
 
 ## Installation
 

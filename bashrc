@@ -93,7 +93,7 @@ case $HOSTNAME in
     tutu )
         export PS1="$Blue\h $Cyan\W$Color_Off";;
     * )
-        export PS1="$Blue\h$Color_Off $Cyan\W$Color_Off";;
+        export PS1="$Yellow\h$Color_Off $Cyan\W$Color_Off";;
 esac
 
 
