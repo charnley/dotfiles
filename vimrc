@@ -84,7 +84,10 @@ let g:ale_linters = {
 let tex_no_error=1
 
 " completer
-Plug 'Valloric/YouCompleteMe'
+if v:version < 703
+    Plug 'Valloric/YouCompleteMe'
+endif
+
 
 " snippets
 Plug 'SirVer/ultisnips'
