@@ -145,3 +145,10 @@ if [ $HOSTNAME = "kraken" ]; then
     source /opt/intel/composer_xe_2013.1.117/bin/compilervars.sh intel64
 fi
 
+
+# For when working on local stuff
+
+if test -d $HOME/opt/libevent; then LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/libevent/lib; fi
+
+
+
