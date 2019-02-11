@@ -67,6 +67,8 @@ Plug 'majutsushi/tagbar'
 " Syntax checker
 " Plug 'vim-syntastic/syntastic'
 Plug 'w0rp/ale'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
 let g:ale_sign_warning = '▴'
 let g:ale_sign_error = 'X'
 " Clear the background colors of ALe
@@ -76,6 +78,7 @@ highlight link ALEErrorSign Title
 " removed fortran support until i find solution
 let g:ale_linters = {
     \   'fortran': [],
+    \   'python': [],
     \}
 
 
@@ -401,6 +404,7 @@ set nowb
 set hidden
 
 " Say no to code folding...
+" autocmd BufRead,BufEnter *.css setlocal foldmethod=marker
 set nofoldenable
 
 " Disable K looking stuff up
@@ -447,7 +451,11 @@ set softtabstop=4
 set shiftwidth=4
 set shiftround
 set expandtab
-autocmd FileType make setlocal noexpandtab " do not change it for makefiles
+
+" do not convert tab to space for these filetypes
+" do not change it for makefiles
+autocmd FileType make setlocal noexpandtab
+autocmd FileType cpp setlocal noexpandtab
 
 " easier moving of code blocks
 vnoremap < <gv " better indentation
@@ -667,5 +675,12 @@ cmap w!! w !sudo tee % > /dev/null
 " Writing mode
 " For distraction free writing
 "
+
+
+" Ignore whitespace diff mode
+if &diff
+    " diff mode
+    set diffopt+=iwhite
+endif
 
 
