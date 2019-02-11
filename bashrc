@@ -19,6 +19,7 @@ if test -f /etc/bash_completion.d/tma; then . /etc/bash_completion.d/tma; fi
 if test -d "/opt/bin"; then PATH="/opt/bin:$PATH"; fi
 if test -d "/opt/sbin"; then PATH="/opt/sbin:$PATH"; fi
 if test -d "$HOME/bin"; then PATH="$HOME/bin:$PATH"; fi
+if test -d "$HOME/bin/bin-anaconda"; then PATH="$HOME/bin/bin-anaconda:$PATH"; fi
 
 # pip local
 if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi
@@ -146,9 +147,15 @@ if [ $HOSTNAME = "kraken" ]; then
 fi
 
 
+if test -d /opt/intel; then
+    for x in /opt/intel/licenses/*.lic; do
+        export INTEL_LICENSE_FILE=$x
+    done
+    source /opt/intel/bin/compilervars.sh intel64
+fi
+
+
 # For when working on local stuff
 
 if test -d $HOME/opt/libevent; then LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/libevent/lib; fi
-
-
 
