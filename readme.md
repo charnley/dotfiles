@@ -10,6 +10,10 @@ I seperated my dotfiles for my X enviroment and terminal stuff. This repo is onl
 
 I run i3wm on Debian.
 
+# Setup on fresh debian
+
+    sudo apt install git make curl vim
+
 
 # Appearance
 
