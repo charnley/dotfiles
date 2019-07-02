@@ -8,3 +8,12 @@ Host sunray
 Host london
     ForwardX11 yes
 
+Host scicore
+    HostName login.scicore.unibas.ch
+    ForwardX11 yes
+    User bexusi36
+
+Host pc-avl03
+    HostName pc-avl03.chemie.unibas.ch
+    User jimmy
+

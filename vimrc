@@ -95,6 +95,7 @@ endif
 " snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+let g:UltiSnipsSnippetDirectories=["~/.vim/snippets"]
 
 " CSApprox
 " Makes GVIM themes work in terminals

@@ -1,12 +1,14 @@
 
 # Preserve bash history in multiple terminal windows
-export HISTCONTROL=ignoredups:erasedups:ignorespace  # no duplicate entries
+export HISTCONTROL=ignoredups:erasedups:ignorespace
+export HISTIGNORE='ls:bf:fg:history:l:sound:dock:undock:headphones:top:l:mocp:rm'
 export HISTSIZE=100000                   # big big history
 export HISTFILESIZE=100000               # big big history
 shopt -s histappend                      # append to history, don't overwrite it
 
 # Save and reload the history after each command finishes
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+export PROMPT_COMMAND='history -a'
+# export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # all my aliases
 if test -f ~/.bash_aliases; then . ~/.bash_aliases; fi
@@ -16,13 +18,13 @@ if test -f /etc/bash_completion; then . /etc/bash_completion; fi
 if test -f /etc/bash_completion.d/tma; then . /etc/bash_completion.d/tma; fi
 
 # Extend $PATH envirument
+if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi
 if test -d "/opt/bin"; then PATH="/opt/bin:$PATH"; fi
 if test -d "/opt/sbin"; then PATH="/opt/sbin:$PATH"; fi
 if test -d "$HOME/bin"; then PATH="$HOME/bin:$PATH"; fi
 if test -d "$HOME/bin/bin-anaconda"; then PATH="$HOME/bin/bin-anaconda:$PATH"; fi
+# if test -d "$HOME/opt/gaussian_09"; then PATH="$HOME/opt/gaussian_09:$PATH"; fi
 
-# pip local
-if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi
 
 # I would like to have colours in my terminal
 if test $TERM == "xterm"; then export TERM=xterm-256color; fi
@@ -91,7 +93,7 @@ case $HOSTNAME in
     fend0[1-5].cluster )
         export PS1="$Yellow\h$Color_Off $Cyan\W$Color_Off"
         export PS1NOGIT="True";;
-    tutu )
+    laptop )
         export PS1="$Blue\h $Cyan\W$Color_Off";;
     * )
         export PS1="$Yellow\h$Color_Off $Cyan\W$Color_Off";;
@@ -158,4 +160,15 @@ fi
 # For when working on local stuff
 
 if test -d $HOME/opt/libevent; then LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/libevent/lib; fi
+
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[ -f /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/serverless.bash ] && . /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/serverless.bash
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[ -f /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/sls.bash ] && . /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/sls.bash
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[ -f /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/slss.bash ] && . /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/slss.bash
 
