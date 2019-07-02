@@ -104,7 +104,7 @@ Plug 'vim-scripts/CSApprox'
 
 " Theme Plug
 " Plug 'flazz/vim-colorschemes'
-Plug 'nanotech/jellybeans.vim'
+" Plug 'nanotech/jellybeans.vim'
 Plug 'tomasiser/vim-code-dark'
 
 
@@ -359,21 +359,19 @@ nmap ; :Buffers<CR>
 " colorscheme desertEx
 " colorscheme jellybeans
 " colorscheme wombat256mod
+" colorscheme codedark
 set t_Co=256
 set t_ut=
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
 try
-" colorscheme jellybeans
-colorscheme codedark
+    let g:codedark_conservative = 0
+    colorscheme codedark
 catch
-set background=dark
+    set background=dark
 endtry
 syntax on
 
-let g:jellybeans_overrides = {
-\    'background': { 'guibg': 'ffffff' },
-\}
 
 
 
@@ -590,6 +588,24 @@ set cmdheight=1
 " fzf (fuzzy finder)
 map <leader>f :FZF<CR>
 
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <Leader><Enter> :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
+
 
 " TagBar
 map <leader>l :TagbarToggle<CR>
@@ -684,4 +700,8 @@ if &diff
     set diffopt+=iwhite
 endif
 
+
+" mouse
+set mouse=a
+set ttymouse=xterm
 
