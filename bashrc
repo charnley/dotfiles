@@ -119,9 +119,8 @@ fi
 export PS1=$PS1"$Color_Off \$ "
 
 # If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\h: \w\a\]$PS1"
+case "$TERM" in xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\w\a\]$PS1"
     ;;
 *)
     ;;
