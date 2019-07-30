@@ -131,30 +131,36 @@ esac
 
 # intel
 
-if [ $HOSTNAME = "sunray" ]; then
-    export INTEL_LICENSE_FILE=/home/charnley/intel/licenses/l_FR4Z3C6V.lic
-    source /home/charnley/intel/bin/compilervars.sh intel64
-fi
+# if [ $HOSTNAME = "sunray" ]; then
+#     export INTEL_LICENSE_FILE=/home/charnley/intel/licenses/l_FR4Z3C6V.lic
+#     source /home/charnley/intel/bin/compilervars.sh intel64
+# fi
 
 # if [ $HOSTNAME = "anton" ]; then
 #     export INTEL_LICENSE_FILE=/home/charnley/intel/licenses/NCOM_L___2HWS-V94RP65L_1.lic
 #     source /home/charnley/intel/bin/compilervars.sh intel64
 # fi
 
-if [ $HOSTNAME = "kraken" ]; then
-    # intel
-    export INTEL_LICENSE_FILE=/opt/intel/composer_xe_2013.1.117/licenses/l_PZD5J4XH.lic
-    source /opt/intel/composer_xe_2013.1.117/bin/compilervars.sh intel64
-fi
+# if [ $HOSTNAME = "kraken" ]; then
+#     # intel
+#     export INTEL_LICENSE_FILE=/opt/intel/composer_xe_2013.1.117/licenses/l_PZD5J4XH.lic
+#     source /opt/intel/composer_xe_2013.1.117/bin/compilervars.sh intel64
+# fi
 
 
-if test -d /opt/intel; then
+if test -d /opt/intel/licenses; then
     for x in /opt/intel/licenses/*.lic; do
         export INTEL_LICENSE_FILE=$x
     done
     source /opt/intel/bin/compilervars.sh intel64
 fi
 
+if test -d $HOME/intel; then
+    for x in $HOME/intel/licenses/*.lic; do
+        export INTEL_LICENSE_FILE=$x
+    done
+    source $HOME/intel/bin/compilervars.sh intel64
+fi
 
 # For when working on local stuff
 
