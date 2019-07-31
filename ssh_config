@@ -12,3 +12,12 @@ Host alchemy
     HostName pc-alchemy.chemie.unibas.ch
     User charnley
 
+Host scicore
+    HostName login.scicore.unibas.ch
+    ForwardX11 yes
+    User bexusi36
+
+Host pc-avl03
+    HostName pc-avl03.chemie.unibas.ch
+    User jimmy
+

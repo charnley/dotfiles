@@ -109,10 +109,12 @@ alias month='gcalcli calm'
 # Others Shortcuts
 alias ls='ls --color'
 alias l='ls -lh'
+
 alias cd.='cd ..'
 alias cd..='cd ..'
 alias cd...='cd ../..'
-alias u='cd ..'
+alias b='cd ..'
+
 alias v='vim -p'
 alias e='vim -p'
 alias vi='vim -p'
@@ -149,22 +151,38 @@ function take {
 extract () {
     if [ -f $1 ] ; then
         case $1 in
-            *.tar.bz2)   tar xvjf $1    ;;
-            *.tar.gz)    tar xvzf $1    ;;
-            *.bz2)       bunzip2 $1     ;;
-            *.rar)       unrar x $1     ;;
-#            *.gz)        gunzip $1      ;;
-            *.gz)        tar xvf $1      ;;
-            *.tar)       tar xvf $1     ;;
-            *.tbz2)      tar xvjf $1    ;;
-            *.tgz)       tar xvzf $1    ;;
-            *.zip)       unzip $1       ;;
-            *.Z)         uncompress $1  ;;
-            *.7z)        7z x $1        ;;
-            *.tar.*)     tar xvf $1      ;;
+            *.tar.bz2)   tar xvjf $1 ;;
+            *.tar.gz)    tar xvzf $1 ;;
+            *.bz2)       bunzip2 $1 ;;
+            *.rar)       unrar x $1 ;;
+#            *.gz)        gunzip $1 ;;
+            *.gz)        tar xvf $1 ;;
+            *.tar)       tar xvf $1 ;;
+            *.tbz2)      tar xvjf $1 ;;
+            *.tgz)       tar xvzf $1 ;;
+            *.zst)       tar -I zstd xvzf $1 ;;
+            *.zip)       unzip $1 ;;
+            *.Z)         uncompress $1 ;;
+            *.7z)        7z x $1 ;;
+            *.tar.*)     tar xvf $1 ;;
             *)           echo "don't know how to extract '$1'..." ;;
         esac
     else
         echo "'$1' is not a valid file!"
     fi
 }
+
+how_in()
+{
+  where="$1"; shift
+  IFS=+ curl "https://cht.sh/$where/ $*"
+}
+
+
+# fun
+alias emoji_shrug='echo -n "¯\_(ツ)_/¯" | xclip -selection clipboard'
+alias emoji_run='echo -n "ᕕ( ᐛ )ᕗ" | xclip -selection clipboard'
+
+alias myip='echo $(curl -s https://api.ipify.org)'
+
+
