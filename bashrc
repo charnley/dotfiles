@@ -81,6 +81,10 @@ Jobs="\j"
 # export PS1="$Blue\h$Color_Off $Cyan\W$Color_Off"
 
 case $HOSTNAME in
+    *login10* )
+        export PS1="$Red\h$Color_Off $Cyan\W$Color_Off"
+        export TERM=xterm
+        export PS1NOGIT="True";;
     sunray )
         export PS1="$Red\h$Color_Off $Cyan\W$Color_Off";;
     london )
@@ -150,5 +154,5 @@ fi
 
 if test -d $HOME/opt/libevent; then LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/libevent/lib; fi
 
-
+alias qf='~jacquot/bin/node_list.py | egrep "shi|lhi|lii"'
 

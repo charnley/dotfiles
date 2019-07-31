@@ -8,3 +8,7 @@ Host sunray
 Host london
     ForwardX11 yes
 
+Host alchemy
+    HostName pc-alchemy.chemie.unibas.ch
+    User charnley
+

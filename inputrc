@@ -4,3 +4,7 @@ set completion-ignore-case On
 set meta-flag on
 set convert-meta off
 set output-meta on
+
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+
