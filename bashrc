@@ -152,6 +152,14 @@ if [ $HOSTNAME = "kraken" ]; then
 fi
 
 
+if test -d $HOME/intel; then
+    for x in $HOME/intel/licenses/*.lic; do
+        export INTEL_LICENSE_FILE=$x
+    done
+    source $HOME/intel/bin/compilervars.sh intel64
+fi
+
+
 if test -d /opt/intel; then
     for x in /opt/intel/licenses/*.lic; do
         export INTEL_LICENSE_FILE=$x
