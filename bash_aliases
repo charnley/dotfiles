@@ -83,7 +83,7 @@ alias gc='gitclone' # from bin
 
 # tmux shortcuts
 alias tm='tmux'
-alias tma='tmux attach -t $1'
+alias tma='tmux attach -dt $1'
 alias tml='tmux ls'
 alias tmk='tmux kill-session -t $1'
 alias tmg='tmux new -s $(basename $(pwd))'
