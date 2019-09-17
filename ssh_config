@@ -34,3 +34,6 @@ Host sci_alchemy
     User charnley
     ProxyJump scicore
 
+Host sci_redis
+    HostName 131.152.105.45
+    ProxyJump scicore
