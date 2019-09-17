@@ -138,14 +138,14 @@ esac
 
 # intel
 
-if test -d /opt/intel; then
+if test -d /opt/intel/licenses; then
     for x in /opt/intel/licenses/*.lic; do
         export INTEL_LICENSE_FILE=$x
     done
     source /opt/intel/bin/compilervars.sh intel64
 fi
 
-if test -d $HOME/intel; then
+if test -d $HOME/intel/licenses; then
     for x in $HOME/intel/licenses/*.lic; do
         export INTEL_LICENSE_FILE=$x
     done
@@ -154,8 +154,7 @@ fi
 
 # For when working on local stuff
 
-if test -d $HOME/opt/libevent; then LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/libevent/lib; fi
-
+# scicore
 alias qf='~jacquot/bin/node_list.py | egrep "shi|lhi|lii"'
 
 # tabtab source for serverless package
