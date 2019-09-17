@@ -5,8 +5,11 @@ Host *
 Host sunray
     ForwardX11 yes
 
-Host london
-    ForwardX11 yes
+# Host london
+#     ForwardX11 yes
+
+Host alchemy
+    User charnley
 
 Host alchemy
     HostName pc-alchemy.chemie.unibas.ch
@@ -16,8 +19,18 @@ Host scicore
     HostName login.scicore.unibas.ch
     ForwardX11 yes
     User bexusi36
+    ServerAliveInterval 60
 
 Host pc-avl03
     HostName pc-avl03.chemie.unibas.ch
     User jimmy
+
+Host sci_gn2080ti
+    HostName pc-avl13.chemie.unibas.ch
+    User charnley
+    ProxyJump scicore
+
+Host sci_alchemy
+    User charnley
+    ProxyJump scicore
 
