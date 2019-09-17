@@ -17,13 +17,16 @@ if test -f ~/.bash_aliases; then . ~/.bash_aliases; fi
 if test -f /etc/bash_completion; then . /etc/bash_completion; fi
 if test -f /etc/bash_completion.d/tma; then . /etc/bash_completion.d/tma; fi
 
-# Extend $PATH envirument
+# Extend $PATH environment
 if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi
 if test -d "/opt/bin"; then PATH="/opt/bin:$PATH"; fi
 if test -d "/opt/sbin"; then PATH="/opt/sbin:$PATH"; fi
+if test -d "/snap/bin"; then PATH="/snap/bin:$PATH"; fi
 if test -d "$HOME/bin"; then PATH="$HOME/bin:$PATH"; fi
+
+#
 if test -d "$HOME/bin/bin-anaconda"; then PATH="$HOME/bin/bin-anaconda:$PATH"; fi
-# if test -d "$HOME/opt/gaussian_09"; then PATH="$HOME/opt/gaussian_09:$PATH"; fi
+if test -d "$HOME/opt/gaussian_09"; then PATH="$HOME/opt/gaussian_09:$PATH"; fi
 
 
 # I would like to have colours in my terminal
@@ -134,23 +137,6 @@ esac
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # intel
-
-# if [ $HOSTNAME = "sunray" ]; then
-#     export INTEL_LICENSE_FILE=/home/charnley/intel/licenses/l_FR4Z3C6V.lic
-#     source /home/charnley/intel/bin/compilervars.sh intel64
-# fi
-
-# if [ $HOSTNAME = "anton" ]; then
-#     export INTEL_LICENSE_FILE=/home/charnley/intel/licenses/NCOM_L___2HWS-V94RP65L_1.lic
-#     source /home/charnley/intel/bin/compilervars.sh intel64
-# fi
-
-# if [ $HOSTNAME = "kraken" ]; then
-#     # intel
-#     export INTEL_LICENSE_FILE=/opt/intel/composer_xe_2013.1.117/licenses/l_PZD5J4XH.lic
-#     source /opt/intel/composer_xe_2013.1.117/bin/compilervars.sh intel64
-# fi
-
 
 if test -d $HOME/intel; then
     for x in /opt/intel/licenses/*.lic; do
