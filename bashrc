@@ -138,7 +138,7 @@ esac
 
 # intel
 
-if test -d $HOME/intel; then
+if test -d /opt/intel; then
     for x in /opt/intel/licenses/*.lic; do
         export INTEL_LICENSE_FILE=$x
     done
