@@ -26,7 +26,7 @@ else
     then
         cat ~/.vbuf | pbcopy
     else
-        ssh $host "cat ~/.vbuf" | pbcopy
+        ssh $input "cat ~/.vbuf" | pbcopy
     fi
 
 fi
