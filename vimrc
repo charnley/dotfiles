@@ -447,6 +447,8 @@ nmap ^[} :tabprevious<cr>
 imap ^[} <ESC>:tabprevious<cr>
 
 " Indentation
+" set paste
+" set nopaste
 set pastetoggle=<F2> " Press F2 in insert mode for better paste
 set tabstop=4
 set softtabstop=4
