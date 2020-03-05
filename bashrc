@@ -170,3 +170,5 @@ alias qf='~jacquot/bin/node_list.py | egrep "shi|lhi|lii"'
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [ -f /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/slss.bash ] && . /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/slss.bash
 
+mesg n
+
