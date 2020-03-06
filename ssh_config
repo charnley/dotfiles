@@ -1,39 +1,11 @@
+
 Host *
     PermitLocalCommand yes
     LocalCommand if [[ $TERM == screen*  ]]; then printf "\033k%h\033\\"; fi
+    ForwardX11 yes
 
 Host sunray
     ForwardX11 yes
 
-# Host london
-#     ForwardX11 yes
+Include ssh_config.local
 
-Host alchemy
-    User charnley
-
-Host alchemy
-    HostName pc-alchemy.chemie.unibas.ch
-    User charnley
-
-Host scicore
-    HostName login.scicore.unibas.ch
-    ForwardX11 yes
-    User bexusi36
-    ServerAliveInterval 60
-
-Host pc-avl03
-    HostName pc-avl03.chemie.unibas.ch
-    User jimmy
-
-Host sci_gn2080ti
-    HostName pc-avl13.chemie.unibas.ch
-    User charnley
-    ProxyJump scicore
-
-Host sci_alchemy
-    User charnley
-    ProxyJump scicore
-
-Host sci_redis
-    HostName 131.152.105.45
-    ProxyJump scicore
