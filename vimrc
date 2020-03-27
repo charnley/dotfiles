@@ -93,9 +93,9 @@ endif
 
 
 " snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-let g:UltiSnipsSnippetDirectories=["~/.vim/snippets"]
+" Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
+" let g:UltiSnipsSnippetDirectories=["~/.vim/snippets"]
 
 " CSApprox
 " Makes GVIM themes work in terminals
@@ -228,6 +228,9 @@ nmap <silent> <leader>w :Goyo<CR>
 
 " On window resize, if goyo is active, do <c-w>= to resize the window
 autocmd VimResized * if exists('#goyo') | exe "normal \<c-w>=" | endif
+
+" Auto ident
+Plug 'ldx/vim-indentfinder'
 
 call plug#end()
 
