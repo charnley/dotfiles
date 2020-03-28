@@ -157,18 +157,8 @@ fi
 
 # For when working on local stuff
 
-# scicore
-alias qf='~jacquot/bin/node_list.py | egrep "shi|lhi|lii"'
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[ -f /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/serverless.bash ] && . /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/serverless.bash
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[ -f /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/sls.bash ] && . /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/sls.bash
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[ -f /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/slss.bash ] && . /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/slss.bash
-
+# Don't send me messages
 mesg n
+
+if test -f $HOME/.bashrc_local; then source $HOME/.bashrc_local; fi
 
