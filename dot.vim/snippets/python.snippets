@@ -1,0 +1,17 @@
+# if __name__ == '__main__':
+snippet ifmainarg
+	def main():
+		import sys
+		import argparse
+		parser = argparse.ArgumentParser()
+		parser.add_argument('-v', '--version', action='version', version="1.0")
+		parser.add_argument('--format', action='store', help='', metavar='FMT')
+
+		args = parser.parse_args()
+
+		${0}
+
+		return
+
+	if __name__ == '__main__':
+		main()
