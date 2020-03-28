@@ -25,11 +25,11 @@ if test -d "/snap/bin"; then PATH="/snap/bin:$PATH"; fi
 if test -d "$HOME/bin"; then PATH="$HOME/bin:$PATH"; fi
 
 #
-if test -d "$HOME/bin/bin-anaconda"; then PATH="$HOME/bin/bin-anaconda:$PATH"; fi
 if test -d "$HOME/opt/gaussian_09"; then PATH="$HOME/opt/gaussian_09:$PATH"; fi
 
 # Actually, just overwrite python
 if test -d "$HOME/opt/anaconda3"; then PATH="$HOME/opt/anaconda3/bin:$PATH"; fi
+if test -d "$HOME/opt/miniconda3"; then PATH="$HOME/opt/miniconda3/bin:$PATH"; fi
 
 
 # I would like to have colours in my terminal
