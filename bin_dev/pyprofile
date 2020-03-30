@@ -1,0 +1,6 @@
+#!/bin/bash
+
+python=$1
+cmd="$1 -m cProfile -s tottime -o profile.cprof ${@:2}"
+$cmd
+
