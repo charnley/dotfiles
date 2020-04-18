@@ -87,25 +87,26 @@ let g:ale_linters = {
 let tex_no_error=1
 
 " completer
-if v:version < 703
-    Plug 'Valloric/YouCompleteMe'
-endif
-
-
 " snippets
 " Plug 'SirVer/ultisnips'
 " Plug 'honza/vim-snippets'
 " let g:UltiSnipsSnippetDirectories=["~/.vim/snippets"]
+if v:version < 800
+" Plug 'Valloric/YouCompleteMe'
+endif
 
 " CSApprox
 " Makes GVIM themes work in terminals
 Plug 'vim-scripts/CSApprox'
+Plug 'dracula/vim'
+Plug 'nanotech/jellybeans.vim'
 
 
 " Theme Plug
 " Plug 'flazz/vim-colorschemes'
-" Plug 'nanotech/jellybeans.vim'
-Plug 'tomasiser/vim-code-dark'
+" Plug 'tomasiser/vim-code-dark'
+Plug 'nanotech/jellybeans.vim'
+Plug 'altercation/vim-colors-solarized'
 
 
 " L9
@@ -374,7 +375,6 @@ catch
     set background=dark
 endtry
 syntax on
-
 
 
 
@@ -666,6 +666,13 @@ inoremap <C-S-Left> <Home>
 nnoremap <C-S-Right> <End>
 inoremap <C-S-Right> <End>
 
+" ---------------
+" vimdiff
+" ---------------
+if &diff
+    " ignore whitespace in diffmode
+    set diffopt+=iwhite
+endif
 
 " ----------------------------------------
 " GAMESS Settings

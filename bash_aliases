@@ -7,11 +7,15 @@ if [ $HOSTNAME = "sunray" ]; then
     alias sun_idle='sinfo | grep idle'
     alias sun_busy='sinfo | grep alloc; sinfo | grep mix'
 
-    alias q='squeue -u $USER'
-    alias ql='squeue | grep $USER | wc -l'
-
     # http://slurm.schedmd.com/squeue.html
-    alias sq='squeue -o "%.10i %.9P %.8u %.10j %.12M %.5D %.4C %R"'
+    # i - id
+    # P - partition
+    # u - username
+    # j - jobname
+    alias sq='squeue -o "%.10i %.9P %.8u %.20j %.12M %.5D %.4C %R"'
+
+    alias q='sq -u $USER'
+    alias ql='squeue -u $USER | grep $USER | wc -l'
 fi
 
 # Set standard editor
