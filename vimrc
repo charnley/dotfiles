@@ -97,8 +97,8 @@ endif
 
 " CSApprox
 " Makes GVIM themes work in terminals
-Plug 'vim-scripts/CSApprox'
-Plug 'dracula/vim'
+" Plug 'vim-scripts/CSApprox'
+" Plug 'dracula/vim'
 Plug 'nanotech/jellybeans.vim'
 
 
@@ -361,7 +361,7 @@ nmap ; :Buffers<CR>
 " ---------------
 " http://agonzalezro.github.io/best-vim-colors-ever.html
 " colorscheme desertEx
-" colorscheme jellybeans
+colorscheme jellybeans
 " colorscheme wombat256mod
 " colorscheme codedark
 set t_Co=256
