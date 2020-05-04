@@ -1,0 +1,5 @@
+#!/bin/bash
+
+log=$1
+pyprof2calltree -k -i $log 2> /dev/null &
+
