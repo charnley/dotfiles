@@ -194,11 +194,9 @@ let g:lightline = {
 	\ }
 
 
-
-" Auto pair brackets and others
-" Plug 'jiangmiao/auto-pairs'
-" Plug 'LucHermitte/lh-brackets'
-" Plug 'Townk/vim-autoclose'
+" Use release branch (Recommend)
+" IDE like behavior
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Indentation lines
 " usage: <leader>ig
