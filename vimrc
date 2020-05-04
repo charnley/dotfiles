@@ -26,6 +26,9 @@ filetype off
 
 
 call plug#begin()
+" PlugInstall
+" PlugUpgrade
+" PlugClean!
 
 " css colors
 Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus', 'vim'] }
@@ -82,7 +85,7 @@ let g:ale_linters = {
     \}
 
 
-" underscore is too common an false-positive error
+" underscore is too common a false-positive error
 " for urls and files
 let tex_no_error=1
 
@@ -93,9 +96,20 @@ endif
 
 
 " snippets
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
-" let g:UltiSnipsSnippetDirectories=["~/.vim/snippets"]
+
+" Track the engine.
+Plug 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+" Track custom snippets
+" reads ~/.vim/snippets automatic
+
 
 " CSApprox
 " Makes GVIM themes work in terminals
