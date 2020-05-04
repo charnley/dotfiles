@@ -17,6 +17,19 @@ if test -f ~/.bash_aliases; then . ~/.bash_aliases; fi
 if test -f /etc/bash_completion; then . /etc/bash_completion; fi
 if test -f /etc/bash_completion.d/tma; then . /etc/bash_completion.d/tma; fi
 
+# sunray specific commands
+# TODO should be, if sinfo exists
+if [ $HOSTNAME = "sunray" ]; then
+    alias sun_idle='sinfo | grep idle'
+    alias sun_busy='sinfo | grep alloc; sinfo | grep mix'
+
+    alias q='squeue -u $USER'
+    alias ql='squeue | grep $USER | wc -l'
+
+    # http://slurm.schedmd.com/squeue.html
+    alias sq='squeue -o "%.10i %.9P %.8u %.10j %.12M %.5D %.4C %R"'
+fi
+
 # Extend $PATH environment
 if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi
 if test -d "/opt/bin"; then PATH="/opt/bin:$PATH"; fi
@@ -31,6 +44,9 @@ if test -d "$HOME/opt/gaussian_09"; then PATH="$HOME/opt/gaussian_09:$PATH"; fi
 # Actually, just overwrite python
 if test -d "$HOME/opt/anaconda3"; then PATH="$HOME/opt/anaconda3/bin:$PATH"; fi
 
+
+# Others Shortcuts
+alias ls='ls --color'
 
 # I would like to have colours in my terminal
 if test $TERM == "xterm"; then export TERM=xterm-256color; fi
@@ -156,17 +172,4 @@ if test -d $HOME/intel/licenses; then
 fi
 
 # For when working on local stuff
-
-# scicore
-alias qf='~jacquot/bin/node_list.py | egrep "shi|lhi|lii"'
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[ -f /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/serverless.bash ] && . /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/serverless.bash
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[ -f /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/sls.bash ] && . /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/sls.bash
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[ -f /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/slss.bash ] && . /home/charnley/dev/2019-serverless/node_modules/tabtab/.completions/slss.bash
 

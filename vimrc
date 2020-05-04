@@ -521,6 +521,16 @@ nmap <S-y> :.w! ~/.vbuf<CR>
 " Paste the contents of the buffer file
 nmap <S-p> :r ~/.vbuf<CR>
 
+" Sends default register to terminal TTY using OSC 52 escape sequence
+" Thanks to https://github.com/leeren/dotfiles/blob/master/vim/.vim/autoload/yank.vim
+" function! yank#Osc52Yank()
+"     let buffer=system('base64 -w0', @0)
+"     let buffer=substitute(buffer, "\n$", "", "")
+"     let buffer='\e]52;c;'.buffer.'\x07'
+"     silent exe "!echo -ne ".shellescape(buffer).
+"         \ " > ".shellescape(g:tty)
+" endfunction
+
 " Fixes common typos
 command W w
 command Q q
@@ -707,4 +717,10 @@ endif
 " mouse
 set mouse=a
 set ttymouse=xterm
+
+
+" backup
+set backupdir=~/.vim/backup
+set directory=~/.vim/tmp
+set nobackup nowritebackup
 
