@@ -117,7 +117,7 @@ Plug 'vim-scripts/CSApprox'
 
 
 " Theme Plug
-" Plug 'flazz/vim-colorschemes'
+Plug 'flazz/vim-colorschemes'
 Plug 'nanotech/jellybeans.vim'
 Plug 'tomasiser/vim-code-dark'
 
@@ -194,11 +194,9 @@ let g:lightline = {
 	\ }
 
 
-
-" Auto pair brackets and others
-" Plug 'jiangmiao/auto-pairs'
-" Plug 'LucHermitte/lh-brackets'
-" Plug 'Townk/vim-autoclose'
+" Use release branch (Recommend)
+" IDE like behavior
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Indentation lines
 " usage: <leader>ig
@@ -374,19 +372,19 @@ nmap ; :Buffers<CR>
 " ---------------
 " http://agonzalezro.github.io/best-vim-colors-ever.html
 " colorscheme desertEx
-" colorscheme jellybeans
+colorscheme jellybeans
 " colorscheme wombat256mod
 " colorscheme codedark
 set t_Co=256
 set t_ut=
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
-try
-    let g:codedark_conservative = 0
-    colorscheme codedark
-catch
-    set background=dark
-endtry
+" try
+"     let g:codedark_conservative = 0
+"     colorscheme codedark
+" catch
+"     set background=dark
+" endtry
 syntax on
 
 
