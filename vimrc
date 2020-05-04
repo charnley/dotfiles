@@ -118,7 +118,7 @@ Plug 'vim-scripts/CSApprox'
 
 " Theme Plug
 " Plug 'flazz/vim-colorschemes'
-" Plug 'nanotech/jellybeans.vim'
+Plug 'nanotech/jellybeans.vim'
 Plug 'tomasiser/vim-code-dark'
 
 
