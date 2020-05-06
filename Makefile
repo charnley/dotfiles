@@ -20,8 +20,15 @@ symlink_clean:
 	rm -f ~/.vimrc ~/.gitconfig  ~/.bashrc ~/.bash_aliases ~/.bash_profile ~/.inputrc ~/.tmux.conf
 
 bash_autocomplete:
+	# TODO there should be a local equivalent
 	sudo cp bash_completion/tma /etc/bash_completion.d/tma
 	sudo cp bash_completion/tmk /etc/bash_completion.d/tmk
+
+zsh:
+	# TODO Download dependencies
+
+vim:
+	# TODO all dependencies, potentially compile yourself?
 
 vim_install:
 	./vim_install.sh
@@ -32,15 +39,24 @@ vim_update:
 fuzzy:
 	./fzf_setup.sh
 
-depends:
+packages:
 	sudo apt-get install silversearcher-ag # for fast searching
 	sudo apt-get install vim-nox # for python binding vim, for vim-plug (plugin manager)
 	sudo apt-get install tmux # keep my sessions alive
 	sudo apt-get install curl # vim install
 	sudo apt-get install tree # nice tool for showing tree of dir
 
+packages.linux:
+	# server related
+
+packages.linux.x:
+	echo # x related
+
+packages.mac:
+	# brew packages
+
 tmux_install:
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	git clone --depth 1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 bin_folder:
 	mkdir -p ~/bin
