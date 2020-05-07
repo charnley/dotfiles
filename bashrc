@@ -17,6 +17,19 @@ if test -f ~/.bash_aliases; then . ~/.bash_aliases; fi
 if test -f /etc/bash_completion; then . /etc/bash_completion; fi
 if test -f /etc/bash_completion.d/tma; then . /etc/bash_completion.d/tma; fi
 
+# sunray specific commands
+# TODO should be, if sinfo exists
+if [ $HOSTNAME = "sunray" ]; then
+    alias sun_idle='sinfo | grep idle'
+    alias sun_busy='sinfo | grep alloc; sinfo | grep mix'
+
+    alias q='squeue -u $USER'
+    alias ql='squeue | grep $USER | wc -l'
+
+    # http://slurm.schedmd.com/squeue.html
+    alias sq='squeue -o "%.10i %.9P %.8u %.10j %.12M %.5D %.4C %R"'
+fi
+
 # Extend $PATH environment
 if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi
 if test -d "/opt/bin"; then PATH="/opt/bin:$PATH"; fi
@@ -34,6 +47,9 @@ if test -d "$HOME/opt/miniconda3"; then PATH="$HOME/opt/miniconda3/bin:$PATH"; f
 # if git
 if test -d "$HOME/opt/git"; then PATH="$HOME/opt/git/bin:$PATH"; fi
 if test -f "$HOME/.git-prompt.sh"; then source $HOME/.git-prompt.sh; fi
+
+# Others Shortcuts
+alias ls='ls --color'
 
 # I would like to have colours in my terminal
 if test $TERM == "xterm"; then export TERM=xterm-256color; fi
@@ -157,8 +173,6 @@ if test -d $HOME/intel/licenses; then
     done
     source $HOME/intel/bin/compilervars.sh intel64
 fi
-
-# For when working on local stuff
 
 # Don't send me messages
 mesg n

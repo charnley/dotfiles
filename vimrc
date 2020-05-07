@@ -26,6 +26,9 @@ filetype off
 
 
 call plug#begin()
+" PlugInstall
+" PlugUpgrade
+" PlugClean!
 
 " css colors
 Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus', 'vim'] }
@@ -82,7 +85,7 @@ let g:ale_linters = {
     \}
 
 
-" underscore is too common an false-positive error
+" underscore is too common a false-positive error
 " for urls and files
 let tex_no_error=1
 
@@ -93,9 +96,20 @@ endif
 
 
 " snippets
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
-" let g:UltiSnipsSnippetDirectories=["~/.vim/snippets"]
+
+" Track the engine.
+Plug 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+" Track custom snippets
+" reads ~/.vim/snippets automatic
+
 
 " CSApprox
 " Makes GVIM themes work in terminals
@@ -103,8 +117,8 @@ Plug 'vim-scripts/CSApprox'
 
 
 " Theme Plug
-" Plug 'flazz/vim-colorschemes'
-" Plug 'nanotech/jellybeans.vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'nanotech/jellybeans.vim'
 Plug 'tomasiser/vim-code-dark'
 
 
@@ -180,11 +194,9 @@ let g:lightline = {
 	\ }
 
 
-
-" Auto pair brackets and others
-" Plug 'jiangmiao/auto-pairs'
-" Plug 'LucHermitte/lh-brackets'
-" Plug 'Townk/vim-autoclose'
+" Use release branch (Recommend)
+" IDE like behavior
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Indentation lines
 " usage: <leader>ig
@@ -360,19 +372,19 @@ nmap ; :Buffers<CR>
 " ---------------
 " http://agonzalezro.github.io/best-vim-colors-ever.html
 " colorscheme desertEx
-" colorscheme jellybeans
+colorscheme jellybeans
 " colorscheme wombat256mod
 " colorscheme codedark
 set t_Co=256
 set t_ut=
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
-try
-    let g:codedark_conservative = 0
-    colorscheme codedark
-catch
-    set background=dark
-endtry
+" try
+"     let g:codedark_conservative = 0
+"     colorscheme codedark
+" catch
+"     set background=dark
+" endtry
 syntax on
 
 
@@ -522,6 +534,16 @@ vmap <S-y> :w! ~/.vbuf<CR>
 nmap <S-y> :.w! ~/.vbuf<CR>
 " Paste the contents of the buffer file
 nmap <S-p> :r ~/.vbuf<CR>
+
+" Sends default register to terminal TTY using OSC 52 escape sequence
+" Thanks to https://github.com/leeren/dotfiles/blob/master/vim/.vim/autoload/yank.vim
+" function! yank#Osc52Yank()
+"     let buffer=system('base64 -w0', @0)
+"     let buffer=substitute(buffer, "\n$", "", "")
+"     let buffer='\e]52;c;'.buffer.'\x07'
+"     silent exe "!echo -ne ".shellescape(buffer).
+"         \ " > ".shellescape(g:tty)
+" endfunction
 
 " Fixes common typos
 command W w
@@ -709,4 +731,10 @@ endif
 " mouse
 set mouse=a
 set ttymouse=xterm
+
+
+" backup
+set backupdir=~/.vim/backup
+set directory=~/.vim/tmp
+set nobackup nowritebackup
 

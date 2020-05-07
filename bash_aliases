@@ -1,19 +1,4 @@
 
-# Set host
-alias sunray='ssh -YC sunray'
-
-# sunray specific commands
-if [ $HOSTNAME = "sunray" ]; then
-    alias sun_idle='sinfo | grep idle'
-    alias sun_busy='sinfo | grep alloc; sinfo | grep mix'
-
-    alias q='squeue -u $USER'
-    alias ql='squeue | grep $USER | wc -l'
-
-    # http://slurm.schedmd.com/squeue.html
-    alias sq='squeue -o "%.10i %.9P %.8u %.10j %.12M %.5D %.4C %R"'
-fi
-
 # Set standard editor
 export EDITOR=vi
 
@@ -33,6 +18,7 @@ alias gpl='git pull --rebase'
 
 alias ggl='fzf_log'
 
+alias l='ls -lh'
 
 function gitclone {
 
@@ -100,16 +86,6 @@ alias tmg='tmux new -s $(basename $(pwd))'
 # tmux clean. Kill all integer tmux sessions
 alias tmclean='tmux ls -F "#{session_name}" | while read -r line; do if [[ $line =~ ^-?[0-9]+$  ]]; then tmux kill-session -t $line; fi; done'
 
-# Calendar
-alias today='gcalcli agenda now tomorrow'
-alias week='gcalcli agenda now'
-alias todo='gcalcli agenda now'
-alias month='gcalcli calm'
-
-# Others Shortcuts
-alias ls='ls --color'
-alias l='ls -lh'
-
 alias cd.='cd ..'
 alias cd..='cd ..'
 alias cd...='cd ../..'
@@ -124,9 +100,6 @@ alias rs='rsync -azvh --progress'
 
 # download a song easy
 alias youtube-audio='youtube-dl --extract-audio --audio-format best'
-
-# open a new terminal
-alias x='rxvt &'
 
 # spotify
 alias spotplay="dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
