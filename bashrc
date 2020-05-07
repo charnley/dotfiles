@@ -31,6 +31,9 @@ if test -d "$HOME/opt/gaussian_09"; then PATH="$HOME/opt/gaussian_09:$PATH"; fi
 if test -d "$HOME/opt/anaconda3"; then PATH="$HOME/opt/anaconda3/bin:$PATH"; fi
 if test -d "$HOME/opt/miniconda3"; then PATH="$HOME/opt/miniconda3/bin:$PATH"; fi
 
+# if git
+if test -d "$HOME/opt/git"; then PATH="$HOME/opt/git/bin:$PATH"; fi
+if test -f "$HOME/.git-prompt.sh"; then source $HOME/.git-prompt.sh; fi
 
 # I would like to have colours in my terminal
 if test $TERM == "xterm"; then export TERM=xterm-256color; fi
