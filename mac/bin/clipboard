@@ -24,6 +24,7 @@ else
 
     if test -z $input;
     then
+        #tail -r ~/.vbuf | sed '/^$/d' | tail -r #| pbcopy
         cat ~/.vbuf | pbcopy
     else
         ssh $input "cat ~/.vbuf" | pbcopy
