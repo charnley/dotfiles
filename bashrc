@@ -141,12 +141,12 @@ esac
 
 # intel
 
-if test -d /opt/intel/licenses; then
-    for x in /opt/intel/licenses/*.lic; do
-        export INTEL_LICENSE_FILE=$x
-    done
-    source /opt/intel/bin/compilervars.sh intel64
-fi
+# if test -d /opt/intel/licenses; then
+#     for x in /opt/intel/licenses/*.lic; do
+#         export INTEL_LICENSE_FILE=$x
+#     done
+#     source /opt/intel/bin/compilervars.sh intel64
+# fi
 
 if test -d $HOME/intel/licenses; then
     for x in $HOME/intel/licenses/*.lic; do
