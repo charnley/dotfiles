@@ -4,14 +4,16 @@ configdir=`python3-config --configdir`
 prefix=$HOME/opt/vim
 install_dir=vim_build
 
-cd $HOME/opt
-
-git clone https://github.com/vim/vim.git $install_dir --depth 1
-
-cd $install_dir
-
+# cd $HOME/opt
+#
+# git clone https://github.com/vim/vim.git $install_dir --depth 1
+#
+# cd $install_dir
+#
 
 # Needs to have a python3 env activated
+# TODO Check that this was done succesfully
+source $CONDA_PREFIX/etc/profile.d/conda.sh
 conda activate
 
 # Clean up after yourself
