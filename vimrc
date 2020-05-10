@@ -1,8 +1,3 @@
-
-" TODO
-" Clean plugins
-" https://github.com/tpope/vim-surround
-" https://github.com/tpope/vim-endwise
 " - add fortran?
 
 " Use Vim settings, rather then Vi settings (much better!).
@@ -570,20 +565,6 @@ if has("autocmd")
         \   exe "normal! g`\"" |
         \ endif
 endif
-
-
-" tab and auto complete
-let g:SuperTabDefaultCompletionType    = '<C-n>'
-let g:SuperTabCrMapping                = 0
-let g:UltiSnipsExpandTrigger           = '<tab>'
-let g:UltiSnipsJumpForwardTrigger      = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
-let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
-
-" let g:SuperTabDefaultCompletionType = "context"
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
 
 " ----------------------------------------
