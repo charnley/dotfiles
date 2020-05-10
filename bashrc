@@ -192,34 +192,18 @@ mesg n
 
 if test -f $HOME/.bashrc_local; then source $HOME/.bashrc_local; fi
 
-# Setup conda probably
-    # if test -d "$HOME/opt/anaconda3"; then CONDADIR="$HOME/opt/anaconda3"; fi
-# if test -d "$HOME/opt/miniconda3"; then CONDADIR="$HOME/opt/miniconda3"; fi
-# __conda_setup="$('$CONDADIR/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "$CONDADIR/etc/profile.d/conda.sh" ]; then
-# # . "$CONDADIR/etc/profile.d/conda.sh"  # commented out by conda initialize
-#     else
-#         export PATH="$CONDADIR/bin:$PATH"
-#     fi
-# fi
-# unset __conda_setup
-
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/kromaji1/opt/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+# Setup conda generally
+if test -d "$HOME/opt/anaconda3"; then CONDA_PREFIX="$HOME/opt/anaconda3"; fi
+if test -d "$HOME/opt/miniconda3"; then CONDA_PREFIX="$HOME/opt/miniconda3"; fi
+__conda_setup="$('$CONDA_PREFIX/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/kromaji1/opt/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/kromaji1/opt/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "$CONDA_PREFIX/etc/profile.d/conda.sh" ]; then
+        . "$CONDA_PREFIX/etc/profile.d/conda.sh"
     else
-        export PATH="/home/kromaji1/opt/miniconda3/bin:$PATH"
+        export PATH="$CONDA_PREFIX/bin:$PATH"
     fi
 fi
 unset __conda_setup
-# <<< conda initialize <<<
 
