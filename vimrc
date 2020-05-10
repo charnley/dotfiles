@@ -91,14 +91,6 @@ let tex_no_error=1
 
 " completer
 " snippets
-<<<<<<< HEAD
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
-" let g:UltiSnipsSnippetDirectories=["~/.vim/snippets"]
-if v:version < 800
-" Plug 'Valloric/YouCompleteMe'
-endif
-=======
 
 " Track the engine.
 Plug 'SirVer/ultisnips'
@@ -113,8 +105,6 @@ let g:UltiSnipsEditSplit="vertical"
 " Track custom snippets
 " reads ~/.vim/snippets automatic
 
->>>>>>> b43e34a0e77cff6be8d1ecd027faef2a5e7e2ffa
-
 " CSApprox
 " Makes GVIM themes work in terminals
 " Plug 'vim-scripts/CSApprox'
@@ -123,16 +113,9 @@ Plug 'nanotech/jellybeans.vim'
 
 
 " Theme Plug
-<<<<<<< HEAD
-" Plug 'flazz/vim-colorschemes'
-" Plug 'tomasiser/vim-code-dark'
-Plug 'nanotech/jellybeans.vim'
-Plug 'altercation/vim-colors-solarized'
-=======
 Plug 'flazz/vim-colorschemes'
 Plug 'nanotech/jellybeans.vim'
 Plug 'tomasiser/vim-code-dark'
->>>>>>> b43e34a0e77cff6be8d1ecd027faef2a5e7e2ffa
 
 
 " L9
