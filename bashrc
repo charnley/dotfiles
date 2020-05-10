@@ -15,35 +15,54 @@ if test -f ~/.bash_aliases; then . ~/.bash_aliases; fi
 
 # bash completion
 if test -f /etc/bash_completion; then . /etc/bash_completion; fi
-if test -f /etc/bash_completion.d/tma; then . /etc/bash_completion.d/tma; fi
+if test -f $HOME/git/dotfiles/bash_completion/tma; then . $HOME/git/dotfiles/bash_completion/tma; fi
+if test -f $HOME/git/dotfiles/bash_completion/tmk; then . $HOME/git/dotfiles/bash_completion/tmk; fi
 
-# sunray specific commands
-# TODO should be, if sinfo exists
-if [ $HOSTNAME = "sunray" ]; then
-    alias sun_idle='sinfo | grep idle'
-    alias sun_busy='sinfo | grep alloc; sinfo | grep mix'
+# slurm specific commands
+if test -x "$(command -v sinfo)"; then
+    alias s_idle='sinfo | grep idle'
+    alias s_busy='sinfo | grep alloc; sinfo | grep mix'
 
     alias q='squeue -u $USER'
     alias ql='squeue | grep $USER | wc -l'
 
     # http://slurm.schedmd.com/squeue.html
-    alias sq='squeue -o "%.10i %.9P %.8u %.10j %.12M %.5D %.4C %R"'
+    alias qs='squeue -o "%.10i %.9P %.8u %.10j %.12M %.5D %.4C %R"'
 fi
 
 # Extend $PATH environment
+
+# Pip installed packages
 if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi
+
+# Gem installed packages
+# TODO Make it non-version specific
+rubyver=2.7.1
+if test -d "$HOME/.rbenv/"; then PATH="$HOME/.rbenv/bin:$PATH"; fi
+if test -d "$HOME/.rbenv/"; then PATH="$HOME/.rbenv/versions/$rubyver/bin:$PATH"; fi
+if test -d "$HOME/.gem/"; then PATH="$HOME/.gem/ruby/$rubyver/bin:$PATH"; fi
+
+# Global bins
 if test -d "/opt/bin"; then PATH="/opt/bin:$PATH"; fi
 if test -d "/opt/sbin"; then PATH="/opt/sbin:$PATH"; fi
 if test -d "/snap/bin"; then PATH="/snap/bin:$PATH"; fi
+
+# if custom vim
+if test -d "$HOME/opt/vim"; then PATH="$HOME/opt/vim/bin:$PATH"; fi
+
+# My own bins
 if test -d "$HOME/bin"; then PATH="$HOME/bin:$PATH"; fi
 
-#
+# If gaussian
 if test -d "$HOME/opt/gaussian_09"; then PATH="$HOME/opt/gaussian_09:$PATH"; fi
 
 # Actually, just overwrite python
 if test -d "$HOME/opt/anaconda3"; then PATH="$HOME/opt/anaconda3/bin:$PATH"; fi
 if test -d "$HOME/opt/miniconda3"; then PATH="$HOME/opt/miniconda3/bin:$PATH"; fi
 
+# if git
+if test -d "$HOME/opt/git"; then PATH="$HOME/opt/git/bin:$PATH"; fi
+if test -f "$HOME/.git-prompt.sh"; then source $HOME/.git-prompt.sh; fi
 
 # Others Shortcuts
 alias ls='ls --color'
@@ -171,6 +190,23 @@ if test -d $HOME/intel/licenses; then
     source $HOME/intel/bin/compilervars.sh intel64
 fi
 
-# Don't write me
+# Don't send me messages
 mesg n
+
+if test -f $HOME/.bashrc_local; then source $HOME/.bashrc_local; fi
+
+# Setup conda generally
+if test -d "$HOME/opt/anaconda3"; then CONDA_PREFIX="$HOME/opt/anaconda3"; fi
+if test -d "$HOME/opt/miniconda3"; then CONDA_PREFIX="$HOME/opt/miniconda3"; fi
+__conda_setup="$('$CONDA_PREFIX/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "$CONDA_PREFIX/etc/profile.d/conda.sh" ]; then
+        . "$CONDA_PREFIX/etc/profile.d/conda.sh"
+    else
+        export PATH="$CONDA_PREFIX/bin:$PATH"
+    fi
+fi
+unset __conda_setup
 

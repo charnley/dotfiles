@@ -19,11 +19,6 @@ symlink:
 symlink_clean:
 	rm -f ~/.vimrc ~/.gitconfig  ~/.bashrc ~/.bash_aliases ~/.bash_profile ~/.inputrc ~/.tmux.conf
 
-bash_autocomplete:
-	# TODO there should be a local equivalent
-	sudo cp bash_completion/tma /etc/bash_completion.d/tma
-	sudo cp bash_completion/tmk /etc/bash_completion.d/tmk
-
 zsh:
 	# TODO Download dependencies
 
