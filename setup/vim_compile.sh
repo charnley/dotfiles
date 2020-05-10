@@ -1,16 +1,36 @@
 #!/bin/bash
-#
-# cd $HOME/opt
-#
-# git clone https://github.com/vim/vim.git vim_build --depth 1
-#
-# cd vim_build
-    # --with-python3-config-dir=$HOME/opt/miniconda3/lib/python3.7/config-3.7m-x86_64-linux-gnu \
 
+configdir=`python3-config --configdir`
+prefix=$HOME/opt/vim
+install_dir=vim_build
+
+cd $HOME/opt
+
+git clone https://github.com/vim/vim.git $install_dir --depth 1
+
+cd $install_dir
+
+
+# Needs to have a python3 env activated
+conda activate
+
+# Clean up after yourself
+make distclean
+
+# TODO
+# --enable-rubyinterp=yes \
+# --enable-perlinterp=yes \
+# --enable-luainterp=yes \
+# --enable-gui=gtk2 \
 
 ./configure --with-features=huge \
+    --enable-cscope \
+    --enable-multibyte \
     --enable-python3interp=yes \
+    --with-python3-config-dir=$configdir \
     --prefix=$HOME/opt/vim
 
-# make
+make
+
+make install
 
