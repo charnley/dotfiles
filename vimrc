@@ -522,7 +522,25 @@ set nospell
 " copy'n'paste multisession
 " Shift+y will yank the selection to work
 " with multiple sessions of VIM
-"
+" https://sunaku.github.io/tmux-yank-osc52.html
+
+function! OscCopyVbuf()
+  let executeCmd='yank ~/.vbuf'
+  call system(executeCmd)
+  redraw!
+endfunction
+command! OscCopyVbuf :call OscCopyVbuf()
+
+function! OscYank(text) abort
+  let escape = system('yank', a:text)
+  if v:shell_error
+    echoerr escape
+  else
+    call writefile([escape], '/dev/tty', 'b')
+  endif
+endfunction
+noremap <silent> <Leader>y y:<C-U>call OscYank(@0)<CR>
+
 " Copy the current visual slection to ~/.vbuf
 vmap <S-y> :w! ~/.vbuf<CR>
 " Copy the current line to the buffer file if no visual selection
@@ -530,15 +548,6 @@ nmap <S-y> :.w! ~/.vbuf<CR>
 " Paste the contents of the buffer file
 nmap <S-p> :r ~/.vbuf<CR>
 
-" Sends default register to terminal TTY using OSC 52 escape sequence
-" Thanks to https://github.com/leeren/dotfiles/blob/master/vim/.vim/autoload/yank.vim
-" function! yank#Osc52Yank()
-"     let buffer=system('base64 -w0', @0)
-"     let buffer=substitute(buffer, "\n$", "", "")
-"     let buffer='\e]52;c;'.buffer.'\x07'
-"     silent exe "!echo -ne ".shellescape(buffer).
-"         \ " > ".shellescape(g:tty)
-" endfunction
 
 " Fixes common typos
 command W w
@@ -619,13 +628,6 @@ nnoremap <silent> <Leader><Enter> :call fzf#run({
 map <leader>l :TagbarToggle<CR>
 
 
-
-" closetag.vim
-" filenames like *.xml, *.html, *.xhtml, ...
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php"
-
-
-
 " Numbers
 " Only show relative numbers in visual mode
 let g:enable_numbers = 0
@@ -696,12 +698,6 @@ endif
 cmap w!! w !sudo tee % > /dev/null
 
 
-"
-" Writing mode
-" For distraction free writing
-"
-
-
 " Ignore whitespace diff mode
 if &diff
     " diff mode
@@ -710,7 +706,8 @@ endif
 
 
 " mouse
-set mouse=a
+" set mouse=a
+set mouse=i
 set ttymouse=xterm
 
 
