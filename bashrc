@@ -31,10 +31,23 @@ if [ $HOSTNAME = "sunray" ]; then
 fi
 
 # Extend $PATH environment
+
+# Pip installed packages
 if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi
+
+# Gem installed packages
+# TODO Make it non-version specific
+rubyver=2.7.1
+if test -d "$HOME/.rbenv/"; then PATH="$HOME/.rbenv/bin:$PATH"; fi
+if test -d "$HOME/.rbenv/"; then PATH="$HOME/.rbenv/versions/$rubyver/bin:$PATH"; fi
+if test -d "$HOME/.gem/"; then PATH="$HOME/.gem/ruby/$rubyver/bin:$PATH"; fi
+
+# Global bins
 if test -d "/opt/bin"; then PATH="/opt/bin:$PATH"; fi
 if test -d "/opt/sbin"; then PATH="/opt/sbin:$PATH"; fi
 if test -d "/snap/bin"; then PATH="/snap/bin:$PATH"; fi
+
+# My own bins
 if test -d "$HOME/bin"; then PATH="$HOME/bin:$PATH"; fi
 
 #
@@ -178,4 +191,13 @@ fi
 mesg n
 
 if test -f $HOME/.bashrc_local; then source $HOME/.bashrc_local; fi
+
+# init conda
+if test -f $HOME/opt/miniconda3/bin/conda; then
+    . "$HOME/opt/miniconda3/etc/profile.d/conda.sh"
+fi
+
+if test -f $HOME/opt/anaconda3/bin/conda; then
+    . "$HOME/opt/anaconda3/etc/profile.d/conda.sh"
+fi
 
