@@ -47,10 +47,13 @@ if test -d "/opt/bin"; then PATH="/opt/bin:$PATH"; fi
 if test -d "/opt/sbin"; then PATH="/opt/sbin:$PATH"; fi
 if test -d "/snap/bin"; then PATH="/snap/bin:$PATH"; fi
 
+# if custom vim
+if test -d "$HOME/opt/vim"; then PATH="$HOME/opt/vim/bin:$PATH"; fi
+
 # My own bins
 if test -d "$HOME/bin"; then PATH="$HOME/bin:$PATH"; fi
 
-#
+# If gaussian
 if test -d "$HOME/opt/gaussian_09"; then PATH="$HOME/opt/gaussian_09:$PATH"; fi
 
 # Actually, just overwrite python
