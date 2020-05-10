@@ -15,19 +15,19 @@ if test -f ~/.bash_aliases; then . ~/.bash_aliases; fi
 
 # bash completion
 if test -f /etc/bash_completion; then . /etc/bash_completion; fi
-if test -f /etc/bash_completion.d/tma; then . /etc/bash_completion.d/tma; fi
+if test -f $HOME/git/dotfiles/bash_completion/tma; then . $HOME/git/dotfiles/bash_completion/tma; fi
+if test -f $HOME/git/dotfiles/bash_completion/tmk; then . $HOME/git/dotfiles/bash_completion/tmk; fi
 
-# sunray specific commands
-# TODO should be, if sinfo exists
-if [ $HOSTNAME = "sunray" ]; then
-    alias sun_idle='sinfo | grep idle'
-    alias sun_busy='sinfo | grep alloc; sinfo | grep mix'
+# slurm specific commands
+if test -x "$(command -v sinfo)"; then
+    alias s_idle='sinfo | grep idle'
+    alias s_busy='sinfo | grep alloc; sinfo | grep mix'
 
     alias q='squeue -u $USER'
     alias ql='squeue | grep $USER | wc -l'
 
     # http://slurm.schedmd.com/squeue.html
-    alias sq='squeue -o "%.10i %.9P %.8u %.10j %.12M %.5D %.4C %R"'
+    alias qs='squeue -o "%.10i %.9P %.8u %.10j %.12M %.5D %.4C %R"'
 fi
 
 # Extend $PATH environment
