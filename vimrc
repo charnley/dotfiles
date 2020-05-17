@@ -708,8 +708,8 @@ endif
 
 
 " mouse
-" set mouse=a
-set mouse=i
+set mouse=a
+"set mouse=i
 set ttymouse=xterm
 
 
