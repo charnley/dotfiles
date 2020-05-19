@@ -6,3 +6,4 @@ tldr
 watch
 jq
 vim
+openjdk
