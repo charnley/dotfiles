@@ -188,6 +188,9 @@ let g:lightline = {
 " Use release branch (Recommend)
 " IDE like behavior
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-python'
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gr <Plug>(coc-references)
 
 " Indentation lines
 " usage: <leader>ig
