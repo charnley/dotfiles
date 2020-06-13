@@ -118,18 +118,27 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'vim-scripts/L9'
 
 " gitgutter see where the file is changed
+Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_sign_added = '∙'
 let g:gitgutter_sign_modified = '∙'
 let g:gitgutter_sign_removed = '∙'
 let g:gitgutter_sign_modified_removed = '∙'
 
+" Undo block of git changes
+nmap <leader>gu <Plug>(GitGutterUndoHunk)
+" find next or prev git hunk
+nmap <leader>gn <Plug>(GitGutterNextHunk)
+nmap <leader>gp <Plug>(GitGutterPrevHunk)
+" what changed in this hunk (close with :pclose)
+nmap <leader>gh <Plug>(GitGutterPreviewHunk)
+"au CursorMoved * if gitgutter#hunk#in_hunk(line(".")) | GitGutterPreviewHunk | else | pclose | endif
 
 " Line Numbers
-Plug 'myusuf3/numbers.vim'
+"set relativenumber
 
-" latex support
-" Plug 'lervag/vimtex'
+" TODO read up and integrate
+" https://github.com/terryma/vim-multiple-cursorsa
 
 " TComment
 " https://github.com/tomtom/tcomment_vim
@@ -149,10 +158,10 @@ Plug 'myusuf3/numbers.vim'
 "    gC           :: Comment selected text
 Plug 'tomtom/tcomment_vim'
 
-" Easymotion
+" Easymotion (find char, f)
 Plug 'easymotion/vim-easymotion'
 let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_keys = 'hklyuiopnmqwertasdgzxcvbjf'
+let g:EasyMotion_keys = 'qwertasdfgzxcv'
 let g:EasyMotion_use_upper = 0
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_startofline = 0
