@@ -720,8 +720,8 @@ endif
 
 
 " mouse
-set mouse=a
-"set mouse=i
+set mouse=a " mouse in all modes
+"set mouse=i " mouse insert mode only
 set ttymouse=xterm
 
 
