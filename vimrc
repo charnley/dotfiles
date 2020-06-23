@@ -201,7 +201,6 @@ let g:lightline = {
 " - coc-pylint
 " - coc-snippets
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-python'
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gr <Plug>(coc-references)
 
