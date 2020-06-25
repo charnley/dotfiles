@@ -144,6 +144,10 @@ case $HOSTNAME in
         export PS1="$Yellow\h$Color_Off $Cyan\W$Color_Off";;
 esac
 
+# If this is on interactive node, change color
+if test ! -z $JOB_ID; then
+    export PS1="$Red\h $Cyan\W$Color_Off"
+fi
 
 if [ -z "$PS1NOGIT" ]
 then
