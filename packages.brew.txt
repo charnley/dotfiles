@@ -7,3 +7,5 @@ watch
 jq
 vim
 openjdk
+yabai
+skhdrc
