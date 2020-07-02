@@ -336,11 +336,14 @@ endfunction
 " map <C-k> <C-w>k
 " map <C-l> <C-w>l
 
-" Tab Settings
-" Standard tab shortcuts:
-" gt -> go to next tab
-" gT -> go to previous tab
-" nnn gt -> go to nnn tab
+
+
+" " FILE NAVIGATION
+"
+" Tabs:
+"   gt -> go to next tab
+"   gT -> go to previous tab
+"   nnn gt -> go to nnn tab
 "
 " NOTE: "C-tab", does not work in terminals,
 " because terminals does not support it
@@ -359,6 +362,39 @@ nnoremap <C-t>      <Esc>:tabnew<enter>:FZF<CR>
 inoremap <A-left>   <Esc>:tabprevious<CR>i
 inoremap <A-right>  <Esc>:tabnext<CR>i
 inoremap <C-t>      <Esc>:tabnew<enter>:FZF<CR>
+
+" TODO should be GitFiles or something when opening files
+
+" TODO I want to open Buffers, and if not found I want to open GitFiles
+
+" Search open files
+nnoremap <Leader>b :Buffers<cr>
+
+" Search lines in current buffer
+noremap <Leader>s :BLines<cr>
+
+" Open new file
+" :FZF searches all files
+" GitFiles searches git-files
+noremap <leader>f :GitFiles<CR>
+
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <Leader><Enter> :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
 
 
 " Move between open buffers.
@@ -619,26 +655,6 @@ set cmdheight=1
 
 
 
-" fzf (fuzzy finder)
-map <leader>f :FZF<CR>
-
-function! s:buflist()
-  redir => ls
-  silent ls
-  redir END
-  return split(ls, '\n')
-endfunction
-
-function! s:bufopen(e)
-  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
-endfunction
-
-nnoremap <silent> <Leader><Enter> :call fzf#run({
-\   'source':  reverse(<sid>buflist()),
-\   'sink':    function('<sid>bufopen'),
-\   'options': '+m',
-\   'down':    len(<sid>buflist()) + 2
-\ })<CR>
 
 
 " TagBar
