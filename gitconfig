@@ -12,7 +12,7 @@
 
 [core]
     excludesfile = ~/.gitignore
-    editor = vim --noplugin
+    editor = vim 
     pager = less -q
 
 [alias]
@@ -23,4 +23,4 @@
     default = simple
 
 [credential]
-	helper = store --file ~/.gitcredentials
+    helper = store --file ~/.gitcredentials
