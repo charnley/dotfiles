@@ -713,11 +713,10 @@ if &diff
 endif
 
 " ----------------------------------------
-" GAMESS Settings
+" Filetype Settings
 " ----------------------------------------
-" associate *.src with fortran filetype
+au BufRead,BufNewFile Jenkinsfile setfiletype groovy
 au BufRead,BufNewFile *.src setfiletype fortran
-" au BufRead,BufNewFile *.F90 setfiletype fortran
 
 let fortran_more_precise=1
 
@@ -732,6 +731,7 @@ else
     unlet! fortran_free_source
 endif
 
+" Jenkinsfile is groovy syntax
 
 " :w!!
 " write the file when you accidentally opened it without the right (root) privileges
