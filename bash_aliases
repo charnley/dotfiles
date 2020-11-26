@@ -37,7 +37,7 @@ function gitclone {
 
 fzf_log() {
   hash=$(git log --color=always --format="%h%d %an %ae %s %cr" "$@" | fzf | awk '{print $1}')
-  echo -n $hash | xclip -sel clip
+  echo -n $hash | yank
   git show $hash --color-words
 }
 
@@ -108,11 +108,14 @@ alias spotprev="dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /o
 alias spotstop="dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop"
 
 # Copy vim out to xclip
-alias xp='cat ~/.vbuf | xclip -sel clip'
+alias xp='cat ~/.vbuf | yank'
 
 # Get the last output
 # makes vim crash
 # PROMPT_COMMAND='LAST="`cat /tmp/x`"; exec >/dev/tty; exec > >(tee /tmp/x)'
+
+# https://twitter.com/ctrlshifti/status/1160812366293901314
+alias please="sudo"
 
 # Functions
 function take {
@@ -145,17 +148,16 @@ extract () {
     fi
 }
 
-how_in()
+# Internet tools
+cheat()
 {
   where="$1"; shift
   IFS=+ curl "https://cht.sh/$where/ $*"
 }
 
-
-# fun
-alias emoji_shrug='echo -n "¯\_(ツ)_/¯" | xclip -selection clipboard'
-alias emoji_run='echo -n "ᕕ( ᐛ )ᕗ" | xclip -selection clipboard'
-
 alias myip='echo $(curl -s https://api.ipify.org)'
 
 
+# fun
+alias emoji_shrug='echo -n "¯\_(ツ)_/¯" | yank'
+alias emoji_run='echo -n "ᕕ( ᐛ )ᕗ" | yank'
