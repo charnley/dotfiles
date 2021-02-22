@@ -8,9 +8,11 @@ prefix=$HOME/opt/vim
 install_dir=vim_build
 
 
+mkdir $prefix
+
 # Switch folder and clone
 cd $HOME/opt
-git clone https://github.com/vim/vim.git $install_dir --depth 1
+# git clone https://github.com/vim/vim.git $install_dir --depth 1
 cd $install_dir
 
 # Needs to have a python3 env activated
@@ -30,16 +32,20 @@ make distclean
 # --enable-gui=gtk2 \
 
 # Configure build
-./configure --with-features=huge \
+./configure \
+    --DCMAKE_CXX_COMPILER=$CXX \
+    --with-features=huge \
     --enable-cscope \
     --enable-multibyte \
     --enable-python3interp=yes \
     --with-python3-config-dir=$configdir \
     --prefix=$HOME/opt/vim
 
+# TODO prefix is ignored by configure
+
 # Compile and link
-make
+make prefix=~/.local
 
 # install to prefix
-make install
+make install prefix=~/.local
 
