@@ -10,3 +10,18 @@ openjdk
 yabai
 skhdrc
 imagemagick
+
+coreutils
+findutils
+gnu-tar
+gnu-sed
+gawk
+gnutls
+gnu-indent
+gnu-getopt
+grep
+
+brew install --cask db-browser-for-sqlite
+
+brew install --cask macfuse
+brew install gromgit/fuse/sshfs
