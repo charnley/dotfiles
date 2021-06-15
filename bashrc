@@ -195,8 +195,9 @@ if test -d $HOME/intel/licenses; then
 fi
 
 # Don't send me messages
-mesg n
+if `tty -s`; then mesg n; fi
 
+# Source local bashrc if present
 if test -f $HOME/.bashrc_local; then source $HOME/.bashrc_local; fi
 
 # Setup conda generally
