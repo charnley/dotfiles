@@ -10,8 +10,6 @@ snippet ifmainarg
 
 		${0}
 
-		return
-
 
 	if __name__ == '__main__':
 		main()
@@ -24,6 +22,7 @@ snippet #!standard
 	import pandas as pd
 	import scipy
 	import sklearn
+	import pathlib
 
 
 	def main(args=None):
@@ -34,14 +33,9 @@ snippet #!standard
 		parser.add_argument('--debug', action='store_true', help='')
 		parser.add_argument('--format', action='store', help='', metavar='FMT')
 
-		if args is None:
-			args = parser.parse_args()
-		else:
-			args = parser.parse_args(args)
+		args = parser.parse_args(args)
 
 		${0}
-
-		return
 
 
 	if __name__ == '__main__':
