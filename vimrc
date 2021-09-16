@@ -740,8 +740,7 @@ endif
 " ----------------------------------------
 " Filetype Settings
 " ----------------------------------------
-au BufRead,BufNewFile Jenkinsfile setfiletype groovy
-au BufRead,BufNewFile *.Jenkinsfile setfiletype groovy
+au BufRead,BufNewFile Jenkinsfile,*.Jenkinsfile setfiletype groovy
 au BufRead,BufNewFile *.src setfiletype fortran
 
 let fortran_more_precise=1
