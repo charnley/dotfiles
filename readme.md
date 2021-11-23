@@ -1,10 +1,9 @@
 
+# Dotfiles
 
+for Mac OSX and Debian
 
-
-
-
-
+## Screenshots
 
 
 ## Mac env setup
@@ -20,5 +19,9 @@ When plugging in a new keyboard type, change CAPS to Command by
 - select keyboard
 - change caps to command
 
+
+### Mac Shortcuts
+
+ cmd + p, screenshot
 
 
