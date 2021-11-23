@@ -1,3 +1,6 @@
+" TODO https://github.com/jessarcher/dotfiles
+
+
 " - add fortran?
 
 " Use Vim settings, rather then Vi settings (much better!).
@@ -476,7 +479,7 @@ set nowrap                      "Don't wrap lines
 set linebreak                   "Wrap lines at convenient points
 
 " Scrolling
-set scrolloff=4         "Start scrolling when we're 4 lines away from margins
+set scrolloff=8         "Start scrolling when we're 4 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
 
@@ -546,9 +549,9 @@ set expandtab
 autocmd FileType make setlocal noexpandtab
 autocmd FileType cpp setlocal noexpandtab
 
-" easier moving of code blocks
-vnoremap < <gv " better indentation
-vnoremap > >gv " better indentation
+" Reselect visual selection after indenting
+vnoremap < <gv
+vnoremap > >gv
 
 " Undo/redo
 :map <C-z> <Esc>u<CR>
@@ -774,3 +777,10 @@ set backupdir=~/.vim/backup
 set directory=~/.vim/tmp
 set nobackup nowritebackup
 
+
+" fall back comment
+augroup FileTypeOverrides
+    autocmd!
+    " Use '//' instead of '/* */' comments
+    autocmd FileType php setlocal commentstring=//%s
+augroup END

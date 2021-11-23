@@ -175,5 +175,12 @@ alt - t : yabai -m window --toggle float;\
 #           yabai -m window --toggle border;\
 #           yabai -m window --toggle pip
 
-cmd + alt - p : bash ~/bin/screenshot
+# cmd + alt - p : bash ~/bin/screenshot
 
+
+# https://github.com/AdamWagner/stackline/wiki/Install-&-configure-dependencies
+# yabai -m window --stack next  # create stack
+# yabai -m window --focus stack.next  # select next window
+
+
+# TODO add floating cmd+shift+enter toggle terminal
