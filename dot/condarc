@@ -1,1 +1,1 @@
-env_prompt: "({name}) "
+env_prompt: '({name}) '
