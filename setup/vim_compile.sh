@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -x
+set -e
+
 configdir=`python3-config --configdir`
 prefix=$HOME/opt/vim
 install_dir=vim_build
@@ -13,6 +16,7 @@ cd $install_dir
 # Needs to have a python3 env activated
 source $CONDA_PREFIX/etc/profile.d/conda.sh
 conda activate
+# TODO conda activate ENVNAME
 
 # TODO if conda activate fails; exit
 
