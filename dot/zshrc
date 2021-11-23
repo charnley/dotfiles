@@ -183,11 +183,6 @@ if type ag &> /dev/null; then
     export FZF_DEFAULT_COMMAND='ag -p ~/.gitignore -g ""'
 fi
 
-# Nibr proxy
-export any_proxy=http://nibr-proxy.global.nibr.novartis.net:2011
-export http_proxy=http://nibr-proxy.global.nibr.novartis.net:2011
-export https_proxy=http://nibr-proxy.global.nibr.novartis.net:2011
-export ftp_proxy=http://nibr-proxy.global.nibr.novartis.net:2011
 
 # home and end
 bindkey "^[[1~" beginning-of-line
