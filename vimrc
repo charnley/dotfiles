@@ -104,7 +104,7 @@ let g:UltiSnipsEditSplit="vertical"
 " Makes GVIM themes work in terminals
 " Plug 'vim-scripts/CSApprox'
 " Plug 'dracula/vim'
-Plug 'nanotech/jellybeans.vim'
+" Plug 'nanotech/jellybeans.vim'
 
 
 " Theme Plug
@@ -253,6 +253,18 @@ nmap <silent> <leader>w :Goyo<CR>
 
 " On window resize, if goyo is active, do <c-w>= to resize the window
 autocmd VimResized * if exists('#goyo') | exe "normal \<c-w>=" | endif
+
+" presentation
+" Mappings to make Vim more friendly towards presenting slides.
+autocmd BufNewFile,BufRead *.p.md call SetVimPresentationMode()
+function SetVimPresentationMode()
+  nnoremap <buffer> <Right> :n<CR>
+  nnoremap <buffer> <Left> :N<CR>
+
+  if !exists('#goyo')
+    Goyo
+  endif
+endfunction
 
 " Auto ident
 Plug 'ldx/vim-indentfinder'
@@ -449,6 +461,7 @@ autocmd GUIEnter * set visualbell t_vb=
 syntax on
 
 
+highlight clear SignColumn  " fix bg color for SignColumn
 
 " Config
 set number                      "Turn on line-numbers
@@ -749,13 +762,6 @@ endif
 " :w!!
 " write the file when you accidentally opened it without the right (root) privileges
 cmap w!! w !sudo tee % > /dev/null
-
-
-" Ignore whitespace diff mode
-if &diff
-    " diff mode
-    set diffopt+=iwhite
-endif
 
 
 " mouse
