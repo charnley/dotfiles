@@ -1,27 +1,8 @@
-
 # Dotfiles
 
-for Mac OSX and Debian
+for OSX, Debian and whatever HPC I need to work on
 
-## Screenshots
+## TODO
 
-
-## Mac env setup
-
-
-### New keyboard
-
-When plugging in a new keyboard type, change CAPS to Command by
-
-- settings
-- keyboard
-- modifiers
-- select keyboard
-- change caps to command
-
-
-### Mac Shortcuts
-
- cmd + p, screenshot
-
+- Makefile to be OS dependent (is it linux, does it have X, etc)
 
