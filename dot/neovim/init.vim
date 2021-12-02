@@ -1,54 +1,23 @@
 " Trying out neovim
-"
-" TODO coc + snippet setup
-"
-"Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus', 'vim'] }
-"Plug 'alvan/vim-closetag'
-"Plug 'MattesGroeger/vim-bookmarks'
-"Plug 'gmarik/vundle'
-"Plug 'majutsushi/tagbar'
-"" Plug 'ervandew/supertab'
-"" Plug 'vim-syntastic/syntastic'
-"Plug 'w0rp/ale'
-"Plug 'SirVer/ultisnips'
-"Plug 'honza/vim-snippets'
-"" Plug 'vim-scripts/CSApprox'
-"" Plug 'dracula/vim'
-"" Plug 'nanotech/jellybeans.vim'
-"Plug 'flazz/vim-colorschemes'
-"Plug 'nanotech/jellybeans.vim'
-"Plug 'tomasiser/vim-code-dark'
-"Plug 'vim-scripts/L9'
-"Plug 'tpope/vim-fugitive'
-"Plug 'airblade/vim-gitgutter'
-"Plug 'tomtom/tcomment_vim'
-"Plug 'easymotion/vim-easymotion'
-"Plug 'junegunn/fzf', { 'do': './install --all' }
-"Plug 'junegunn/fzf.vim'
-"Plug 'itchyny/lightline.vim'
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'nathanaelkane/vim-indent-guides'
-"Plug 'tpope/vim-obsession'
-"Plug 'junegunn/goyo.vim'
-"Plug 'ldx/vim-indentfinder'
-"Plug 'chaoren/vim-wordmotion'
-"
 
-:set autoindent
-:set mouse=a
-:set number
-:set relativenumber
-:set shiftwidth=4
-:set smarttab
-:set softtabstop=4
-:set tabstop=4
-:set wrap!
-set scrolloff=8
+" TODO
+" https://github.com/junegunn/vim-easy-align " Easy align CSV data
+" coc + snippet tab setup
+
+set autoindent
+set mouse=a
+set number
+set relativenumber
+set shiftwidth=4
+set smarttab
+set softtabstop=4
+set tabstop=4
+set wrap! " Don't ever wordwrap my code
+set scrolloff=8 " I like cursor to be in center
 set sidescrolloff=15
 set sidescroll=1
-
-set ttyfast
-set lazyredraw
+set nohlsearch " I don't like to look at highlighted text
+set lazyredraw " will buffer screen updates instead of updating all the time.:help 'ttyfast'
 
 " Leader
 let mapleader=","
@@ -112,14 +81,13 @@ inoremap <C-S-Right> <End>
 command W w
 command Q q
 
-" vimdiff
+" Ignore white space in diffmode
 if &diff
-    " ignore whitespace in diffmode
     set diffopt+=iwhite
 endif
 
-" Filetypes change
-au BufRead,BufNewFile *.md,*.mdx,*.markdown :set filetype=markdown
+" File types change
+au BufRead,BufNewFile *.md,*.mdx,*.markdown setfiletype markdown
 au BufRead,BufNewFile Jenkinsfile,*.Jenkinsfile setfiletype groovy
 au BufRead,BufNewFile *.src setfiletype fortran
 let fortran_more_precise=1
@@ -133,9 +101,21 @@ else
     unlet! fortran_free_source
 endif
 
+" Spelling
+" add word: zg
+" correct spelling: z=
+set spelllang=en
+set spellsuggest=best,10  " Show only the top ten candidates
+nnoremap <silent> <F11> :set spell!<cr>
+inoremap <silent> <F11> <C-O>:set spell!<cr>
+
+" Update buffer if file has changed
+set autoread
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" notification after file change
+autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 call plug#begin()
-
 Plug 'MattesGroeger/vim-bookmarks'  " Easy bookmark shortcuts
 Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus', 'vim'] }  " Preview CSS Colors
 Plug 'chaoren/vim-wordmotion' " Better word motion
@@ -147,7 +127,7 @@ Plug 'ldx/vim-indentfinder' " Auto ident
 Plug 'rafi/awesome-vim-colorschemes' " Retro Scheme
 Plug 'ryanoasis/vim-devicons' " Developer Icons
 Plug 'tpope/vim-commentary' " For Commenting gcc & gc
-
+Plug 'machakann/vim-highlightedyank' " Make the yanked region apparent
 
 " IDE
 " Plug 'nathanaelkane/vim-indent-guides' " Indentation lines  usage: <leader>ig
@@ -157,12 +137,10 @@ set wildignore+=*/node_modules/**
 " Git
 " Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-
 call plug#end()
 
 :colorscheme jellybeans
 highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
-
 
 " Plug Bookmarks
 " Add/remove bookmark at current line           mm  :BookmarkToggle
@@ -193,8 +171,7 @@ nmap <leader>gp <Plug>(GitGutterPrevHunk)
 nmap <leader>gh <Plug>(GitGutterPreviewHunk)
 "au CursorMoved * if gitgutter#hunk#in_hunk(line(".")) | GitGutterPreviewHunk | else | pclose | endif
 
-
-" Find char f
+" Find char: f
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_keys = 'qwertasdfgzxcv'
 let g:EasyMotion_use_upper = 0
@@ -221,3 +198,7 @@ let g:lightline = {
 	\ 'separator': { 'left': '', 'right': '' },
 	\ 'subseparator': { 'left': '', 'right': '' }
 	\ }
+set noshowmode " insert is already showing in lightline
+  
+  
+  
