@@ -43,6 +43,12 @@
 :set softtabstop=4
 :set tabstop=4
 :set wrap!
+set scrolloff=8
+set sidescrolloff=15
+set sidescroll=1
+
+set ttyfast
+set lazyredraw
 
 " Leader
 let mapleader=","
@@ -112,7 +118,8 @@ if &diff
     set diffopt+=iwhite
 endif
 
-" Filetypes changes
+" Filetypes change
+au BufRead,BufNewFile *.md,*.mdx,*.markdown :set filetype=markdown
 au BufRead,BufNewFile Jenkinsfile,*.Jenkinsfile setfiletype groovy
 au BufRead,BufNewFile *.src setfiletype fortran
 let fortran_more_precise=1
@@ -143,11 +150,12 @@ Plug 'tpope/vim-commentary' " For Commenting gcc & gc
 
 
 " IDE
-" Plug 'https://github.com/neoclide/coc.nvim'  " Auto Completion
 " Plug 'nathanaelkane/vim-indent-guides' " Indentation lines  usage: <leader>ig
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'} " this is for auto complete, prettier and tslinting
+set wildignore+=*/node_modules/**
 
 " Git
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 call plug#end()
