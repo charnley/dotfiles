@@ -168,7 +168,7 @@ au User AirlineAfterInit  :let g:airline_section_z = airline#section#create(['%3
 
 " IDE
 " Plug 'nathanaelkane/vim-indent-guides' " Indentation lines  usage: <leader>ig
-" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'} " this is for auto complete, prettier and tslinting
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " this is for auto complete, prettier and tslinting
 set wildignore+=*/node_modules/**
 
 Plug 'airblade/vim-gitgutter' " Git indication
