@@ -193,8 +193,7 @@ export LC_ALL=en_US.UTF-8
 unsetopt CDABLE_VARS
 
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
+# conda initialize
 __conda_setup="$('$HOME/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
@@ -206,6 +205,9 @@ else
     fi
 fi
 unset __conda_setup
-# <<< conda initialize <<<
-
 conda deactivate  # Avoid conda env prompt by default
+
+# Node Version Manager
+export NVM_DIR="$HOME/opt/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

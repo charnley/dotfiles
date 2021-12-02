@@ -12,12 +12,18 @@ set shiftwidth=4
 set smarttab
 set softtabstop=4
 set tabstop=4
-set wrap! " Don't ever wordwrap my code
+set nowrap " Don't ever wordwrap my code
 set scrolloff=8 " I like cursor to be in center
 set sidescrolloff=15
 set sidescroll=1
 set nohlsearch " I don't like to look at highlighted text
 set lazyredraw " will buffer screen updates instead of updating all the time.:help 'ttyfast'
+set ignorecase " Case-insensitive searching
+set smartcase " if a pattern contains an uppercase letter, it is case sensitive
+
+set signcolumn=yes:1 " always show sign column (bookmarks, gitgutter,..)
+set list " Highlight unwanted spaces
+set listchars=tab:▸\ ,trail:·
 
 " Leader
 let mapleader=","
@@ -32,6 +38,12 @@ noremap <Leader>s :BLines<cr>
 " :FZF searches all files
 " GitFiles searches git-files
 noremap <leader>f :GitFiles<CR>
+
+" Switch between buffers
+map gn :bnext<cr>
+map gp :bprevious<cr>
+map gd :bdelete<cr>
+" TODO Would be nice to have <TAB> and <C-TAB> working here
 
 " Copy to clipboard using ~/bin/yank
 function! OscCopyVbuf()
@@ -115,27 +127,51 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkti
 " notification after file change
 autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
+" Reselect visual selection after indenting
+vnoremap < <gv
+vnoremap > >gv
+
+" Maintain the cursor position when yanking a visual selection
+" http://ddrscott.github.io/blog/2016/yank-without-jank/
+vnoremap y myy`y
+vnoremap Y myY`y
+
+
 call plug#begin()
 Plug 'MattesGroeger/vim-bookmarks'  " Easy bookmark shortcuts
 Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus', 'vim'] }  " Preview CSS Colors
 Plug 'chaoren/vim-wordmotion' " Better word motion
 Plug 'easymotion/vim-easymotion'  " Jump to character
-Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'do': './install --all' } " Fuzzy find searching
 Plug 'junegunn/fzf.vim'  " Fuzzy find searching
 Plug 'ldx/vim-indentfinder' " Auto ident
 Plug 'rafi/awesome-vim-colorschemes' " Retro Scheme
-Plug 'ryanoasis/vim-devicons' " Developer Icons
 Plug 'tpope/vim-commentary' " For Commenting gcc & gc
+
+" Interface
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#show_close_button = 0
+let g:airline_skip_empty_sections = 1
+
+let g:airline#extensions#tabline#tab_min_count = 2  " ignored : (
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = ' '
+let g:airline#extensions#tabline#right_alt_sep = ''
+let g:airline_powerline_fonts = 0
+
+au User AirlineAfterInit  :let g:airline_section_z = airline#section#create(['%3p%% %L:%3v'])
+
 
 " IDE
 " Plug 'nathanaelkane/vim-indent-guides' " Indentation lines  usage: <leader>ig
 " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'} " this is for auto complete, prettier and tslinting
 set wildignore+=*/node_modules/**
 
-" Git
-" Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter' " Git indication
 call plug#end()
 
 :colorscheme jellybeans
@@ -153,13 +189,16 @@ highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
 " Move down bookmark at current line            mjj     :BookmarkMoveDown
 " Save all bookmarks to a file                  :BookmarkSave <FILE_PATH>
 " Load bookmarks from a file                    :BookmarkLoad <FILE_PATH>
-let g:bookmark_sign = '♥'
+let g:bookmark_sign = '•'
 
 " Git
 let g:gitgutter_sign_added = '∙'
-let g:gitgutter_sign_modified = '∙'
-let g:gitgutter_sign_removed = '∙'
-let g:gitgutter_sign_modified_removed = '∙'
+let g:gitgutter_sign_modified = '•'
+let g:gitgutter_sign_removed = '•'
+let g:gitgutter_sign_modified_removed = '•'
+highlight GitGutterAdd    ctermfg=green
+highlight GitGutterChange ctermfg=yellow
+highlight GitGutterDelete ctermfg=red
 
 " Undo block of git changes
 nmap <leader>gu <Plug>(GitGutterUndoHunk)
@@ -190,11 +229,11 @@ hi link EasyMotionIncCursor Search
 
 " Interface
 let g:lightline = {
-	\ 'colorscheme': 'powerline',
-	\ 'component': {
-	\   'readonly': '%{&readonly?"x":""}',
-	\ },
-	\ 'separator': { 'left': '', 'right': '' },
-	\ 'subseparator': { 'left': '', 'right': '' }
-	\ }
+ \ 'colorscheme': 'powerline',
+ \ 'component': {
+ \   'readonly': '%{&readonly?"x":""}',
+ \ },
+ \ 'separator': { 'left': '', 'right': '' },
+ \ 'subseparator': { 'left': '', 'right': '' }
+ \ }
 set noshowmode " insert is already showing in lightline

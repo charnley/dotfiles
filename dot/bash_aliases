@@ -91,9 +91,9 @@ alias cd..='cd ..'
 alias cd...='cd ../..'
 alias b='cd ..'
 
-alias v='vim -p'
-alias e='vim -p'
-alias vi='vim -p'
+alias v='vim'
+alias e='vim'
+alias vi='vim'
 
 # easy rsync
 alias rs='rsync -azvh --progress'
