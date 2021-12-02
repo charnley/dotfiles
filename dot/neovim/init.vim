@@ -127,7 +127,6 @@ Plug 'ldx/vim-indentfinder' " Auto ident
 Plug 'rafi/awesome-vim-colorschemes' " Retro Scheme
 Plug 'ryanoasis/vim-devicons' " Developer Icons
 Plug 'tpope/vim-commentary' " For Commenting gcc & gc
-Plug 'machakann/vim-highlightedyank' " Make the yanked region apparent
 
 " IDE
 " Plug 'nathanaelkane/vim-indent-guides' " Indentation lines  usage: <leader>ig
@@ -191,7 +190,7 @@ hi link EasyMotionIncCursor Search
 
 " Interface
 let g:lightline = {
-	\ 'colorscheme': 'wombat',
+	\ 'colorscheme': 'powerline',
 	\ 'component': {
 	\   'readonly': '%{&readonly?"x":""}',
 	\ },
@@ -199,6 +198,3 @@ let g:lightline = {
 	\ 'subseparator': { 'left': '', 'right': '' }
 	\ }
 set noshowmode " insert is already showing in lightline
-  
-  
-  
