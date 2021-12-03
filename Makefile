@@ -1,12 +1,15 @@
 
 .PHONY: vim_update
 
-all: vim_update
+all: vim_update install
 
 vim_update:
 	vim +PlugClean +PlugInstall +PlugUpdate +qall
 
-install:
+~/bin/vim:
+	bash setup/nvim_setup.sh
+
+install: ~/bin/vim vim_update
 	bash --login
 
 symlink:
