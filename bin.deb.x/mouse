@@ -78,13 +78,13 @@ if __name__ == "__main__":
 
 
 # # xinput | grep "M705"
-# # 
+# #
 # # tutu ~ $ xinput --list-props 14
 # # tutu ~ $ xinput --set-prop 14 "libinput Accel
-# # 
-# # 
+# #
+# #
 # # xinput --set-prop "Logitech USB Optical Mouse"  "Device Accel Constant Deceleration" 2.5
-# # 
+# #
 #
 # xinput --set-prop "$external" "libinput Accel Speed" -0.7
 #
