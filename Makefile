@@ -10,7 +10,6 @@ vim_update:
 	bash setup/nvim_setup.sh
 
 install: ~/bin/vim vim_update
-	bash --login
 
 symlink:
 	# TODO needs to be OSX specific
