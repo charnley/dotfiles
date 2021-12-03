@@ -17,12 +17,15 @@ ifeq ($(detected_OS),Linux)
 	OS = deb
 endif
 
-.PHONY: vim_update
+.PHONY: vim_plugins install
 
-all: vim_update
+all: vim_plugins
 
-vim_update:
+vim_plugins:
 	vim +PlugClean +PlugInstall +PlugUpdate +qall
+
+tmux_plugins:
+	# TODO one liner for tmux plugins
 
 ~/bin/vim:
 	bash setup.$(OS)/nvim_setup.sh
@@ -30,10 +33,12 @@ vim_update:
 ~/bin/tmux:
 	bash setup.$(OS)/tmux_compile.sh
 
-install: ~/bin/vim ~/bin/tmux vim_update
+~/.bashrc: symlink
 
 symlink:
-	# TODO needs to be OSX specific
+	bash setup.$(OS)/setup_dotfiles.sh
+
+install: ~/.bashrc ~/bin/vim ~/bin/tmux vim_plugins
 
 symlink_clean:
 	# TODO if there and is symlink, rm
