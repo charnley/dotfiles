@@ -2,6 +2,9 @@
 # Set standard editor
 export EDITOR=vi
 
+# Easy access
+alias dotfiles='cd $HOME/git/dotfiles'
+
 # Git Shortcuts
 alias gco='git commit'
 alias gca='git commit -a'
