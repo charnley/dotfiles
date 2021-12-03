@@ -1,4 +1,22 @@
 
+# Check operating system
+ifeq '$(findstring ;,$(PATH))' ';'
+	detected_OS := Windows
+else
+	detected_OS := $(shell uname 2>/dev/null || echo Unknown)
+	detected_OS := $(patsubst CYGWIN%,Cygwin,$(detected_OS))
+	detected_OS := $(patsubst MSYS%,MSYS,$(detected_OS))
+	detected_OS := $(patsubst MINGW%,MSYS,$(detected_OS))
+endif
+
+ifeq ($(detected_OS),Darwin)        # Mac OS X
+	OS = osx
+endif
+
+ifeq ($(detected_OS),Linux)
+	OS = deb
+endif
+
 .PHONY: vim_update
 
 all: vim_update
@@ -7,10 +25,10 @@ vim_update:
 	vim +PlugClean +PlugInstall +PlugUpdate +qall
 
 ~/bin/vim:
-	bash setup/nvim_setup.sh
+	bash setup.$(OS)/nvim_setup.sh
 
 ~/bin/tmux:
-	bash setup/tmux_compile.sh
+	bash setup.$(OS)/tmux_compile.sh
 
 install: ~/bin/vim ~/bin/tmux vim_update
 
