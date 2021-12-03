@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]
+then
+    # if empty, then open folder
+    pcmanfm &> /dev/null &
+else
+    # open all files
+    for x in "$@"
+    do
+        if test -e $x
+        then
+            xdg-open "$x" &> /dev/null &
+        else
+            echo "Open not found: $x"
+        fi
+    done
+fi
+

@@ -25,56 +25,165 @@ def shell(cmd, shell=False):
         p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 
     output, err = p.communicate()
-    return output
+    return output.decode("utf-8")
 
 
 if __name__ == "__main__":
 
-    # shell('notify-send " " "volume changed"', shell=True)
-
     args = sys.argv[1:]
+    nargs = len(args)
 
-    if len(args) < 1:
-        print "Not enough parameters"
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-l', '--list', action="store_true", help='List sinks and cards')
+    parser.add_argument('change', nargs="?", help='Change volume', default="")
 
-    change = args[0]
+    args = parser.parse_args()
+
+
+    # shell('notify-send " " "volume changed"', shell=True)
 
     sinks = shell('pactl list short sinks')
     sinks = sinks.split('\n')
+    sinks = [sink.strip() for sink in sinks]
+    sinks = list(filter(None, sinks))
 
-    if len(sinks) == 2:
-
-        if change == "mute":
-            shell('pactl set-sink-volume 0 0%'.format(sink))
-            quit()
-
-        shell('pactl set-sink-volume 0 {}%'.format(change))
-        quit()
+    cards = shell('pactl list cards short')
+    cards = cards.split('\n')
+    cards = [card.strip() for card in cards]
+    cards = list(filter(None, cards))
 
     pactl_info = shell('pactl info')
     pactl_info = pactl_info.split('\n')
+    pactl = {}
 
-    default_sink = pactl_info[12]
+    for info in pactl_info:
+        info = info.strip()
+        if info == "": continue
+        info = info.split(": ")
+        pactl[info[0]] = info[1]
 
-    sink = sinks[-2]
-    sink = sink.split()
-    sink = sink[0]
+    laptop_speaker_id = 'X'
+    bluetooth_headset_id = 'X'
+    dock_id = 'X'
+    dock_name = None
 
-    if not "blue" in default_sink:
-        shell('pactl set-default-sink {}'.format(sink))
 
-        # Set default sound volume to 30%
-        # so it does not blow my head off
-        change = "30"
+    if args.list or nargs == 0:
+        print("Usage: sound <change>")
+        print()
+        for key in pactl:
+            if "Sink" not in key: continue
+            print(key+":", "\n", pactl[key])
 
-    if change == "info":
-        print shell('pactl info')
+        print()
+        print("found",len(sinks),"sinks:")
+        for sink in sinks:
+            print(" ".join(sink.split()[:2]))
+
+        print()
+        print("found", len(cards), "cards:")
+        for card in cards:
+            print(" ".join(card.split()[:2]))
+
         quit()
+
+
+
+    for sink in sinks:
+
+        # bluetooth
+        if "blue" in sink:
+            sink = sink.split()
+            bluetooth_headset_id = sink[0]
+
+        # laptop speaker
+        elif "pci" in sink:
+            sink = sink.split()
+            laptop_speaker_id = sink[0]
+            dock_id = sink[0]
+            dock_name = sink[1]
+
+        # dock output
+        elif "Dock" in sink:
+            continue
+            sink = sink.split()
+            dock_id = sink[0]
+            dock_name = sink[1]
+
+        # microphone
+        elif "RODE_NT-USB" in sink:
+            # ignore
+            continue
+
+        elif "usb-041e" in sink:
+            sink = sink.split()
+            dock_id = sink[0]
+            dock_name = sink[1]
+
+        elif "HD_USB" in sink:
+            sink = sink.split()
+            dock_id = sink[0]
+            dock_name = sink[1]
+
+        elif "iFi" in sink:
+            sink = sink.split()
+            dock_id = sink[0]
+            dock_name = sink[1]
+
+        else:
+            print("error, not bluetooth or default")
+            print(sink)
+            continue
+
+
+
+
+    # get change
+    change = args.change
 
     if change == "mute":
-        shell('pactl set-sink-volume {} 0%'.format(sink))
+        change = 0
+
+    if len(sinks) == 1:
+        sink = laptop_speaker_id
+        shell('pactl set-sink-volume {} {}%'.format(sink, change))
         quit()
 
-    shell('pactl set-sink-volume 0 0%')
-    shell('pactl set-sink-volume {} {}%'.format(sink, change))
+
+
+    if bluetooth_headset_id != 'X':
+
+        sink = bluetooth_headset_id
+
+        # check if bluetooth is default output
+        if "blue" not in pactl['Default Sink']:
+            shell('pactl set-default-sink {}'.format(sink))
+
+            # Set default sound volume to 30%
+            # so it does not blow my head off
+            change = "36"
+
+        shell('pactl set-sink-volume {} {}%'.format(sink, change))
+
+        for sink in sinks:
+            sink = sink.split()
+            sink = sink[0]
+            if sink == bluetooth_headset_id: continue
+            shell('pactl set-sink-volume {} {}%'.format(sink, 0))
+
+    else:
+
+        sink = dock_id
+
+        if pactl['Default Sink'] != dock_name:
+            print("not default")
+            shell('pactl set-default-sink {}'.format(sink))
+
+            # Set default sound volume to 30%
+            # so it does not blow my head off
+            change = "40"
+
+        shell('pactl set-sink-volume {} {}%'.format(sink, change))
+
 
