@@ -38,7 +38,7 @@ tmux_plugins:
 symlink:
 	bash setup.$(OS)/setup_dotfiles.sh
 
-install: ~/.bashrc ~/bin/vim ~/bin/tmux vim_plugins
+install: ~/.bashrc ~/bin/vim vim_plugins
 
 symlink_clean:
 	# TODO if there and is symlink, rm
