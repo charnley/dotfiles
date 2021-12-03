@@ -1,7 +1,7 @@
 
 .PHONY: vim_update
 
-all: vim_update install
+all: vim_update
 
 vim_update:
 	vim +PlugClean +PlugInstall +PlugUpdate +qall
@@ -9,7 +9,10 @@ vim_update:
 ~/bin/vim:
 	bash setup/nvim_setup.sh
 
-install: ~/bin/vim vim_update
+~/bin/tmux:
+	bash setup/tmux_compile.sh
+
+install: ~/bin/vim ~/bin/tmux vim_update
 
 symlink:
 	# TODO needs to be OSX specific
