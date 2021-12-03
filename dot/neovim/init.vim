@@ -38,6 +38,7 @@ noremap <Leader>s :BLines<cr>
 " :FZF searches all files
 " GitFiles searches git-files
 noremap <leader>f :GitFiles<CR>
+noremap <leader>o :Files<CR>
 
 " Switch between buffers
 map gn :bnext<cr>
