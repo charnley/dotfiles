@@ -1,6 +1,10 @@
 
-all:
-	./vim_update.sh
+.PHONY: vim_update
+
+all: vim_update
+
+vim_update:
+	vim +PlugClean +PlugInstall +PlugUpdate +qall
 
 install:
 	bash --login
