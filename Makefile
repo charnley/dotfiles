@@ -22,7 +22,7 @@ endif
 all: vim_plugins
 
 vim_plugins:
-	~/bin/vim +PlugClean +PlugInstall +PlugUpdate +qall
+	~/bin/vim +PlugClean[!] +PlugInstall +PlugUpdate +qall
 
 tmux_plugins:
 	# TODO one liner for tmux plugins
