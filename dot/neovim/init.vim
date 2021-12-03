@@ -20,7 +20,7 @@ set nohlsearch " I don't like to look at highlighted text
 set lazyredraw " will buffer screen updates instead of updating all the time.:help 'ttyfast'
 set ignorecase " Case-insensitive searching
 set smartcase " if a pattern contains an uppercase letter, it is case sensitive
-
+set noshowmode " insert is already showing in lightline
 set signcolumn=yes:1 " always show sign column (bookmarks, gitgutter,..)
 set list " Highlight unwanted spaces
 set listchars=tab:▸\ ,trail:·
@@ -70,7 +70,7 @@ nmap <S-y> :.w! ~/.vbuf<CR>
 " Paste the contents of the buffer file
 nmap <S-p> :r ~/.vbuf<CR>
 
-"Remove all trailing whitespace by pressing F5
+" Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " User Interface
@@ -287,13 +287,3 @@ hi link EasyMotionTarget2Second Todo
 hi link EasyMotionIncSearch IncSearch
 hi link EasyMotionIncCursor Search
 
-" Interface
-let g:lightline = {
- \ 'colorscheme': 'powerline',
- \ 'component': {
- \   'readonly': '%{&readonly?"x":""}',
- \ },
- \ 'separator': { 'left': '', 'right': '' },
- \ 'subseparator': { 'left': '', 'right': '' }
- \ }
-set noshowmode " insert is already showing in lightline
