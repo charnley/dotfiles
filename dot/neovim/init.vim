@@ -82,14 +82,6 @@ endif
 set laststatus=2  " Always show the statusline
 set cmdheight=1
 
-" Shortcuts for Home/end because my home/end is position
-" crap on my thinkpad
-" Ctrl+Shift+Left/Right -> Home/End
-nnoremap <C-S-Left> <Home>
-inoremap <C-S-Left> <Home>
-nnoremap <C-S-Right> <End>
-inoremap <C-S-Right> <End>
-
 " Fixes common typos
 command W w
 command Q q
