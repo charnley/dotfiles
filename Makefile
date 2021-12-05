@@ -19,19 +19,21 @@ endif
 
 .PHONY: vim_plugins install
 
-all: vim_plugins
+all: vim_plugins tmux_plugins
 
 vim_plugins:
 	~/bin/vim +PlugClean[!] +PlugInstall +PlugUpdate +qall
 
 tmux_plugins:
-	# TODO one liner for tmux plugins
+	bash ./setup/tmux_plugins.sh
 
 ~/bin/vim:
 	bash setup.$(OS)/nvim_setup.sh
+	~/bin/vim +PlugClean[!] +PlugInstall +PlugUpdate +qall
 
 ~/bin/tmux:
-	bash setup.$(OS)/tmux_compile.sh
+	bash ./setup.$(OS)/tmux_compile.sh
+	bash ./setup/tmux_plugins.sh
 
 ~/.bashrc: symlink
 

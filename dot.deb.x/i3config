@@ -20,7 +20,7 @@
 set $mod Mod4
 
 # Set Font for Window Titles.
-font xft:mononoki 18
+font xft:mononoki 20
 
 # Close a window
 bindsym $mod+q kill
@@ -29,29 +29,24 @@ bindsym $mod+q kill
 bindsym $mod+l exec i3lock -c 000000 -d
 
 # Lock and suspend
-bindsym $mod+shift+l exec i3lock -c 000000 -d & sudo pm-suspend
+bindsym $mod+shift+l exec i3lock -c 000000 -d & sudo /usr/sbin/pm-suspend
 
 # Print Screen = Screenshot
-bindsym Print exec scrot -q 100 ~/img/screenshots/%F-%H-%m-%S-screenshot.png
+bindsym Print exec scrot -u -q 100 ~/img/screenshots/screenshot-%y%m%d-%H%M%S.png
 
-# Volume up / down / mute
-
-# standard amixer
-# bindsym Control+Up              exec amixer -q sset Master 2%+ unmute
-# bindsym Control+Down            exec amixer -q sset Master 2%- unmute
-# bindsym XF86AudioRaiseVolume    exec amixer -q sset Master 2%+ unmute
-# bindsym XF86AudioLowerVolume    exec amixer -q sset Master 2%- unmute
-# bindsym XF86AudioMute exec amixer -q set Master toggle; exec amixer -q set Headphone unmute; exec amixer -q set Speaker unmute # does not work proberbly
-
-bindsym Control+Up              exec ~/bin/sound "+2"
-bindsym Control+Down            exec ~/bin/sound "-2"
-bindsym XF86AudioRaiseVolume    exec ~/bin/sound "+2"
-bindsym XF86AudioLowerVolume    exec ~/bin/sound "-2"
+# volume bindings
+bindsym Control+Up              exec ~/bin/sound "+1"
+bindsym Control+Down            exec ~/bin/sound "-1"
+bindsym XF86AudioRaiseVolume    exec ~/bin/sound "+1"
+bindsym XF86AudioLowerVolume    exec ~/bin/sound "-1"
 bindsym XF86AudioMute           exec ~/bin/sound "mute"
 
-# Hivemind setup
-bindsym Control+Shift+Up        exec ~/bin/hivemind_volume up
-bindsym Control+Shift+Down      exec ~/bin/hivemind_volume down
+# spotify bindings
+bindsym XF86AudioPlay exec ~/bin/spot
+bindsym XF86AudioPrev exec ~/bin/spot "prev"
+bindsym XF86AudioNext exec ~/bin/spot "next"
+bindsym XF86AudioStop exec ~/bin/spot "stop"
+
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp     exec xbacklight -inc 2 # increase screen brightness
@@ -66,10 +61,17 @@ floating_modifier $mod
 # start a terminal
 # bindsym $mod+Return exec gnome-terminal
 # NOTE add +aw for no wordwrap in stdout
-bindsym $mod+Return exec rxvt
+bindsym $mod+Return exec rxvt # -e ~/bin/start_tmux --noclose
 
 # start a sunray terminal
-bindsym $mod+Shift+Return exec rxvt -e ~/bin/sunray --noclose
+# bindsym $mod+Shift+Return exec rxvt -e ~/bin/sunray --noclose
+# bindsym $mod+shift+t exec --no-startup-id rxvt -geometry 80x26 -name "floating_urxvt" for_window [class="URxvt" instance="floating_urxvt$"] floating toggle
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+Shift+Return scratchpad show
 
 # kill focused window
 bindsym $mod+Shift+Q kill
@@ -77,6 +79,7 @@ bindsym $mod+Shift+Q kill
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run -b -fn -misc-*-*-*-*-*-18-*-*-*-*-*-*-*
 bindsym $mod+d exec rofi -show run
+bindsym $mod+space exec rofi -show run
 
 # change focus
 bindsym $mod+Left focus left
@@ -137,10 +140,32 @@ bindsym $mod+Shift+parenleft move workspace 8
 bindsym $mod+Shift+parenright move workspace 9
 bindsym $mod+Shift+equal move workspace 10
 
+
+# Setup if dual-monitor setup is present
+workspace 1 output HDMI1
+workspace 2 output HDMI1
+workspace 3 output HDMI1
+workspace 4 output HDMI1
+workspace 5 output HDMI1
+
+workspace 6 output DP2-1
+workspace 7 output DP2-1
+workspace 8 output DP2-1
+workspace 9 output DP2-1
+workspace 10 output DP2-1
+
+workspace 6 output DP2-2
+workspace 7 output DP2-2
+workspace 8 output DP2-2
+workspace 9 output DP2-2
+workspace 10 output DP2-2
+
 # reload the configuration file
 bindsym $mod+Shift+C reload
+
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+R restart
+
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+E exit
 
@@ -173,53 +198,59 @@ bindsym $mod+r mode "resize"
 # AUTOSTART
 # automatically starting applications on i3 startup
 
+# Resoulution
+exec --no-startup-id ~/bin/monitor.py -u
+# exec --no-startup-id bash 'xrandr --output "eDP1" --mode "1600x900"'
+
 exec --no-startup-id dropbox start # Start Dropbox
+exec --no-startup-id pactl load-module module-bluetooth-discover # Bluetooth policies
 exec --no-startup-id nm-applet -sm-disable # Start  Network Manager
-exec --no-startup-id blueman-applet # Start bluetooth manager
+# exec --no-startup-id blueman-applet # Start bluetooth manager
 
 # Disable Screen saver
 exec --no-startup-id xset s off
 exec --no-startup-id xset -dpms
 
+# Disable beep
+exec --no-startup-id xset -b
+
 # Enable power-save
-exec --no-startup-id sudo pm-powersave
-exec --no-startup-id sudo powertop --auto-tune
+# exec --no-startup-id sudo pm-powersave
+# exec --no-startup-id sudo powertop --auto-tune
 
 # Reset Caps_Lock as Super
 exec --no-startup-id setxkbmap -option caps:hyper
 
 # Set background color
-exec --no-startup-id xsetroot -solid '#222222'
-
-# Disable bell in xorg
-exec --no-startup-id xset -b
+exec --no-startup-id xsetroot -solid '#131313'
 
 # Disable window bar
 # Don't worry, window-bar is there for tabs and stack
 for_window [class="^.*"] border pixel 4
 new_window 1pixel
 
-# Interface                border    title      color
+# interface                border    title      color
 client.focused             #0373bb   #0373bb    #ffffff    #2e9ef4
 client.focused_inactive    #222222   #222222    #ffffff    #484e50
-client.unfocused           #222222   #222222    #888888    #292d2e
+client.unfocused           #222222   #222222    #ffffff    #222222
 client.urgent              #2f343a   #900000    #ffffff    #900000
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+    font xft:mononoki 20
     position top
     status_command i3status
     colors {
-        background #222222
-        statusline #dcdcdc
-        separator  #666666
+        background #121212
+        statusline #049cfb
+        separator  #121212
 
         #                  border  bg      font
-        focused_workspace  #0373bb #0373bb #ffffff
-        active_workspace   #5f676a #5f676a #ffffff
-        inactive_workspace #222222 #222222 #888888
-        urgent_workspace   #900000 #900000 #ffffff
+        focused_workspace  #121212 #121212 #ffffff
+        active_workspace   #121212 #121212 #ffffff
+        inactive_workspace #121212 #121212 #888888
+        urgent_workspace   #121212 #121212 #0373bb
     }
 }
 
