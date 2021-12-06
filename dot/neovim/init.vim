@@ -50,7 +50,7 @@ map gd :bdelete<cr>
 function! OscCopyVbuf()
   let executeCmd='yank ~/.vbuf'
   call system(executeCmd)
-  redraw!
+  mod " redraw the interface
 endfunction
 function! OscYank(text) abort
   let escape = system('yank', a:text)
@@ -59,6 +59,7 @@ function! OscYank(text) abort
   else
     call writefile([escape], '/dev/tty', 'b')
   endif
+  mod " Redraw the interface
 endfunction
 command! OscCopyVbuf :call OscCopyVbuf()
 noremap <silent> <Leader>y y:<C-U>call OscYank(@0)<CR>
