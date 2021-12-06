@@ -93,11 +93,15 @@ URxvt.keysym.Control-M-Left: \033[1~
 URxvt.keysym.Control-M-Right: \033[4~
 
 ! Shift + tab working
+! URxvt.keysym.Control-ISO_Left_Tab: \033[27;6;9~
+! URxvt.keysym.Control-Shift-ISO_Left_Tab: \033[27;6;9~
 URxvt.keysym.C-Tab: \033{
 URxvt.keysym.Control-Shift-ISO_Left_Tab: \033}
-! ! disable ctrl-shit
+! disable ctrl-shit
 URxvt*iso14755: False
 URxvt*iso14755_52: False
+
+
 
 ! Copy paste
 ! https://nixmeal.wordpress.com/2012/07/24/copypaste-text-in-urxvt-rxvt-unicode-using-keyboard/

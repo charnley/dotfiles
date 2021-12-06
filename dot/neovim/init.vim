@@ -34,17 +34,23 @@ nnoremap <Leader>b :Buffers<cr>
 " Search lines in current buffer
 noremap <Leader>s :BLines<cr>
 
-" Open new file
-" :FZF searches all files
-" GitFiles searches git-files
+" Search all files registered with git
 noremap <leader>f :GitFiles<CR>
+
+" Search all files under current directory
 noremap <leader>o :Files<CR>
 
 " Switch between buffers
 map gn :bnext<cr>
 map gp :bprevious<cr>
 map gd :bdelete<cr>
+
 " TODO Would be nice to have <TAB> and <C-TAB> working here
+" Swtich buffer with tab
+nmap ^[{ :tabnext<cr>
+imap ^[{ <ESC>:tabnext<cr>
+nmap ^[} :tabprevious<cr>
+imap ^[} <ESC>:tabprevious<cr>
 
 " Copy to clipboard using ~/bin/yank
 function! OscCopyVbuf()
