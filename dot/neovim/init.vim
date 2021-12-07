@@ -1,29 +1,26 @@
 " Trying out neovim
 
-" TODO
-" https://github.com/junegunn/vim-easy-align " Easy align CSV data
-" coc + snippet tab setup
+" TODO https://github.com/junegunn/vim-easy-align " Easy align CSV data
 
+" set indentation tab
 set autoindent
-set mouse=a
-set number
-set relativenumber
-set shiftwidth=4
-set smarttab
-set softtabstop=4
-set tabstop=4
-set nowrap " Don't ever wordwrap my code
-set scrolloff=8 " I like cursor to be in center
-set sidescrolloff=15
-set sidescroll=1
-set nohlsearch " I don't like to look at highlighted text
-set lazyredraw " will buffer screen updates instead of updating all the time.:help 'ttyfast'
+set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
+
 set ignorecase " Case-insensitive searching
-set smartcase " if a pattern contains an uppercase letter, it is case sensitive
-set noshowmode " insert is already showing in lightline
-set signcolumn=yes:1 " always show sign column (bookmarks, gitgutter,..)
+set lazyredraw " will buffer screen updates instead of updating all the time.:help 'ttyfast'
 set list " Highlight unwanted spaces
 set listchars=tab:▸\ ,trail:·
+set mouse=a
+set nohlsearch " I don't like to look at highlighted text
+set noshowmode " insert is already showing in lightline
+set nowrap " Don't ever wordwrap my code
+set number
+set relativenumber
+set scrolloff=8 " I like cursor to be in center
+set sidescroll=1
+set sidescrolloff=15
+set signcolumn=yes:1 " always show sign column (bookmarks, gitgutter,..)
+set smartcase " if a pattern contains an uppercase letter, it is case sensitive
 
 " Leader
 let mapleader=","
@@ -41,9 +38,9 @@ noremap <leader>f :GitFiles<CR>
 noremap <leader>o :Files<CR>
 
 " Switch between buffers
-map gn :bnext<cr>
-map gp :bprevious<cr>
-map gd :bdelete<cr>
+map bn :bnext<cr>
+map bp :bprevious<cr>
+map bd :bdelete<cr>
 
 " TODO Would be nice to have <TAB> and <C-TAB> working here
 " Swtich buffer with tab
@@ -51,6 +48,10 @@ nmap ^[{ :tabnext<cr>
 imap ^[{ <ESC>:tabnext<cr>
 nmap ^[} :tabprevious<cr>
 imap ^[} <ESC>:tabprevious<cr>
+
+" Temp fix until tabs working
+nmap <A-right> :bnext<cr>
+nmap <A-left> :bprevious<cr>
 
 " Copy to clipboard using ~/bin/yank
 function! OscCopyVbuf()
@@ -138,103 +139,60 @@ vnoremap Y myY`y
 
 
 call plug#begin()
-Plug 'MattesGroeger/vim-bookmarks'  " Easy bookmark shortcuts
-Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus', 'vim'] }  " Preview CSS Colors
-Plug 'chaoren/vim-wordmotion' " Better word motion
-Plug 'easymotion/vim-easymotion'  " Jump to character
-Plug 'junegunn/fzf', { 'do': './install --all' } " Fuzzy find searching
-Plug 'junegunn/fzf.vim'  " Fuzzy find searching
-Plug 'ldx/vim-indentfinder' " Auto ident
-Plug 'rafi/awesome-vim-colorschemes' " Retro Scheme
-Plug 'tpope/vim-commentary' " For Commenting gcc & gc
+    Plug 'MattesGroeger/vim-bookmarks'  " Easy bookmark shortcuts
+    Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus', 'vim'] }  " Preview CSS Colors
+    Plug 'chaoren/vim-wordmotion' " Better word motion
+    Plug 'easymotion/vim-easymotion'  " Jump to character
+    Plug 'junegunn/fzf', { 'do': './install --all' } " Fuzzy find searching
+    Plug 'junegunn/fzf.vim'  " Fuzzy find searching
+    " Plug 'ldx/vim-indentfinder' " Auto ident
+    Plug 'rafi/awesome-vim-colorschemes' " Retro Scheme
+    Plug 'tpope/vim-commentary' " For Commenting gcc & gc
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better code syntax
 
-" Interface
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+    " Interface
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+
+
+
+    " IDE
+    Plug 'windwp/nvim-autopairs'
+    Plug 'glepnir/lspsaga.nvim'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-vsnip'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/vim-vsnip'
+    Plug 'kabouzeid/nvim-lspinstall'
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+
+    Plug 'airblade/vim-gitgutter' " Git indication
+
+call plug#end()
+
+
+
+:colorscheme jellybeans
+highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
+
+
+" Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_close_button = 0
 let g:airline_skip_empty_sections = 1
-
 let g:airline#extensions#tabline#tab_min_count = 2  " ignored : (
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#right_sep = ' '
 let g:airline#extensions#tabline#right_alt_sep = ''
 let g:airline_powerline_fonts = 0
-
 au User AirlineAfterInit  :let g:airline_section_z = airline#section#create(['%3p%% %L:%3v'])
-
-
-" IDE
-" set wildignore+=*/node_modules/**
-" " Plug 'nathanaelkane/vim-indent-guides' " Indentation lines  usage: <leader>ig
-" Plug 'neoclide/coc.nvim', {'branch': 'release'} " this is for auto complete, prettier and tslinting
-" Plug 'antoinemadec/coc-fzf' " Use FZF instead of coc.nvim built-in fuzzy finder.
-
-" let g:coc_global_extensions = [
-"     \ 'coc-css',
-"     \ 'coc-diagnostic',
-"     \ 'coc-html',
-"     \ 'coc-json',
-"     \ 'coc-pairs',
-"     \ 'coc-python',
-"     \ 'coc-sh',
-"     \ 'coc-snippets',
-" \ ]
-
-
-" " Use tab for trigger completion with characters ahead and navigate.
-" " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" " other plugin before putting this into your config.
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" function! s:check_back_space() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
-
-" " Make <CR> auto-select the first completion item and notify coc.nvim to
-" " format on enter, <cr> could be remapped by other vim plugin
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-"                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" " GoTo code navigation.
-" nmap <silent> gd <Plug>(coc-definition)
-" nmap <silent> gy <Plug>(coc-type-definition)
-" nmap <silent> gi <Plug>(coc-implementation)
-" nmap <silent> gr <Plug>(coc-references)
-
-" " Highlight the symbol and its references when holding the cursor.
-" autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" " Symbol renaming.
-" nmap <leader>rn <Plug>(coc-rename)
-
-" " Get the coc list
-" nmap <leader>l :CocFzfList<cr>
-
-" " toggle IDE like behavior
-" " TODO Add a keybinding
-" " TODO Should be disabled by default
-" function! CocToggle()
-"     if g:coc_enabled
-"         CocDisable
-"     else
-"         CocEnable
-"     endif
-" endfunction
-" command! CocToggle :call CocToggle()
-
-Plug 'airblade/vim-gitgutter' " Git indication
-call plug#end()
-
-:colorscheme jellybeans
-highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
 
 " Plug Bookmarks
 " Add/remove bookmark at current line           mm  :BookmarkToggle
@@ -251,10 +209,10 @@ highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
 let g:bookmark_sign = '•'
 
 " Git
-let g:gitgutter_sign_added = '∙'
-let g:gitgutter_sign_modified = '•'
-let g:gitgutter_sign_removed = '•'
-let g:gitgutter_sign_modified_removed = '•'
+let g:gitgutter_sign_added = '|'
+let g:gitgutter_sign_modified = '|'
+let g:gitgutter_sign_removed = '|'
+let g:gitgutter_sign_modified_removed = '|'
 highlight GitGutterAdd    ctermfg=green
 highlight GitGutterChange ctermfg=yellow
 highlight GitGutterDelete ctermfg=red
@@ -285,4 +243,25 @@ hi link EasyMotionTarget2First Todo
 hi link EasyMotionTarget2Second Todo
 hi link EasyMotionIncSearch IncSearch
 hi link EasyMotionIncCursor Search
+
+
+" >> Lsp key bindings
+ nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+ nnoremap <silent> <C-]> <cmd>lua vim.lsp.buf.definition()<CR>
+ nnoremap <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
+ nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+ nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
+ nnoremap <silent> K     <cmd>Lspsaga hover_doc<CR>
+ nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+ nnoremap <silent> <C-p> <cmd>Lspsaga diagnostic_jump_prev<CR>
+ nnoremap <silent> <C-n> <cmd>Lspsaga diagnostic_jump_next<CR>
+ nnoremap <silent> gf    <cmd>lua vim.lsp.buf.formatting()<CR>
+ nnoremap <silent> gn    <cmd>lua vim.lsp.buf.rename()<CR>
+ nnoremap <silent> ga    <cmd>Lspsaga code_action<CR>
+ xnoremap <silent> ga    <cmd>Lspsaga range_code_action<CR>
+ nnoremap <silent> gs    <cmd>Lspsaga signature_help<CR>
+
+lua << EOF
+require'ide'
+EOF
 

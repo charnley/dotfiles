@@ -29,3 +29,13 @@ TODO Find the behavior you want first
 | key | desc |
 |---|---|
 | ,rn | Rename variable |
+
+
+# Notes
+
+Live Replacement in 0.6
+
+    :%s//replacement
+
+
+
