@@ -17,5 +17,6 @@ mkdir -p ~/.ssh
 ln -sf $cwd/dot/ssh_config ~/.ssh/config
 
 # .config
-ln -sf $cwd/dot/neovim/init.vim ~/.config/nvim/init.vim
-
+mkdir -p $HOME/.config/nvim
+ln -sf $cwd/dot/neovim/init.vim $HOME/.config/nvim/init.vim
+ln -sf $cwd/dot/neovim/lua $HOME/.config/nvim/lua
