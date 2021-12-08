@@ -4,23 +4,24 @@
 
 | key | desc |
 |---|---|
-| ,o | Open new buffer (all files)  |
-| ,f | Open new buffer (git files)  |
-| ,b  | Switch to open buffer  |
-| gn  | Goto next buffer  |
-| gp  | Goto previous buffer  |
-| gd  | Delete current buffer  |
-| ,y  | Copy yank to clipboard (via OSC52) |
+| ,b | Switch to open buffer |
+| ,f | Jump to character |
+| ,f | Open new buffer (git files) |
+| ,gh | Git show changed |
+| ,gn | Git find next hunk |
+| ,gp | Git find previous hunk |
+| ,gu | Git undo hunk |
+| ,o | Open new buffer (all files) |
+| ,y | Copy yank to clipboard (via OSC52) |
+| Alt Left | Goto previous buffer |
+| Alt Right | Goto next buffer |
+| F11 | Enable spell control |
+| F5 | Remove all trailing spaces |
 | Shift y | Copy to ~/.vbuf |
 | Shify p | Paste fro ~/.vbuf |
-| F5  | Remove all trailing spaces |
-| F11  | Enable spell control |
-| ,gu  | Git undo hunk |
-| ,gn  | Git find next hunk |
-| ,gp  | Git find previous hunk |
-| ,gh  | Git show changed |
-| ,f  | Jump to character |
-
+| bd | Delete current buffer |
+| bn | Goto next buffer |
+| bp | Goto previous buffer |
 
 # IDE Like behavior
 
@@ -31,11 +32,12 @@ TODO Find the behavior you want first
 | ,rn | Rename variable |
 
 
+TODO note on auto-complete and tab
+
+
 # Notes
 
-Live Replacement in 0.6
+Live Replacement in NVIM 0.6
 
-    :%s//replacement
-
-
+    :%s/from/to/g
 

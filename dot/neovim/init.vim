@@ -73,10 +73,16 @@ noremap <silent> <Leader>y y:<C-U>call OscYank(@0)<CR>
 
 " Copy the current visual slection to ~/.vbuf
 vmap <S-y> :w! ~/.vbuf<CR>
+
 " Copy the current line to the buffer file if no visual selection
 nmap <S-y> :.w! ~/.vbuf<CR>
+
 " Paste the contents of the buffer file
 nmap <S-p> :r ~/.vbuf<CR>
+
+" Delete without yank
+nnoremap d "_d
+vnoremap d "_d
 
 " Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
@@ -135,7 +141,7 @@ vnoremap > >gv
 " Maintain the cursor position when yanking a visual selection
 " http://ddrscott.github.io/blog/2016/yank-without-jank/
 vnoremap y myy`y
-vnoremap Y myY`y
+" vnoremap Y myY`y  " I use Y as cross-vim copy
 
 
 call plug#begin()
@@ -154,8 +160,6 @@ call plug#begin()
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
 
-
-
     " IDE
     Plug 'windwp/nvim-autopairs'
     Plug 'glepnir/lspsaga.nvim'
@@ -170,16 +174,15 @@ call plug#begin()
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+    Plug 'rafamadriz/friendly-snippets'
 
     Plug 'airblade/vim-gitgutter' " Git indication
 
 call plug#end()
 
-
-
-:colorscheme jellybeans
+" TODO Need if colorscheme is there (for setup)
+colorscheme jellybeans
 highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
-
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
@@ -244,7 +247,7 @@ hi link EasyMotionTarget2Second Todo
 hi link EasyMotionIncSearch IncSearch
 hi link EasyMotionIncCursor Search
 
-
+" TODO Needs to re-evaluate
 " >> Lsp key bindings
  nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
  nnoremap <silent> <C-]> <cmd>lua vim.lsp.buf.definition()<CR>
@@ -264,4 +267,3 @@ hi link EasyMotionIncCursor Search
 lua << EOF
 require'ide'
 EOF
-
