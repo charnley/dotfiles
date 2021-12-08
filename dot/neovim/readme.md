@@ -34,6 +34,10 @@ TODO Find the behavior you want first
 
 TODO note on auto-complete and tab
 
+# Spelling
+
+TODO note on spelling
+
 
 # Notes
 
