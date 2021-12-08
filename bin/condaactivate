@@ -1,0 +1,7 @@
+#!/bin/bash
+
+conda activate
+
+if test -d ./env; then
+    conda activate ./env
+fi
