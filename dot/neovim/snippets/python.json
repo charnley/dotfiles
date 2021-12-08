@@ -1,0 +1,28 @@
+{
+    "fore": {
+        "prefix": "fore",
+        "body": ["for i, ${1:item} in enumerate(${2:iterable}):", "\t${3:pass}"],
+        "description": "Code snippet for a enumerate-for loop"
+    },
+    "ifmainarg": {
+        "prefix": "ifmainarg",
+        "body": [
+            "__version__ = 1.0",
+            "",
+            "def main(args=None):",
+            "",
+            "\timport argparse",
+            "\tparser = argparse.ArgumentParser()",
+            "\tparser.add_argument('-v', '--version', action='version', version=__version__)",
+            "\tparser.add_argument('-f', '--filename', action='store', help='', metavar='FILE')",
+            "\targs = parser.parse_args(args)",
+            "",
+            "\t${0}",
+            "",
+            "",
+            "if __name__ == '__main__':",
+            "\tmain()"
+        ],
+        "description": "if __main__ and pargparse"
+    }
+}
