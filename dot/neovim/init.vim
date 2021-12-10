@@ -22,6 +22,9 @@ set sidescrolloff=15
 set signcolumn=yes:1 " always show sign column (bookmarks, gitgutter,..)
 set smartcase " if a pattern contains an uppercase letter, it is case sensitive
 
+" py
+" let g:pyindent_open_paren = '&sw * 1'
+
 " Leader
 let mapleader=","
 
@@ -42,16 +45,9 @@ map bn :bnext<cr>
 map bp :bprevious<cr>
 map bd :bdelete<cr>
 
-" TODO Would be nice to have <TAB> and <C-TAB> working here
-" Swtich buffer with tab
-nmap ^[{ :tabnext<cr>
-imap ^[{ <ESC>:tabnext<cr>
-nmap ^[} :tabprevious<cr>
-imap ^[} <ESC>:tabprevious<cr>
-
-" Temp fix until tabs working
-nmap <A-right> :bnext<cr>
-nmap <A-left> :bprevious<cr>
+" Much like a browser, just tab between buffers
+nmap <Tab> :bnext<CR>
+nmap <S-Tab> :bprevious<CR>
 
 " Copy to clipboard using ~/bin/yank
 function! OscCopyVbuf()
@@ -154,7 +150,7 @@ call plug#begin()
     " Plug 'ldx/vim-indentfinder' " Auto ident
     Plug 'rafi/awesome-vim-colorschemes' " Retro Scheme
     Plug 'tpope/vim-commentary' " For Commenting gcc & gc
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better code syntax
+    " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better code syntax
 
     " Interface
     Plug 'vim-airline/vim-airline'

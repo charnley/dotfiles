@@ -1,6 +1,11 @@
-require('lspconfig').pyright.setup{}
+-- require('lspconfig').pyright.setup{}
 require('lspconfig').bashls.setup{}
 require('nvim-autopairs').setup{}
+
+
+-- TODO Change auto complete to Tab
+-- TODO Change cmp abort to simple non-intrusive (for example leader)
+
 
 
 -- Setup nvim-cmp.
