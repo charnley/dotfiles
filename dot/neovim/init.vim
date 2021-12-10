@@ -2,9 +2,17 @@
 
 " TODO https://github.com/junegunn/vim-easy-align " Easy align CSV data
 
+
 " set indentation tab
 set autoindent
-set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
+set expandtab 
+set indentexpr=O
+set shiftwidth=4
+set smartindent
+set smarttab
+set softtabstop=0
+set tabstop=4
+
 
 set ignorecase " Case-insensitive searching
 set lazyredraw " will buffer screen updates instead of updating all the time.:help 'ttyfast'
@@ -21,9 +29,6 @@ set sidescroll=1
 set sidescrolloff=15
 set signcolumn=yes:1 " always show sign column (bookmarks, gitgutter,..)
 set smartcase " if a pattern contains an uppercase letter, it is case sensitive
-
-" py
-" let g:pyindent_open_paren = '&sw * 1'
 
 " Leader
 let mapleader=","
