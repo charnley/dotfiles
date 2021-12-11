@@ -239,11 +239,11 @@ let g:EasyMotion_keys = 'qwertasdfgzxcv'
 let g:EasyMotion_use_upper = 0
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_startofline = 0
-map  f <Plug>(easymotion-s)
-xmap f <Plug>(easymotion-s)
-omap f <Plug>(easymotion-t)
-map J <Plug>(easymotion-j)
-map K <Plug>(easymotion-k)
+nmap  f <Plug>(easymotion-s)
+" xmap f <Plug>(easymotion-s)
+" omap f <Plug>(easymotion-t)
+" map J <Plug>(easymotion-j)
+" map K <Plug>(easymotion-k)
 hi link EasyMotionTarget Todo
 hi link EasyMotionShade  Comment
 hi link EasyMotionTarget2First Todo
@@ -253,20 +253,28 @@ hi link EasyMotionIncCursor Search
 
 " TODO Needs to re-evaluate
 " >> Lsp key bindings
- nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
- nnoremap <silent> <C-]> <cmd>lua vim.lsp.buf.definition()<CR>
- nnoremap <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
- nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
- nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
- nnoremap <silent> K     <cmd>Lspsaga hover_doc<CR>
- nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
- nnoremap <silent> <C-p> <cmd>Lspsaga diagnostic_jump_prev<CR>
- nnoremap <silent> <C-n> <cmd>Lspsaga diagnostic_jump_next<CR>
- nnoremap <silent> gf    <cmd>lua vim.lsp.buf.formatting()<CR>
- nnoremap <silent> gn    <cmd>lua vim.lsp.buf.rename()<CR>
- nnoremap <silent> ga    <cmd>Lspsaga code_action<CR>
- xnoremap <silent> ga    <cmd>Lspsaga range_code_action<CR>
- nnoremap <silent> gs    <cmd>Lspsaga signature_help<CR>
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <C-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> K     <cmd>Lspsaga hover_doc<CR>
+nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> <C-p> <cmd>Lspsaga diagnostic_jump_prev<CR>
+nnoremap <silent> <C-n> <cmd>Lspsaga diagnostic_jump_next<CR>
+nnoremap <silent> gf    <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent> gn    <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> ga    <cmd>Lspsaga code_action<CR>
+xnoremap <silent> ga    <cmd>Lspsaga range_code_action<CR>
+nnoremap <silent> gs    <cmd>Lspsaga signature_help<CR>
+
+
+" Jump forward or backward in snippets
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+" smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+" smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
 
 " Make VIM IDE like
 lua << EOF
