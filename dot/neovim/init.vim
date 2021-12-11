@@ -1,7 +1,7 @@
 " Trying out neovim
 
 " TODO https://github.com/junegunn/vim-easy-align " Easy align CSV data
-
+" https://www.reddit.com/r/neovim/comments/pqnymo/the_lspsaga_hover_doc_command_not_working/
 
 " set indentation tab
 set autoindent
@@ -154,7 +154,7 @@ call plug#begin()
     Plug 'junegunn/fzf', { 'do': './install --all' } " Fuzzy find searching
     Plug 'junegunn/fzf.vim'  " Fuzzy find searching
     " Plug 'ldx/vim-indentfinder' " Auto ident
-    Plug 'rafi/awesome-vim-colorschemes' " Retro Scheme
+    Plug 'nanotech/jellybeans.vim'
     Plug 'tpope/vim-commentary' " For Commenting gcc & gc
     " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better code syntax
 
@@ -164,9 +164,7 @@ call plug#begin()
 
     " IDE
     Plug 'windwp/nvim-autopairs'
-    Plug 'glepnir/lspsaga.nvim'
     Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-vsnip'
@@ -177,14 +175,20 @@ call plug#begin()
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
     Plug 'rafamadriz/friendly-snippets'
+    Plug 'ray-x/lsp_signature.nvim'  " https://github.com/ray-x/lsp_signature.nvim
 
     Plug 'airblade/vim-gitgutter' " Git indication
 
 call plug#end()
 
 " TODO Need if colorscheme is there (for setup)
+let g:jellybeans_overrides = {
+\    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
+\}
 colorscheme jellybeans
 highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
+highlight clear Normal
+highlight Pmenu ctermbg=none
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
@@ -258,23 +262,13 @@ nnoremap <silent> <C-]> <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> K     <cmd>Lspsaga hover_doc<CR>
 nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> <C-p> <cmd>Lspsaga diagnostic_jump_prev<CR>
-nnoremap <silent> <C-n> <cmd>Lspsaga diagnostic_jump_next<CR>
 nnoremap <silent> gf    <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <silent> gn    <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> ga    <cmd>Lspsaga code_action<CR>
-xnoremap <silent> ga    <cmd>Lspsaga range_code_action<CR>
-nnoremap <silent> gs    <cmd>Lspsaga signature_help<CR>
-
 
 " Jump forward or backward in snippets
 imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-" smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-" smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
 
 " Make VIM IDE like
 lua << EOF

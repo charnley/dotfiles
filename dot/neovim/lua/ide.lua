@@ -5,13 +5,26 @@ require('lspconfig').pyright.setup{}
 require('lspconfig').bashls.setup{}
 require('nvim-autopairs').setup{}
 
+-- Auto signature hints
+require('lsp_signature').setup({
 
--- Setup nvim-cmp
+    handler_opts = {
+        border = "single",   -- double, rounded, single, shadow, none
+    },
+    hint_prefix = "",  -- Panda for parameter
+
+})
+
+-- locals
+local lsp = vim.lsp
+local handlers = lsp.handlers
 local cmp = require'cmp'
-
--- auto bracket on cmp complete
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
+
+-- add brackets after auto-complete
+cmp.event:on( 'confirm_done',
+    cmp_autopairs.on_confirm_done({  map_char = { tex = '' } })
+)
 
 -- setup completion
 cmp.setup({
@@ -19,7 +32,7 @@ cmp.setup({
         expand = function(args)
         vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
         end,
-    },
+    }, -- end snippet
     mapping = {
         ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
         ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
@@ -36,14 +49,18 @@ cmp.setup({
         -- Accept currently selected item. If none selected, `select` first item.
         -- Set `select` to `false` to only confirm explicitly selected items.
         ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-    },
+    },  -- end mapping
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
-        { name = 'paths' },
-        { name = 'vsnip' }, -- For vsnip users.
+        { name = 'path' },
+        { name = 'vsnip' },
     }, {
-        -- { name = 'buffer' },  -- I don't need completion on text
-    })
+        -- I don't need completion on text, especially not for small words
+        { name = 'buffer', keyword_length = 6 },
+    }),  -- end sources
+    experimental = {
+        ghost_text = true,  -- write out the auto completetion
+    }
 })
 
 -- lsp setup
@@ -88,13 +105,14 @@ require'nvim-treesitter.configs'.setup {
         node_decremental = "grm",       -- decrement to the previous node
       }
     },
+
     textobjects = {
       -- These are provided by
       select = {
         enable = true,  -- you can also use a table with list of langs here (e.g. { "python", "javascript" })
         keymaps = {
           -- You can use the capture groups defined here:
--- https://github.com/nvim-treesitter/nvim-treesitter-textobjects/blob/master/queries/c/textobjects.scm
+          -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects/blob/master/queries/c/textobjects.scm
           ["af"] = "@function.outer",
           ["if"] = "@function.inner",
           ["ab"] = "@block.outer",
@@ -105,4 +123,3 @@ require'nvim-treesitter.configs'.setup {
       },
     },
 }
-
