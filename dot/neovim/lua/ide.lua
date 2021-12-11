@@ -78,8 +78,10 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 
 --- Treesitter
+require('nvim-treesitter.install').compilers = { "clang", "gcc" }
 require'nvim-treesitter.configs'.setup {
-
+    ignore_install = { "javascript" }, -- List of parsers to ignore installing
+    -- ensure_installed can be "all" or a list of languages { "python", "javascript" }
     ensure_installed = {
         "python",
         "bash",
