@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO Should be 5.1.*
+
 version="5.4.3"
 lua_build="$HOME/opt/lua_build"
 
