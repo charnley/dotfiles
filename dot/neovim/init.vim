@@ -5,14 +5,13 @@
 
 " set indentation tab
 set autoindent
-set expandtab 
+set expandtab
 set indentexpr=O
 set shiftwidth=4
 set smartindent
 set smarttab
 set softtabstop=0
 set tabstop=4
-
 
 set ignorecase " Case-insensitive searching
 set lazyredraw " will buffer screen updates instead of updating all the time.:help 'ttyfast'
@@ -60,6 +59,7 @@ function! OscCopyVbuf()
   call system(executeCmd)
   mod " redraw the interface
 endfunction
+
 function! OscYank(text) abort
   let escape = system('yank', a:text)
   if v:shell_error
@@ -69,6 +69,7 @@ function! OscYank(text) abort
   endif
   mod " Redraw the interface
 endfunction
+
 command! OscCopyVbuf :call OscCopyVbuf()
 noremap <silent> <Leader>y y:<C-U>call OscYank(@0)<CR>
 
@@ -144,8 +145,8 @@ vnoremap > >gv
 vnoremap y myy`y
 " vnoremap Y myY`y  " I use Y as cross-vim copy
 
-
 call plug#begin()
+
     Plug 'MattesGroeger/vim-bookmarks'  " Easy bookmark shortcuts
     Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus', 'vim'] }  " Preview CSS Colors
     Plug 'chaoren/vim-wordmotion' " Better word motion
@@ -223,9 +224,11 @@ highlight GitGutterDelete ctermfg=red
 
 " Undo block of git changes
 nmap <leader>gu <Plug>(GitGutterUndoHunk)
+
 " find next or prev git hunk
 nmap <leader>gn <Plug>(GitGutterNextHunk)
 nmap <leader>gp <Plug>(GitGutterPrevHunk)
+
 " what changed in this hunk (close with :pclose)
 nmap <leader>gh <Plug>(GitGutterPreviewHunk)
 "au CursorMoved * if gitgutter#hunk#in_hunk(line(".")) | GitGutterPreviewHunk | else | pclose | endif
@@ -265,6 +268,7 @@ hi link EasyMotionIncCursor Search
  xnoremap <silent> ga    <cmd>Lspsaga range_code_action<CR>
  nnoremap <silent> gs    <cmd>Lspsaga signature_help<CR>
 
+" Make VIM IDE like
 lua << EOF
 require'ide'
 EOF

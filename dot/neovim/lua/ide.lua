@@ -1,4 +1,4 @@
--- require('lspconfig').pyright.setup{}
+require('lspconfig').pyright.setup{}
 require('lspconfig').bashls.setup{}
 require('nvim-autopairs').setup{}
 
@@ -61,8 +61,8 @@ sources = cmp.config.sources({
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = {
-      -- prefix = "",
-      spacing = 0,
+      prefix = "!",
+      spacing = 3,
     },
     signs = true,
     underline = true,
@@ -218,6 +218,7 @@ require'nvim-treesitter.configs'.setup {
       enable = true, -- you can also use a table with list of langs here (e.g. { "python", "javascript" })
     },
 
+    -- need for proper indentation handling (especially for bracket pairs)
     indent = {
       enable = true
     },
