@@ -35,6 +35,11 @@ tmux_plugins:
 	bash ./setup.$(OS)/tmux_compile.sh
 	bash ./setup/tmux_plugins.sh
 
+~/opt/nvm:
+	bash ./setup/javascript_nvm.sh
+	bash ./setup/javascript_node.sh
+	bash ./setup/javascript_yarn.sh
+
 ~/.bashrc: symlink
 
 symlink:
