@@ -119,8 +119,7 @@ ${HOME}/.config/dunstrc: ./dot.deb.x/dunstrc
 ${HOME}/.config/i3status/config: ./dot.deb.x/i3status
 ${HOME}/.i3/config: ./dot.deb.x/i3config
 
-symlink:
-	bash setup.$(OS)/setup_dotfiles.sh
+# Meta
 
 install: dotfiles ~/bin/vim vim_plugins
 
