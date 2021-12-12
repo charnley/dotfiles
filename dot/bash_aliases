@@ -97,6 +97,7 @@ alias b='cd ..'
 alias v='vim'
 alias e='vim'
 alias vi='vim'
+alias p='vim `fzf --preview="bat --color always {}"`'
 
 # easy rsync
 alias rs='rsync -azvh --progress'
