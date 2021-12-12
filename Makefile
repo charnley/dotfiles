@@ -21,10 +21,10 @@ ifeq ($(detected_OS),Linux)
 	OS = deb
 endif
 
-pwd := $(dir $(mkfile_path))
-
+# Dummy targets
 .PHONY: vim_plugins install clean dotfiles
 
+# Default targets
 all: dotfiles bin vim_plugins tmux_plugins
 
 vim_plugins:
