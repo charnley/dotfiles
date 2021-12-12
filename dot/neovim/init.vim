@@ -1,5 +1,6 @@
 " Trying out neovim
 
+" TODO https://github.com/albingroen/quick.nvim
 " TODO https://github.com/junegunn/vim-easy-align " Easy align CSV data
 " https://www.reddit.com/r/neovim/comments/pqnymo/the_lspsaga_hover_doc_command_not_working/
 
@@ -187,7 +188,6 @@ let g:jellybeans_overrides = {
 \}
 colorscheme jellybeans
 highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
-highlight clear Normal
 highlight Pmenu ctermbg=none
 
 " Airline
