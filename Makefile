@@ -103,7 +103,7 @@ dotfiles_hpc:
 symlink:
 	bash setup.$(OS)/setup_dotfiles.sh
 
-install: ${HOME}/.bashrc ~/bin/vim vim_plugins
+install: dotfiles ~/bin/vim vim_plugins
 
 symlink_clean:
 	# TODO if there and is symlink, rm. For example, if symlink points to dotfiles, but is deprecated
