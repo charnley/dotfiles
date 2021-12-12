@@ -75,16 +75,16 @@ bindir_hpc:
 
 dotfiles: dotfiles_defaults dotfiles_$(OS)
 
+${HOME}/.%:
+	ln -s `pwd`/$< $@
+
 dotfiles_defaults: ${HOME}/.bashrc ${HOME}/.bash_profile ${HOME}/.bash_aliases
 
 ${HOME}/.bashrc: ./dot/bashrc
-	ln -s `pwd`/$< $@
 
 ${HOME}/.bash_profile: ./dot/bash_profile
-	ln -s `pwd`/$< $@
 
 ${HOME}/.bash_aliases: ./dot/bash_aliases
-	ln -s `pwd`/$< $@
 
 dotfiles_osx: ${HOME}/.yabairc ${HOME}/.skhdrc
 
