@@ -1,3 +1,5 @@
+zmodload zsh/zprof
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -121,7 +123,7 @@ setopt TRANSIENT_RPROMPT
 
 # Plugins
 plugins=(
-    git
+    # git
     zsh-syntax-highlighting
 )
 
@@ -129,13 +131,13 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 
-# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold"
+# # ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold"
 
-ZSH_AUTOSUGGEST_HISTORY_IGNORE="cd *"
-ZSH_AUTOSUGGEST_COMPLETION_IGNORE="git *"
+# ZSH_AUTOSUGGEST_HISTORY_IGNORE="cd *"
+# ZSH_AUTOSUGGEST_COMPLETION_IGNORE="git *"
 
-ZSH_HIGHLIGHT_STYLES[path]=none
-ZSH_HIGHLIGHT_STYLES[path_prefix]=none
+# ZSH_HIGHLIGHT_STYLES[path]=none
+# ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
 # User configuration
 
@@ -177,10 +179,11 @@ if test -d "$HOME/bin"; then PATH="$HOME/bin:$PATH"; fi
 export PATH="$HOME/opt/brew/bin:$PATH"
 
 # fuzzy search
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+test -f ~/.fzf.zsh && source ~/.fzf.zsh
 
 if type ag &> /dev/null; then
-    export FZF_DEFAULT_COMMAND='ag -p ~/.gitignore -g ""'
+    export FZF_DEFAULT_COMMAND='ag -p ~/.gitignore -g "" "${FZF_BASE:-.}"'
+    export FZF_CTRL_T_COMMAND='ag -p ~/.gitignore -g "" "${FZF_BASE:-.}"'
 fi
 
 
@@ -192,22 +195,14 @@ export LC_ALL=en_US.UTF-8
 
 unsetopt CDABLE_VARS
 
-
-# conda initialize
-__conda_setup="$('$HOME/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "$HOME/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "$HOME/opt/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="$HOME/opt/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-conda deactivate  # Avoid conda env prompt by default
+# CONDA Pyhon packages
+CONDA_DIR="$HOME/opt/anaconda3"
+test -d $CONDA_DIR && source $CONDA_DIR/etc/profile.d/conda.sh
 
 # Node Version Manager
 export NVM_DIR="$HOME/opt/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+test -s "$NVM_DIR/nvm.sh" && source "$NVM_DIR/nvm.sh"  --no-use  # This loads nvm
+# test -s "$NVM_DIR/bash_completion" && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Profile
+# zprof

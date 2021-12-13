@@ -1,0 +1,11 @@
+*.vscode
+.DS_Store
+.hg
+.svn
+Library
+Movies
+Music
+One*
+Public
+node_modules
+opt
