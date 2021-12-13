@@ -66,22 +66,22 @@ ${HOME}/opt/nvm:
 	bash ./setup/javascript_yarn.sh
 
 # TODO for bin folder, I should probably use CMakefile for rule generation
-bin: bindir_default bindir_$(OS)
+bin: ${HOME}/bin bindir_default bindir_$(OS)
 
 bindir_default:
-	export src=`pwd` && cd ${HOME}/bin/ && ln -fs $$src/bin/* .
+	@bash ./setup/install_bin_directories.sh bin
 
 bindir_deb:
-	export src=`pwd` && cd ${HOME}/bin/ && ln -fs $$src/bin.deb/* .
+	@bash ./setup/install_bin_directories.sh bin.deb
 
 bindir_deb.x:
-	export src=`pwd` && cd ${HOME}/bin/ && ln -fs $$src/bin.deb.x/* .
+	@bash ./setup/install_bin_directories.sh bin.deb.x
 
 bindir_osx:
-	export src=`pwd` && cd ${HOME}/bin/ && ln -fs $$src/bin.osx/* .
+	@bash ./setup/install_bin_directories.sh bin.osx
 
 bindir_hpc:
-	export src=`pwd` && cd ${HOME}/bin/ && ln -fs $$src/bin.hpc/* .
+	@bash ./setup/install_bin_directories.sh bin.hpc
 
 # Dotfiles
 
