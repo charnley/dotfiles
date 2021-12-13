@@ -194,28 +194,18 @@ if test -d $HOME/intel/licenses; then
     source $HOME/intel/bin/compilervars.sh intel64
 fi
 
-# Don't send me messages
+# Dont send me messages
 if `tty -s`; then mesg n; fi
 
 # Source local bashrc if present
 if test -f $HOME/.bashrc_local; then source $HOME/.bashrc_local; fi
 
 # Setup conda generally
+# CONDA Pyhon packages
 if test -d "$HOME/opt/anaconda3"; then CONDA_PREFIX="$HOME/opt/anaconda3"; fi
 if test -d "$HOME/opt/miniconda3"; then CONDA_PREFIX="$HOME/opt/miniconda3"; fi
-__conda_setup="$('$CONDA_PREFIX/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "$CONDA_PREFIX/etc/profile.d/conda.sh" ]; then
-        . "$CONDA_PREFIX/etc/profile.d/conda.sh"
-    else
-        export PATH="$CONDA_PREFIX/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+test -d $CONDA_PREFIX && source $CONDA_PREFIX/etc/profile.d/conda.sh
 
-
+# Node Version Manager
 export NVM_DIR="$HOME/opt/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+test -s "$NVM_DIR/nvm.sh" && source "$NVM_DIR/nvm.sh" --no-use
