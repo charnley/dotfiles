@@ -21,6 +21,7 @@ set listchars=tab:▸\ ,trail:·
 set mouse=a
 set nohlsearch " I don't like to look at highlighted text
 set noshowmode " insert is already showing in lightline
+set noswapfile
 set nowrap " Don't ever wordwrap my code
 set number
 set relativenumber
