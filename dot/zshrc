@@ -131,13 +131,14 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 
-# # ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold"
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold"
 
-# ZSH_AUTOSUGGEST_HISTORY_IGNORE="cd *"
-# ZSH_AUTOSUGGEST_COMPLETION_IGNORE="git *"
+ZSH_AUTOSUGGEST_HISTORY_IGNORE="cd *"
+ZSH_AUTOSUGGEST_COMPLETION_IGNORE="git *"
 
-# ZSH_HIGHLIGHT_STYLES[path]=none
-# ZSH_HIGHLIGHT_STYLES[path_prefix]=none
+# I don't like underline
+ZSH_HIGHLIGHT_STYLES[path]=none
+ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
 # User configuration
 
