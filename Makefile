@@ -103,10 +103,11 @@ ${HOME}/.config/nvim/init.vim: ./dot/neovim/init.vim
 ${HOME}/.config/nvim/lua: ./dot/neovim/lua
 ${HOME}/.vsnip: ./dot/neovim/snippets
 
-dotfiles_osx: ${HOME}/.yabairc ${HOME}/.skhdrc
+dotfiles_osx: ${HOME}/.yabairc ${HOME}/.skhdrc ${HOME}/.gitignore
 
 ${HOME}/.yabairc: ./dot.osx/yabairc
 ${HOME}/.skhdrc: ./dot.osx/skhdrc
+${HOME}/.gitignore: ./dot.osx/gitignore
 
 dotfiles_deb: ${HOME}/.inputrc
 
