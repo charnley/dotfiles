@@ -15,4 +15,3 @@ do
         ln -s $pwd/$bin_dir/$x $HOME/bin/$x
     fi
 done
-
