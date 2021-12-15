@@ -22,7 +22,7 @@ ifeq ($(detected_OS),Linux)
 endif
 
 # Dummy targets
-.PHONY: vim_plugins install clean dotfiles
+.PHONY: vim_plugins install clean dotfiles directories
 
 # Default targets
 all: dotfiles bin vim_plugins tmux_plugins
@@ -44,11 +44,13 @@ ${HOME}/.config/neovim:
 ${HOME}/.ssh:
 	mkdir $@
 
-$HOME/.i3:
+${HOME}/.i3:
 	mkdir $@
 
-$HOME/.config/i3status:
+${HOME}/.config/i3status:
 	mkdir $@
+
+directories: ${HOME}/bin ${HOME}/.config/neovim
 
 # Executables
 
@@ -85,7 +87,7 @@ bindir_hpc:
 
 # Dotfiles
 
-dotfiles: dotfiles_defaults dotfiles_$(OS)
+dotfiles: directories dotfiles_defaults dotfiles_$(OS)
 
 ${HOME}/.%:
 	ln -s `pwd`/$< $@
