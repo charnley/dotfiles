@@ -20,7 +20,7 @@
 set $mod Mod4
 
 # Set Font for Window Titles.
-font xft:mononoki 20
+font xft:mononoki 13
 
 # Close a window
 bindsym $mod+q kill
@@ -238,7 +238,7 @@ client.urgent              #2f343a   #900000    #ffffff    #900000
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    font xft:mononoki 20
+    font xft:mononoki 13
     position top
     status_command i3status
     colors {

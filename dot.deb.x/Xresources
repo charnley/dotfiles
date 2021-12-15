@@ -1,5 +1,6 @@
 ! xft
-Xft.dpi: 150
+! Xft.dpi: 150
+Xft.dpi: 96
 
 ! Terminal Color scheme
 URxvt*background:            #121212
@@ -202,5 +203,5 @@ rofi.color-normal: #273238, #c1c1c1, #273238, #394249, #ffffff
 rofi.color-active: #273238, #80cbc4, #273238, #394249, #80cbc4
 rofi.color-urgent: #273238, #ff1844, #273238, #394249, #ff1844
 
-rofi.font: Mononoki 18
+rofi.font: Mononoki 13
 
