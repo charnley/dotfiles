@@ -275,3 +275,13 @@ imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 lua << EOF
 require'ide'
 EOF
+
+" On save. Would like to be on-demand, as each project has it's own per-commit rules
+" source https://waylonwalker.com/vim-augroup/
+" augroup waylonwalker
+"     autocmd!
+"     autocmd bufwritepre *.py execute 'PyPreSave'
+"     autocmd bufwritepost *.py execute 'PyPostSave'
+"     autocmd bufwritepost .tmux.conf execute ':!tmux source-file %' autocmd bufwritepost .tmux.local.conf execute ':!tmux source-file %'
+"     autocmd bufwritepost *.vim execute ':source %'
+" augroup end
