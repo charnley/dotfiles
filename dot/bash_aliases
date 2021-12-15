@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # Set standard editor
 export EDITOR=vi
@@ -66,8 +67,6 @@ gh() {
   grep -o "[a-f0-9]\{7,\}"
 }
 
-
-# alias gc='git clone'
 alias gc='gitclone' # from bin
 
 # tmux shortcuts
@@ -152,16 +151,19 @@ extract () {
     fi
 }
 
-# Internet tools
+# Get code snippets
 cheat()
 {
   where="$1"; shift
   IFS=+ curl "https://cht.sh/$where/ $*"
 }
 
+# Get outward facing ip
 alias myip='echo $(curl -s https://api.ipify.org)'
-
 
 # fun
 alias emoji_shrug='echo -n "¯\_(ツ)_/¯" | yank'
 alias emoji_run='echo -n "ᕕ( ᐛ )ᕗ" | yank'
+
+# if local
+test -f $HOME/.bash_aliases.local && source $HOME/.bash_aliases.local

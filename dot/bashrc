@@ -47,25 +47,16 @@ if test -d "/opt/bin"; then PATH="/opt/bin:$PATH"; fi
 if test -d "/opt/sbin"; then PATH="/opt/sbin:$PATH"; fi
 if test -d "/snap/bin"; then PATH="/snap/bin:$PATH"; fi
 
-# if custom vim
-if test -d "$HOME/opt/vim"; then PATH="$HOME/opt/vim/bin:$PATH"; fi
-
 # My own bins
 if test -d "$HOME/bin"; then PATH="$HOME/bin:$PATH"; fi
 
-# If gaussian
-if test -d "$HOME/opt/gaussian_09"; then PATH="$HOME/opt/gaussian_09:$PATH"; fi
-
-# Actually, just overwrite python
-if test -d "$HOME/opt/anaconda3"; then PATH="$HOME/opt/anaconda3/bin:$PATH"; fi
-if test -d "$HOME/opt/miniconda3"; then PATH="$HOME/opt/miniconda3/bin:$PATH"; fi
+# # Actually, just overwrite python
+# if test -d "$HOME/opt/anaconda3"; then PATH="$HOME/opt/anaconda3/bin:$PATH"; fi
+# if test -d "$HOME/opt/miniconda3"; then PATH="$HOME/opt/miniconda3/bin:$PATH"; fi
 
 # if git
 if test -d "$HOME/opt/git"; then PATH="$HOME/opt/git/bin:$PATH"; fi
 if test -f "$HOME/.git-prompt.sh"; then source $HOME/.git-prompt.sh; fi
-
-# Others Shortcuts
-alias ls='ls --color'
 
 # I would like to have colours in my terminal
 if test $TERM == "xterm"; then export TERM=xterm-256color; fi
