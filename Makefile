@@ -54,7 +54,10 @@ directories: ${HOME}/bin ${HOME}/.config/neovim
 
 # Executables
 
-${HOME}/bin/vim: ${HOME}/opt/nvm
+${HOME}/bin/vim:
+	ln -fs `pwd`/bin.$(OS)/vim ${HOME}/bin/vim
+
+${HOME}/opt/neovim: ${HOME}/opt/nvm ${HOME}/bin/vim
 	bash setup.$(OS)/nvim_setup.sh
 	${HOME}/bin/vim +PlugClean[!] +PlugInstall +PlugUpdate +qall
 
@@ -126,7 +129,7 @@ ${HOME}/.i3/config: ./dot.deb.x/i3config
 
 # Meta
 
-install: dotfiles ~/bin/vim
+install: dotfiles ${HOME}/opt/neovim
 
 symlink_clean:
 	# TODO if there and is symlink, rm. For example, if symlink points to dotfiles, but is deprecated
