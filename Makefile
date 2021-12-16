@@ -1,7 +1,7 @@
 
 # Note
-# $@ - target
-# $< - source
+# $@ - sources
+# $< - target
 
 # Check operating system
 ifeq '$(findstring ;,$(PATH))' ';'
