@@ -209,3 +209,6 @@ test -d $CONDA_PREFIX && source $CONDA_PREFIX/etc/profile.d/conda.sh
 # Node Version Manager
 export NVM_DIR="$HOME/opt/nvm"
 test -s "$NVM_DIR/nvm.sh" && source "$NVM_DIR/nvm.sh" --no-use
+test -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+#
