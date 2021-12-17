@@ -84,7 +84,7 @@ alias tmk='tmux kill-session -t $1'
 alias tmg='tmux new -s $(basename $(pwd))'
 
 # attach to session with fzf
-alias tmf='tmux attach -dt `tml | fzf`'
+alias tmf='tmux attach -dt `tml | fzf | cut -f1 -d":"`'
 
 # tmux clean. Kill all integer tmux sessions
 alias tmclean='tmux ls -F "#{session_name}" | while read -r line; do if [[ $line =~ ^-?[0-9]+$  ]]; then tmux kill-session -t $line; fi; done'
