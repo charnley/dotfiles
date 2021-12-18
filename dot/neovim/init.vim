@@ -151,6 +151,9 @@ set spellsuggest=best,10  " Show only the top ten candidates
 nnoremap <silent> <F11> :set spell!<cr>
 inoremap <silent> <F11> <C-O>:set spell!<cr>
 
+" Sort words in line (usually done in visual block)
+command -nargs=0 -range sort_words <line1>,<line2>call setline('.',join(sort(split(getline('.'),' ')),' '))
+
 " Update buffer if file has changed
 set autoread
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
