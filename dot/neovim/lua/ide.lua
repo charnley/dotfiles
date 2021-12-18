@@ -3,6 +3,8 @@
 
 require('lspconfig').pyright.setup{}
 require('lspconfig').bashls.setup{}
+require('lspconfig').svelte.setup{}
+
 require('nvim-autopairs').setup{}
 
 -- Auto signature hints

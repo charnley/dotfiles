@@ -91,6 +91,25 @@ vnoremap d "_d
 " Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
+" Check wether file is space or tabs based. Switch accordingly
+function TabsOrSpaces()
+    " Determines whether to use spaces or tabs on the current buffer.
+    if getfsize(bufname("%")) > 256000
+        " File is very large, just use the default.
+        return
+    endif
+
+    let numTabs=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^\\t"'))
+    let numSpaces=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^ "'))
+
+    if numTabs > numSpaces
+        setlocal noexpandtab
+    endif
+endfunction
+
+" Call the function after opening a buffer
+autocmd BufReadPost * call TabsOrSpaces()
+
 " User Interface
 if has('cmdline_info')
   set ruler                   " show the ruler
@@ -156,7 +175,7 @@ call plug#begin()
     Plug 'junegunn/fzf', { 'do': './install --all' } " Fuzzy find searching
     Plug 'junegunn/fzf.vim'  " Fuzzy find searching
     " Plug 'ldx/vim-indentfinder' " Auto ident
-    Plug 'nanotech/jellybeans.vim'
+    Plug 'nanotech/jellybeans.vim' " colorscheme
     Plug 'tpope/vim-commentary' " For Commenting gcc & gc
     " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better code syntax
 
@@ -180,6 +199,14 @@ call plug#begin()
     Plug 'ray-x/lsp_signature.nvim'  " https://github.com/ray-x/lsp_signature.nvim
 
     Plug 'airblade/vim-gitgutter' " Git indication
+
+    " Svelte development
+    Plug 'evanleck/vim-svelte'
+    Plug 'pangloss/vim-javascript'
+    Plug 'HerringtonDarkholme/yats.vim'
+
+    " React development
+    " TODO
 
 call plug#end()
 
