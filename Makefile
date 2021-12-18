@@ -112,6 +112,7 @@ ${HOME}/.vsnip: ./dot/neovim/snippets
 
 dotfiles_osx: ${HOME}/.yabairc ${HOME}/.skhdrc ${HOME}/.gitignore
 
+${HOME}/.config/alacritty: ./dot.osx/alacritty
 ${HOME}/.yabairc: ./dot.osx/yabairc
 ${HOME}/.skhdrc: ./dot.osx/skhdrc
 ${HOME}/.gitignore: ./dot.osx/gitignore
