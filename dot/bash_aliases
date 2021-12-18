@@ -22,6 +22,7 @@ alias gpl='git pull --rebase'
 
 alias ggl='fzf_log'
 
+alias ls='ls --color'
 alias l='ls -lh'
 
 function gitclone {
