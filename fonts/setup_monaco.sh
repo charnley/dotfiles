@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -x
+set -e
+set -u
+
 # Download and install a nice font called 'Monaco Linux'
 # wget -O Monaco_linux.ttf http://www.gringod.com/wp-upload/software/Fonts/Monaco_Linux.ttf
 
@@ -11,6 +15,13 @@ wget -O monaco_linux-powerline.ttf https://gist.github.com/epegzz/1634235/raw/46
 # sudo mv monaco_linux.ttf /usr/share/fonts/truetype/custom/
 # sudo mv monaco_linux-powerline.ttf /usr/share/fonts/truetype/custom/
 
-mv monaco_linux.ttf ~/.fonts
-mv monaco_linux-powerline.ttf ~/.fonts
 
+if [[ $(uname -s) == Linux ]]
+then
+    mv monaco_linux.ttf ${HOME}/.fonts
+    mv monaco_linux-powerline.ttf ${HOME}/.fonts
+else
+    # Darwin
+    mv monaco_linux.ttf ${HOME}/Library/Fonts/
+    mv monaco_linux-powerline.ttf ${HOME}/Library/Fonts/
+fi
