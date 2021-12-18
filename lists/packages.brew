@@ -2,6 +2,7 @@ git
 tmux
 wget
 ag
+bat
 tldr
 watch
 jq
