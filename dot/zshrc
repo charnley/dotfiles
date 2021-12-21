@@ -198,6 +198,7 @@ unsetopt CDABLE_VARS
 
 # CONDA Pyhon packages
 CONDA_DIR="$HOME/opt/anaconda3"
+test ! -d $CONDA_DIR && CONDA_DIR="$HOME/opt/miniconda3/"
 test -d $CONDA_DIR && source $CONDA_DIR/etc/profile.d/conda.sh
 
 # Node Version Manager
