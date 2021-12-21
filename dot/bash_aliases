@@ -22,7 +22,13 @@ alias gpl='git pull --rebase'
 
 alias ggl='fzf_log'
 
-alias ls='ls --color'
+# Annoying mac uses different ls
+if [[ $(uname -s) == Linux ]]
+then
+    alias ls='ls --color'
+else
+    alias ls='ls -G'
+fi
 alias l='ls -lh'
 
 function gitclone {
@@ -118,6 +124,12 @@ alias spotstop="dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /o
 
 # Copy vim out to xclip
 alias xp='cat ~/.vbuf | yank'
+
+# AWS Select AWS Profile
+function aws_profile {
+    export AWS_PROFILE=`cat $HOME/.aws/credentials | grep "\[" | sed -r 's/\[([a-zA-Z]+)\]/\1/' | fzf`
+    echo export AWS_PROFILE=$AWS_PROFILE
+}
 
 # Get the last output
 # makes vim crash
