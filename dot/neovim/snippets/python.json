@@ -1,4 +1,9 @@
 {
+    "ignore": {
+        "prefix": "ignore_type",
+        "body": ["# type: ignore"],
+        "description": "ignore type"
+    },
     "fore": {
         "prefix": "fore",
         "body": ["for i, ${1:item} in enumerate(${2:iterable}):", "\t${3:pass}"],
