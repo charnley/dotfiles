@@ -1,0 +1,7 @@
+{
+    "set x": {
+        "prefix": "set x",
+        "body": ["set -x"],
+        "description": "Bash to print out the statements as they are being executed"
+    }
+}
