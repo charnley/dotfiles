@@ -10,16 +10,16 @@ dpi:
 
 font:
   normal:
-    family: Monaco
+    family: Mononoki
   bold:
-    family: Monaco
+    family: Mononoki
     style: Regular
 
   italic:
     family: Mononoki
     style: Regular
 
-  size: 14
+  size: 16
   use_thin_strokes: true
 
   offset:
