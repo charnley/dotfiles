@@ -81,8 +81,8 @@ cmd + shift - R : bash ~/reload_wm_env.sh
 
 # New term
 # cmd - return : osascript ~/bin/new-iterm-window.scpt
-cmd - return : kitty --directory ~
-# cmd - return : open -na /Applications/Alacritty.app
+# cmd - return : kitty --directory ~
+cmd - return : open -na /Applications/Alacritty.app
 
 # focus window
 cmd - up : yabai -m window --focus north
