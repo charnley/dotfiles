@@ -196,3 +196,4 @@ test -s "$NVM_DIR/bash_completion" && source "$NVM_DIR/bash_completion"  # This 
 
 # Rush manager
 test -d "$HOME/opt/cargo/" && source $HOME/opt/cargo/env
+test -d "$HOME/.cargo/" && source $HOME/.cargo/env
