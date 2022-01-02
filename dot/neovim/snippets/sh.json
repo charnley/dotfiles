@@ -1,7 +1,11 @@
 {
-    "set x": {
-        "prefix": "set x",
-        "body": ["set -x"],
+    "set all": {
+        "prefix": "set all",
+        "body": [
+            "set -x",
+            "set -e",
+            "set -u"
+        ],
         "description": "Bash to print out the statements as they are being executed"
     }
 }
