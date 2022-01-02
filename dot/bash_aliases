@@ -78,13 +78,21 @@ alias gc='gitclone' # from bin
 
 # tmux shortcuts
 alias tm='tmux'
-alias tma='tmux attach -dt $1'
+alias tma='tmux_attach'
 alias tml='tmux ls'
 alias tmk='tmux kill-session -t $1'
 alias tmg='tmux new -s $(basename $(pwd))'
 
-# attach to session with fzf
-alias tmf='tmux attach -dt `tmux ls | fzf | cut -f1 -d":"`'
+tmux_attach()
+{
+    # Fuzzy find session if no session is given
+    if test ! -z "$1"
+    then
+        tmux attach -dt $1
+    else
+        tmux attach -dt `tmux ls | fzf | cut -f1 -d":"`
+    fi
+}
 
 # tmux clean. Kill all integer tmux sessions
 alias tmclean='tmux ls -F "#{session_name}" | while read -r line; do if [[ $line =~ ^-?[0-9]+$  ]]; then tmux kill-session -t $line; fi; done'
