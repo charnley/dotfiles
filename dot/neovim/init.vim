@@ -1,8 +1,8 @@
-" Trying out neovim
+" NEO VIM Configuration
 
 " TODO https://github.com/albingroen/quick.nvim
 " TODO https://github.com/junegunn/vim-easy-align " Easy align CSV data
-" https://www.reddit.com/r/neovim/comments/pqnymo/the_lspsaga_hover_doc_command_not_working/
+" TODO https://github.com/ThePrimeagen/.dotfiles/blob/master/nvim/.config/nvim/init.vim
 
 " set indentation tab
 set autoindent
@@ -30,6 +30,17 @@ set sidescroll=1
 set sidescrolloff=15
 set signcolumn=yes:1 " always show sign column (bookmarks, gitgutter,..)
 set smartcase " if a pattern contains an uppercase letter, it is case sensitive
+
+set wildmode=longest,list,full
+set wildmenu
+" Ignore files
+set wildignore+=*.pyc
+set wildignore+=*_build/*
+set wildignore+=**/coverage/*
+set wildignore+=**/node_modules/*
+set wildignore+=**/android/*
+set wildignore+=**/ios/*
+set wildignore+=**/.git/*
 
 " Leader
 let mapleader=","
@@ -86,7 +97,11 @@ nmap <S-p> :r ~/.vbuf<CR>
 
 " Delete without yank
 nnoremap d "_d
+nnoremap D "_D
 vnoremap d "_d
+nnoremap <leader>d ""d
+nnoremap <leader>D ""D
+vnoremap <leader>d ""d
 
 " Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
