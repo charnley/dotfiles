@@ -91,7 +91,7 @@ require'nvim-treesitter.configs'.setup {
     },
 
     highlight = { -- enable highlighting for all file types
-      enable = true,
+      -- enable = true,
     },
 
     -- need for proper indentation handling (especially for bracket pairs)

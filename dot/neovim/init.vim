@@ -99,6 +99,8 @@ nmap <S-p> :r ~/.vbuf<CR>
 nnoremap d "_d
 nnoremap D "_D
 vnoremap d "_d
+
+" Cut (Delete & Yank) enabled via leader
 nnoremap <leader>d ""d
 nnoremap <leader>D ""D
 vnoremap <leader>d ""d
