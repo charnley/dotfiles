@@ -6,7 +6,7 @@
 # set -e
 # set -u
 
-# Query cheat.sh with fuzzy found query, in a scratch vim session
+# Query cheat.sh with fuzzy found query, in a vim session
 
 # TODO Make use of vim :set syntax=javascript for cheat output, based on query
 # NOTE would be better if cheat.sh returns #shabang, but doubt
@@ -14,7 +14,6 @@
 
 chtargs="T"
 curlargs="--silent"
-reader="vim -c \"set buftype=nofile\" -" # Open vim in scratch mode, no prompt on exit
 
 IFS=$'
 '
@@ -27,7 +26,9 @@ query_item=`echo $query | awk '{ print $2 }'`
 
 unset IFS
 
+# if no item selected in fzf, use the raw input
 test -z "$query_raw" && exit 0
 test -z "$query_item" && query_item=$query_raw
 
+# Open vim in scratch mode, no prompt on exit
 curl "cht.sh/$query_item?$chtargs" ${curlargs} | vim -c "set buftype=nofile" -c "set syntax=bash" -
