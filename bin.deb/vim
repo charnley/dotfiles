@@ -1,2 +1,3 @@
 #!/bin/bash
-TERM=screen-256color $HOME/opt/neovim/nvim.appimage --appimage-extract-and-run $@
+
+TERM=screen-256color $HOME/opt/neovim/nvim.appimage --appimage-extract-and-run "$@" 2> /dev/null
