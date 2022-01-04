@@ -25,4 +25,4 @@ unset IFS
 test -z "$query_raw" && exit 0
 test -z "$query_item" && query_item=$query_raw
 
-tmux neww bash -c "curl 'cht.sh/$query_item?$chtargs' $curlargs | $reader"
+tmux neww -n "cheat" bash -c "curl 'cht.sh/$query_item?$chtargs' $curlargs | $reader"
