@@ -5,6 +5,8 @@
 
 # https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/bin/tmux-cht.sh
 
+# TODO Make use of vim :set syntax=javascript for cheat output
+
 chtargs="T"
 curlargs="--silent"
 reader="vim -c 'set buftype=nofile' -" # Open vim in scratch mode, no prompt on exit
