@@ -1,18 +1,19 @@
 #!/usr/bin/env bash
 
-# https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/bin/tmux-cht.sh
+# Query cheat.sh with fuzzy found query, new tmux window, in a scratch vim
+# session
 
-# set -x # for debug
-# set -e # fzf needs exits non-zero for no items
-set -u
+# https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/bin/tmux-cht.sh
 
 chtargs="T"
 curlargs="--silent"
-reader="vim -"
+reader="vim -c 'set buftype=nofile' -" # Open vim in scratch mode, no prompt on exit
 
 IFS=$'
 '
 
+# --print-query prints the typed query first, followed by the selected item.
+# Seperated by newline. Selected item can be empty
 query=`curl http://cheat.sh/:list $curlargs | grep -v "rfc" | fzf --print-query`
 query_raw=`echo $query | awk '{ print $1 }'`
 query_item=`echo $query | awk '{ print $2 }'`
