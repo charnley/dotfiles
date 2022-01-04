@@ -62,7 +62,7 @@ colors:
 
   # Cursor colors
   cursor:
-    text:   '0xffffff'
+    text:   '0x121212'
     # cursor: '0x0373ee'  # I like this blue #0373ee color
     cursor: '0xffffff'  # I like this blue #0373ee color
 
