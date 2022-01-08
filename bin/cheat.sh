@@ -18,11 +18,12 @@ curlargs="--silent"
 IFS=$'
 '
 
+# TODO what if query is "python/list zip"
 # --print-query prints the typed query first, followed by the selected item.
 # Seperated by newline. Selected item can be empty
 query=`curl http://cheat.sh/:list $curlargs | grep -v "rfc" | fzf --print-query`
-query_raw=`echo $query | awk '{ print $1 }'`
-query_item=`echo $query | awk '{ print $2 }'`
+query_raw=`echo $query | awk '{ print $1 }'` # print first column
+query_item=`echo $query | awk '{ print $2}'` # print all but first column
 
 unset IFS
 
@@ -30,5 +31,13 @@ unset IFS
 test -z "$query_raw" && exit 0
 test -z "$query_item" && query_item=$query_raw
 
-# Open vim in scratch mode, no prompt on exit
-curl "cht.sh/$query_item?$chtargs" ${curlargs} | vim -c "set buftype=nofile" -c "set syntax=bash" -
+query_item=`echo $query_item | tr ' ' '+'`
+
+# TODO Fix 'js' ->  'javascript'
+# TODO Fix 'python3' -> 'python'
+# TODO If not lang, fallback to sh
+query_lang=${query_item%/*}
+
+#echo $query_item
+
+curl "cht.sh/$query_item?$chtargs" ${curlargs} | vim -c "set buftype=nofile" -c "set syntax=${query_lang}" -
