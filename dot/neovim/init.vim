@@ -219,6 +219,7 @@ call plug#begin()
     Plug 'ray-x/lsp_signature.nvim'  " https://github.com/ray-x/lsp_signature.nvim
 
     Plug 'airblade/vim-gitgutter' " Git indication
+    Plug 'APZelos/blamer.nvim' " Git blame line
 
     " Svelte development
     Plug 'evanleck/vim-svelte'
@@ -284,6 +285,9 @@ nmap <leader>gp <Plug>(GitGutterPrevHunk)
 " what changed in this hunk (close with :pclose)
 nmap <leader>gh <Plug>(GitGutterPreviewHunk)
 "au CursorMoved * if gitgutter#hunk#in_hunk(line(".")) | GitGutterPreviewHunk | else | pclose | endif
+
+" what changed in this hunk (close with :pclose)
+nmap <leader>gb :BlamerToggle<cr>
 
 " Find char: f
 let g:EasyMotion_do_mapping = 0
