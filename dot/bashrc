@@ -119,7 +119,7 @@ fi)'
 
 fi
 
-export PS1=$PS1"$Color_Off \$ "
+export PS1='$(_conda_info)'$PS1"$Color_Off → "
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in xterm*|rxvt*)

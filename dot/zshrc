@@ -38,14 +38,27 @@ function mnml_git {
     fi
 }
 
+function conda_env {
+    if test -n "$CONDA_PREFIX"
+    then
+        local basename=$(basename $CONDA_PREFIX)
+        CONDA_ENV="($basename)"
+    else
+        CONDA_ENV=""
+    fi
+    print "%b" "$CONDA_ENV"
+}
 
 # %m hostname
 # %n usernamne
 # %1~ dirname
 
+# TODO Add hostname to LPROMPT if not laptop
+# TODO Add username to LPROMPT if not me
+
 PROMPT='→ '
-RPROMPT='%1~ $(mnml_git)'
-RPROMPT='$(mnml_git) %1~'
+# RPROMPT='%1~ $(mnml_git)'
+RPROMPT='$(conda_env) $(mnml_git) %(4~|.../%3~|%~)'
 
 # Remove rprompt on enter
 setopt TRANSIENT_RPROMPT

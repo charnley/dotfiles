@@ -157,6 +157,34 @@ function aws_profile_expand {
 # makes vim crash
 # PROMPT_COMMAND='LAST="`cat /tmp/x`"; exec >/dev/tty; exec > >(tee /tmp/x)'
 
+# Prompt settings
+_conda_info() {
+    if test -n "$CONDA_PREFIX"
+    then
+        basename=$(basename $CONDA_PREFIX)
+        CONDA_ENV="($basename) "
+    else
+        CONDA_ENV=""
+    fi
+    echo -n "$CONDA_ENV"
+}
+
+precmd_conda_info() {
+    if [[ -n $CONDA_PREFIX ]]; then
+      if [[ $(basename $CONDA_PREFIX) == "miniconda3" ]]; then
+        # Without this, it would display conda version
+        CONDA_ENV="(base) "
+      else
+        # For all environments that aren't (base)
+        CONDA_ENV="($(basename $CONDA_PREFIX)) "
+      fi
+    # When no conda environment is active, don't show anything
+    else
+    CONDA_ENV=""
+    fi
+}
+
+
 # https://twitter.com/ctrlshifti/status/1160812366293901314
 alias please="sudo"
 
