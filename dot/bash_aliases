@@ -233,4 +233,4 @@ if test -x "$(command -v sinfo)"; then
     alias qs='squeue -o "%.10i %.9P %.8u %.10j %.12M %.5D %.4C %R"'
 fi
 
-
+# TODO uge specific commands
