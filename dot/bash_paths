@@ -29,6 +29,7 @@ if test -d "/snap/bin"; then PATH="/snap/bin:$PATH"; fi
 if test -d "$HOME/opt/anaconda3"; then CONDA_PREFIX="$HOME/opt/anaconda3"; fi
 if test -d "$HOME/opt/miniconda3"; then CONDA_PREFIX="$HOME/opt/miniconda3"; fi
 test -d $CONDA_PREFIX && source $CONDA_PREFIX/etc/profile.d/conda.sh
+unset CONDA_PREFIX  # don't activate by default
 
 # Node Version Manager
 export NVM_DIR="$HOME/opt/nvm"
