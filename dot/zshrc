@@ -60,6 +60,32 @@ PROMPT='→ '
 # RPROMPT='%1~ $(mnml_git)'
 RPROMPT='$(conda_env) $(mnml_git) %(4~|.../%3~|%~)'
 
+# Is this a mac?
+if [[ "`uname`" == "Darwin" ]]
+then
+    is_mac="1"
+else
+    is_mac="0"
+fi
+
+# If non-default hostname
+valid_hostnames=(laptop)
+if [[ "$is_mac" == "1" ]];
+then
+    PROMPT='→ '
+else
+    needle=`hostname`
+    if [[ ${valid_hostnames[(ie)$needle]} -le ${#valid_hostnames} ]]
+    then
+        PROMPT='→ '
+    else
+        PROMPT='%m → '
+    fi
+fi
+
+# If non-default username
+
+
 # Remove rprompt on enter
 setopt TRANSIENT_RPROMPT
 
