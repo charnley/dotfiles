@@ -31,6 +31,11 @@ else
 fi
 alias l='ls -lh'
 
+
+# conda
+alias cona='conda activate'
+alias cond='conda deactivate'
+
 function gitclone {
 
     url=$1
