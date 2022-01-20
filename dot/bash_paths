@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# My own bins
+if test -d "$HOME/bin"; then PATH="$HOME/bin:$PATH"; fi
+
+# Use newer git
+test -d "$HOME/opt/git/" && export PATH=$PATH:$HOME/opt/git/bin/
+test -f "$HOME/.git-prompt.sh" && source $HOME/.git-prompt.sh
+
+# Pip installed packages
+if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi
+
+# Gem installed packages
+rubyver=2.7.1
+if test -d "$HOME/.rbenv/"; then PATH="$HOME/.rbenv/bin:$PATH"; fi
+if test -d "$HOME/.rbenv/"; then PATH="$HOME/.rbenv/versions/$rubyver/bin:$PATH"; fi
+if test -d "$HOME/.gem/"; then PATH="$HOME/.gem/ruby/$rubyver/bin:$PATH"; fi
+
+# Global bins
+if test -d "/opt/bin"; then PATH="/opt/bin:$PATH"; fi
+if test -d "/opt/sbin"; then PATH="/opt/sbin:$PATH"; fi
+if test -d "/snap/bin"; then PATH="/snap/bin:$PATH"; fi
+
+# # Actually, just overwrite python
+# if test -d "$HOME/opt/anaconda3"; then PATH="$HOME/opt/anaconda3/bin:$PATH"; fi
+# if test -d "$HOME/opt/miniconda3"; then PATH="$HOME/opt/miniconda3/bin:$PATH"; fi
+
+# Setup conda generally
+if test -d "$HOME/opt/anaconda3"; then CONDA_PREFIX="$HOME/opt/anaconda3"; fi
+if test -d "$HOME/opt/miniconda3"; then CONDA_PREFIX="$HOME/opt/miniconda3"; fi
+test -d $CONDA_PREFIX && source $CONDA_PREFIX/etc/profile.d/conda.sh
+
+# Node Version Manager
+export NVM_DIR="$HOME/opt/nvm"
+test -s "$NVM_DIR/nvm.sh" && source "$NVM_DIR/nvm.sh" --no-use
+test -s "$NVM_DIR/bash_completion" && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Rust manager
+test -d "$HOME/opt/cargo/" && source $HOME/opt/cargo/env
+test -d "$HOME/.cargo/" && source $HOME/.cargo/env
+
+# intel license
+if test -d $HOME/intel/licenses; then
+    for x in $HOME/intel/licenses/*.lic; do
+        export INTEL_LICENSE_FILE=$x
+    done
+    source $HOME/intel/bin/compilervars.sh intel64
+fi
+

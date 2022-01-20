@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set standard editor
-export EDITOR=vi
+export EDITOR=vim
 
 # Easy access
 alias dotfiles='cd $HOME/git/dotfiles'
@@ -207,3 +207,17 @@ alias emoji_run='echo -n "ᕕ( ᐛ )ᕗ" | yank'
 
 # if local
 test -f $HOME/.bash_aliases.local && source $HOME/.bash_aliases.local
+
+# slurm specific commands
+if test -x "$(command -v sinfo)"; then
+    alias s_idle='sinfo | grep idle'
+    alias s_busy='sinfo | grep alloc; sinfo | grep mix'
+
+    alias q='squeue -u $USER'
+    alias ql='squeue | grep $USER | wc -l'
+
+    # http://slurm.schedmd.com/squeue.html
+    alias qs='squeue -o "%.10i %.9P %.8u %.10j %.12M %.5D %.4C %R"'
+fi
+
+

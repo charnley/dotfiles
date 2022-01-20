@@ -101,9 +101,10 @@ dotfiles: directories dotfiles_defaults dotfiles_$(OS)
 ${HOME}/.%:
 	ln -s `pwd`/$< $@
 
-dotfiles_defaults: ${HOME}/.bashrc ${HOME}/.bash_profile ${HOME}/.bash_aliases ${HOME}/.condarc ${HOME}/.gitconfig ${HOME}/.tmux.conf ${HOME}/.tmux-osx ${HOME}/.tmux-linux ${HOME}/.config/nvim/init.vim ${HOME}/.config/nvim/lua ${HOME}/.vsnip ${HOME}/.zshrc
+dotfiles_defaults: ${HOME}/.bashrc ${HOME}/.bash_profile ${HOME}/.bash_aliases ${HOME}/.bash_paths ${HOME}/.condarc ${HOME}/.gitconfig ${HOME}/.tmux.conf ${HOME}/.tmux-osx ${HOME}/.tmux-linux ${HOME}/.config/nvim/init.vim ${HOME}/.config/nvim/lua ${HOME}/.vsnip ${HOME}/.zshrc
 
 ${HOME}/.bash_aliases: ./dot/bash_aliases
+${HOME}/.bash_paths: ./dot/bash_paths
 ${HOME}/.bash_profile: ./dot/bash_profile
 ${HOME}/.bashrc: ./dot/bashrc
 ${HOME}/.condarc: ./dot/condarc

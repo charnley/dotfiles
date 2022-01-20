@@ -55,6 +55,7 @@ function mnml_git {
 PROMPT='→ '
 # RPROMPT='%1~ $(mnml_git)'
 RPROMPT='%1~ $(mnml_git)'
+RPROMPT='$(mnml_git) %1~'
 
 # ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[yellow]%}✗%{$reset_color%}"
 # ZSH_THEME_GIT_PROMPT_PREFIX="("
@@ -128,7 +129,7 @@ plugins=(
 )
 
 # zsh-autosuggestions
-source $ZSH/oh-my-zsh.sh
+test -d $ZSH && source $ZSH/oh-my-zsh.sh
 
 
 # ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold"
@@ -168,6 +169,11 @@ ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
 
 # all my aliases
+source ${HOME}/.bash_aliases
+
+# all my paths
+source ${HOME}/.bash_paths
+
 if test -f ~/.bash_aliases; then . ~/.bash_aliases; fi
 
 if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi

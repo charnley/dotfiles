@@ -18,45 +18,8 @@ if test -f /etc/bash_completion; then . /etc/bash_completion; fi
 if test -f $HOME/git/dotfiles/bash_completion/tma; then . $HOME/git/dotfiles/bash_completion/tma; fi
 if test -f $HOME/git/dotfiles/bash_completion/tmk; then . $HOME/git/dotfiles/bash_completion/tmk; fi
 
-# slurm specific commands
-if test -x "$(command -v sinfo)"; then
-    alias s_idle='sinfo | grep idle'
-    alias s_busy='sinfo | grep alloc; sinfo | grep mix'
-
-    alias q='squeue -u $USER'
-    alias ql='squeue | grep $USER | wc -l'
-
-    # http://slurm.schedmd.com/squeue.html
-    alias qs='squeue -o "%.10i %.9P %.8u %.10j %.12M %.5D %.4C %R"'
-fi
-
-# Extend $PATH environment
-
-# Pip installed packages
-if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi
-
-# Gem installed packages
-# TODO Make it non-version specific
-rubyver=2.7.1
-if test -d "$HOME/.rbenv/"; then PATH="$HOME/.rbenv/bin:$PATH"; fi
-if test -d "$HOME/.rbenv/"; then PATH="$HOME/.rbenv/versions/$rubyver/bin:$PATH"; fi
-if test -d "$HOME/.gem/"; then PATH="$HOME/.gem/ruby/$rubyver/bin:$PATH"; fi
-
-# Global bins
-if test -d "/opt/bin"; then PATH="/opt/bin:$PATH"; fi
-if test -d "/opt/sbin"; then PATH="/opt/sbin:$PATH"; fi
-if test -d "/snap/bin"; then PATH="/snap/bin:$PATH"; fi
-
-# My own bins
-if test -d "$HOME/bin"; then PATH="$HOME/bin:$PATH"; fi
-
-# # Actually, just overwrite python
-# if test -d "$HOME/opt/anaconda3"; then PATH="$HOME/opt/anaconda3/bin:$PATH"; fi
-# if test -d "$HOME/opt/miniconda3"; then PATH="$HOME/opt/miniconda3/bin:$PATH"; fi
-
-# if git
-if test -d "$HOME/opt/git"; then PATH="$HOME/opt/git/bin:$PATH"; fi
-if test -f "$HOME/.git-prompt.sh"; then source $HOME/.git-prompt.sh; fi
+# source and export paths
+source $HOME/.bash_paths
 
 # I would like to have colours in my terminal
 if test $TERM == "xterm"; then export TERM=xterm-256color; fi
@@ -169,31 +132,8 @@ esac
 # fuzzy search
 test -f $HOME/.fzf.bash && source ~/.fzf.bash
 
-# intel
-if test -d $HOME/intel/licenses; then
-    for x in $HOME/intel/licenses/*.lic; do
-        export INTEL_LICENSE_FILE=$x
-    done
-    source $HOME/intel/bin/compilervars.sh intel64
-fi
-
 # Dont send me messages
 if `tty -s`; then mesg n; fi
 
 # Source local bashrc if present
 if test -f $HOME/.bashrc_local; then source $HOME/.bashrc_local; fi
-
-# Setup conda generally
-# CONDA Pyhon packages
-if test -d "$HOME/opt/anaconda3"; then CONDA_PREFIX="$HOME/opt/anaconda3"; fi
-if test -d "$HOME/opt/miniconda3"; then CONDA_PREFIX="$HOME/opt/miniconda3"; fi
-test -d $CONDA_PREFIX && source $CONDA_PREFIX/etc/profile.d/conda.sh
-
-# Node Version Manager
-export NVM_DIR="$HOME/opt/nvm"
-test -s "$NVM_DIR/nvm.sh" && source "$NVM_DIR/nvm.sh" --no-use
-test -s "$NVM_DIR/bash_completion" && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Rush manager
-test -d "$HOME/opt/cargo/" && source $HOME/opt/cargo/env
-test -d "$HOME/.cargo/" && source $HOME/.cargo/env
