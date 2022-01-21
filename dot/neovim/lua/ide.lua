@@ -72,7 +72,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = {
       prefix = "!",
-      spacing = 3,
+      spacing = 2,
     },
     signs = true,
     underline = true,
@@ -82,13 +82,14 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 --- Treesitter
 require('nvim-treesitter.install').compilers = { "clang", "gcc" }
 require'nvim-treesitter.configs'.setup {
-    ignore_install = { "javascript" }, -- List of parsers to ignore installing
+    -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
     -- ensure_installed can be "all" or a list of languages { "python", "javascript" }
-    ensure_installed = {
-        "python",
-        "bash",
-        "javascript",
-    },
+    ensure_installed = "maintained",
+    -- ensure_installed = {
+    --     "python",
+    --     "bash",
+    --     "javascript",
+    -- },
 
     highlight = { -- enable highlighting for all file types
       -- enable = true,
