@@ -1,0 +1,100 @@
+
+alt_send_esc: false  # needed to be able to use {[( on mac
+
+env:
+  TERM: xterm-256color
+
+dpi:
+  x: 96.0
+  y: 96.0
+
+font:
+  normal:
+    family: Mononoki
+  bold:
+    family: Mononoki
+    style: Regular
+
+  italic:
+    family: Mononoki
+    style: Regular
+
+  size: 16
+  use_thin_strokes: true
+
+  offset:
+    x: 0
+    y: 1
+
+window:
+  dimensions:
+    columns: 80
+    lines: 24
+  padding:
+    x: 10
+    y: 10
+  decorations: None # remove title-bar
+
+visual_bell:
+  animation: EaseOutExpo
+  duration: 0
+
+mouse:
+  hide_cursor_when_typing: true
+
+cursor:
+  # Cursor style
+  style:
+    # Values for `blinking`:
+    #   - Never: Prevent the cursor from ever blinking
+    #   - Off: Disable blinking by default
+    #   - On: Enable blinking by default
+    #   - Always: Force the cursor to always blink
+    blinking: Off
+
+
+# Jellybeans
+colors:
+  # Default colors
+  primary:
+    background: '0x121212'
+    foreground: '0xdedede'
+
+  # Cursor colors
+  cursor:
+    text:   '0x121212'
+    # cursor: '0x0373ee'  # I like this blue #0373ee color
+    cursor: '0xffffff'  # I like this blue #0373ee color
+
+  # Normal colors
+  normal:
+    black:   '0x929292'
+    red:     '0xe27373'
+    green:   '0x94b979'
+    yellow:  '0xffba7b'
+    blue:    '0x97bedc'
+    magenta: '0xe1c0fa'
+    cyan:    '0x00988e'
+    white:   '0xdedede'
+
+  # Bright colors
+  bright:
+    black:   '0xbdbdbd'
+    red:     '0xffa1a1'
+    green:   '0xbddeab'
+    yellow:  '0xffdca0'
+    blue:    '0xb1d8f6'
+    magenta: '0xfbdaff'
+    cyan:    '0x1ab2a8'
+    white:   '0xffffff'
+
+# Mac Keys correction (with alt_send_esc on)
+# works:
+# - >
+# - <
+# - / (Shift 7)
+#
+# does not work:
+# - $ (ShiftAlt 3)
+# - | (Alt I)
+# - \ (AltShift 7)
