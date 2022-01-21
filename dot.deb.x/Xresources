@@ -46,7 +46,7 @@ xterm*colorUL:               #CCCC66
 ! https://wiki.archlinux.org/index.php/rxvt-unicode
 ! rxvt-unicode-256-color
 
-URxvt*font: xft:mononoki:size=12:antialias=true
+URxvt*font: xft:mononoki:size=12:antialias=true,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
 URxvt.boldFont:
 URxvt*depth: 32
 URxvt*buffered: true
