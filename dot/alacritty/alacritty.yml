@@ -19,7 +19,7 @@ font:
     family: Mononoki
     style: Regular
 
-  size: 16
+  size: 14
   use_thin_strokes: true
 
   offset:
@@ -88,13 +88,8 @@ colors:
     cyan:    '0x1ab2a8'
     white:   '0xffffff'
 
-# Mac Keys correction (with alt_send_esc on)
-# works:
-# - >
-# - <
-# - / (Shift 7)
-#
-# does not work:
-# - $ (ShiftAlt 3)
-# - | (Alt I)
-# - \ (AltShift 7)
+
+# Laptops usually have really home/end positions
+key_bindings:
+    - { key: Left,  mods: Control|Alt, chars: "\x1b[H" }
+    - { key: Right, mods: Control|Alt, chars: "\x1bOF" }
