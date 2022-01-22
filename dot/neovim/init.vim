@@ -1,8 +1,6 @@
 " NEO VIM Configuration
 
-" TODO https://github.com/albingroen/quick.nvim
 " TODO https://github.com/junegunn/vim-easy-align " Easy align CSV data
-" TODO https://github.com/ThePrimeagen/.dotfiles/blob/master/nvim/.config/nvim/init.vim
 
 " set indentation tab
 set autoindent
