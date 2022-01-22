@@ -336,16 +336,14 @@ hi link EasyMotionTarget2Second Todo
 hi link EasyMotionIncSearch IncSearch
 hi link EasyMotionIncCursor Search
 
-" TODO Needs to re-evaluate
-" >> Lsp key bindings
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <C-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> gf    <cmd>lua vim.lsp.buf.formatting()<CR>
-nnoremap <silent> gn    <cmd>lua vim.lsp.buf.rename()<CR>
+" Lsp key bindings
+nnoremap <Leader>ld    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <Leader>lD    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <Leader>lr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <Leader>li    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <Leader>lh    <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <Leader>lf    <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <Leader>ln    <cmd>lua vim.lsp.buf.rename()<CR>
 
 " Jump forward or backward in snippets
 imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
