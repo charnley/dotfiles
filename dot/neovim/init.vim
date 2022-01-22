@@ -229,6 +229,7 @@ call plug#begin()
     " Interface
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
+    Plug 'folke/which-key.nvim'  " I can't remember what <leader><char> does
 
     " IDE
     Plug 'windwp/nvim-autopairs'

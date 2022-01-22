@@ -7,6 +7,8 @@ require('lspconfig').svelte.setup{}
 
 require('nvim-autopairs').setup{}
 
+require("which-key").setup{}
+
 -- Auto signature hints
 require('lsp_signature').setup({
 
