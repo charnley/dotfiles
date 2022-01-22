@@ -129,7 +129,7 @@ vnoremap <leader>d ""d
 
 " keep me centered when jumping
 nnoremap n nzzzv
-nnoremap n Nzzzv
+nnoremap N Nzzzv
 nnoremap J mzJ`z
 
 " Remove all trailing whitespace by pressing F5
@@ -224,7 +224,6 @@ call plug#begin()
     " Plug 'ldx/vim-indentfinder' " Auto ident
     Plug 'nanotech/jellybeans.vim' " colorscheme
     Plug 'tpope/vim-commentary' " For Commenting gcc & gc
-    " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better code syntax
 
     " Interface
     Plug 'vim-airline/vim-airline'
