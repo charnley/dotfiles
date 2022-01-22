@@ -1,12 +1,11 @@
 
 -- TODO Auto install language servers
-
 require('lspconfig').pyright.setup{}
 require('lspconfig').bashls.setup{}
+require('lspconfig').tsserver.setup({})
 require('lspconfig').svelte.setup{}
 
 require('nvim-autopairs').setup{}
-
 require("which-key").setup{}
 
 -- Auto signature hints

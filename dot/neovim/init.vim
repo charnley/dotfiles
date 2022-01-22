@@ -66,19 +66,19 @@ nmap <S-Tab> :bprevious<CR>
 
 " Copy to clipboard using ~/bin/yank
 function! OscCopyVbuf()
-  let executeCmd='yank ~/.vbuf'
-  call system(executeCmd)
-  mod " redraw the interface
+    let executeCmd='yank ~/.vbuf'
+    call system(executeCmd)
+    mod " redraw the interface
 endfunction
 
 function! OscYank(text) abort
-  let escape = system('yank', a:text)
-  if v:shell_error
-    echoerr escape
-  else
-    call writefile([escape], '/dev/tty', 'b')
-  endif
-  mod " Redraw the interface
+    let escape = system('yank', a:text)
+    if v:shell_error
+        echoerr escape
+    else
+        call writefile([escape], '/dev/tty', 'b')
+    endif
+    mod " Redraw the interface
 endfunction
 
 command! OscCopyVbuf :call OscCopyVbuf()
@@ -95,11 +95,11 @@ nmap <S-p> :r ~/.vbuf<CR>
 " nnoremap Y y$
 
 " More sane undo (undo breakpoints on char)
+inoremap " "<c-g>u
+inoremap ( (<c-g>u
 inoremap , ,<c-g>u
 inoremap . .<c-g>u
 inoremap [ [<c-g>u
-inoremap ( (<c-g>u
-inoremap " "<c-g>u
 
 " Move marked text (Sorry Peter, I use arrow)
 vnoremap <C-j> :m '>+1<CR>gv=gv
@@ -313,7 +313,6 @@ nmap <leader>gh <Plug>(GitGutterPreviewHunk)
 
 " what changed in this hunk (close with :pclose)
 nmap <leader>gb :BlamerToggle<cr>
-
 
 " Find char: f
 let g:EasyMotion_do_mapping = 0
