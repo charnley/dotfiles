@@ -9,4 +9,4 @@ npm i -g pyright
 # javascript
 npm install -g svelte-language-server
 npm install -g typescript typescript-language-server
-npm install -g vls  # Vue
+# npm install -g vls  # Vue
