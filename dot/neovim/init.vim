@@ -87,13 +87,27 @@ command! OscCopyVbuf :call OscCopyVbuf()
 noremap <silent> <Leader>y y:<C-U>call OscYank(@0)<CR>
 
 " Copy the current visual slection to ~/.vbuf
-vmap <S-y> :w! ~/.vbuf<CR>
-
 " Copy the current line to the buffer file if no visual selection
-nmap <S-y> :.w! ~/.vbuf<CR>
-
 " Paste the contents of the buffer file
+vmap <S-y> :w! ~/.vbuf<CR>
+nmap <S-y> :.w! ~/.vbuf<CR>
 nmap <S-p> :r ~/.vbuf<CR>
+
+" " copy rest of the line
+" nnoremap Y y$
+
+" More sane undo (undo breakpoints on char)
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap [ [<c-g>u
+inoremap ( (<c-g>u
+inoremap " "<c-g>u
+
+" Move marked text (Sorry Peter, I use arrow)
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+vnoremap <A-Down> :m '>+1<CR>gv=gv
+vnoremap <A-Up> :m '<-2<CR>gv=gv
 
 " Delete without yank
 nnoremap d "_d
@@ -104,6 +118,11 @@ vnoremap d "_d
 nnoremap <leader>d ""d
 nnoremap <leader>D ""D
 vnoremap <leader>d ""d
+
+" keep me centered when jumping
+nnoremap n nzzzv
+nnoremap n Nzzzv
+nnoremap J mzJ`z
 
 " Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
