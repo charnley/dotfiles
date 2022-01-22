@@ -104,10 +104,18 @@ inoremap ( (<c-g>u
 inoremap " "<c-g>u
 
 " Move marked text (Sorry Peter, I use arrow)
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+inoremap <C-j> <esc>:m .+1<CR>==i
+inoremap <C-k> <esc>:m .-2<CR>==i
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
 vnoremap <A-Down> :m '>+1<CR>gv=gv
 vnoremap <A-Up> :m '<-2<CR>gv=gv
+inoremap <A-Down> <esc>:m .+1<CR>==i
+inoremap <A-Up> <esc>:m .-2<CR>==i
+nnoremap <A-Down> :m .+1<CR>==
+nnoremap <A-Up> :m .-2<CR>==
 
 " Delete without yank
 nnoremap d "_d
@@ -307,6 +315,7 @@ nmap <leader>gh <Plug>(GitGutterPreviewHunk)
 
 " what changed in this hunk (close with :pclose)
 nmap <leader>gb :BlamerToggle<cr>
+
 
 " Find char: f
 let g:EasyMotion_do_mapping = 0
