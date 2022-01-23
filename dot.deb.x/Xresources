@@ -2,6 +2,9 @@
 ! Xft.dpi: 150
 Xft.dpi: 96
 
+! internal padding
+URxvt.internalBorder:  4
+
 ! Terminal Color scheme
 URxvt*background:            #121212
 URxvt*foreground:            #CCCCCC
