@@ -2,6 +2,18 @@
 
 " TODO https://github.com/junegunn/vim-easy-align " Easy align CSV data
 
+" TODO
+" Plug 'pangloss/vim-javascript' "JS support
+" Plug 'leafgarland/typescript-vim' "TS support
+" Plug 'maxmellon/vim-jsx-pretty' "JS and JSX syntax
+" Plug 'jparise/vim-graphql' "GraphQL syntax
+
+" TODO Plug 'mattn/emmet-vim' " Powerfull HTML expansion
+
+
+
+" TODO Write mode rhysd/vim-grammarous
+
 " set indentation tab
 set autoindent
 set expandtab
@@ -263,6 +275,10 @@ let g:jellybeans_overrides = {
 colorscheme jellybeans
 highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
 highlight Pmenu ctermbg=none
+
+" fzf
+let $FZF_DEFAULT_OPTS='--reverse'
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
