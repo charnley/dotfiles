@@ -72,7 +72,7 @@ fi
 valid_hostnames=(laptop)
 if [[ "$is_mac" == "1" ]];
 then
-    PROMPT='> '
+    PROMPT='→ '
 else
     needle=`hostname`
     if [[ ${valid_hostnames[(ie)$needle]} -le ${#valid_hostnames} ]]
