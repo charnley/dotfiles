@@ -4,7 +4,7 @@
 if test -d "$HOME/bin"; then PATH="$HOME/bin:$PATH"; fi
 
 # Use newer git
-test -d "$HOME/opt/git/" && export PATH=$PATH:$HOME/opt/git/bin/
+test -d "$HOME/opt/git/" && export PATH=$PATH:$HOME/opt/git/bin
 test -f "$HOME/.git-prompt.sh" && source $HOME/.git-prompt.sh
 
 # Pip installed packages
