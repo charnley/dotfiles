@@ -23,25 +23,29 @@
 | bn | Goto next buffer |
 | bp | Goto previous buffer |
 
-# IDE Like behavior
-
-TODO Find the behavior you want first
+## IDE Like behavior
 
 | key | desc |
 |---|---|
-| ,rn | Rename variable |
+| ,ln | lsp rename variable |
+| ,ld | lsp goto definition |
 
 
 TODO note on auto-complete and tab
 
-# Spelling
+## Write mode (Spelling and gramma)
 
 TODO note on spelling
 
-
-# Notes
+## Notes
 
 Live Replacement in NVIM 0.6
 
     :%s/from/to/g
+
+## Standard VIM bindings I forget
+
+| key | desc |
+| gv | goto last visual selection |
+| gi | goto last insertion |
 
