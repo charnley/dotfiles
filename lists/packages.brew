@@ -26,3 +26,6 @@ brew install --cask db-browser-for-sqlite
 
 brew install --cask macfuse
 brew install gromgit/fuse/sshfs
+
+telnet
+tcptraceroute
