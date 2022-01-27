@@ -27,8 +27,8 @@
 
 | key | desc |
 |---|---|
-| ,ln | lsp rename variable |
 | ,ld | lsp goto definition |
+| ,ln | lsp rename variable |
 
 
 TODO note on auto-complete and tab
@@ -46,6 +46,7 @@ Live Replacement in NVIM 0.6
 ## Standard VIM bindings I forget
 
 | key | desc |
-| gv | goto last visual selection |
+| % | goto matching bracket |
 | gi | goto last insertion |
+| gv | goto last visual selection |
 
