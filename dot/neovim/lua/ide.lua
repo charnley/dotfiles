@@ -30,6 +30,9 @@ cmp.event:on( 'confirm_done',
     cmp_autopairs.on_confirm_done({  map_char = { tex = '' } })
 )
 
+-- comment
+require('Comment').setup()
+
 -- setup completion
 cmp.setup({
     snippet = {

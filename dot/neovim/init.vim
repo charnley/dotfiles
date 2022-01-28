@@ -228,12 +228,14 @@ call plug#begin()
     Plug 'MattesGroeger/vim-bookmarks'  " Easy bookmark shortcuts
     Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus', 'vim'] }  " Preview CSS Colors
     Plug 'chaoren/vim-wordmotion' " Better word motion
-    Plug 'easymotion/vim-easymotion'  " Jump to character
+    Plug 'justinmk/vim-sneak'  " Jump to char
+    " Plug 'easymotion/vim-easymotion'  " Jump to character
     Plug 'junegunn/fzf', { 'do': './install --all' } " Fuzzy find searching
     Plug 'junegunn/fzf.vim'  " Fuzzy find searching
     " Plug 'ldx/vim-indentfinder' " Auto ident
     Plug 'nanotech/jellybeans.vim' " colorscheme
-    Plug 'tpope/vim-commentary' " For Commenting gcc & gc
+    " Plug 'tpope/vim-commentary' " For Commenting gcc & gc
+    Plug 'numToStr/Comment.nvim' " For Commenting gcc & gc (Treesitter support)
 
     " Interface
     Plug 'vim-airline/vim-airline'
@@ -330,6 +332,8 @@ nmap <leader>gh <Plug>(GitGutterPreviewHunk)
 " what changed in this hunk (close with :pclose)
 nmap <leader>gb :BlamerToggle<cr>
 
+let g:sneak#label = 1
+let g:sneak#target_labels = 'qwertasdfgzxcv'
 " Find char: f
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_keys = 'qwertasdfgzxcv'
@@ -347,6 +351,11 @@ hi link EasyMotionTarget2First Todo
 hi link EasyMotionTarget2Second Todo
 hi link EasyMotionIncSearch IncSearch
 hi link EasyMotionIncCursor Search
+
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
 
 " Lsp key bindings
 nnoremap <Leader>ld    <cmd>lua vim.lsp.buf.definition()<CR>
@@ -375,3 +384,4 @@ EOF
 "     autocmd bufwritepost .tmux.conf execute ':!tmux source-file %' autocmd bufwritepost .tmux.local.conf execute ':!tmux source-file %'
 "     autocmd bufwritepost *.vim execute ':source %'
 " augroup end
+
