@@ -93,8 +93,8 @@ URxvt.keysym.M-Right:       \033[1;3C
 ! URxvt.keysym.KP_End:  \033[4~
 
 ! My laptop has home/end a long way from my arrows
-URxvt.keysym.Control-M-Left: \033[1~
-URxvt.keysym.Control-M-Right: \033[4~
+URxvt.keysym.Control-M-Left: \033[7~
+URxvt.keysym.Control-M-Right: \033[8~
 
 ! Shift + tab working
 ! URxvt.keysym.Control-ISO_Left_Tab: \033[27;6;9~
