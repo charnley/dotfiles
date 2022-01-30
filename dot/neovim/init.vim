@@ -103,6 +103,9 @@ vmap <S-y> :w! ~/.vbuf<CR>
 nmap <S-y> :.w! ~/.vbuf<CR>
 nmap <S-p> :r ~/.vbuf<CR>
 
+" When pasting a lot of code
+nnoremap <Leader>p :set invpaste<CR>
+
 " " copy rest of the line
 " nnoremap Y y$
 
@@ -212,7 +215,7 @@ command -nargs=0 -range SortWords <line1>,<line2>call setline('.',join(sort(spli
 set autoread
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
 " notification after file change
-autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+" autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 " Reselect visual selection after indenting
 vnoremap < <gv
