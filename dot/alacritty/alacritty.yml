@@ -19,7 +19,7 @@ font:
     family: Mononoki
     style: Regular
 
-  size: 15
+  size: 16
   use_thin_strokes: true
 
   offset:
