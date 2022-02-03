@@ -116,6 +116,10 @@ inoremap , ,<c-g>u
 inoremap . .<c-g>u
 inoremap [ [<c-g>u
 
+" I feel like going back a word should be consistent with w
+nnoremap W b
+vnoremap W b
+
 " Move marked text (Sorry Peter, I use arrow)
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
@@ -235,10 +239,10 @@ call plug#begin()
     " Plug 'easymotion/vim-easymotion'  " Jump to character
     Plug 'junegunn/fzf', { 'do': './install --all' } " Fuzzy find searching
     Plug 'junegunn/fzf.vim'  " Fuzzy find searching
-    " Plug 'ldx/vim-indentfinder' " Auto ident
     Plug 'nanotech/jellybeans.vim' " colorscheme
     " Plug 'tpope/vim-commentary' " For Commenting gcc & gc
     Plug 'numToStr/Comment.nvim' " For Commenting gcc & gc (Treesitter support)
+    Plug 'gorkunov/smartpairs.vim' " Extend visual selection of bracket
 
     " Interface
     Plug 'vim-airline/vim-airline'
