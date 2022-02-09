@@ -50,3 +50,9 @@ Live Replacement in NVIM 0.6
 | gi | goto last insertion |
 | gv | goto last visual selection |
 | dit | delete inside tag (e.g. <div>inside</div>) |
+
+
+Add "*" ending to all lines
+
+    gg<Ctrl-v>G$A*<Esc>
+
