@@ -118,10 +118,10 @@ alias cd..='cd ..'
 alias cd...='cd ../..'
 alias b='cd ..'
 
-alias v='vim'
-alias e='vim'
+# TODO Switch to cat if bat does not exists
+alias e='$EDITOR `fzf -m --preview="bat --color always {}"`'
+# alias e='$EDITOR `fzf -m --preview="cat {}"`'
 alias vi='vim'
-alias p='vim `fzf --preview="bat --color always {}"`'
 
 # easy rsync
 alias rs='rsync -azvh --progress'
