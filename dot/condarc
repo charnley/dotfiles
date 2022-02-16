@@ -1,3 +1,5 @@
 auto_activate_base: false
 changeps1: False
 env_prompt: '({name}) '
+pkgs_dirs:
+  - ~/.conda/pkgs/
