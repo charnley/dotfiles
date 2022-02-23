@@ -1,20 +1,15 @@
 " NEO VIM Configuration
 
 " TODO https://github.com/junegunn/vim-easy-align " Easy align CSV data
-
 " TODO
 " Plug 'pangloss/vim-javascript' "JS support
 " Plug 'leafgarland/typescript-vim' "TS support
 " Plug 'maxmellon/vim-jsx-pretty' "JS and JSX syntax
 " Plug 'jparise/vim-graphql' "GraphQL syntax
-
 " TODO Plug 'mattn/emmet-vim' " Powerfull HTML expansion
-
-
-
 " TODO Write mode rhysd/vim-grammarous
 
-" set indentation tab
+" set indentation default settings
 set autoindent
 set expandtab
 set indentexpr=O
@@ -165,8 +160,32 @@ function TabsOrSpaces()
 
     if numTabs > numSpaces
         setlocal noexpandtab
+    else
+        setlocal expandtab
+        call IndentWidth()
     endif
 endfunction
+
+
+function IndentWidth()
+
+    let spaceLines = getline(1, 250)->map({l, v -> [l+1, v =~ '^ ']})->filter({k,v -> v[1]})->map({k,v -> v[0]})
+
+    " Assume first line with spaces is indentation standard
+    let width = indent(spaceLines[0])
+
+    if width < 1
+        return
+    endif
+
+    " if indent is -1, return
+
+    execute "setlocal shiftwidth=".width
+    execute "setlocal tabstop=".width
+
+endfunction
+
+
 
 " Call the function after opening a buffer
 autocmd BufReadPost * call TabsOrSpaces()
@@ -392,3 +411,5 @@ EOF
 "     autocmd bufwritepost *.vim execute ':source %'
 " augroup end
 
+" Disable filetype plugin (it overwrites tab/indentation settings)
+filetype plugin off
