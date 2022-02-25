@@ -30,8 +30,14 @@ cmp.event:on( 'confirm_done',
     cmp_autopairs.on_confirm_done({  map_char = { tex = '' } })
 )
 
+
 -- comment
 require('Comment').setup()
+
+-- docstring
+-- generate docstring
+require('neogen').setup()
+vim.api.nvim_set_keymap("n", "<Leader>nd", ":lua require('neogen').generate()<CR>", {noremap=true, silent=true})
 
 -- setup completion
 cmp.setup({

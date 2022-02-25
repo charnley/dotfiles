@@ -282,6 +282,7 @@ call plug#begin()
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
     Plug 'rafamadriz/friendly-snippets'
     Plug 'ray-x/lsp_signature.nvim'  " https://github.com/ray-x/lsp_signature.nvim
+    Plug 'danymat/neogen'  " generate docstrings (with treesitter)
 
     Plug 'airblade/vim-gitgutter' " Git indication
     Plug 'APZelos/blamer.nvim' " Git blame line
