@@ -171,6 +171,11 @@ function IndentWidth()
 
     let spaceLines = getline(1, 250)->map({l, v -> [l+1, v =~ '^ ']})->filter({k,v -> v[1]})->map({k,v -> v[0]})
 
+    " If empty file or no indentation found, use default
+    if len(spaceLines) < 1
+        return
+    endif
+
     " Assume first line with spaces is indentation standard
     let width = indent(spaceLines[0])
 

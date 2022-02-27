@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ver=2.26.1
+VER=2.35.1
 
 wget https://github.com/git/git/archive/v${VER}.tar.gz -O $HOME/opt/git-${VER}.tar.gz
 wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -O $HOME/.git-prompt.sh
