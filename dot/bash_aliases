@@ -33,9 +33,19 @@ alias l='ls -lh'
 
 
 # conda
-alias cona='conda activate'
+function cona_func {
+    if test -d ./env
+    then
+        conda activate ./env
+    else
+        conda activate "$@"
+    fi
+}
+# alias cona='conda activate'
+alias cona='cona_func'
 alias cond='conda deactivate'
 
+# git
 function gitclone {
 
     url=$1
@@ -52,9 +62,9 @@ function gitclone {
 
 
 fzf_log() {
-  hash=$(git log --color=always --format="%h%d %an %ae %s %cr" "$@" | fzf | awk '{print $1}')
-  echo -n $hash | yank
-  git show $hash --color-words
+    hash=$(git log --color=always --format="%h%d %an %ae %s %cr" "$@" | fzf | awk '{print $1}')
+    echo -n $hash | yank
+    git show $hash --color-words
 }
 
 # https://junegunn.kr/2016/07/fzf-git
@@ -62,33 +72,44 @@ fzf_log() {
 
 # Will return non-zero status if the current directory is not managed by git
 is_in_git_repo() {
-  git rev-parse HEAD > /dev/null 2>&1
+    git rev-parse HEAD > /dev/null 2>&1
 }
 
 
 fzf-down() {
-  fzf --height 50% "$@" --border
+    fzf --height 50% "$@" --border
 }
 
 gh() {
-  is_in_git_repo || return
-  git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
-  fzf --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+    is_in_git_repo || return
+    git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
+    fzf --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
     --header 'Press CTRL-S to toggle sort' \
     --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
-  grep -o "[a-f0-9]\{7,\}"
+    grep -o "[a-f0-9]\{7,\}"
 }
 
 alias gc='gitclone' # from bin
 
-# tmux shortcuts
+function git_use_private {
+    git config user.name "Jimmy Charnley Kromann"
+    git config user.email "jimmy@charnley.dk"
+}
+
+function git_use_novartis {
+    git config user.name "Jimmy Charnley Kromann"
+    git config user.email "jimmy.kromann@novartis.com"
+}
+
+
+# tmux
 alias tm='tmux'
 alias tma='tmux_attach'
 alias tml='tmux ls'
 alias tmk='tmux kill-session -t $1'
 alias tmg='tmux new -s $(basename $(pwd))'
 
-tmux_attach()
+function tmux_attach()
 {
     # Fuzzy find session if no session is given
     if test ! -z "$1"
@@ -102,25 +123,35 @@ tmux_attach()
 # tmux clean. Kill all integer tmux sessions
 alias tmclean='tmux ls -F "#{session_name}" | while read -r line; do if [[ $line =~ ^-?[0-9]+$  ]]; then tmux kill-session -t $line; fi; done'
 
-# switch git info
-function git_use_private {
-    git config user.name "Jimmy Charnley Kromann"
-    git config user.email "jimmy@charnley.dk"
-}
-
-function git_use_novartis {
-    git config user.name "Jimmy Charnley Kromann"
-    git config user.email "jimmy.kromann@novartis.com"
-}
-
 alias cd.='cd ..'
 alias cd..='cd ..'
 alias cd...='cd ../..'
 alias b='cd ..'
 
 # TODO Switch to cat if bat does not exists
-alias e='$EDITOR `fzf -m --preview="bat --color always {}"`'
+
+function fast_edit()
+{
+    # Quickly go to folder and find the files you want to edit
+    if command -v bat &> /dev/null
+    then
+        preview="bat --color always {}"
+    else
+        preview="cat {}"
+    fi
+
+    git branch &>/dev/null
+    if test $? -eq 0
+    then
+        $EDITOR `git ls-files | fzf -m --preview="$preview"`
+    else
+        $EDITOR `fzf -m --preview="$preview"`
+    fi
+}
+
+# alias e='$EDITOR `fzf -m --preview="bat --color always {}"`'
 # alias e='$EDITOR `fzf -m --preview="cat {}"`'
+alias e='fast_edit'
 alias vi='vim'
 
 # easy rsync
@@ -134,13 +165,6 @@ alias youtube-audio='youtube-dl --extract-audio --audio-format best'
 # alias spotnext="dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
 # alias spotprev="dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
 # alias spotstop="dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop"
-
-# Copy vim out to xclip
-# alias xp='cat ~/.vbuf | yank'
-
-# Get the last output
-# makes vim crash
-# PROMPT_COMMAND='LAST="`cat /tmp/x`"; exec >/dev/tty; exec > >(tee /tmp/x)'
 
 # Prompt settings
 _conda_info() {
