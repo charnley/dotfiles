@@ -81,6 +81,7 @@ else
     then
         PROMPT='> '
     else
+        # PROMPT='%F{blue}%m > '
         PROMPT='%m > '
     fi
 fi
@@ -169,6 +170,8 @@ test -d $CONDA_DIR && source $CONDA_DIR/etc/profile.d/conda.sh
 export NVM_DIR="$HOME/opt/nvm"
 test -s "$NVM_DIR/nvm.sh" && source "$NVM_DIR/nvm.sh"  --no-use  # This loads nvm
 # test -s "$NVM_DIR/bash_completion" && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+test -f $HOME/.zshrc.local && source $HOME/.zshrc.local
 
 # Profile
 # zprof
