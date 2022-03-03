@@ -3,6 +3,8 @@
 # TODO https://www.youtube.com/watch?v=eLEo4OQ-cuQ
 # TODO https://gist.github.com/LukeSmithxyz/e62f26e55ea8b0ed41a65912fbebbe52
 
+export fpath=($HOME/opt/zsh/share/zsh/5.8/functions "${fpath[@]}" )
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 

@@ -75,6 +75,7 @@ ${HOME}/bin/zsh:
 
 ${HOME}/.oh-my-zsh:
 	bash ./setup/zsh_ohmyzsh.sh
+	bash ./setup/zsh_ohmyzsh_plugins.sh
 
 # TODO for bin folder, I should probably use CMakefile for rule generation
 bin: ${HOME}/bin bindir_default bindir_$(OS)
