@@ -1,4 +1,9 @@
 #!/bin/bash
 
-xbacklight -set $1
+if test -z $1
+then
+    xbacklight
+else
+    xbacklight -set $1
+fi
 
