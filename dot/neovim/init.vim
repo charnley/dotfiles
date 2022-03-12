@@ -8,6 +8,9 @@
 " Plug 'jparise/vim-graphql' "GraphQL syntax
 " TODO Plug 'mattn/emmet-vim' " Powerfull HTML expansion
 " TODO Write mode rhysd/vim-grammarous
+" TODO https://github.com/folke/zen-mode.nvim
+" TODO https://github.com/mizlan/dotfiles/blob/master/.config/nvim/init.lua
+" TODO https://github.com/romainl/vim-cool
 
 " set indentation default settings
 set autoindent
