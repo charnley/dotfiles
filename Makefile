@@ -99,6 +99,8 @@ bindir_hpc:
 
 dotfiles: directories dotfiles_defaults dotfiles_$(OS)
 
+dotfiles.x: bindir_deb.x dotfiles_deb.x
+
 ${HOME}/.%:
 	ln -s `pwd`/$< $@
 
