@@ -17,17 +17,9 @@ mkdir -p $DWNLLDIR
 
 cd $INSTALL_DIR
 
-#wget -O $DWNLLDIR/tmux-${TMUX_VERSION}.tar.gz https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz
-#wget -O $DWNLLDIR/libevent-${LIBEVENT_VERSION}.tar.gz https://github.com/libevent/libevent/archive/refs/tags/release-${LIBEVENT_VERSION}-stable.tar.gz
-## wget -O $DWNLLDIR/libevent-${LIBEVENT_VERSION}.tar.gz https://github.com/downloads/libevent/libevent/libevent-${LIBEVENT_VERSION}-stable.tar.gz
-#wget -O $DWNLLDIR/ncurses-${NCURSES_VERSION}.tar.gz ftp://ftp.gnu.org/gnu/ncurses/ncurses-${NCURSES_VERSION}.tar.gz
-
 curl -L -o $DWNLLDIR/tmux-${TMUX_VERSION}.tar.gz https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz
 curl -L -o $DWNLLDIR/libevent-${LIBEVENT_VERSION}.tar.gz https://github.com/libevent/libevent/archive/refs/tags/release-${LIBEVENT_VERSION}-stable.tar.gz
 curl -L -o $DWNLLDIR/ncurses-${NCURSES_VERSION}.tar.gz https://ftp.gnu.org/gnu/ncurses/ncurses-${NCURSES_VERSION}.tar.gz
-# https://ftp.gnu.org/gnu/ncurses/ncurses-6.3.tar.gz
-
-
 
 tar xvzf $DWNLLDIR/ncurses-${NCURSES_VERSION}.tar.gz --directory $INSTALL_DIR
 tar xvzf $DWNLLDIR/libevent-${LIBEVENT_VERSION}.tar.gz --directory $INSTALL_DIR
@@ -60,5 +52,4 @@ cd tmux-${TMUX_VERSION}
 ./configure CFLAGS="${FLAGS1}" LDFLAGS="${FLAGS2}"
 CPPFLAGS="$FLAGS3" LDFLAGS="-static ${FLAGS2}" make
 
-# tmux is now compiled, see install_tmux.sh for running
-
+echo "done"
