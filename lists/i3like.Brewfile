@@ -1,6 +1,6 @@
-tap "koekeishiya/formulae"
 tap "homebrew/cask"
+tap "koekeishiya/formulae"
 
-brew "yabai"
 brew "skhd"
+brew "yabai"
 cask "alacritty"
