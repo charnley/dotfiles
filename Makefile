@@ -143,9 +143,14 @@ ${HOME}/.config/dunstrc: ./dot.deb.x/dunstrc
 ${HOME}/.config/i3status/config: ./dot.deb.x/i3status
 ${HOME}/.i3/config: ./dot.deb.x/i3config
 
+#
+
+${HOME}/.fzf:
+	bash ./setup/fzf_setup.sh
+
 # Meta
 
-install: dotfiles ${HOME}/opt/neovim ${HOME}/opt/tmux-3.2a ${HOME}/.oh-my-zsh
+install: dotfiles ${HOME}/opt/neovim ${HOME}/opt/tmux-3.2a ${HOME}/.oh-my-zsh ${HOME}/.fzf
 
 install_osx:
 	brew bundle --file ./lists/gnu.Brewfile
