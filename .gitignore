@@ -1,1 +1,2 @@
 *.log
+*.Brewfile.lock.json

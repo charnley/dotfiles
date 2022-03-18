@@ -38,7 +38,10 @@ tmux_plugins:
 ${HOME}/bin:
 	mkdir $@
 
-${HOME}/.config/neovim:
+${HOME}/.config:
+	mkdir $@
+
+${HOME}/.config/nvim: ${HOME}/.config
 	mkdir $@
 
 ${HOME}/.ssh:
@@ -47,10 +50,10 @@ ${HOME}/.ssh:
 ${HOME}/.i3:
 	mkdir $@
 
-${HOME}/.config/i3status:
+${HOME}/.config/i3status: ${HOME}/.config
 	mkdir $@
 
-directories: ${HOME}/bin ${HOME}/.config/neovim
+directories: ${HOME}/bin ${HOME}/.config/nvim
 
 # Executables
 
@@ -61,8 +64,8 @@ ${HOME}/opt/neovim: ${HOME}/opt/nvm ${HOME}/bin/vim
 	bash setup.$(OS)/nvim_setup.sh
 	${HOME}/bin/vim +PlugClean[!] +PlugInstall +PlugUpdate +qall
 
-${HOME}/bin/tmux:
-	bash ./setup.$(OS)/tmux_compile.sh
+${HOME}/opt/tmux-3.2a:
+	bash ./setup/tmux_compile.sh
 	bash ./setup/tmux_plugins.sh
 
 ${HOME}/opt/nvm:
@@ -142,7 +145,12 @@ ${HOME}/.i3/config: ./dot.deb.x/i3config
 
 # Meta
 
-install: dotfiles ${HOME}/opt/neovim
+install: dotfiles ${HOME}/opt/neovim ${HOME}/opt/tmux-3.2a ${HOME}/.oh-my-zsh
+
+install_osx:
+	brew bundle --file ./lists/gnu.Brewfile
+	HOMEBREW_CASK_OPTS="--no-quarantine" brew bundle --file ./lists/i3like.Brewfile
+	bash ./fonts/setup_mononoki.sh
 
 symlink_clean:
 	# TODO if there and is symlink, rm. For example, if symlink points to dotfiles, but is deprecated
