@@ -1,4 +1,3 @@
-
 # Mac OSX
 
 So you want to have a Debian i3wm-like workflow on mac? Too bad.
@@ -15,9 +14,14 @@ I Manage all my brew packages in a Brewfile located in `lists`.
 
 ## Window manager and i3-like setup
 
-    brew bundle --file ./lists/i3like.Brewfile  # install window manager, and terminal to make it feel like i3wm
+I use Yabai, Skhd and alacritty. Yabai is the window manager, and skhd is the shortcut manager.
+To install alacritty without having Mac OSX complain about the unsafe application use.
 
-Yabai is the window manager, and skhd is the shortcut manager.
+    export HOMEBREW_CASK_OPTS="--no-quarantine" 
+
+Install the packages
+
+    brew bundle --file ./lists/i3like.Brewfile  # install window manager, and terminal to make it feel like i3wm
 
 Then start the services. When starting each service the first time you will be prompted by Mac to add the service in
 
@@ -32,6 +36,9 @@ Some shortcuts are not manageable with skhd. Let's setup Desktop switching. Firs
 
     System Preferences -> Keyboard -> Shortcuts -> Mission Control
     Select each "Switch to Desktop X" and change it to Cmd + X
+
+
+There are other settings that might be worth changing see https://github.com/koekeishiya/yabai/wiki/Tips-and-tricks
 
 
 ## Extra Mac Settings
