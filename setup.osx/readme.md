@@ -37,9 +37,12 @@ Some shortcuts are not manageable with skhd. Let's setup Desktop switching. Firs
     System Preferences -> Keyboard -> Shortcuts -> Mission Control
     Select each "Switch to Desktop X" and change it to Cmd + X
 
+Fix spaces reordering automatically.
+
+    System Preferences -> Mission Control
+    uncheck the option "Automatically rearrange Spaces based on most recent use".
 
 There are other settings that might be worth changing see https://github.com/koekeishiya/yabai/wiki/Tips-and-tricks
-
 
 ## Extra Mac Settings
 
@@ -61,7 +64,6 @@ The mac bar at the bottom is taking a lot of space. Let's remove it by default
     Check "Automatically hide and show the Dock"
     Uncheck "Animate opening applications"
     Change "Size" to your liking
-
 
 ## Mac hardware
 
@@ -102,3 +104,9 @@ My default is "Cmd + p". Uncheck the rest, as you probably use those shortcuts f
     pull-down termina, cmd+shift+enter = open a tmp terminal for fast commands
 
     timer.py, from terminal "set timer with note" fast
+
+
+# Tips
+
+ - Set paste-without-format to a more sane default. Instead of pressing
+   `Cmd+V`, press `Opt+Shft+Cmd+V` to paste text without any formatting.
