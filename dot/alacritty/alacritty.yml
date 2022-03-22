@@ -1,6 +1,9 @@
 
 alt_send_esc: false  # needed to be able to use {[( on mac
 
+selection:
+  save_to_clipboard: true
+
 env:
   TERM: xterm-256color
 

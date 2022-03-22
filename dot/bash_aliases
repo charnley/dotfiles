@@ -149,8 +149,6 @@ function fast_edit()
     fi
 }
 
-# alias e='$EDITOR `fzf -m --preview="bat --color always {}"`'
-# alias e='$EDITOR `fzf -m --preview="cat {}"`'
 alias e='fast_edit'
 alias vi='vim'
 
@@ -226,6 +224,13 @@ extract () {
     else
         echo "'$1' is not a valid file!"
     fi
+}
+
+work()
+{
+    # Activate node and activate python env
+    nvm use node
+    cona
 }
 
 # Get code snippets

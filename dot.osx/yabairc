@@ -50,6 +50,9 @@ yabai -m signal --add \
     title='^Microsoft Teams Notification$' \
     action='yabai -m window --focus south > /dev/null 2>&1'
 yabai -m rule --add app='^Microsoft Teams Notification$' manage=off
+yabai -m rule --add title='Settings$' manage=off
+yabai -m rule --add app='^System Information$' manage=off
+yabai -m rule --add app='^System Preferences$' manage=off
 
 # highlight "next" window on exit
 yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus recent || yabai -m window --focus first"
