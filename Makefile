@@ -33,6 +33,9 @@ vim_plugins:
 tmux_plugins:
 	bash ./setup/tmux_plugins.sh
 
+tmux_tpm:
+	bash ./setup/tmux_tpm.sh
+
 # Directories
 
 ${HOME}/bin:
@@ -66,6 +69,7 @@ ${HOME}/opt/neovim: ${HOME}/opt/nvm ${HOME}/bin/vim
 
 ${HOME}/opt/tmux-3.2a:
 	bash ./setup/tmux_compile.sh
+	bash ./setup/tmux_tpm.sh
 	bash ./setup/tmux_plugins.sh
 
 ${HOME}/opt/nvm:
