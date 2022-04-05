@@ -85,10 +85,13 @@ ${HOME}/.oh-my-zsh:
 	bash ./setup/zsh_ohmyzsh_plugins.sh
 
 # TODO for bin folder, I should probably use CMakefile for rule generation
-bin: ${HOME}/bin bindir_default bindir_$(OS)
+bin: ${HOME}/bin bindir_default bindir_$(OS) bindir_dev
 
 bindir_default:
 	@bash ./setup/install_bin_directories.sh bin
+
+bindir_dev:
+	@bash ./setup/install_bin_directories.sh bin.dev
 
 bindir_deb:
 	@bash ./setup/install_bin_directories.sh bin.deb
