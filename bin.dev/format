@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# set -x
+set -e
+set -u
+
+if test ! -f $1
+then
+    echo "$1 does not exist"
+    exit 1
+fi
+
+filetype="${1#*.}"
+
+if test $filetype == "js"
+then
+    npx prettier --write $1
+    exit 0
+elif test $filetype == "py"
+then
+    black $1
+    exit 0
+else
+    echo "Unknown format $filetype"
+    exit 1
+fi

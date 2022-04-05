@@ -194,6 +194,11 @@ function IndentWidth()
 endfunction
 
 
+function FormatFile()
+    execute ":!format %"
+endfunction
+noremap <silent> <Leader>nf :!format %<CR>
+
 
 " Call the function after opening a buffer
 autocmd BufReadPost * call TabsOrSpaces()
@@ -306,9 +311,7 @@ call plug#begin()
 call plug#end()
 
 " TODO Need if colorscheme is there (for setup)
-let g:jellybeans_overrides = {
-\    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
-\}
+let g:jellybeans_overrides = {'background': { 'ctermbg': 'none', '256ctermbg': 'none' },}
 colorscheme jellybeans
 highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
 highlight Pmenu ctermbg=none
