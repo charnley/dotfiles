@@ -12,7 +12,7 @@ fi
 
 filetype="${1#*.}"
 
-if test $filetype == "js"
+if test $filetype == "js" || test $filetype == "html" || test $filetype == "css"
 then
     npx prettier --write $1
     exit 0
