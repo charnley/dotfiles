@@ -42,6 +42,11 @@ Fix spaces reordering automatically.
     System Preferences -> Mission Control
     uncheck the option "Automatically rearrange Spaces based on most recent use".
 
+Note, yabai will only work with "Displays have seperate Spaces" enabled
+
+    System Preferences -> Mission Control
+    check the option "Displays have seperate Spaces".
+
 There are other settings that might be worth changing see https://github.com/koekeishiya/yabai/wiki/Tips-and-tricks
 
 ## Extra Mac Settings
