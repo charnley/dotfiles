@@ -12,15 +12,11 @@ fi
 
 filetype="${1#*.}"
 
-if test $filetype == "js" || test $filetype == "html" || test $filetype == "css"
-then
-    npx prettier --write $1
-    exit 0
-elif test $filetype == "py"
+if test $filetype == "py"
 then
     black $1
     exit 0
 else
-    echo "Unknown format $filetype"
-    exit 1
+    npx prettier --write $1
+    exit $?
 fi
