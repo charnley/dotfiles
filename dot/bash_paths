@@ -8,7 +8,7 @@ test -d "$HOME/opt/git/" && export PATH=$PATH:$HOME/opt/git/bin
 test -f "$HOME/.git-prompt.sh" && source $HOME/.git-prompt.sh
 
 # brew
-test -d /opt/homebrew/ && PATH="$PATH:/opt/homebrew/bin"
+test -d /opt/homebrew/ && PATH="/opt/homebrew/bin:$PATH"
 
 # Pip installed packages
 if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi
