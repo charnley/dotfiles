@@ -1,4 +1,9 @@
-# zmodload zsh/zprof
+#!/usr/bin/env zsh
+
+#zmodload zsh/zprof
+
+# Disable auto-update prompt
+DISABLE_AUTO_UPDATE=true
 
 # TODO https://www.youtube.com/watch?v=eLEo4OQ-cuQ
 # TODO https://gist.github.com/LukeSmithxyz/e62f26e55ea8b0ed41a65912fbebbe52
@@ -174,4 +179,4 @@ test -s "$NVM_DIR/nvm.sh" && source "$NVM_DIR/nvm.sh"  --no-use  # This loads nv
 test -f $HOME/.zshrc.local && source $HOME/.zshrc.local
 
 # Profile
-# zprof
+#zprof
