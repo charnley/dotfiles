@@ -1,5 +1,7 @@
 " NEO VIM Configuration
 
+" TODO https://github.com/elianiva/dotfiles/tree/master/nvim/.config/nvim
+
 " TODO https://github.com/junegunn/vim-easy-align " Easy align CSV data
 " TODO
 " Plug 'pangloss/vim-javascript' "JS support
