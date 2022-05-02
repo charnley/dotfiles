@@ -8,15 +8,11 @@ DISABLE_AUTO_UPDATE=true
 # TODO https://www.youtube.com/watch?v=eLEo4OQ-cuQ
 # TODO https://gist.github.com/LukeSmithxyz/e62f26e55ea8b0ed41a65912fbebbe52
 
-export fpath=($HOME/opt/zsh/share/zsh/5.8/functions "${fpath[@]}" )
+# export fpath=($HOME/opt/zsh/share/zsh/5.8/functions "${fpath[@]}" )
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-function git_prompt_info() {
-    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-    echo "$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_PREFIX$(current_branch)$ZSH_THEME_GIT_PROMPT_SUFFIX"
-}
 
 # colors
 
@@ -32,6 +28,20 @@ White="\[\033[0;37m\]"        # White
 # https://github.com/subnixr/minimal/blob/master/minimal.zsh
 MNML_OK_COLOR="2"
 MNML_ERR_COLOR="1"
+
+function git_fast_status() {
+    local color="%{\e[0;32m%}"
+    local bname="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+
+    if test -n "$bname"; then
+        git diff-index --quiet HEAD --
+        if test ! $? -eq 0; then
+            color="%{\e[0;31m%}"
+        fi
+    fi
+
+    printf '%b' "$color$bname%{\e[0m%}"
+}
 
 function mnml_git {
     local statc="%{\e[0;32m%}" # assume clean
@@ -65,7 +75,8 @@ function conda_env {
 
 PROMPT='→ '
 # RPROMPT='%1~ $(mnml_git)'
-RPROMPT='$(conda_env) $(mnml_git) %(4~|.../%3~|%~)'
+# RPROMPT='$(conda_env) $(mnml_git) %(4~|.../%3~|%~)'
+RPROMPT='$(conda_env) $(git_fast_status) %(4~|.../%3~|%~)'
 
 # Is this a mac?
 if [[ "`uname`" == "Darwin" ]]
