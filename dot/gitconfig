@@ -10,8 +10,6 @@
     excludesfile = ~/.gitignore
     editor = vim -u NONE
     pager = less -q
-	preloadIndex = true
-	ignoreStat = true
 
 [alias]
     lg = log --graph --abbrev-commit --decorate --format=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(yellow)%d%C(reset)' --all
@@ -27,9 +25,5 @@
 
 [include]
     path = ~/.gitconfig.local
-[oh-my-zsh]
-	hide-dirty = 1
-[bash]
-	showDirtyState = false
 [diff]
 	ignoreSubmodules = dirty

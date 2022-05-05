@@ -103,6 +103,7 @@ function git_use_novartis {
 
 
 # tmux
+# TODO When starting a new session use tmg as default
 alias tm='tmux'
 alias tma='tmux_attach'
 alias tml='tmux ls'
