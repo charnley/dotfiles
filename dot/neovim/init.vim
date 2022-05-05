@@ -275,7 +275,8 @@ call plug#begin()
     Plug 'junegunn/fzf.vim'  " Fuzzy find searching
     Plug 'nanotech/jellybeans.vim' " colorscheme
     " Plug 'tpope/vim-commentary' " For Commenting gcc & gc
-    Plug 'numToStr/Comment.nvim' " For Commenting gcc & gc (Treesitter support)
+    " Plug 'numToStr/Comment.nvim' " For Commenting gcc & gc (Treesitter support)
+    Plug 'b3nj5m1n/kommentary' " For commenting gcc & gc (Treesitter support)
     Plug 'gorkunov/smartpairs.vim' " Extend visual selection of bracket
 
     " Interface
