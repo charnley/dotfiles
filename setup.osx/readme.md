@@ -70,6 +70,9 @@ The mac bar at the bottom is taking a lot of space. Let's remove it by default
     Uncheck "Animate opening applications"
     Change "Size" to your liking
 
+For editing documents (especially in the browser), home & end jumps to the bottom of the page.
+This can be changed by https://damieng.com/blog/2015/04/24/make-home-end-keys-behave-like-windows-on-mac-os-x/
+
 ## Mac hardware
 
 ### Mouse
