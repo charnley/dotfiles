@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -x
+set -e
+
 cd ~/opt
 
 mkdir -p neovim

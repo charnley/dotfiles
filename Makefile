@@ -63,7 +63,7 @@ directories: ${HOME}/bin ${HOME}/.config/nvim
 ${HOME}/bin/vim:
 	ln -fs `pwd`/bin.$(OS)/vim ${HOME}/bin/vim
 
-${HOME}/opt/neovim: ${HOME}/opt/nvm ${HOME}/bin/vim
+${HOME}/opt/neovim: ${HOME}/opt/nvm
 	bash setup.$(OS)/nvim_setup.sh
 	${HOME}/bin/vim +PlugClean[!] +PlugInstall +PlugUpdate +qall
 
@@ -167,14 +167,5 @@ install_osx:
 
 symlink_clean:
 	# TODO if there and is symlink, rm. For example, if symlink points to dotfiles, but is deprecated
-
-packages.linux:
-	# server related
-
-packages.linux.x:
-	echo # x related
-
-packages.mac:
-	# brew packages
 
 clean: symlink_clean
