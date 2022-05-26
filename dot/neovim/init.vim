@@ -417,9 +417,12 @@ imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 
 " Make VIM IDE like
+let beingSetup = get(g:, 'beingSetup', 0)
+if !beingSetup
 lua << EOF
 require'ide'
 EOF
+endif
 
 " On save. Would like to be on-demand, as each project has it's own per-commit rules
 " source https://waylonwalker.com/vim-augroup/
