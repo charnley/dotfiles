@@ -28,7 +28,7 @@ endif
 all: dotfiles bin vim_plugins tmux_plugins
 
 vim_plugins:
-	${HOME}/bin/vim --cmd "let beingSetup=1" +PlugClean[!] +PlugInstall +PlugUpdate +qall > /dev/null
+	${HOME}/bin/vim --cmd "let beingSetup=1" +PlugClean[!] +PlugInstall +PlugUpdate +qall
 
 tmux_plugins:
 	bash ./setup/tmux_plugins.sh
@@ -65,7 +65,7 @@ ${HOME}/bin/vim:
 
 ${HOME}/opt/neovim: ${HOME}/opt/nvm
 	bash setup.$(OS)/nvim_setup.sh
-	${HOME}/bin/vim --cmd "let beingSetup=1" +PlugClean[!] +PlugInstall +PlugUpdate +qall > /dev/null
+	${HOME}/bin/vim --cmd "let beingSetup=1" +PlugClean[!] +PlugInstall +PlugUpdate +qall
 
 ${HOME}/opt/tmux-3.2a:
 	bash ./setup/tmux_compile.sh
