@@ -315,7 +315,12 @@ call plug#end()
 
 " TODO Need if colorscheme is there (for setup)
 let g:jellybeans_overrides = {'background': { 'ctermbg': 'none', '256ctermbg': 'none' },}
-colorscheme jellybeans
+try
+    colorscheme jellybeans
+catch /^Vim\%((\a\+)\)\=:E185/
+    " Probably first installation
+endtry
+
 highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
 highlight Pmenu ctermbg=none
 
