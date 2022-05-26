@@ -1,0 +1,13 @@
+name: Make OS x
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Full Install
+      run: make install all
