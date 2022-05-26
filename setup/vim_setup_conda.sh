@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+# set -x
 set -e
 
 # Create a conda env with depenencies to compile VIM

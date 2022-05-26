@@ -1,7 +1,7 @@
 #!/bin/bash
 
+# set -x
 set -e
-set -x
 
 export NVM_DIR=$HOME/opt/nvm
 mkdir -p $NVM_DIR

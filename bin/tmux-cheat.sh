@@ -3,8 +3,8 @@
 # https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/bin/tmux-cht.sh
 
 # set -x
-# set -e
-# set -u
+set -e
+set -u
 
 # Query cheat.sh in new tmux window 
 
