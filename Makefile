@@ -66,7 +66,7 @@ ${HOME}/bin/vim:
 ${HOME}/opt/neovim: ${HOME}/opt/nvm
 	bash setup.$(OS)/nvim_setup.sh
 	# ${HOME}/bin/vim --cmd "let beingSetup=1" +PlugClean[!] +PlugInstall +PlugUpdate +qall
-	${HOME}/bin/vim vim -N -u ~/.vimrc -c "PlugInstall" -c "qall" -U NONE -i NONE -e -s
+	${HOME}/bin/vim vim -N -u ~/.vimrc -c "PlugInstall" -c "qall" -U NONE -i NONE -e -s;:
 
 ${HOME}/opt/tmux-3.2a:
 	bash ./setup/tmux_compile.sh
