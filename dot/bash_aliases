@@ -231,7 +231,7 @@ work()
 {
     # Activate node and activate python env
     nvm use node
-    cona
+    test -d ./env && cona
 }
 
 # Get code snippets
