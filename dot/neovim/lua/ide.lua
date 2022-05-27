@@ -32,11 +32,11 @@ cmp.event:on( 'confirm_done',
 
 
 -- comment
--- require('Comment').setup()
-require('kommentary.config').setup()
-require('kommentary.config').configure_language("default", {
-    prefer_single_line_comments = true,
-})
+require('Comment').setup()
+-- require('kommentary.config').setup()
+-- require('kommentary.config').configure_language("default", {
+--     prefer_single_line_comments = true,
+-- })
 
 -- docstring
 -- generate docstring
