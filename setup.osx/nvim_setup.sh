@@ -8,8 +8,10 @@ cd ~/opt
 mkdir -p neovim
 cd neovim
 
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-macos.tar.gz
-# curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz
+# version="nightly"
+version="latest"
+
+curl -LO https://github.com/neovim/neovim/releases/$version/download/nvim-macos.tar.gz
 tar xzf nvim-macos.tar.gz
 
 ln -s $HOME/opt/neovim/nvim-osx64/bin/nvim $HOME/bin/vim

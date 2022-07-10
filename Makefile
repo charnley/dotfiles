@@ -63,8 +63,9 @@ directories: ${HOME}/bin ${HOME}/.config/nvim
 ${HOME}/bin/vim:
 	ln -fs `pwd`/bin.$(OS)/vim ${HOME}/bin/vim
 
-${HOME}/opt/neovim: ${HOME}/opt/nvm ${HOME}/bin/vim
+${HOME}/opt/neovim: ${HOME}/opt/nvm
 	bash setup.$(OS)/nvim_setup.sh
+	ls ~/bin
 	# ${HOME}/bin/vim --cmd "let beingSetup=1" +PlugClean[!] +PlugInstall +PlugUpdate +qall
 	${HOME}/bin/vim vim -N -u ~/.vimrc -c "PlugInstall" -c "qall" -U NONE -i NONE -e -s;:
 
