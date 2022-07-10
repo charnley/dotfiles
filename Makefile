@@ -159,7 +159,7 @@ ${HOME}/.fzf:
 
 # Meta
 
-install: dotfiles ${HOME}/opt/neovim ${HOME}/opt/tmux-3.2a ${HOME}/.oh-my-zsh ${HOME}/.fzf
+install: dotfiles ${HOME}/opt/neovim ${HOME}/.oh-my-zsh ${HOME}/.fzf #${HOME}/opt/tmux-3.2a 
 
 install_osx:
 	brew bundle --file ./lists/gnu.Brewfile
