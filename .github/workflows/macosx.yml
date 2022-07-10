@@ -1,4 +1,4 @@
-name: Make OS x
+name: Make OSX
 
 on: [push]
 
