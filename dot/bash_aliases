@@ -129,8 +129,6 @@ alias cd..='cd ..'
 alias cd...='cd ../..'
 alias b='cd ..'
 
-# TODO Switch to cat if bat does not exists
-
 function fast_edit()
 {
     # Quickly go to folder and find the files you want to edit
@@ -144,9 +142,9 @@ function fast_edit()
     git branch &>/dev/null
     if test $? -eq 0
     then
-        $EDITOR `git ls-files | fzf -m --preview="$preview"`
+        $EDITOR `git ls-files | fzf -m --preview="$preview"` $@
     else
-        $EDITOR `fzf -m --preview="$preview"`
+        $EDITOR `fzf -m --preview="$preview"` $@
     fi
 }
 
@@ -232,6 +230,11 @@ work()
     # Activate node and activate python env
     nvm use node
     test -d ./env && cona
+}
+
+dework(){
+    nvm deactivate
+    conda deactivate
 }
 
 # Get code snippets
