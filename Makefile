@@ -158,17 +158,19 @@ ${HOME}/.fzf:
 
 # Meta
 
-install: dotfiles ${HOME}/opt/neovim ${HOME}/.oh-my-zsh ${HOME}/.fzf install_${OS} #${HOME}/opt/tmux-3.2a
+install: dotfiles ${HOME}/opt/neovim ${HOME}/.oh-my-zsh ${HOME}/.fzf install_${OS} ${HOME}/opt/tmux-3.2a
 
 install_osx: ${HOME}/opt/homebrew
 	brew bundle --file ./lists/gnu.Brewfile
 	HOMEBREW_CASK_OPTS="--no-quarantine" brew bundle --file ./lists/i3like.Brewfile
-	bash ./fonts/setup_mononoki.sh
 
 ${HOME}/opt/homebrew:
 	bash ./setup.osx/setup_brew.sh
 
 install_deb:
+
+install_fonts:
+	bash ./fonts/setup_mononoki.sh
 
 symlink_clean:
 	# TODO if there and is symlink, rm. For example, if symlink points to dotfiles, but is deprecated
