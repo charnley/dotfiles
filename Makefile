@@ -29,7 +29,7 @@ all: dotfiles bin vim_plugins tmux_plugins
 
 vim_plugins:
 	@# ${HOME}/bin/vim --cmd "let beingSetup=1" +PlugClean[!] +PlugInstall +PlugUpdate +qall
-	vim --cmd "let beingSetup=1" +'PlugInstall --sync' +qall &> /dev/null < /dev/tty
+	# vim --cmd "let beingSetup=1" +'PlugInstall --sync' +qall &> /dev/null < /dev/tty
 
 tmux_plugins:
 	bash ./setup/tmux_plugins.sh
@@ -68,7 +68,7 @@ ${HOME}/opt/neovim: ${HOME}/opt/nvm
 	bash setup.$(OS)/nvim_setup.sh
 	@# ${HOME}/bin/vim --cmd "let beingSetup=1" +PlugClean[!] +PlugInstall +PlugUpdate +qall
 	@# ${HOME}/bin/vim -N -u ~/.vimrc -c "PlugInstall" -c "qall" -U NONE -i NONE -e -s;:
-	${HOME}/bin/vim +'PlugInstall --sync' +qall &> /dev/null < /dev/tty
+	${HOME}/bin/vim +'PlugInstall --sync' +qall 1> /dev/null
 
 ${HOME}/opt/tmux-3.2a:
 	bash ./setup/tmux_compile.sh
