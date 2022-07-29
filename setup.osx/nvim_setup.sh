@@ -17,6 +17,9 @@ tar xzf nvim-macos.tar.gz
 ln -s $HOME/opt/neovim/nvim-osx64/bin/nvim $HOME/bin/vim
 chmod +x $HOME/bin/vim
 
+ls -lah ~/bin/
+ls -lah ~/opt/neovim/
+
 $HOME/bin/vim --version
 
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
