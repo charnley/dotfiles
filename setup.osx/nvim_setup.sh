@@ -14,8 +14,9 @@ version="latest"
 curl -LO https://github.com/neovim/neovim/releases/$version/download/nvim-macos.tar.gz
 tar xzf nvim-macos.tar.gz
 
+find .
+
 ln -s $HOME/opt/neovim/nvim-osx64/bin/nvim $HOME/bin/vim
-chmod +x $HOME/bin/vim
 
 ls -lah ~/bin/
 
