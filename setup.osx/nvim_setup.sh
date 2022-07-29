@@ -18,7 +18,8 @@ ln -s $HOME/opt/neovim/nvim-osx64/bin/nvim $HOME/bin/vim
 chmod +x $HOME/bin/vim
 
 ls -lah ~/bin/
-ls -lah ~/opt/neovim/
+
+$HOME/opt/neovim/nvim-osx64/bin/nvim --version
 
 $HOME/bin/vim --version
 
