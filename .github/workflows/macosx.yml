@@ -9,5 +9,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Full Install
-      run: make install all
+    - run: make install
+    - run: make
