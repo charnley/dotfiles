@@ -4,7 +4,7 @@
 # $< - target
 
 # Check operating system
-ifeq '$(findstring ;,$(PATH))' ';'
+ifeq '$(findstring ;,$(PATH))' ';' # Windows
 	detected_OS := Windows
 else
 	detected_OS := $(shell uname 2>/dev/null || echo Unknown)
@@ -13,11 +13,11 @@ else
 	detected_OS := $(patsubst MINGW%,MSYS,$(detected_OS))
 endif
 
-ifeq ($(detected_OS),Darwin)        # Mac OS X
+ifeq ($(detected_OS),Darwin) # Mac OS X
 	OS = osx
 endif
 
-ifeq ($(detected_OS),Linux)
+ifeq ($(detected_OS),Linux) # Linux
 	OS = deb
 endif
 
@@ -25,11 +25,10 @@ endif
 .PHONY: vim_plugins install clean dotfiles directories
 
 # Default targets
-all: dotfiles bin vim_plugins tmux_plugins
+all: dotfiles bin vim_plugins # tmux_plugins
 
 vim_plugins:
-	@# ${HOME}/bin/vim --cmd "let beingSetup=1" +PlugClean[!] +PlugInstall +PlugUpdate +qall
-	# vim --cmd "let beingSetup=1" +'PlugInstall --sync' +qall &> /dev/null < /dev/tty
+	${HOME}/bin/vim --headless --cmd "let beingSetup=1" +PlugClean[!] +PlugInstall +PlugUpdate +qall
 
 tmux_plugins:
 	bash ./setup/tmux_plugins.sh
@@ -66,9 +65,7 @@ ${HOME}/bin/vim:
 
 ${HOME}/opt/neovim: ${HOME}/opt/nvm
 	bash setup.$(OS)/nvim_setup.sh
-	@# ${HOME}/bin/vim --cmd "let beingSetup=1" +PlugClean[!] +PlugInstall +PlugUpdate +qall
-	@# ${HOME}/bin/vim -N -u ~/.vimrc -c "PlugInstall" -c "qall" -U NONE -i NONE -e -s;:
-	${HOME}/bin/vim --headless +'PlugInstall --sync' +qall
+	${HOME}/bin/vim --headless --cmd "let beingSetup=1" +'PlugInstall --sync' +qall
 
 ${HOME}/opt/tmux-3.2a:
 	bash ./setup/tmux_compile.sh
