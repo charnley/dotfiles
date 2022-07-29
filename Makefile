@@ -68,6 +68,7 @@ ${HOME}/opt/neovim: ${HOME}/opt/nvm
 	ls ~/bin
 	@# ${HOME}/bin/vim --cmd "let beingSetup=1" +PlugClean[!] +PlugInstall +PlugUpdate +qall
 	ls ~/bin/vim
+	~/bin/vim --version
 	${HOME}/bin/vim -N -u ~/.vimrc -c "PlugInstall" -c "qall" -U NONE -i NONE -e -s;:
 	exit 1
 
