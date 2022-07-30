@@ -1,0 +1,13 @@
+name: Test install
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - run: make install
+      - run: make
