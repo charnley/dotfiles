@@ -171,7 +171,7 @@ install_deb:
 	@#
 
 install_apt:
-	sudo apt-get install $(cat ./lists/packages.apt)
+	sudo apt-get install $$(cat ./lists/packages.apt)
 
 install_fonts:
 	bash ./fonts/setup_mononoki.sh
