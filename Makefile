@@ -33,7 +33,7 @@ vim_plugins:
 tmux_plugins:
 	bash ./setup/tmux_plugins.sh
 
-tmux_tpm:
+tmux_tpm: dotfiles
 	bash ./setup/tmux_tpm.sh
 
 # Directories
