@@ -28,7 +28,7 @@ endif
 all: dotfiles bin vim_plugins # tmux_plugins
 
 vim_plugins:
-	${HOME}/bin/vim --headless --cmd "let beingSetup=1" +PlugClean[!] +PlugInstall +PlugUpdate +qall
+	${HOME}/bin/vim --headless --cmd "let beingSetup=1" +PlugClean +PlugInstall +PlugUpdate +qall
 
 tmux_plugins:
 	bash ./setup/tmux_plugins.sh
