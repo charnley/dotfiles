@@ -39,19 +39,19 @@ tmux_tpm:
 # Directories
 
 ${HOME}/bin:
-	mkdir $@
+	mkdir -p $@
 
 ${HOME}/.config:
-	mkdir $@
+	mkdir -p $@
 
 ${HOME}/.config/nvim: ${HOME}/.config
-	mkdir $@
+	mkdir -p $@
 
 ${HOME}/.ssh:
-	mkdir $@
+	mkdir -p $@
 
 ${HOME}/.i3:
-	mkdir $@
+	mkdir -p $@
 
 ${HOME}/.config/i3status: ${HOME}/.config
 	mkdir $@
@@ -68,7 +68,7 @@ ${HOME}/opt/neovim: ${HOME}/opt/nvm
 	${HOME}/bin/vim --headless --cmd "let beingSetup=1" +'PlugInstall --sync' +qall
 
 ${HOME}/opt/tmux-3.2a:
-	bash ./setup/tmux_compile.sh
+	bash ./setup/tmux_compile.sh 1> /dev/null
 	bash ./setup/tmux_tpm.sh
 	bash ./setup/tmux_plugins.sh
 
