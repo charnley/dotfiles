@@ -158,7 +158,7 @@ ${HOME}/.fzf:
 
 # Meta
 
-install: dotfiles ${HOME}/opt/neovim ${HOME}/.oh-my-zsh ${HOME}/.fzf install_${OS} ${HOME}/opt/tmux-3.2a
+install: dotfiles ${HOME}/opt/neovim ${HOME}/.fzf install_${OS} ${HOME}/opt/tmux-3.2a ${HOME}/.oh-my-zsh 
 
 install_osx: ${HOME}/opt/homebrew
 	brew bundle --file ./lists/gnu.Brewfile
@@ -168,6 +168,10 @@ ${HOME}/opt/homebrew:
 	bash ./setup.osx/setup_brew.sh
 
 install_deb:
+	@#
+
+install_apt:
+	sudo apt-get install $(cat ./lists/packages.apt)
 
 install_fonts:
 	bash ./fonts/setup_mononoki.sh

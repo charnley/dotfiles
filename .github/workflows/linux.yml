@@ -9,6 +9,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - run: sudo apt install zsh
+      - run: make install_apt
       - run: make install
       - run: make

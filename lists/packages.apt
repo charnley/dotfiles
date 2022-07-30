@@ -1,8 +1,7 @@
 parallel
-python-dev
 python3-dev
 dstat
 tree
 git
 curl
-tmux
+zsh
