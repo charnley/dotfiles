@@ -9,5 +9,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+      - run: apt install zsh
       - run: make install
       - run: make
