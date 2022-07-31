@@ -25,7 +25,7 @@ endif
 .PHONY: vim_plugins install clean dotfiles directories
 
 # Default targets
-all: dotfiles bin vim_plugins # tmux_plugins
+all: dotfiles bin vim_plugins tmux_plugins
 
 vim_plugins:
 	${HOME}/bin/vim --headless --cmd "let beingSetup=1" +'PlugInstall --sync' +qall
