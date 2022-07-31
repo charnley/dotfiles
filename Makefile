@@ -33,7 +33,7 @@ vim_plugins:
 tmux_plugins:
 	bash ./setup/tmux_plugins.sh
 
-tmux_tpm: dotfiles
+tmux_tpm:
 	bash ./setup/tmux_tpm.sh
 
 # Directories
@@ -158,7 +158,7 @@ ${HOME}/.fzf:
 
 # Meta
 
-install: dotfiles ${HOME}/opt/neovim ${HOME}/.fzf install_${OS} ${HOME}/opt/tmux-3.2a ${HOME}/.oh-my-zsh 
+install: dotfiles bin ${HOME}/opt/neovim ${HOME}/.fzf install_${OS} ${HOME}/opt/tmux-3.2a ${HOME}/.oh-my-zsh 
 
 install_osx: ${HOME}/opt/homebrew
 	brew bundle --file ./lists/gnu.Brewfile
