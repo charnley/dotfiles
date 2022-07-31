@@ -1,9 +1,10 @@
 #!/bin/bash
+
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm --depth 1
 
-ls ~/bin
-which tmux
-export PATH=PATH:~/bin
+if ! command -v tmux &> /dev/null
+then
+    export PATH="$HOME/bin/:$PATH"
+fi
 
 bash ~/.tmux/plugins/tpm/tpm
-
