@@ -1,0 +1,11 @@
+{
+    "For Entries": {
+        "prefix": "forobj",
+        "body": [
+            "for (const [${1:key}, ${2:value}] of Object.entries(${3:object})) {",
+            "   ${4}",
+            "}"
+        ],
+        "description": "for key value entries in dict"
+    }
+}
