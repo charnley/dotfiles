@@ -1,7 +1,9 @@
 Dotfiles
 ========
 
-for OSX, Debian and whatever HPC I need to work on. Some dotfiles are OS dependent. Check `Makefile` for depenencies, install and symlink setup.
+For OSX, Debian and whatever HPC I need to work on. Some dotfiles are OS dependent. Check `Makefile` for dependencies, install and symlink setup.
+
+I use `Makefile` to coordinate everything. You should too.
 
 Mac OSX
 -------
@@ -26,12 +28,12 @@ Setup
 .. code-block:: bash
 
     # fresh installation on new system
-    make install
-    
+
+    make install_apt # only for systems you have sudo
+    make install # Compile and download dependencies (such as tmux and neovim)
 
 .. code-block:: bash
 
     # Check for updated dotfiles and check all plugins (e.g. VIM plugin update)
-    git pull
-    make
-
+    git pull # Get latest changed
+    make # Check all symlinks and plugins
