@@ -32,11 +32,25 @@ cmp.event:on( 'confirm_done',
 
 
 -- comment
-require('Comment').setup()
--- require('kommentary.config').setup()
--- require('kommentary.config').configure_language("default", {
---     prefer_single_line_comments = true,
--- })
+require("Comment").setup {
+  ignore = "^$",
+  pre_hook = function(ctx)
+    local U = require 'Comment.utils'
+
+    local location = nil
+    if ctx.ctype == U.ctype.block then
+      location = require('ts_context_commentstring.utils').get_cursor_location()
+    elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
+      location = require('ts_context_commentstring.utils').get_visual_start_location()
+    end
+
+    local commentstr = require('ts_context_commentstring.internal').calculate_commentstring {
+      key = ctx.ctype == U.ctype.line and '__default' or '__multiline',
+      location = location,
+    }
+    return commentstr
+  end,
+}
 
 -- docstring
 -- generate docstring
@@ -63,6 +77,12 @@ cmp.setup({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         }),
+        ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({
+            behavior = cmp.SelectBehavior.Select
+        }), {'i', 'c'}),
+        ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item({
+            behavior = cmp.SelectBehavior.Select
+        }), {'i', 'c'}),
         -- Accept currently selected item. If none selected, `select` first item.
         -- Set `select` to `false` to only confirm explicitly selected items.
         ['<Tab>'] = cmp.mapping.confirm({ select = true }),
@@ -97,13 +117,23 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 --- Treesitter
 require('nvim-treesitter.install').compilers = { "clang", "gcc" }
 require'nvim-treesitter.configs'.setup {
+  context_commentstring = {
+    enable = true,
+    enable_autocmd = false,
+  },
     -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
     -- ensure_installed can be "all" or a list of languages { "python", "javascript" }
     -- ensure_installed = "maintained",
     ensure_installed = {
-        "python",
         "bash",
+        "css",
+        "html",
         "javascript",
+        "python",
+        "tsx",
+        "typescript",
+        "vue",
+        "svelte",
     },
 
     highlight = { -- enable highlighting for all file types

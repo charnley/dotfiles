@@ -195,15 +195,11 @@ function IndentWidth()
 
 endfunction
 
-
-function FormatFile()
-    execute ":!format %"
-endfunction
-noremap <silent> <Leader>nf :!format %<CR>
-
-
 " Call the function after opening a buffer
 autocmd BufReadPost * call TabsOrSpaces()
+
+" Format file (bin command)
+noremap <silent> <Leader>nf :!format %<CR>
 
 " User Interface
 if has('cmdline_info')
@@ -252,8 +248,6 @@ command -nargs=0 -range SortWords <line1>,<line2>call setline('.',join(sort(spli
 " Update buffer if file has changed
 set autoread
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
-" notification after file change
-" autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 " Reselect visual selection after indenting
 vnoremap < <gv
@@ -274,9 +268,8 @@ call plug#begin()
     Plug 'junegunn/fzf', { 'do': './install --all' } " Fuzzy find searching
     Plug 'junegunn/fzf.vim'  " Fuzzy find searching
     Plug 'nanotech/jellybeans.vim' " colorscheme
-    " Plug 'tpope/vim-commentary' " For Commenting gcc & gc
     Plug 'numToStr/Comment.nvim' " For Commenting gcc & gc (Treesitter support)
-    " Plug 'b3nj5m1n/kommentary' " For commenting gcc & gc (Treesitter support)
+    Plug 'JoosepAlviste/nvim-ts-context-commentstring' " For context comment
     Plug 'gorkunov/smartpairs.vim' " Extend visual selection of bracket
 
     " Interface
