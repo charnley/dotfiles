@@ -7,5 +7,5 @@ source ~/opt/nvm/nvm.sh
 
 nvm use node
 
-npm install -g npm-check
-npm install -g npm-check-updates # ncu
+npm install --location=global npm-check
+npm install --location=global npm-check-updates # ncu
