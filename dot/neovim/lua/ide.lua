@@ -1,6 +1,5 @@
 
--- TODO Auto install language servers
---
+-- More like IDE
 require('lspconfig').pyright.setup{}
 require('lspconfig').bashls.setup{}
 require('lspconfig').tsserver.setup({})

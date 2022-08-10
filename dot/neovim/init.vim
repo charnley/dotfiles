@@ -14,94 +14,62 @@
 " TODO https://github.com/mizlan/dotfiles/blob/master/.config/nvim/init.lua
 " TODO https://github.com/romainl/vim-cool
 
-" set indentation default settings
-set autoindent
-set expandtab
-set indentexpr=O
-set shiftwidth=4
-set smartindent
-set smarttab
-set softtabstop=0
-set tabstop=4
 
-set ignorecase " Case-insensitive searching
-set lazyredraw " will buffer screen updates instead of updating all the time.:help 'ttyfast'
-set list " Highlight unwanted spaces
-set listchars=tab:▸\ ,trail:·
-set mouse=a
-set nohlsearch " I don't like to look at highlighted text
-set noshowmode " insert is already showing in lightline
-set noswapfile
-set nowrap " Don't ever wordwrap my code
-set number
-set relativenumber
-set scrolloff=8 " I like cursor to be in center
-set sidescroll=1
-set sidescrolloff=15
-set signcolumn=yes:1 " always show sign column (bookmarks, gitgutter,..)
-set smartcase " if a pattern contains an uppercase letter, it is case sensitive
+lua << EOF
+require'base'
+EOF
 
-set wildmode=longest,list,full
-set wildmenu
-" Ignore files
-set wildignore+=*.pyc
-set wildignore+=*_build/*
-set wildignore+=**/coverage/*
-set wildignore+=**/node_modules/*
-set wildignore+=**/android/*
-set wildignore+=**/ios/*
-set wildignore+=**/.git/*
-
-" Leader
-let mapleader=","
+lua << EOF
+require'maps'
+EOF
 
 " Search open files
-nnoremap <Leader>b :Buffers<cr>
+" nnoremap <Leader>b :Buffers<cr>
 
 " Search lines in current buffer
-noremap <Leader>s :BLines<cr>
+" noremap <Leader>s :BLines<cr>
 
 " Search all files registered with git
-noremap <leader>f :GitFiles<CR>
+" noremap <leader>f :GitFiles<CR>
 
 " Search all files under current directory
-noremap <leader>o :Files<CR>
+" noremap <leader>o :Files<CR>
 
 " Switch between buffers
-map bn :bnext<cr>
-map bp :bprevious<cr>
-map bd :bdelete<cr>
+" map bn :bnext<cr>
+" map bp :bprevious<cr>
+" map bd :bdelete<cr>
 
 " Much like a browser, just tab between buffers
-nmap <Tab> :bnext<CR>
-nmap <S-Tab> :bprevious<CR>
+" nmap <Tab> :bnext<CR>
+" nmap <S-Tab> :bprevious<CR>
 
 " Copy to clipboard using ~/bin/yank
-function! OscCopyVbuf()
-    let executeCmd='yank ~/.vbuf'
-    call system(executeCmd)
-    mod " redraw the interface
-endfunction
+" function! OscCopyVbuf()
+"     let executeCmd='yank ~/.vbuf'
+"     call system(executeCmd)
+"     mod " redraw the interface
+" endfunction
 
-function! OscYank(text) abort
-    let escape = system('yank', a:text)
-    if v:shell_error
-        echoerr escape
-    else
-        call writefile([escape], '/dev/tty', 'b')
-    endif
-    mod " Redraw the interface
-endfunction
+" function! OscYank(text) abort
+"     let escape = system('yank', a:text)
+"     if v:shell_error
+"         echoerr escape
+"     else
+"         call writefile([escape], '/dev/tty', 'b')
+"     endif
+"     mod " Redraw the interface
+" endfunction
 
-command! OscCopyVbuf :call OscCopyVbuf()
-noremap <silent> <Leader>y y:<C-U>call OscYank(@0)<CR>
+" command! OscCopyVbuf :call OscCopyVbuf()
+" noremap <silent> <Leader>y y:<C-U>call OscYank(@0)<CR>
 
 " Copy the current visual slection to ~/.vbuf
 " Copy the current line to the buffer file if no visual selection
 " Paste the contents of the buffer file
-vmap <S-y> :w! ~/.vbuf<CR>
-nmap <S-y> :.w! ~/.vbuf<CR>
-nmap <S-p> :r ~/.vbuf<CR>
+" vmap <S-y> :w! ~/.vbuf<CR>
+" nmap <S-y> :.w! ~/.vbuf<CR>
+" nmap <S-p> :r ~/.vbuf<CR>
 
 " When pasting a lot of code
 nnoremap <Leader>p :set invpaste<CR>
