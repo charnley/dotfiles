@@ -121,53 +121,53 @@ nnoremap J mzJ`z
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " Check wether file is space or tabs based. Switch accordingly
-function TabsOrSpaces()
-    " Determines whether to use spaces or tabs on the current buffer.
-    if getfsize(bufname("%")) > 256000
-        " File is very large, just use the default.
-        return
-    endif
+" function TabsOrSpaces()
+"     " Determines whether to use spaces or tabs on the current buffer.
+"     if getfsize(bufname("%")) > 256000
+"         " File is very large, just use the default.
+"         return
+"     endif
 
-    let numTabs=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^\\t"'))
-    let numSpaces=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^ "'))
+"     let numTabs=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^\\t"'))
+"     let numSpaces=len(filter(getbufline(bufname("%"), 1, 250), 'v:val =~ "^ "'))
 
-    if numTabs > numSpaces
-        setlocal noexpandtab
-    else
-        setlocal expandtab
-        call IndentWidth()
-    endif
-endfunction
+"     if numTabs > numSpaces
+"         setlocal noexpandtab
+"     else
+"         setlocal expandtab
+"         call IndentWidth()
+"     endif
+" endfunction
 
 
-function IndentWidth()
+" function IndentWidth()
 
-    let spaceLines = getline(1, 250)->map({l, v -> [l+1, v =~ '^ ']})->filter({k,v -> v[1]})->map({k,v -> v[0]})
+"     let spaceLines = getline(1, 250)->map({l, v -> [l+1, v =~ '^ ']})->filter({k,v -> v[1]})->map({k,v -> v[0]})
 
-    " If empty file or no indentation found, use default
-    if len(spaceLines) < 1
-        return
-    endif
+"     " If empty file or no indentation found, use default
+"     if len(spaceLines) < 1
+"         return
+"     endif
 
-    " Assume first line with spaces is indentation standard
-    let width = indent(spaceLines[0])
+"     " Assume first line with spaces is indentation standard
+"     let width = indent(spaceLines[0])
 
-    if width < 1
-        return
-    endif
+"     if width < 1
+"         return
+"     endif
 
-    " if indent is -1, return
+"     " if indent is -1, return
 
-    execute "setlocal shiftwidth=".width
-    execute "setlocal tabstop=".width
+"     execute "setlocal shiftwidth=".width
+"     execute "setlocal tabstop=".width
 
-endfunction
+" endfunction
 
 " Call the function after opening a buffer
-autocmd BufReadPost * call TabsOrSpaces()
+" autocmd BufReadPost * call TabsOrSpaces()
 
 " Format file (bin command)
-noremap <silent> <Leader>nf :!format %<CR>
+" noremap <silent> <Leader>nf :!format %<CR>
 
 " User Interface
 if has('cmdline_info')
