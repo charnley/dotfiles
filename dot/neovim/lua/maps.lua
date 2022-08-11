@@ -29,3 +29,12 @@ end, {desc="Yank OSC52"})
 vim.keymap.set('v', '<S-y>', ':w! ~/.vbuf<cr>')
 vim.keymap.set('n', '<S-y>', ':.w! ~/.vbuf<cr>')
 vim.keymap.set('n', '<S-p>', ':r ~/.vbuf<cr>')
+
+
+-- Remove all white trails
+-- vim.keymapset('v', '<Leader>nw', [[:let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>]], {desc="Remove whitespaces"})
+
+
+-- Format buffer
+vim.api.nvim_set_keymap('n', '<Leader>nf', ':!format %<cr>', {silent=true, noremap=true, desc="Format file"})
+

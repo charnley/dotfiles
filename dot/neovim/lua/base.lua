@@ -52,6 +52,7 @@ vim.opt.wildignore={
 -- Buffer specific
 _G._autocommands = {}
 _G._autocommands.is_space_or_tab = function()
+    -- Check space or tab format. If space, check space width and update buffer
 
     -- File is very large, just use the default.
     if vim.fn.getfsize(vim.fn.bufname("%")) > 25600 then
@@ -63,19 +64,31 @@ _G._autocommands.is_space_or_tab = function()
     local lines_spaces = vim.fn.filter(lines, 'v:val =~ "^ "')
 
     if #lines_tabs > #lines_spaces then
-      vim.pretty_print(#lines_tabs)
       vim.opt_local.expandtab=false
     else
-      vim.pretty_print(#lines_spaces)
       vim.opt_local.expandtab=true
+      _G._autocommands.find_indent_width(lines_spaces)
     end
 
 end
 
-_G._autocommands.find_indent_width = function()
+_G._autocommands.find_indent_width = function(lines)
+    -- Check the whitespace per-buffer and set tabwidth
 
-    -- local lines = vim.fn.getline(1, 250)->map({l, v -> [l+1, v =~ '^ ']})->filter({k,v -> v[1]})->map({k,v -> v[0]})
-    -- local lines = vim.fn.getline(1, 250)
+    local line = lines[1]
+
+    local whitespace = 0
+     
+    for i = 1, #line do
+        if (string.sub(line, i, i) == " ") then
+            whitespace = whitespace + 1
+        else
+            break
+        end
+    end
+
+    vim.opt_local.shiftwidth = whitespace
+    vim.opt_local.tabstop = whitespace
 
 end
 
@@ -83,7 +96,4 @@ end
 vim.api.nvim_exec([[
   autocmd BufReadPost * lua _autocommands.is_space_or_tab()
 ]], false)
-
-
-
 
