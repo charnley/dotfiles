@@ -32,9 +32,17 @@ vim.keymap.set('n', '<S-p>', ':r ~/.vbuf<cr>')
 
 
 -- Remove all white trails
--- vim.keymapset('v', '<Leader>nw', [[:let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>]], {desc="Remove whitespaces"})
+vim.keymap.set('n', '<Leader>nw', [[:let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>]], {desc="Remove whitespaces"})
 
 
 -- Format buffer
 vim.api.nvim_set_keymap('n', '<Leader>nf', ':!format %<cr>', {silent=true, noremap=true, desc="Format file"})
+
+-- Use paste mode
+vim.api.nvim_set_keymap('n', '<Leader>p', ':set invpaste<cr>', {desc="Toggle pastemode"}) -- for that stackoverflow
+
+-- Spelling
+-- Add word: zg
+-- Correct word: z=
+vim.api.nvim_set_keymap('n', '<Leader>z', ':set spell!<cr>', {desc="Toggle spellmode"})
 

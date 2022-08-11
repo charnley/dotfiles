@@ -54,7 +54,7 @@ require("Comment").setup {
 -- docstring
 -- generate docstring
 require('neogen').setup()
-vim.api.nvim_set_keymap("n", "<Leader>nd", ":lua require('neogen').generate()<CR>", {noremap=true, silent=true})
+vim.api.nvim_set_keymap("n", "<Leader>nd", ":lua require('neogen').generate()<CR>", {noremap=true, silent=true, desc="Generate docstring"})
 
 -- setup completion
 cmp.setup({

@@ -23,6 +23,10 @@ lua << EOF
 require'maps'
 EOF
 
+lua << EOF
+require'gui'
+EOF
+
 " Search open files
 " nnoremap <Leader>b :Buffers<cr>
 
@@ -72,53 +76,53 @@ EOF
 " nmap <S-p> :r ~/.vbuf<CR>
 
 " When pasting a lot of code
-nnoremap <Leader>p :set invpaste<CR>
+" nnoremap <Leader>p :set invpaste<CR>
 
 " " copy rest of the line
 " nnoremap Y y$
 
-" More sane undo (undo breakpoints on char)
-inoremap " "<c-g>u
-inoremap ( (<c-g>u
-inoremap , ,<c-g>u
-inoremap . .<c-g>u
-inoremap [ [<c-g>u
+" " More sane undo (undo breakpoints on char)
+" inoremap " "<c-g>u
+" inoremap ( (<c-g>u
+" inoremap , ,<c-g>u
+" inoremap . .<c-g>u
+" inoremap [ [<c-g>u
 
-" I feel like going back a word should be consistent with w
-nnoremap W b
-vnoremap W b
+" " I feel like going back a word should be consistent with w
+" nnoremap W b
+" vnoremap W b
 
-" Move marked text (Sorry Peter, I use arrow)
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
-inoremap <C-j> <esc>:m .+1<CR>==i
-inoremap <C-k> <esc>:m .-2<CR>==i
-nnoremap <C-j> :m .+1<CR>==
-nnoremap <C-k> :m .-2<CR>==
-vnoremap <A-Down> :m '>+1<CR>gv=gv
-vnoremap <A-Up> :m '<-2<CR>gv=gv
-inoremap <A-Down> <esc>:m .+1<CR>==i
-inoremap <A-Up> <esc>:m .-2<CR>==i
-nnoremap <A-Down> :m .+1<CR>==
-nnoremap <A-Up> :m .-2<CR>==
+" " Move marked text (Sorry Peter, I use arrow)
+" vnoremap <C-j> :m '>+1<CR>gv=gv
+" vnoremap <C-k> :m '<-2<CR>gv=gv
+" inoremap <C-j> <esc>:m .+1<CR>==i
+" inoremap <C-k> <esc>:m .-2<CR>==i
+" nnoremap <C-j> :m .+1<CR>==
+" nnoremap <C-k> :m .-2<CR>==
+" vnoremap <A-Down> :m '>+1<CR>gv=gv
+" vnoremap <A-Up> :m '<-2<CR>gv=gv
+" inoremap <A-Down> <esc>:m .+1<CR>==i
+" inoremap <A-Up> <esc>:m .-2<CR>==i
+" nnoremap <A-Down> :m .+1<CR>==
+" nnoremap <A-Up> :m .-2<CR>==
 
-" Delete without yank
-nnoremap d "_d
-nnoremap D "_D
-vnoremap d "_d
+" " Delete without yank
+" nnoremap d "_d
+" nnoremap D "_D
+" vnoremap d "_d
 
-" Cut (Delete & Yank) enabled via leader
-nnoremap <leader>d ""d
-nnoremap <leader>D ""D
-vnoremap <leader>d ""d
+" " Cut (Delete & Yank) enabled via leader
+" nnoremap <leader>d ""d
+" nnoremap <leader>D ""D
+" vnoremap <leader>d ""d
 
-" keep me centered when jumping
-nnoremap n nzzzv
-nnoremap N Nzzzv
-nnoremap J mzJ`z
+" " keep me centered when jumping
+" nnoremap n nzzzv
+" nnoremap N Nzzzv
+" nnoremap J mzJ`z
 
 " Remove all trailing whitespace by pressing F5
-nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+" nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " Check wether file is space or tabs based. Switch accordingly
 " function TabsOrSpaces()
@@ -170,17 +174,17 @@ nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 " noremap <silent> <Leader>nf :!format %<CR>
 
 " User Interface
-if has('cmdline_info')
-  set ruler                   " show the ruler
-  set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
-  set showcmd                 " show partial commands in status line and
-endif
-set laststatus=2  " Always show the statusline
-set cmdheight=1
+" if has('cmdline_info')
+"   set ruler                   " show the ruler
+"   set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
+"   set showcmd                 " show partial commands in status line and
+" endif
+" set laststatus=2  " Always show the statusline
+" set cmdheight=1
 
 " Fixes common typos
-command W w
-command Q q
+" command W w
+" command Q q
 
 " Ignore white space in diffmode
 if &diff
@@ -205,25 +209,25 @@ endif
 " Spelling
 " add word: zg
 " correct spelling: z=
-set spelllang=en
-set spellsuggest=best,10  " Show only the top ten candidates
-nnoremap <silent> <F11> :set spell!<cr>
-inoremap <silent> <F11> <C-O>:set spell!<cr>
+" set spelllang=en
+" set spellsuggest=best,10  " Show only the top ten candidates
+" nnoremap <silent> <F11> :set spell!<cr>
+" inoremap <silent> <F11> <C-O>:set spell!<cr>
 
 " Sort words in line (usually done in visual block)
-command -nargs=0 -range SortWords <line1>,<line2>call setline('.',join(sort(split(getline('.'),' ')),' '))
+" command -nargs=0 -range SortWords <line1>,<line2>call setline('.',join(sort(split(getline('.'),' ')),' '))
 
 " Update buffer if file has changed
-set autoread
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" set autoread
+" autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
 
 " Reselect visual selection after indenting
-vnoremap < <gv
-vnoremap > >gv
+" vnoremap < <gv
+" vnoremap > >gv
 
 " Maintain the cursor position when yanking a visual selection
 " http://ddrscott.github.io/blog/2016/yank-without-jank/
-vnoremap y myy`y
+" vnoremap y myy`y
 " vnoremap Y myY`y  " I use Y as cross-vim copy
 
 call plug#begin()

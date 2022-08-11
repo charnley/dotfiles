@@ -56,7 +56,7 @@ _G._autocommands.is_space_or_tab = function()
 
     -- File is very large, just use the default.
     if vim.fn.getfsize(vim.fn.bufname("%")) > 25600 then
-      return
+        return
     end
 
     local lines = vim.fn.getbufline(vim.fn.bufname("%"), 1, 250)
@@ -64,21 +64,21 @@ _G._autocommands.is_space_or_tab = function()
     local lines_spaces = vim.fn.filter(lines, 'v:val =~ "^ "')
 
     if #lines_tabs > #lines_spaces then
-      vim.opt_local.expandtab=false
+        vim.opt_local.expandtab=false
     else
-      vim.opt_local.expandtab=true
-      _G._autocommands.find_indent_width(lines_spaces)
+        vim.opt_local.expandtab=true
+        if #lines_spaces > 0 then
+            _G._autocommands.find_indent_width(lines_spaces)
+        end
     end
-
 end
 
 _G._autocommands.find_indent_width = function(lines)
     -- Check the whitespace per-buffer and set tabwidth
 
     local line = lines[1]
-
     local whitespace = 0
-     
+
     for i = 1, #line do
         if (string.sub(line, i, i) == " ") then
             whitespace = whitespace + 1
@@ -97,3 +97,92 @@ vim.api.nvim_exec([[
   autocmd BufReadPost * lua _autocommands.is_space_or_tab()
 ]], false)
 
+
+-- Overwrite default behavior
+vim.api.nvim_exec([[ command W w ]], false) -- common typo
+vim.api.nvim_exec([[ command Q q ]], false) -- common typo
+
+vim.api.nvim_exec([[
+
+" More sane undo (undo breakpoints on char)
+inoremap " "<c-g>u
+inoremap ( (<c-g>u
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap [ [<c-g>u
+
+" I feel like going back a word should be consistent with w
+nnoremap W b
+vnoremap W b
+
+" Move marked text (Sorry Peter, I use arrow)
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+inoremap <C-j> <esc>:m .+1<CR>==i
+inoremap <C-k> <esc>:m .-2<CR>==i
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+vnoremap <A-Down> :m '>+1<CR>gv=gv
+vnoremap <A-Up> :m '<-2<CR>gv=gv
+inoremap <A-Down> <esc>:m .+1<CR>==i
+inoremap <A-Up> <esc>:m .-2<CR>==i
+nnoremap <A-Down> :m .+1<CR>==
+nnoremap <A-Up> :m .-2<CR>==
+
+" Delete without yank
+nnoremap d "_d
+nnoremap D "_D
+vnoremap d "_d
+
+" Cut (Delete & Yank) enabled via leader
+nnoremap <leader>d ""d
+nnoremap <leader>D ""D
+vnoremap <leader>d ""d
+
+" keep me centered when jumping
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ`z
+
+" Reselect visual selection after indenting
+vnoremap < <gv
+vnoremap > >gv
+
+" Maintain the cursor position when yanking a visual selection
+" http://ddrscott.github.io/blog/2016/yank-without-jank/
+vnoremap y myy`y
+" vnoremap Y myY`y  " I use Y as cross-vim copy
+
+]], false)
+
+-- Set default behavior for filetypes
+vim.api.nvim_exec([[
+au BufRead,BufNewFile *.md,*.mdx,*.markdown setfiletype markdown
+au BufRead,BufNewFile Jenkinsfile,*.Jenkinsfile setfiletype groovy
+au BufRead,BufNewFile *.src setfiletype fortran
+let fortran_more_precise=1
+let fortran_dialect = "f77"
+let s:extfname = expand("%:e")
+if s:extfname ==? "f90"
+    let fortran_free_source=1
+    unlet! fortran_fixed_source
+else
+    let fortran_fixed_source=1
+    unlet! fortran_free_source
+endif
+]], false)
+
+
+-- Spelling
+vim.opt.spelllang="en"
+vim.opt.spellsuggest="best,10" -- show only the top 10 candidates
+
+vim.opt.autoread=true -- Update buffer if file has changed
+vim.api.nvim_exec([[
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+]],false)
+
+-- Useful commands
+vim.api.nvim_exec([[
+command -nargs=0 -range SortWords <line1>,<line2>call setline('.',join(sort(split(getline('.'),' ')),' '))
+]],false)
