@@ -192,19 +192,19 @@ if &diff
 endif
 
 " File types change
-au BufRead,BufNewFile *.md,*.mdx,*.markdown setfiletype markdown
-au BufRead,BufNewFile Jenkinsfile,*.Jenkinsfile setfiletype groovy
-au BufRead,BufNewFile *.src setfiletype fortran
-let fortran_more_precise=1
-let fortran_dialect = "f77"
-let s:extfname = expand("%:e")
-if s:extfname ==? "f90"
-    let fortran_free_source=1
-    unlet! fortran_fixed_source
-else
-    let fortran_fixed_source=1
-    unlet! fortran_free_source
-endif
+" au BufRead,BufNewFile *.md,*.mdx,*.markdown setfiletype markdown
+" au BufRead,BufNewFile Jenkinsfile,*.Jenkinsfile setfiletype groovy
+" au BufRead,BufNewFile *.src setfiletype fortran
+" let fortran_more_precise=1
+" let fortran_dialect = "f77"
+" let s:extfname = expand("%:e")
+" if s:extfname ==? "f90"
+"     let fortran_free_source=1
+"     unlet! fortran_fixed_source
+" else
+"     let fortran_fixed_source=1
+"     unlet! fortran_free_source
+" endif
 
 " Spelling
 " add word: zg
@@ -400,4 +400,4 @@ endif
 " augroup end
 
 " Disable filetype plugin (it overwrites tab/indentation settings)
-filetype plugin off
+" filetype plugin off

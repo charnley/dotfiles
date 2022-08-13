@@ -173,6 +173,9 @@ endif
 ]], false)
 
 
+-- Disable filetype plugin (it overwrites tab/indentation settings)
+vim.api.nvim_exec([[filetype plugin off]], false)
+
 -- Spelling
 vim.opt.spelllang="en"
 vim.opt.spellsuggest="best,10" -- show only the top 10 candidates
