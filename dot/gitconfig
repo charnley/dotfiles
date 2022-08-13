@@ -1,24 +1,25 @@
 [color]
-    diff = auto
-    status = auto
-    branch = auto
+	diff = auto
+	status = auto
+	branch = auto
 [color "diff"]
-    meta = yellow
+	meta = yellow
 [core]
-    excludesfile = ~/.gitignore
-    editor = vim -u NONE
-    pager = less -q
+	excludesfile = ~/.gitignore
+	editor = vim -u NONE
+	pager = less -q
 [alias]
-    lg = log --graph --abbrev-commit --decorate --format=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(yellow)%d%C(reset)' --all
-    argh = reset --hard HEAD
-    fix-who = commit --amend --reset-author
-    next = rebase --continue
+	lg = log --graph --abbrev-commit --decorate --format=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(yellow)%d%C(reset)' --all
+	argh = reset --hard HEAD
+	fix-who = commit --amend --reset-author
+	next = rebase --continue
 [push]
-    default = simple
+	default = simple
+	autoSetupRemote = true
 [credential]
-    helper = store --file ~/.ssh/gitcredentials
+	helper = store --file ~/.ssh/gitcredentials
 [include]
-    path = ~/.gitconfig.local
+	path = ~/.gitconfig.local
 [diff]
 	ignoreSubmodules = dirty
 [user]
