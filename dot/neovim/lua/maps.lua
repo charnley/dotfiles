@@ -1,4 +1,4 @@
-
+-- Only sane leader
 vim.g.mapleader = ","
 
 vim.api.nvim_set_keymap('n', '<Leader>b', ':Buffers<cr>', {noremap = true}) -- Search open files
@@ -22,7 +22,7 @@ vim.keymap.set("n", "<Leader>y", function()
     vim.fn.writefile({escape}, '/dev/tty', 'b')
 end, {desc="Yank OSC52"})
 
--- Y   
+-- Y
 -- Copy the current visual slection to ~/.vbuf
 -- Copy the current line to the buffer file if no visual selection
 -- Paste the contents of the buffer file
@@ -30,10 +30,8 @@ vim.keymap.set('v', '<S-y>', ':w! ~/.vbuf<cr>')
 vim.keymap.set('n', '<S-y>', ':.w! ~/.vbuf<cr>')
 vim.keymap.set('n', '<S-p>', ':r ~/.vbuf<cr>')
 
-
 -- Remove all white trails
 vim.keymap.set('n', '<Leader>nw', [[:let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>]], {desc="Remove whitespaces"})
-
 
 -- Format buffer
 vim.api.nvim_set_keymap('n', '<Leader>nf', ':!format %<cr>', {silent=true, noremap=true, desc="Format file"})
@@ -46,3 +44,40 @@ vim.api.nvim_set_keymap('n', '<Leader>p', ':set invpaste<cr>', {desc="Toggle pas
 -- Correct word: z=
 vim.api.nvim_set_keymap('n', '<Leader>z', ':set spell!<cr>', {desc="Toggle spellmode"})
 
+-- Git commands
+vim.api.nvim_set_keymap('n', '<leader>gu', ':GitGutterUndoHunk<cr>', {noremap = true, desc='Undo git hunk'})
+vim.api.nvim_set_keymap('n', '<leader>gn', ':GitGutterNextHunk<cr>', {noremap = true, desc='Next git hunk'})
+vim.api.nvim_set_keymap('n', '<leader>gp', ':GitGutterPrevHunk<cr>', {noremap = true, desc='Prev git hunk'})
+vim.api.nvim_set_keymap('n', '<leader>gh', ':GitGutterPreviewsHunk<cr>', {noremap = true, desc='Diff hunk'}) -- what changed in this hunk (close with :pclose)
+vim.api.nvim_set_keymap('n', '<leader>gb', ':BlameToggle<cr>', {noremap = true, desc='Toggle git blame'}) -- Undo block of git changes
+
+-- Cut commands
+vim.api.nvim_set_keymap('n', '<leader>d', '""dd', {noremap = true, desc='Cut line'})
+vim.api.nvim_set_keymap('v', '<leader>d', '""d', {noremap = true, desc='Cut'})
+vim.api.nvim_set_keymap('n', '<leader>D', '""D', {noremap = true, desc='Cut rest of line'})
+
+-- Sneak settings
+vim.api.nvim_exec([[
+let g:sneak#label = 1
+let g:sneak#target_labels = 'qwertasdfgzxcv'
+
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+]], false)
+
+-- Lsp key bindings
+vim.api.nvim_exec([[
+nnoremap <Leader>ld    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <Leader>lD    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <Leader>lr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <Leader>li    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <Leader>lh    <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <Leader>lf    <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <Leader>ln    <cmd>lua vim.lsp.buf.rename()<CR>
+
+" Jump forward or backward in snippets
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+]], false)

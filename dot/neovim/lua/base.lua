@@ -94,16 +94,13 @@ end
 
 -- TODO Is there a lua interface for BufReadPost?
 vim.api.nvim_exec([[
-  autocmd BufReadPost * lua _autocommands.is_space_or_tab()
+autocmd BufReadPost * lua _autocommands.is_space_or_tab()
 ]], false)
-
 
 -- Overwrite default behavior
 vim.api.nvim_exec([[ command W w ]], false) -- common typo
 vim.api.nvim_exec([[ command Q q ]], false) -- common typo
-
 vim.api.nvim_exec([[
-
 " More sane undo (undo breakpoints on char)
 inoremap " "<c-g>u
 inoremap ( (<c-g>u
@@ -134,11 +131,6 @@ nnoremap d "_d
 nnoremap D "_D
 vnoremap d "_d
 
-" Cut (Delete & Yank) enabled via leader
-nnoremap <leader>d ""d
-nnoremap <leader>D ""D
-vnoremap <leader>d ""d
-
 " keep me centered when jumping
 nnoremap n nzzzv
 nnoremap N Nzzzv
@@ -151,9 +143,8 @@ vnoremap > >gv
 " Maintain the cursor position when yanking a visual selection
 " http://ddrscott.github.io/blog/2016/yank-without-jank/
 vnoremap y myy`y
-" vnoremap Y myY`y  " I use Y as cross-vim copy
 
-]], false)
+]], true)
 
 -- Set default behavior for filetypes
 vim.api.nvim_exec([[
@@ -171,7 +162,6 @@ else
     unlet! fortran_free_source
 endif
 ]], false)
-
 
 -- Disable filetype plugin (it overwrites tab/indentation settings)
 vim.api.nvim_exec([[filetype plugin off]], false)
@@ -192,6 +182,5 @@ command -nargs=0 -range SortWords <line1>,<line2>call setline('.',join(sort(spli
 
 -- if diff, ignore whitespace
 if vim.api.nvim_win_get_option(0, "diff") then
-	vim.opt.diffopt:append("iwhite")
+    vim.opt.diffopt:append("iwhite")
 end
-

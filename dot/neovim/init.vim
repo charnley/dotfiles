@@ -19,6 +19,10 @@ require'plugins'
 EOF
 
 lua << EOF
+require'plugins_config'
+EOF
+
+lua << EOF
 require'base'
 EOF
 
@@ -282,32 +286,32 @@ EOF
 " call plug#end()
 
 " TODO Need if colorscheme is there (for setup)
-let g:jellybeans_overrides = {'background': { 'ctermbg': 'none', '256ctermbg': 'none' },}
-try
-    colorscheme jellybeans
-catch /^Vim\%((\a\+)\)\=:E185/
-    " Probably first installation
-endtry
+" let g:jellybeans_overrides = {'background': { 'ctermbg': 'none', '256ctermbg': 'none' },}
+" try
+"     colorscheme jellybeans
+" catch /^Vim\%((\a\+)\)\=:E185/
+"     " Probably first installation
+" endtry
 
-highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
-highlight Pmenu ctermbg=none
+" highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
+" highlight Pmenu ctermbg=none
 
-" fzf
-let $FZF_DEFAULT_OPTS='--reverse'
-let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+" " fzf
+" let $FZF_DEFAULT_OPTS='--reverse'
+" let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 
-" Airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tabline#show_close_button = 0
-let g:airline_skip_empty_sections = 1
-let g:airline#extensions#tabline#tab_min_count = 2  " ignored : (
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline#extensions#tabline#right_sep = ' '
-let g:airline#extensions#tabline#right_alt_sep = ''
-let g:airline_powerline_fonts = 0
-au User AirlineAfterInit  :let g:airline_section_z = airline#section#create(['%3p%% %L:%3v'])
+" " Airline
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#formatter = 'unique_tail'
+" let g:airline#extensions#tabline#show_close_button = 0
+" let g:airline_skip_empty_sections = 1
+" let g:airline#extensions#tabline#tab_min_count = 2  " ignored : (
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = ''
+" let g:airline#extensions#tabline#right_sep = ' '
+" let g:airline#extensions#tabline#right_alt_sep = ''
+" let g:airline_powerline_fonts = 0
+" au User AirlineAfterInit  :let g:airline_section_z = airline#section#create(['%3p%% %L:%3v'])
 
 " Plug Bookmarks
 " Add/remove bookmark at current line           mm  :BookmarkToggle
@@ -321,68 +325,68 @@ au User AirlineAfterInit  :let g:airline_section_z = airline#section#create(['%3
 " Move down bookmark at current line            mjj     :BookmarkMoveDown
 " Save all bookmarks to a file                  :BookmarkSave <FILE_PATH>
 " Load bookmarks from a file                    :BookmarkLoad <FILE_PATH>
-let g:bookmark_sign = '•'
+" let g:bookmark_sign = '•'
 
 " Git
-let g:gitgutter_sign_added = '|'
-let g:gitgutter_sign_modified = '|'
-let g:gitgutter_sign_removed = '|'
-let g:gitgutter_sign_modified_removed = '|'
-highlight GitGutterAdd    ctermfg=green
-highlight GitGutterChange ctermfg=yellow
-highlight GitGutterDelete ctermfg=red
+" let g:gitgutter_sign_added = '|'
+" let g:gitgutter_sign_modified = '|'
+" let g:gitgutter_sign_removed = '|'
+" let g:gitgutter_sign_modified_removed = '|'
+" highlight GitGutterAdd ctermfg=green
+" highlight GitGutterChange ctermfg=yellow
+" highlight GitGutterDelete ctermfg=red
 
 " Undo block of git changes
-nmap <leader>gu <Plug>(GitGutterUndoHunk)
+" nmap <leader>gu <Plug>(GitGutterUndoHunk)
 
-" find next or prev git hunk
-nmap <leader>gn <Plug>(GitGutterNextHunk)
-nmap <leader>gp <Plug>(GitGutterPrevHunk)
+" " find next or prev git hunk
+" nmap <leader>gn <Plug>(GitGutterNextHunk)
+" nmap <leader>gp <Plug>(GitGutterPrevHunk)
 
-" what changed in this hunk (close with :pclose)
-nmap <leader>gh <Plug>(GitGutterPreviewHunk)
-"au CursorMoved * if gitgutter#hunk#in_hunk(line(".")) | GitGutterPreviewHunk | else | pclose | endif
+" " what changed in this hunk (close with :pclose)
+" nmap <leader>gh <Plug>(GitGutterPreviewHunk)
+" "au CursorMoved * if gitgutter#hunk#in_hunk(line(".")) | GitGutterPreviewHunk | else | pclose | endif
 
-" what changed in this hunk (close with :pclose)
-nmap <leader>gb :BlamerToggle<cr>
+" " what changed in this hunk (close with :pclose)
+" nmap <leader>gb :BlamerToggle<cr>
 
-let g:sneak#label = 1
-let g:sneak#target_labels = 'qwertasdfgzxcv'
-" Find char: f
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_keys = 'qwertasdfgzxcv'
-let g:EasyMotion_use_upper = 0
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_startofline = 0
-nmap  f <Plug>(easymotion-s)
-" xmap f <Plug>(easymotion-s)
-" omap f <Plug>(easymotion-t)
-" map J <Plug>(easymotion-j)
-" map K <Plug>(easymotion-k)
-hi link EasyMotionTarget Todo
-hi link EasyMotionShade  Comment
-hi link EasyMotionTarget2First Todo
-hi link EasyMotionTarget2Second Todo
-hi link EasyMotionIncSearch IncSearch
-hi link EasyMotionIncCursor Search
+" let g:sneak#label = 1
+" let g:sneak#target_labels = 'qwertasdfgzxcv'
+" " Find char: f
+" let g:EasyMotion_do_mapping = 0
+" let g:EasyMotion_keys = 'qwertasdfgzxcv'
+" let g:EasyMotion_use_upper = 0
+" let g:EasyMotion_smartcase = 1
+" let g:EasyMotion_startofline = 0
+" nmap  f <Plug>(easymotion-s)
+" " xmap f <Plug>(easymotion-s)
+" " omap f <Plug>(easymotion-t)
+" " map J <Plug>(easymotion-j)
+" " map K <Plug>(easymotion-k)
+" hi link EasyMotionTarget Todo
+" hi link EasyMotionShade  Comment
+" hi link EasyMotionTarget2First Todo
+" hi link EasyMotionTarget2Second Todo
+" hi link EasyMotionIncSearch IncSearch
+" hi link EasyMotionIncCursor Search
 
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-map t <Plug>Sneak_t
-map T <Plug>Sneak_T
+" map f <Plug>Sneak_f
+" map F <Plug>Sneak_F
+" map t <Plug>Sneak_t
+" map T <Plug>Sneak_T
 
-" Lsp key bindings
-nnoremap <Leader>ld    <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <Leader>lD    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <Leader>lr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <Leader>li    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <Leader>lh    <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <Leader>lf    <cmd>lua vim.lsp.buf.formatting()<CR>
-nnoremap <Leader>ln    <cmd>lua vim.lsp.buf.rename()<CR>
+" " Lsp key bindings
+" nnoremap <Leader>ld    <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap <Leader>lD    <cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap <Leader>lr    <cmd>lua vim.lsp.buf.references()<CR>
+" nnoremap <Leader>li    <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <Leader>lh    <cmd>lua vim.lsp.buf.signature_help()<CR>
+" nnoremap <Leader>lf    <cmd>lua vim.lsp.buf.formatting()<CR>
+" nnoremap <Leader>ln    <cmd>lua vim.lsp.buf.rename()<CR>
 
-" Jump forward or backward in snippets
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+" " Jump forward or backward in snippets
+" imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+" imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 
 " Make VIM IDE like
 let beingSetup = get(g:, 'isUpdate', 0)
