@@ -28,7 +28,7 @@ endif
 all: dotfiles bin vim_plugins tmux_plugins
 
 vim_plugins:
-	${HOME}/bin/vim --cmd "let isUpdate=1" +'PackerUpdate' +qall
+	${HOME}/bin/vim --headless --cmd "let isUpdate=1" -c 'autocmd User PackerComplete quitall' -c 'silent PackerSync'
 
 tmux_plugins:
 	bash ./setup/tmux_plugins.sh
@@ -66,7 +66,7 @@ ${HOME}/bin/vim:
 ${HOME}/opt/neovim: ${HOME}/opt/nvm
 	bash setup.$(OS)/nvim_setup.sh
 	bash setup/neovim_packer.sh
-	${HOME}/bin/vim --headless --cmd "let isUpdate=1" +'PackerInstall' +qall
+	${HOME}/bin/vim --headless --cmd "let isUpdate=1" -c 'autocmd User PackerComplete quitall' -c 'silent PackerSync'
 
 ${HOME}/opt/tmux-3.2a:
 	bash ./setup/tmux_compile.sh 1> /dev/null
