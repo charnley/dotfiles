@@ -189,3 +189,9 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkti
 vim.api.nvim_exec([[
 command -nargs=0 -range SortWords <line1>,<line2>call setline('.',join(sort(split(getline('.'),' ')),' '))
 ]],false)
+
+-- if diff, ignore whitespace
+if vim.api.nvim_win_get_option(0, "diff") then
+	vim.opt.diffopt:append("iwhite")
+end
+

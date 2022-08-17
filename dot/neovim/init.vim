@@ -187,9 +187,9 @@ EOF
 " command Q q
 
 " Ignore white space in diffmode
-if &diff
-    set diffopt+=iwhite
-endif
+" if &diff
+"     set diffopt+=iwhite
+" endif
 
 " File types change
 " au BufRead,BufNewFile *.md,*.mdx,*.markdown setfiletype markdown
