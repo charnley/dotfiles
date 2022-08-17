@@ -14,6 +14,9 @@
 " TODO https://github.com/mizlan/dotfiles/blob/master/.config/nvim/init.lua
 " TODO https://github.com/romainl/vim-cool
 
+lua << EOF
+require'plugins'
+EOF
 
 lua << EOF
 require'base'
@@ -230,53 +233,53 @@ EOF
 " vnoremap y myy`y
 " vnoremap Y myY`y  " I use Y as cross-vim copy
 
-call plug#begin()
+" call plug#begin()
 
-    Plug 'MattesGroeger/vim-bookmarks'  " Easy bookmark shortcuts
-    Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus', 'vim'] }  " Preview CSS Colors
-    Plug 'chaoren/vim-wordmotion' " Better word motion
-    Plug 'justinmk/vim-sneak'  " Jump to char
-    " Plug 'easymotion/vim-easymotion'  " Jump to character
-    Plug 'junegunn/fzf', { 'do': './install --all' } " Fuzzy find searching
-    Plug 'junegunn/fzf.vim'  " Fuzzy find searching
-    Plug 'nanotech/jellybeans.vim' " colorscheme
-    Plug 'numToStr/Comment.nvim' " For Commenting gcc & gc (Treesitter support)
-    Plug 'JoosepAlviste/nvim-ts-context-commentstring' " For context comment
-    Plug 'gorkunov/smartpairs.vim' " Extend visual selection of bracket
+"     Plug 'MattesGroeger/vim-bookmarks'  " Easy bookmark shortcuts
+"     Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus', 'vim'] }  " Preview CSS Colors
+"     Plug 'chaoren/vim-wordmotion' " Better word motion
+"     Plug 'justinmk/vim-sneak'  " Jump to char
+"     " Plug 'easymotion/vim-easymotion'  " Jump to character
+"     Plug 'junegunn/fzf', { 'do': './install --all' } " Fuzzy find searching
+"     Plug 'junegunn/fzf.vim'  " Fuzzy find searching
+"     Plug 'nanotech/jellybeans.vim' " colorscheme
+"     Plug 'numToStr/Comment.nvim' " For Commenting gcc & gc (Treesitter support)
+"     Plug 'JoosepAlviste/nvim-ts-context-commentstring' " For context comment
+"     Plug 'gorkunov/smartpairs.vim' " Extend visual selection of bracket
 
-    " Interface
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-    Plug 'folke/which-key.nvim'  " I can't remember what <leader><char> does
+"     " Interface
+"     Plug 'vim-airline/vim-airline'
+"     Plug 'vim-airline/vim-airline-themes'
+"     Plug 'folke/which-key.nvim'  " I can't remember what <leader><char> does
 
-    " IDE
-    Plug 'windwp/nvim-autopairs'
-    Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-nvim-lsp'
-    Plug 'hrsh7th/cmp-path'
-    Plug 'hrsh7th/cmp-vsnip'
-    Plug 'hrsh7th/nvim-cmp'
-    Plug 'hrsh7th/vim-vsnip'
-    Plug 'kabouzeid/nvim-lspinstall'
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-    Plug 'rafamadriz/friendly-snippets'
-    Plug 'ray-x/lsp_signature.nvim'  " https://github.com/ray-x/lsp_signature.nvim
-    Plug 'danymat/neogen'  " generate docstrings (with treesitter)
+"     " IDE
+"     Plug 'windwp/nvim-autopairs'
+"     Plug 'hrsh7th/cmp-buffer'
+"     Plug 'hrsh7th/cmp-nvim-lsp'
+"     Plug 'hrsh7th/cmp-path'
+"     Plug 'hrsh7th/cmp-vsnip'
+"     Plug 'hrsh7th/nvim-cmp'
+"     Plug 'hrsh7th/vim-vsnip'
+"     Plug 'kabouzeid/nvim-lspinstall'
+"     Plug 'neovim/nvim-lspconfig'
+"     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+"     Plug 'rafamadriz/friendly-snippets'
+"     Plug 'ray-x/lsp_signature.nvim'  " https://github.com/ray-x/lsp_signature.nvim
+"     Plug 'danymat/neogen'  " generate docstrings (with treesitter)
 
-    Plug 'airblade/vim-gitgutter' " Git indication
-    Plug 'APZelos/blamer.nvim' " Git blame line
+"     Plug 'airblade/vim-gitgutter' " Git indication
+"     Plug 'APZelos/blamer.nvim' " Git blame line
 
-    " Svelte development
-    Plug 'evanleck/vim-svelte'
-    Plug 'pangloss/vim-javascript'
-    Plug 'HerringtonDarkholme/yats.vim'
+"     " Svelte development
+"     Plug 'evanleck/vim-svelte'
+"     Plug 'pangloss/vim-javascript'
+"     Plug 'HerringtonDarkholme/yats.vim'
 
-    " React development
-    " TODO
+"     " React development
+"     " TODO
 
-call plug#end()
+" call plug#end()
 
 " TODO Need if colorscheme is there (for setup)
 let g:jellybeans_overrides = {'background': { 'ctermbg': 'none', '256ctermbg': 'none' },}
@@ -382,7 +385,7 @@ imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 
 " Make VIM IDE like
-let beingSetup = get(g:, 'beingSetup', 0)
+let beingSetup = get(g:, 'isUpdate', 0)
 if !beingSetup
 lua << EOF
 require'ide'
