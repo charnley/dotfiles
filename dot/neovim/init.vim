@@ -19,10 +19,6 @@ require'plugins'
 EOF
 
 lua << EOF
-require'plugins_config'
-EOF
-
-lua << EOF
 require'base'
 EOF
 
