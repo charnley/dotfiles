@@ -56,3 +56,12 @@ Add "*" ending to all lines
 
     gg<Ctrl-v>G$A*<Esc>
 
+
+## TODO
+
+- TODO https://github.com/elianiva/dotfiles/tree/master/nvim/.config/nvim
+- TODO https://github.com/junegunn/vim-easy-align " Easy align CSV data
+- TODO Write mode rhysd/vim-grammarous
+- TODO https://github.com/folke/zen-mode.nvim
+- TODO https://github.com/mizlan/dotfiles/blob/master/.config/nvim/init.lua
+- TODO https://github.com/romainl/vim-cool
