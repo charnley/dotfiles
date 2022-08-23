@@ -1,10 +1,10 @@
 -- Only sane leader
 vim.g.mapleader = ","
 
-vim.api.nvim_set_keymap('n', '<Leader>b', ':Buffers<cr>', {noremap = true}) -- Search open files
-vim.api.nvim_set_keymap('n', '<Leader>s', ':BLines<cr>', {noremap = true}) -- Search lines in current buffer
-vim.api.nvim_set_keymap('n', '<leader>f', ':GitFiles<cr>', {noremap = true}) -- Search all files registered with git
-vim.api.nvim_set_keymap('n', '<leader>o', ':Files<cr>', {noremap = true})  -- Search all files under current directory
+vim.api.nvim_set_keymap('n', '<Leader>ob', ':Buffers<cr>', {noremap = true}) -- Search open files
+vim.api.nvim_set_keymap('n', '<Leader>os', ':BLines<cr>', {noremap = true}) -- Search lines in current buffer
+vim.api.nvim_set_keymap('n', '<leader>og', ':GitFiles<cr>', {noremap = true}) -- Search all files registered with git
+vim.api.nvim_set_keymap('n', '<leader>of', ':Files<cr>', {noremap = true})  -- Search all files under current directory
 
 -- Navigate buffers
 -- Much like a browser, just tab between buffers

@@ -4,24 +4,28 @@
 
 | key | desc |
 |---|---|
-| ,b | Switch to open buffer |
-| ,f | Jump to character |
-| ,f | Open new buffer (git files) |
+| ,d | Cut line(s) (old `dd`) |
+| ,gb | Toggle git blame |
 | ,gh | Git show changed |
 | ,gn | Git find next hunk |
 | ,gp | Git find previous hunk |
 | ,gu | Git undo hunk |
-| ,o | Open new buffer (all files) |
+| ,nf | Run format (`~/bin/format file`) |
+| ,nw | Remove all trailing whitespaces |
+| ,ob | Switch to open buffer |
+| ,of | Open new file (:Files) |
+| ,og | Open file (:GitFiles) |
+| ,p | Toggle pastemode |
 | ,y | Copy yank to clipboard (via OSC52) |
-| Alt Left | Goto previous buffer |
-| Alt Right | Goto next buffer |
-| F11 | Enable spell control |
-| F5 | Remove all trailing spaces |
+| ,z | Toggle spelling |
 | Shift y | Copy to ~/.vbuf |
 | Shify p | Paste fro ~/.vbuf |
+| Tab | Goto next buffer |
+| Tab+Shift | Goto previous buffer |
 | bd | Delete current buffer |
 | bn | Goto next buffer |
 | bp | Goto previous buffer |
+| f | Jump to character |
 
 ## IDE Like behavior
 
@@ -37,13 +41,9 @@ TODO note on auto-complete and tab
 
 TODO note on spelling
 
-## Notes
+## Standard VIM
 
-Live Replacement in NVIM 0.6
-
-    :%s/from/to/g
-
-## Standard VIM bindings I forget
+### Standard maps
 
 | key | desc |
 | % | goto matching bracket |
@@ -51,11 +51,30 @@ Live Replacement in NVIM 0.6
 | gv | goto last visual selection |
 | dit | delete inside tag (e.g. <div>inside</div>) |
 
+### Live Replacement in NVIM 0.6
 
-Add "*" ending to all lines
+:%s/from/to/g
+
+### Add star ending to all lines
 
     gg<Ctrl-v>G$A*<Esc>
 
+## Very useful
+
+Yank inside brackets any brackets and send to local clipboard when using tmux/vim via ssh
+
+    # y(ank)
+    # i(nside)
+    # v (closets bracket)
+    # ,y (leader y, send yank to ~/bin/yank)
+    yiv,y
+
+where osc52 (~/bin/yank) makes the local terminal put content in local clipboard.
+
+## FAQ
+
+- Why not format on buffer write? - Because when I collaborate with other there
+  is new format rules for each git repository
 
 ## TODO
 
