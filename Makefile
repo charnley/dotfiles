@@ -66,7 +66,7 @@ ${HOME}/bin/vim:
 ${HOME}/opt/neovim: ${HOME}/opt/nvm
 	bash setup.$(OS)/nvim_setup.sh
 	bash setup/neovim_packer.sh
-	${HOME}/bin/vim --headless --cmd "let isUpdate=1" -c 'autocmd User PackerComplete quitall' -c 'silent PackerSync'
+	NEOVIM_SETUP=1 ${HOME}/bin/vim --headless -c 'autocmd User PackerComplete quitall' -c 'silent PackerSync'
 
 ${HOME}/opt/tmux-3.2a:
 	bash ./setup/tmux_compile.sh 1> /dev/null
