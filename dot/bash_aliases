@@ -62,9 +62,9 @@ function gitclone {
 
 
 fzf_log() {
-    hash=$(git log --color=always --format="%h%d %an %ae %s %cr" "$@" | fzf | awk '{print $1}')
-    echo -n $hash | yank
-    git show $hash --color-words
+    hash=$(git log --color=always --format="%h%d %an %ae %s %cr" "$@" | fzf -m | awk '{print $1}' | xargs)
+    echo -n $hash | yank 1> /dev/null
+    git show $(echo $hash | xargs)
 }
 
 # https://junegunn.kr/2016/07/fzf-git
