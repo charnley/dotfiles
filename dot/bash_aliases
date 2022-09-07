@@ -63,7 +63,7 @@ function gitclone {
 
 fzf_log() {
     hash=$(git log --color=always --format="%h%d %an %ae %s %cr" "$@" | fzf -m | awk '{print $1}' | xargs)
-    echo -n $hash | yank 1> /dev/null
+    echo -n $hash | yank
     git show $(echo $hash | xargs)
 }
 
