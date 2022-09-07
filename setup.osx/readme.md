@@ -118,3 +118,6 @@ My default is "Cmd + p". Uncheck the rest, as you probably use those shortcuts f
 
  - Set paste-without-format to a more sane default. Instead of pressing
    `Cmd+V`, press `Opt+Shft+Cmd+V` to paste text without any formatting.
+
+- Problems with command after pipe?
+  https://superuser.com/questions/1012574/why-is-bash-reporting-command-not-found-in-some-cases-in-the-terminal-but-not
