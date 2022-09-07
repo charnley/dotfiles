@@ -124,6 +124,11 @@ function tmux_attach()
 # tmux clean. Kill all integer tmux sessions
 alias tmclean='tmux ls -F "#{session_name}" | while read -r line; do if [[ $line =~ ^-?[0-9]+$  ]]; then tmux kill-session -t $line; fi; done'
 
+# Clear scrollback buffer if in tmux
+if [[ $TMUX ]]; then
+    alias clear='clear && tmux clear-history'
+fi
+
 # TODO Set cd alias to git root if deep in repo
 
 alias cd.='cd ..'
