@@ -10,10 +10,14 @@ then
     exit 1
 fi
 
+# TODO Check if this is a git
+# TODO Check if git has pre-commit
+
 filetype="${1#*.}"
 
 if test $filetype == "py"
 then
+    isort $1
     black $1
     exit 0
 else
