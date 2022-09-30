@@ -12,3 +12,14 @@ https://stackoverflow.com/questions/38466190/cant-connect-to-postgresql-on-port-
     postgresql.conf
     listen_addresses = '*'
     max_connections = 100 # (change requires restart)
+
+
+# Setup
+
+    # init
+    initdb -D /large/file/system
+
+    # run
+    postgres -D /large/file/system
+
+
