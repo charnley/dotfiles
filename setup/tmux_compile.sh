@@ -2,7 +2,10 @@
 
 set -e
 
-export OPENSSL_ROOT_DIR=`brew --prefix openssl`
+if command -v brew
+then
+    export OPENSSL_ROOT_DIR=`brew --prefix openssl`
+fi
 
 TMUX_VERSION="3.2a"
 NCURSES_VERSION="6.3"
@@ -18,13 +21,23 @@ mkdir -p $DWNLLDIR
 
 cd $INSTALL_DIR
 
-curl -L -o $DWNLLDIR/tmux-${TMUX_VERSION}.tar.gz https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz
-curl -L -o $DWNLLDIR/libevent-${LIBEVENT_VERSION}.tar.gz https://github.com/libevent/libevent/archive/refs/tags/release-${LIBEVENT_VERSION}-stable.tar.gz
-curl -L -o $DWNLLDIR/ncurses-${NCURSES_VERSION}.tar.gz https://ftp.gnu.org/gnu/ncurses/ncurses-${NCURSES_VERSION}.tar.gz
+if test ! -f $DWNLLDIR/tmux-${TMUX_VERSION}.tar.gz
+then
+    curl -L -o $DWNLLDIR/tmux-${TMUX_VERSION}.tar.gz https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz
+    tar xzf $DWNLLDIR/tmux-${TMUX_VERSION}.tar.gz --directory $INSTALL_DIR
+fi
 
-tar xzf $DWNLLDIR/ncurses-${NCURSES_VERSION}.tar.gz --directory $INSTALL_DIR
-tar xzf $DWNLLDIR/libevent-${LIBEVENT_VERSION}.tar.gz --directory $INSTALL_DIR
-tar xzf $DWNLLDIR/tmux-${TMUX_VERSION}.tar.gz --directory $INSTALL_DIR
+if test ! -f $DWNLLDIR/libevent-${LIBEVENT_VERSION}.tar.gz
+then
+    curl -L -o $DWNLLDIR/libevent-${LIBEVENT_VERSION}.tar.gz https://github.com/libevent/libevent/archive/refs/tags/release-${LIBEVENT_VERSION}-stable.tar.gz
+    tar xzf $DWNLLDIR/libevent-${LIBEVENT_VERSION}.tar.gz --directory $INSTALL_DIR
+fi
+
+if test ! -f $DWNLLDIR/ncurses-${NCURSES_VERSION}.tar.gz
+then
+    curl -L -o $DWNLLDIR/ncurses-${NCURSES_VERSION}.tar.gz https://ftp.gnu.org/gnu/ncurses/ncurses-${NCURSES_VERSION}.tar.gz
+    tar xzf $DWNLLDIR/ncurses-${NCURSES_VERSION}.tar.gz --directory $INSTALL_DIR
+fi
 
 # setup libevent
 cd libevent-release-${LIBEVENT_VERSION}-stable
@@ -36,7 +49,6 @@ make
 make install
 cd ..
 cd ..
-
 # setup ncurses
 cd ncurses-${NCURSES_VERSION}
 ./configure --prefix=$LIBDIR
