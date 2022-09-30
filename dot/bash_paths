@@ -13,6 +13,9 @@ test -d /opt/homebrew/ && PATH="/opt/homebrew/bin:$PATH"
 # Pip installed packages
 if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi
 
+# Compiled 
+if test -d "$HOME/opt/local/bin"; then PATH="$HOME/opt/local/bin:$PATH"; fi
+
 # Gem installed packages
 rubyver=2.7.1
 if test -d "$HOME/.rbenv/"; then PATH="$HOME/.rbenv/bin:$PATH"; fi
