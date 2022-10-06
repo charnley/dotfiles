@@ -19,6 +19,7 @@ alias gg='git lg'
 alias gs='git status -s'
 alias gph='git push'
 alias gpl='git pull --rebase'
+alias gmergetheirs="git merge --strategy-option theirs"
 
 alias ggl='fzf_log'
 
