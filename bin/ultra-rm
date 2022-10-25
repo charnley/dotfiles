@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -x
+set -e
+# set -u
+
+dir=$1
+
+if test ! -z "$2"
+then
+    name=$2
+    find ${dir} -name $2 -print0 | xargs -0 -I {} /bin/rm -rf \"{}\" 2>1 1>/dev/null
+else
+    find ${dir} -type d -print0 | xargs -0 -I {} /bin/rm -rf \"{}\"
+    # rm -r ${dir}
+fi
