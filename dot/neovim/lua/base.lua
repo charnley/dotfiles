@@ -136,6 +136,14 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap J mzJ`z
 
+" keep me centered when going up and down
+nnoremap <C-u> <C-u>zz
+nnoremap <C-d> <C-d>zz
+nnoremap <C-b> <C-b>zz
+nnoremap <C-f> <C-f>zz
+nnoremap <PageUp> <PageUp>zz
+nnoremap <PageDown> <PageDown>zz
+
 " Reselect visual selection after indenting
 vnoremap < <gv
 vnoremap > >gv

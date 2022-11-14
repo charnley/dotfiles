@@ -10,5 +10,3 @@ local is_not_setup = vim.env.NEOVIM_SETUP
 if is_not_setup == nil then
     require 'ide'
 end
-
-
