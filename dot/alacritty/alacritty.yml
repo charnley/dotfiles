@@ -96,3 +96,5 @@ colors:
 key_bindings:
     - { key: Left,  mods: Control|Alt, chars: "\x1b[H" }
     - { key: Right, mods: Control|Alt, chars: "\x1bOF" }
+    - { key: Up,  mods: Control|Alt, chars: "\x1b[5~" }
+    - { key: Down, mods: Control|Alt, chars: "\x1b[6~" }
