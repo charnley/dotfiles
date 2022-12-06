@@ -14,7 +14,7 @@
 	fix-who = commit --amend --reset-author
 	next = rebase --continue
 [push]
-	default = simple
+	default = current
 	autoSetupRemote = true
 [credential]
 	helper = store --file ~/.ssh/gitcredentials
