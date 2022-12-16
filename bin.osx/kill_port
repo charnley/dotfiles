@@ -10,6 +10,6 @@ port=8080
 
 jobid=`netstat -vanp tcp | grep $port | awk '{ print $9 }'`
 
-test -z "$jobid" && echo "error, no port found" & exit 1
+test -z "$jobid" && echo "error, no port found" && exit 1
 
 kill -9 $jobid
