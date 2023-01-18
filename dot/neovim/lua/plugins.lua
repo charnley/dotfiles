@@ -43,4 +43,7 @@ return require('packer').startup(function(use)
     use 'pangloss/vim-javascript'
     use 'HerringtonDarkholme/yats.vim'
 
+    -- Write mode
+    use "folke/zen-mode.nvim"
+
 end)

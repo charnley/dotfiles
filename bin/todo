@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# set -x
+set -e
+set -u
+
+tododir="$HOME/todo"
+today=`date +%Y-%m-%d`
+
+mkdir -p $tododir
+cd $tododir
+
+vim \
+-c 'ZenMode' \
+todo_$today.md
+

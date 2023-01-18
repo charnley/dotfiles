@@ -172,3 +172,7 @@ require'nvim-treesitter.configs'.setup {
       },
     },
 }
+
+
+-- Write mode
+vim.api.nvim_set_keymap("n", "<Leader>w", ":lua require('zen-mode').toggle()<CR>", {noremap=true, silent=true, desc="Generate docstring"})
