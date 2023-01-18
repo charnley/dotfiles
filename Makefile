@@ -182,3 +182,8 @@ symlink_clean:
 	# TODO if there and is symlink, rm. For example, if symlink points to dotfiles, but is deprecated
 
 clean: symlink_clean
+
+clean_neovim:
+	rm -rf ~/opt/neovim
+	rm -rf ~/.local/share/nvim/
+	rm -rf ~/.config/nvim/
