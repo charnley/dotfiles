@@ -173,6 +173,23 @@ require'nvim-treesitter.configs'.setup {
     },
 }
 
+require("zen-mode").setup{
+    window = {
+        width = 0.5,
+        height = 0.5,
+        options = {
+            signcolumn = "no", -- disable signcolumn
+            number = false, -- disable number column
+            relativenumber = false, -- disable relative numbers
+        },
+    },
+  on_open = function(win)
+    vim.api.nvim_exec([[set wrap]], false)
+  end,
+  on_close = function()
+    vim.api.nvim_exec([[set nowrap]], false)
+  end,
+}
 
 -- Write mode
-vim.api.nvim_set_keymap("n", "<Leader>w", ":lua require('zen-mode').toggle()<CR>", {noremap=true, silent=true, desc="Generate docstring"})
+vim.api.nvim_set_keymap("n", "<Leader>w", ":ZenMode<CR>", {noremap=true, silent=true, desc="Write mode"})

@@ -44,6 +44,6 @@ return require('packer').startup(function(use)
     use 'HerringtonDarkholme/yats.vim'
 
     -- Write mode
-    use "folke/zen-mode.nvim"
+    use 'folke/zen-mode.nvim'
 
 end)
