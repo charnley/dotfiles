@@ -35,15 +35,16 @@ return require('packer').startup(function(use)
     use 'danymat/neogen'  -- generate docstrings (with treesitter)
 
     use 'airblade/vim-gitgutter' -- Git indication
-    use 'APZelos/blamer.nvim' -- Git blame line
+    use 'apzelos/blamer.nvim' -- Git blame line
 
     -- Svelte development
-    use 'JoosepAlviste/nvim-ts-context-commentstring' -- For context comment
+    use 'joosepalviste/nvim-ts-context-commentstring' -- for context comment
     use 'evanleck/vim-svelte'
     use 'pangloss/vim-javascript'
-    use 'HerringtonDarkholme/yats.vim'
+    use 'herringtondarkholme/yats.vim'
 
     -- Write mode
     use 'folke/zen-mode.nvim'
+    use 'gaodean/autolist.nvim'
 
 end)
