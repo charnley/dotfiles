@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -x
+set -e
+set -u
+
 # export RUSTUP_HOME=${HOME}/opt/rust
 # export CARGO_HOME=${HOME}/opt/cargo
 
