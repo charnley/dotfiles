@@ -23,7 +23,7 @@ font:
     style: Regular
 
   size: 16
-  use_thin_strokes: true
+  # use_thin_strokes: true # DEPRECATED set the AppleFontSmoothing user default instead
 
   offset:
     x: 0
