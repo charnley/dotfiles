@@ -27,6 +27,9 @@ endif
 # Default targets
 all: dotfiles bin vim_plugins tmux_plugins
 
+vim_benchmark:
+	${HOME}/bin/vim -c 'StartupTime'
+
 vim_plugins:
 	NEOVIM_SETUP=1 ${HOME}/bin/vim --headless -c 'autocmd User PackerComplete quitall' -c 'silent PackerSync'
 

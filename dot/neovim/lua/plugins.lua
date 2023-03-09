@@ -3,6 +3,9 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
+    -- Admin
+    use 'dstein64/vim-startuptime'
+
     use 'MattesGroeger/vim-bookmarks'  -- Easy bookmark shortcuts
     use 'ap/vim-css-color'  -- Preview CSS Colors
     use 'chaoren/vim-wordmotion' -- Better word motion
