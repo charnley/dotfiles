@@ -6,6 +6,9 @@ export EDITOR=vim
 # Easy access
 alias dotfiles='cd $HOME/git/dotfiles'
 
+# Term
+alias cls="clear; printf '\e[3J'"
+
 # Git Shortcuts
 alias gco='git commit'
 alias gca='git commit -a'
