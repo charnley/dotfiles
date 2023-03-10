@@ -13,6 +13,7 @@
 	argh = reset --hard HEAD
 	fix-who = commit --amend --reset-author
 	next = rebase --continue
+	create = !git branch $USER/$1 && git checkout $USER/$1 && :
 [push]
 	default = current
 	autoSetupRemote = true
