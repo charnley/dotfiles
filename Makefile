@@ -132,6 +132,7 @@ ${HOME}/.tmux-linux: ./dot/tmux.linux.conf
 ${HOME}/.tmux-osx: ./dot/tmux.osx.conf
 ${HOME}/.tmux.conf: ./dot/tmux.conf
 ${HOME}/.zshrc: ./dot/zshrc
+${HOME}/.ssh/config: ./dot/ssh_config
 
 ${HOME}/.config/neofetch: ./dot/neofetch
 ${HOME}/.config/alacritty: ./dot/alacritty
@@ -139,7 +140,7 @@ ${HOME}/.config/nvim/init.lua: ./dot/neovim/init.lua
 ${HOME}/.config/nvim/lua: ./dot/neovim/lua
 ${HOME}/.vsnip: ./dot/neovim/snippets
 
-dotfiles_osx: ${HOME}/.yabairc ${HOME}/.skhdrc ${HOME}/.gitignore
+dotfiles_osx: ${HOME}/.yabairc ${HOME}/.skhdrc ${HOME}/.gitignore ${HOME}/.ssh/config
 
 ${HOME}/.yabairc: ./dot.osx/yabairc
 ${HOME}/.skhdrc: ./dot.osx/skhdrc
