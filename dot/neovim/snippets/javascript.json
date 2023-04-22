@@ -7,5 +7,23 @@
             "}"
         ],
         "description": "for key value entries in dict"
+    },
+    "const func": {
+        "prefix": "confunc",
+        "body": [
+            "const ${1:name} = (${2}) => {",
+            "   ${3}",
+            "}"
+        ],
+        "description": "for key value entries in dict"
+    },
+    "const func async": {
+        "prefix": "confuncasync",
+        "body": [
+            "const ${1:name} = async (${2}) => {",
+            "   ${3}",
+            "}"
+        ],
+        "description": "for key value entries in dict"
     }
 }
