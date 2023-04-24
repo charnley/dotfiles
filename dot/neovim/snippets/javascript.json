@@ -25,5 +25,12 @@
             "}"
         ],
         "description": "for key value entries in dict"
+    },
+    "log": {
+        "prefix": "log",
+        "body": [
+            "console.log(\"${1}\", ${1})"
+        ],
+        "description": "debug"
     }
 }
