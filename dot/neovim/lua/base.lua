@@ -184,8 +184,11 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkti
 ]],false)
 
 -- Useful commands
+-- - SortWords sorts words split by space
+-- - Sw Sudo write to file
 vim.api.nvim_exec([[
 command -nargs=0 -range SortWords <line1>,<line2>call setline('.',join(sort(split(getline('.'),' ')),' '))
+command! -nargs=0 Sw w !sudo tee % > /dev/null
 ]],false)
 
 -- if diff, ignore whitespace
