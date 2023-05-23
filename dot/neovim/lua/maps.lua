@@ -16,11 +16,30 @@ vim.api.nvim_set_keymap('n', '<S-Tab>', ':bprevious<cr>', {noremap = true})
 
 -- Yank settings
 -- Send yank register zero to ocs52
+--- neovim 0.9.0 vim.fn.writefile({escape}, '/dev/tty', 'b') does not work
+-- local content = vim.fn.getreg('0')
+-- local escape = vim.fn.system("yank", content)
+
+_G._write_reg_to_file = function()
+    local content = vim.fn.getreg('0')
+    local filename = vim.fn.expand('$HOME/.vbuf')
+    local file = assert(io.open(filename, "w"))
+    file:write(content)
+    file:close()
+end
+
 vim.keymap.set("n", "<Leader>y", function()
     local content = vim.fn.getreg('0')
     local escape = vim.fn.system("yank", content)
+    local filename = vim.fn.expand('$HOME/.vbufb')
+    local file = assert(io.open(filename, "w"))
+    file:write(escape)
+    file:close()
+
     vim.fn.writefile({escape}, '/dev/tty', 'b')
 end, {desc="Yank OSC52"})
+
+vim.keymap.set("n", "<Leader><S-y>", ':lua _write_reg_to_file()<CR>', {desc="Yank to file"})
 
 -- Y
 -- Copy the current visual slection to ~/.vbuf
