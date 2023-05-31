@@ -1,2 +1,3 @@
 *.log
 *.Brewfile.lock.json
+dot/neovim/snippets/svelte.json
