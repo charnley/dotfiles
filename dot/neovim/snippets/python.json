@@ -6,7 +6,7 @@
     },
     "logging_init": {
         "prefix": "logging_init",
-        "body": ["logger = logger.getLogging(__name__)"],
+        "body": ["logger = logging.getLogger(__name__)"],
         "description": "Init the logger"
     },
     "fore": {
@@ -17,11 +17,16 @@
     "ifmainarg": {
         "prefix": "ifmainarg",
         "body": [
+            "import logging",
+            "",
+            "logger = logging.getLogger(__name__)",
             "__version__ = 1.0",
             "",
             "def main(args=None):",
-            "",
             "\timport argparse",
+            "",
+            "logging.basicConfig(level=logging.DEBUG)",
+            "",
             "\tparser = argparse.ArgumentParser()",
             "\tparser.add_argument('-v', '--version', action='version', version=__version__)",
             "\tparser.add_argument('-f', '--filename', action='store', help='', metavar='FILE')",
