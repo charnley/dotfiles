@@ -26,6 +26,8 @@ alias gmergetheirs="git merge --strategy-option theirs"
 
 alias ggl='fzf_log'
 
+alias cd_git='cd $(git rev-parse --show-toplevel)'
+
 # Annoying mac uses different ls
 if [[ $(uname -s) == Linux ]]
 then
