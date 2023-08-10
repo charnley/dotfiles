@@ -28,19 +28,26 @@ _G._write_reg_to_file = function()
     file:close()
 end
 
-vim.keymap.set("n", "<Leader>y", function()
+_G._write_reg_to_clipboard = function()
+
     local content = vim.fn.getreg('0')
+
     -- local escape = vim.fn.system("yank", content)
     -- local filename = vim.fn.expand('$HOME/.vbufb')
     -- local file = assert(io.open(filename, "w"))
     -- file:write(escape)
     -- file:close()
+
     local f = io.popen('yank', 'w')
     f:write(content)
     f:close()
-end, {desc="Yank OSC52"})
+
+    -- DEPRECATED local escape = vim.fn.system("yank", content)
+    -- DEPRECATED vim.fn.writefile({escape}, '/dev/tty', 'b')
+end
 
 vim.keymap.set("n", "<Leader><S-y>", ':lua _write_reg_to_file()<CR>', {desc="Yank to file"})
+vim.keymap.set("n", "<Leader>y", ':lua _write_reg_to_clipboard()<CR>', {desc="Yank to clipboard" })
 
 -- Y
 -- Copy the current visual slection to ~/.vbuf

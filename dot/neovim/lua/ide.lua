@@ -173,17 +173,28 @@ require'nvim-treesitter.configs'.setup {
     },
 }
 
-local autolist = require("autolist")
-autolist.setup()
-autolist.create_mapping_hook("i", "<cr>", autolist.new)
-autolist.create_mapping_hook("i", "<Tab>", autolist.indent)
-autolist.create_mapping_hook("i", "<S-Tab>", autolist.indent, "<C-D>")
-autolist.create_mapping_hook("n", "o", autolist.new)
-autolist.create_mapping_hook("n", "O", autolist.new_before)
-autolist.create_mapping_hook("n", ">>", autolist.indent)
-autolist.create_mapping_hook("n", "<<", autolist.indent)
-autolist.create_mapping_hook("n", "<leader>r", autolist.force_recalculate)
-autolist.create_mapping_hook("n", "<leader>x", autolist.invert_entry, "")
+-- local autolist = require("autolist")
+-- autolist.setup()
+-- autolist.create_mapping_hook("i", "<cr>", autolist.new)
+-- autolist.create_mapping_hook("i", "<Tab>", autolist.indent)
+-- autolist.create_mapping_hook("i", "<S-Tab>", autolist.indent, "<C-D>")
+-- autolist.create_mapping_hook("n", "o", autolist.new)
+-- autolist.create_mapping_hook("n", "O", autolist.new_before)
+-- autolist.create_mapping_hook("n", ">>", autolist.indent)
+-- autolist.create_mapping_hook("n", "<<", autolist.indent)
+-- autolist.create_mapping_hook("n", "<leader>r", autolist.force_recalculate)
+-- autolist.create_mapping_hook("n", "<leader>x", autolist.invert_entry, "")
+
+require("autolist").setup()
+vim.keymap.set("i", "<tab>", "<cmd>AutolistTab<cr>")
+vim.keymap.set("i", "<s-tab>", "<cmd>AutolistShiftTab<cr>")
+vim.keymap.set("i", "<cr>", "<CR><cmd>AutolistNewBullet<cr>")
+vim.keymap.set("n", "<leader>x", "<cmd>AutolistToggleCheckbox<cr>")
+vim.keymap.set("n", ">>", ">><cmd>AutolistRecalculate<cr>")
+vim.keymap.set("n", "<<", "<<<cmd>AutolistRecalculate<cr>")
+-- vim.keymap.set("n", "dd", "dd<cmd>AutolistRecalculate<cr>")
+-- vim.keymap.set("v", "d", "d<cmd>AutolistRecalculate<cr>")
+
 
 require("zen-mode").setup{
     window = {
