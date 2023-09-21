@@ -27,8 +27,9 @@ if test -d "/opt/bin"; then PATH="/opt/bin:$PATH"; fi
 if test -d "/opt/sbin"; then PATH="/opt/sbin:$PATH"; fi
 if test -d "/snap/bin"; then PATH="/snap/bin:$PATH"; fi
 
-# postgres
+# databases
 if test -d "$HOME/opt/postgres"; then PATH="$HOME/opt/postgres/bin:$PATH"; fi
+if test -d "$HOME/opt/redis"; then PATH="$HOME/opt/redis/bin:$PATH"; fi
 
 # # Actually, just overwrite python
 # if test -d "$HOME/opt/anaconda3"; then PATH="$HOME/opt/anaconda3/bin:$PATH"; fi
