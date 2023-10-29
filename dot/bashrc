@@ -139,4 +139,11 @@ if `tty -s`; then mesg n; fi
 if test -f $HOME/.bashrc_local; then source $HOME/.bashrc_local; fi
 
 # if bash, autocomplete makefile
-complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
+current_shell=`readlink /proc/$$/exe`
+complete_make=`complete -p make 2> /dev/null`
+if [[ "$current_shell" == *"bash"* ]]; then
+    if test -z "$complete_make"; then 
+        complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
+    fi
+fi
+
