@@ -1,12 +1,15 @@
 
 -- More like IDE
-require('lspconfig').pyright.setup{}
-require('lspconfig').bashls.setup{}
+require('lspconfig').pyright.setup({})
+require('lspconfig').bashls.setup({})
 require('lspconfig').tsserver.setup({})
-require('lspconfig').svelte.setup{}
+require('lspconfig').svelte.setup({})
 
-require('nvim-autopairs').setup{}
-require("which-key").setup{}
+require('nvim-autopairs').setup({})
+require("which-key").setup({})
+
+-- Be able to comment html and js in same file
+require('ts_context_commentstring').setup({})
 
 -- Auto signature hints
 require('lsp_signature').setup({
@@ -116,10 +119,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 --- Treesitter
 require('nvim-treesitter.install').compilers = { "clang", "gcc" }
 require'nvim-treesitter.configs'.setup {
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-  },
     -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
     -- ensure_installed can be "all" or a list of languages { "python", "javascript" }
     -- ensure_installed = "maintained",
