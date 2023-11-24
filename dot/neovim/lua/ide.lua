@@ -215,3 +215,5 @@ require("zen-mode").setup{
 
 -- Write mode
 vim.api.nvim_set_keymap("n", "<Leader>w", ":ZenMode<CR>", {noremap=true, silent=true, desc="Write mode"})
+
+
