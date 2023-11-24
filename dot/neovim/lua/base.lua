@@ -195,3 +195,12 @@ command! -nargs=0 Sw w !sudo tee % > /dev/null
 if vim.api.nvim_win_get_option(0, "diff") then
     vim.opt.diffopt:append("iwhite")
 end
+
+
+-- qoute words
+vim.api.nvim_exec([[
+nnoremap <Leader>q" ciw""<Esc>P
+nnoremap <Leader>q' ciw''<Esc>P
+nnoremap <Leader>qd daW"=substitute(@@,"'\\\|\"","","g")<CR>P
+]],false)
+
