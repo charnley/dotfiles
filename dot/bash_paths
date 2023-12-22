@@ -50,6 +50,10 @@ test -s "$NVM_DIR/bash_completion" && source "$NVM_DIR/bash_completion"  # This 
 test -d "$HOME/opt/cargo/" && source $HOME/opt/cargo/env
 test -d "$HOME/.cargo/" && source $HOME/.cargo/env
 
+# Go
+test -d "$HOME/opt/go" && PATH="$HOME/opt/go/bin:$PATH"
+test -d "$HOME/go" && PATH="$HOME/go/bin:$PATH"
+
 # intel license
 if test -d $HOME/intel/licenses; then
     for x in $HOME/intel/licenses/*.lic; do
