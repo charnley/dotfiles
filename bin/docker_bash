@@ -9,9 +9,9 @@ set -u
 echo "Work here in $1"
 
 docker run \
-    -it --entrypoint sh \
-    -v $(pwd):/app \
-    --mount type=bind,source=/etc/passwd,target=/etc/passwd,readonly \
-    --mount type=bind,source=/etc/group,target=/etc/group,readonly \
-    -u $(id -u $USER):$(id -g $USER) \
-    $1
+	-it --entrypoint sh \
+	-v $(pwd):/app \
+	--mount type=bind,source=/etc/passwd,target=/etc/passwd,readonly \
+	--mount type=bind,source=/etc/group,target=/etc/group,readonly \
+	-u $(id -u $USER):$(id -g $USER) \
+	$1
