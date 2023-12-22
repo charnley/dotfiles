@@ -3,7 +3,7 @@
 # Usage:
 # source aws_select_profile
 
-AWS_PROFILE=`cat $HOME/.aws/credentials | grep "\[" | cut -d "[" -f2 | cut -d "]" -f1 | fzf`
+AWS_PROFILE=$(cat $HOME/.aws/credentials | grep "\[" | cut -d "[" -f2 | cut -d "]" -f1 | fzf)
 echo AWS_PROFILE=$AWS_PROFILE
 export AWS_PROFILE=$AWS_PROFILE
 
