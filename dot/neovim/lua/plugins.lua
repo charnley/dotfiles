@@ -100,5 +100,6 @@ return require('packer').startup(function(use)
     -- Write mode
     use 'folke/zen-mode.nvim'
     use 'gaodean/autolist.nvim'
+    use 'kamykn/spelunker.vim' -- Better spell checker
 
 end)
