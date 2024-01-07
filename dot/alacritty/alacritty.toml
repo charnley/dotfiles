@@ -1,0 +1,85 @@
+[colors.bright]
+black = "0xbdbdbd"
+blue = "0xb1d8f6"
+cyan = "0x1ab2a8"
+green = "0xbddeab"
+magenta = "0xfbdaff"
+red = "0xffa1a1"
+white = "0xffffff"
+yellow = "0xffdca0"
+
+[colors.cursor]
+cursor = "0xffffff"
+text = "0x121212"
+
+[colors.normal]
+black = "0x929292"
+blue = "0x97bedc"
+cyan = "0x00988e"
+green = "0x94b979"
+magenta = "0xe1c0fa"
+red = "0xe27373"
+white = "0xdedede"
+yellow = "0xffba7b"
+
+[colors.primary]
+background = "0x121212"
+foreground = "0xdedede"
+
+[cursor.style]
+blinking = "Off"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 16
+
+[font.bold]
+family = "Mononoki"
+style = "Regular"
+
+[font.italic]
+family = "Mononoki"
+style = "Regular"
+
+[font.normal]
+family = "Mononoki"
+
+[font.offset]
+x = 0
+y = 1
+
+[[keyboard.bindings]]
+chars = "\u001B[H"
+key = "Left"
+mods = "Control|Alt"
+
+[[keyboard.bindings]]
+chars = "\u001BOF"
+key = "Right"
+mods = "Control|Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B[5~"
+key = "Up"
+mods = "Control|Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B[6~"
+key = "Down"
+mods = "Control|Alt"
+
+[selection]
+save_to_clipboard = true
+
+[window]
+decorations = "None"
+
+[window.dimensions]
+columns = 80
+lines = 24
+
+[window.padding]
+x = 5
+y = 5
