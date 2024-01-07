@@ -91,12 +91,13 @@ else
 fi
 
 # If non-default hostname
-valid_hostnames=(laptop)
-if [[ "$is_mac" == "1" ]];
+valid_hostnames=(laptop baerbar)
+if [[ "$is_mac" == "1" || "`hostname`" == "baerbar" ]];
 then
     PROMPT='→ '
 else
     needle=`hostname`
+    echo $needle
     if [[ ${valid_hostnames[(ie)$needle]} -le ${#valid_hostnames} ]]
     then
         PROMPT='> '

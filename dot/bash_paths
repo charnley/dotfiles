@@ -38,7 +38,7 @@ if test -d "$HOME/opt/redis"; then PATH="$HOME/opt/redis/bin:$PATH"; fi
 # Setup conda generally
 if test -d "$HOME/opt/anaconda3"; then CONDA_PREFIX="$HOME/opt/anaconda3"; fi
 if test -d "$HOME/opt/miniconda3"; then CONDA_PREFIX="$HOME/opt/miniconda3"; fi
-test -d $CONDA_PREFIX/etc/propfile.d && source $CONDA_PREFIX/etc/profile.d/conda.sh
+test -d $CONDA_PREFIX/etc/profile.d && source $CONDA_PREFIX/etc/profile.d/conda.sh
 unset CONDA_PREFIX  # don't activate by default
 
 # Node Version Manager
