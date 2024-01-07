@@ -33,7 +33,7 @@ blinking = "Off"
 TERM = "xterm-256color"
 
 [font]
-size = 16
+size = 13
 
 [font.bold]
 family = "Mononoki"
