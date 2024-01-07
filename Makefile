@@ -53,13 +53,15 @@ ${HOME}/.config/nvim: ${HOME}/.config
 ${HOME}/.ssh:
 	mkdir -p $@
 
-${HOME}/.i3:
+${HOME}/.config/i3:
 	mkdir -p $@
 
 ${HOME}/.config/i3status: ${HOME}/.config
 	mkdir $@
 
 directories: ${HOME}/bin ${HOME}/.config/nvim
+
+directories.x: ${HOME}/.config/i3status ${HOME}/.config/i3
 
 # Executables
 
@@ -113,7 +115,7 @@ bindir_hpc:
 
 dotfiles: directories dotfiles_defaults dotfiles_$(OS)
 
-dotfiles.x: bindir_deb.x dotfiles_deb.x
+dotfiles.x: directories.x bindir_deb.x dotfiles_deb.x
 
 ${HOME}/.%:
 	test -f $@ && mv $@ $@.bk;:
@@ -150,12 +152,12 @@ dotfiles_deb: ${HOME}/.inputrc
 
 ${HOME}/.inputrc: ./dot.deb/inputrc
 
-dotfiles_deb.x: ${HOME}/.Xresources ${HOME}/.config/dunstrc ${HOME}/.config/i3status/config ${HOME}/.i3/config
+dotfiles_deb.x: ${HOME}/.Xresources ${HOME}/.config/dunstrc ${HOME}/.config/i3status/config ${HOME}/.config/i3/config
 
 ${HOME}/.Xresources: ./dot.deb.x/Xresources
 ${HOME}/.config/dunstrc: ./dot.deb.x/dunstrc
 ${HOME}/.config/i3status/config: ./dot.deb.x/i3status
-${HOME}/.i3/config: ./dot.deb.x/i3config
+${HOME}/.config/i3/config: ./dot.deb.x/i3config
 
 #
 
@@ -176,8 +178,13 @@ ${HOME}/opt/homebrew:
 install_deb:
 	@#
 
+install_laptop: install_apt install_apt_x install_fonts
+
 install_apt:
-	sudo apt-get install $$(cat ./lists/packages.apt)
+	apt install $$(cat ./lists/packages.apt) -y
+
+install_apt_x:
+	apt install $$(cat ./lists/packages.apt.x) -y
 
 install_fonts:
 	bash ./fonts/setup_mononoki.sh

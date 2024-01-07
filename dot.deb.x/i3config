@@ -61,8 +61,8 @@ floating_modifier $mod
 # start a terminal
 # bindsym $mod+Return exec gnome-terminal
 # NOTE add +aw for no wordwrap in stdout
-bindsym $mod+Return exec rxvt # -e ~/bin/start_tmux --noclose
-# bindsym $mod+Return exec alacritty
+# bindsym $mod+Return exec rxvt # -e ~/bin/start_tmux --noclose
+bindsym $mod+Return exec alacritty
 
 # start a sunray terminal
 # bindsym $mod+Shift+Return exec rxvt -e ~/bin/sunray --noclose
@@ -200,7 +200,7 @@ bindsym $mod+r mode "resize"
 # automatically starting applications on i3 startup
 
 # Resoulution
-exec --no-startup-id ~/bin/monitor.py -u
+exec --no-startup-id ~/bin/monitor --undock
 # exec --no-startup-id bash 'xrandr --output "eDP1" --mode "1600x900"'
 
 exec --no-startup-id dropbox start # Start Dropbox

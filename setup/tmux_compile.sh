@@ -13,7 +13,7 @@ LIBEVENT_VERSION="2.1.12"
 
 INSTALL_DIR="$HOME/opt"
 LIBDIR="$HOME/opt/local"
-DWNLLDIR="$HOME/opt/download"
+DWNLLDIR="$HOME/deb/"
 
 mkdir -p $INSTALL_DIR
 mkdir -p $LIBDIR

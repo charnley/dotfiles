@@ -1,7 +1,10 @@
 parallel
-python3-dev
 dstat
 tree
 git
 curl
 zsh
+make
+cmake
+openssl
+libssl-dev

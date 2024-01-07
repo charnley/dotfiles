@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import subprocess
 import copy
@@ -89,7 +89,7 @@ def main():
     import sys
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--native', type=str, help='', default="eDP1", metavar='X')
+    parser.add_argument('--native', type=str, help='', default="eDP-1", metavar='X')
     parser.add_argument('--refresh', '-r', action="store_true")
     parser.add_argument('--dock', '-d', action="store_true")
     parser.add_argument('--undock', '-u', action="store_true")
