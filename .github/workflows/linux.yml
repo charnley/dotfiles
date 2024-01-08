@@ -9,6 +9,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - run: make install_apt
+      - run: sudo make install_apt
       - run: make install
       - run: make
