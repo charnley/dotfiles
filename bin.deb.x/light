@@ -1,9 +1,13 @@
 #!/bin/bash
 
-if test -z $1
-then
-    xbacklight
-else
-    xbacklight -set $1
-fi
+LEVEL=$1
+brightness_level="$(( $LEVEL / 100)).$(( $LEVEL % 100 ))"
+xrandr --output eDP-1 --brightness $brightness_level
+
+# if test -z $1
+# then
+#     xbacklight
+# else
+#     xbacklight -set $1
+# fi
 
