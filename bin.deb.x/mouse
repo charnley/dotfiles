@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from subprocess import Popen, PIPE
 import sys
@@ -36,9 +36,7 @@ if __name__ == "__main__":
         res = monitor[2]
         res = res.split('x')
         if res[0] == '2560':
-            # cmd = 'xinput --set-prop {} "libinput Accel Speed" -0.9'
-            # cmd = 'xinput --set-prop {} "libinput Accel Speed" -0.5'
-            cmd = 'xinput --set-prop {} "libinput Accel Speed" -0.7'
+            cmd = 'xinput --set-prop {} "libinput Accel Speed" -0.9'
 
         # if res[0] == '1920':
             # cmd = 'xinput --set-prop {} "libinput Accel Speed" -1.0'
@@ -50,6 +48,7 @@ if __name__ == "__main__":
         "Logitech M705",
         "Logitech MX",
         "Logitech USB",
+        "Logitech G",
         "PS/2 Generic Mouse",
         "SteelSeries Rival Gaming Mouse",
     ]
@@ -74,19 +73,3 @@ if __name__ == "__main__":
             truecmd = cmd.format(xinput)
             print(truecmd)
             shell(truecmd, shell=True)
-
-
-
-# # xinput | grep "M705"
-# #
-# # tutu ~ $ xinput --list-props 14
-# # tutu ~ $ xinput --set-prop 14 "libinput Accel
-# #
-# #
-# # xinput --set-prop "Logitech USB Optical Mouse"  "Device Accel Constant Deceleration" 2.5
-# #
-#
-# xinput --set-prop "$external" "libinput Accel Speed" -0.7
-#
-# xinput --set-prop "SteelSeries Rival Gaming Mouse" "libinput Accel Speed" -0.7
-#

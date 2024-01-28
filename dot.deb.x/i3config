@@ -29,7 +29,7 @@ bindsym $mod+q kill
 bindsym $mod+l exec i3lock -c 000000 -d
 
 # Lock and suspend
-bindsym $mod+shift+l exec i3lock -c 000000 -d & sudo /usr/sbin/pm-suspend
+bindsym $mod+shift+l exec i3lock -c 000000 -d & systemctl suspend
 
 # Print Screen = Screenshot
 bindsym Print exec scrot -u -q 100 ~/img/screenshots/screenshot-%y%m%d-%H%M%S.png
