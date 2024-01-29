@@ -185,12 +185,12 @@ require'nvim-treesitter.configs'.setup {
 -- autolist.create_mapping_hook("n", "<leader>x", autolist.invert_entry, "")
 
 require("autolist").setup()
-vim.keymap.set("i", "<tab>", "<cmd>AutolistTab<cr>")
-vim.keymap.set("i", "<s-tab>", "<cmd>AutolistShiftTab<cr>")
+vim.keymap.set("n", "<leader><tab>", "<cmd>AutolistTab<cr>")
+vim.keymap.set("n", "<leader><s-tab>", "<cmd>AutolistShiftTab<cr>")
 vim.keymap.set("i", "<cr>", "<CR><cmd>AutolistNewBullet<cr>")
 vim.keymap.set("n", "<leader>x", "<cmd>AutolistToggleCheckbox<cr>")
-vim.keymap.set("n", ">>", ">><cmd>AutolistRecalculate<cr>")
-vim.keymap.set("n", "<<", "<<<cmd>AutolistRecalculate<cr>")
+-- vim.keymap.set("n", ">>", ">><cmd>AutolistRecalculate<cr>")
+-- vim.keymap.set("n", "<<", "<<<cmd>AutolistRecalculate<cr>")
 -- vim.keymap.set("n", "dd", "dd<cmd>AutolistRecalculate<cr>")
 -- vim.keymap.set("v", "d", "d<cmd>AutolistRecalculate<cr>")
 
