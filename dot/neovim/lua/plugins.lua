@@ -1,7 +1,7 @@
 -- require("lazy").setup({
 --   "folke/which-key.nvim",
 --   'dstein64/vim-startuptime',
---  
+--
 --   'MattesGroeger/vim-bookmarks',  -- Easy bookmark shortcuts
 --   'ap/vim-css-color',  -- Preview CSS Colors
 --   'chaoren/vim-wordmotion', -- Better word motion
@@ -69,8 +69,9 @@ return require('packer').startup(function(use)
     -- Interface
     -- use 'nanotech/jellybeans.vim' -- colorscheme
     use 'rebelot/kanagawa.nvim' -- colorscheme
-    use 'vim-airline/vim-airline'
-    use 'vim-airline/vim-airline-themes'
+    -- use 'vim-airline/vim-airline'
+    -- use 'vim-airline/vim-airline-themes'
+    use {'ojroques/nvim-hardline'}
     use 'folke/which-key.nvim'  -- I can't remember what <leader><char> does
 
     -- IDE like
