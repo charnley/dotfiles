@@ -6,15 +6,22 @@ vim.opt.showcmd=true
 vim.opt.laststatus=2
 vim.opt.cmdheight=1
 
--- Set colorscheme to jellybeans
-vim.api.nvim_exec([[
-let g:jellybeans_overrides = {'background': { 'ctermbg': 'none', '256ctermbg': 'none' },}
-try
-    colorscheme jellybeans
-catch /^Vim\%((\a\+)\)\=:E185/
-    " Probably first installation
-endtry
+-- -- Set colorscheme to jellybeans
+-- vim.api.nvim_exec([[
+-- let g:jellybeans_overrides = {'background': { 'ctermbg': 'none', '256ctermbg': 'none' },}
+-- try
+--     colorscheme jellybeans
+-- catch /^Vim\%((\a\+)\)\=:E185/
+--     " Probably first installation
+-- endtry
 
+-- highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
+-- highlight Pmenu ctermbg=none
+-- ]], false)
+
+
+vim.api.nvim_exec([[
+colorscheme kanagawa-wave
 highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
 highlight Pmenu ctermbg=none
 ]], false)

@@ -67,7 +67,8 @@ return require('packer').startup(function(use)
     use 'gorkunov/smartpairs.vim' -- Extend visual selection of bracket
 
     -- Interface
-    use 'nanotech/jellybeans.vim' -- colorscheme
+    -- use 'nanotech/jellybeans.vim' -- colorscheme
+    use 'rebelot/kanagawa.nvim' -- colorscheme
     use 'vim-airline/vim-airline'
     use 'vim-airline/vim-airline-themes'
     use 'folke/which-key.nvim'  -- I can't remember what <leader><char> does
