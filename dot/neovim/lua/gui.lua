@@ -20,11 +20,47 @@ vim.opt.cmdheight=1
 -- ]], false)
 
 
-vim.api.nvim_exec([[
-colorscheme kanagawa-wave
-highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
-highlight Pmenu ctermbg=none
-]], false)
+require('kanagawa').setup({
+    compile = false,             -- enable compiling the colorscheme
+    undercurl = true,            -- enable undercurls
+    commentStyle = { italic = false },
+    functionStyle = {},
+    keywordStyle = { italic = false},
+    statementStyle = { bold = false },
+    typeStyle = {},
+    transparent = true,         -- do not set background color
+    terminalColors = true,       -- define vim.g.terminal_color_{0,17}
+    colors = {                   -- add/modify theme and palette colors
+        palette = {
+        },
+        theme = { wave = {}, lotus = {}, dragon = {}, all = {
+ui = {bg_gutter = "none"}
+} },
+    },
+    overrides = function(colors) -- add/modify highlights
+        return {
+        NormalFloat = { bg = "none" },
+        FloatBorder = { bg = "none" },
+        FloatTitle = { bg = "none" },
+        GitGutterAdd = {fg = "green"},
+        GitGutterChange  = {fg="yellow"},
+        GitGutterDelete = {fg = "red"},
+        }
+    end,
+    background = {
+        dark = "none",
+        light = "none", 
+    },
+})
+
+
+vim.cmd("colorscheme kanagawa-wave")
+-- vim.api.nvim_exec([[
+-- colorscheme kanagawa-wave
+-- ]], false)
+
+
+
 
 -- fzf visual
 vim.api.nvim_exec([[
