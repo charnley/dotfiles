@@ -91,6 +91,8 @@ return require('packer').startup(function(use)
     use 'airblade/vim-gitgutter' -- Git indication
     use 'apzelos/blamer.nvim' -- Git blame line
 
+    use 'nvim-treesitter/nvim-treesitter-context' -- Sticky scrolling
+
     -- Svelte development
     use 'joosepalviste/nvim-ts-context-commentstring' -- for context comment
     use 'evanleck/vim-svelte'
