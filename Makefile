@@ -195,6 +195,8 @@ symlink_clean:
 clean: symlink_clean
 
 clean_neovim:
-	rm -rf ~/opt/neovim ~/bin/vim
-	rm -rf ~/.local/share/nvim/
-	rm -rf ~/.config/nvim/
+	mkdir -p ~/tmp/trash/
+	mv ~/opt/neovim/ ~/tmp/trash/
+	mv ~/bin/vim ~/tmp/trash/
+	mv ~/.local/share/nvim/ ~/tmp/trash/
+	rm -rf ~/tmp/trash/
