@@ -36,9 +36,9 @@ if test -d "$HOME/opt/redis"; then PATH="$HOME/opt/redis/bin:$PATH"; fi
 # if test -d "$HOME/opt/miniconda3"; then PATH="$HOME/opt/miniconda3/bin:$PATH"; fi
 
 # Setup conda generally
-if test -d "$HOME/opt/anaconda3"; then CONDA_PREFIX="$HOME/opt/anaconda3"; fi
-if test -d "$HOME/opt/miniconda3"; then CONDA_PREFIX="$HOME/opt/miniconda3"; fi
-test -d $CONDA_PREFIX/etc/profile.d && source $CONDA_PREFIX/etc/profile.d/conda.sh
+test -d "$HOME/opt/anaconda3" && CONDA_PREFIX="$HOME/opt/anaconda3"
+test -d "$HOME/opt/miniconda3" && CONDA_PREFIX="$HOME/opt/miniconda3"
+test ! -z "$CONDA_PREFIX" && test -d $CONDA_PREFIX/etc/profile.d && source $CONDA_PREFIX/etc/profile.d/conda.sh
 unset CONDA_PREFIX  # don't activate by default
 if test -d "$HOME/berryconda3"; then export PATH="/home/charnley/berryconda3/bin:$PATH"; fi
 
