@@ -108,8 +108,7 @@ return require('packer').startup(function(use)
     -- use 'kamykn/spelunker.vim' -- Better spell checker
 
     -- github copilot
-    -- use 'github/copilot.vim'
-
+    -- :Copilot auth
     use {
       "zbirenbaum/copilot.lua",
       cmd = "Copilot",

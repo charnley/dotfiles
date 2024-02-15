@@ -107,6 +107,32 @@ function git_use_novartis {
     git config user.email "jimmy.kromann@novartis.com"
 }
 
+# cd and start working when I lost all my tmux sessions
+alias godev='cd `find $HOME/dev $HOME/git -type dir -maxdepth 2 | fzf`'
+function gowork() {
+
+    # Exit if any command fails
+    set -e
+    set -x
+
+    name=$(basename $(pwd))
+
+    # Clean name for space and special characters
+    name=$(echo $name | sed 's/[^a-zA-Z0-9\-\_]//g')
+
+    tmux set-option remain-on-exit on
+    tmux new-session -d -s $name
+
+    # Split window
+    tmux split-window -h -p 50 -t $name
+
+    # Start work mode
+    tmux set-window-option -t $name:1 synchronize-panes on
+    tmux send-keys -t $name "work && cls" Enter
+    tmux set-window-option -t $name:1 synchronize-panes off
+    tmux attach -t $name
+
+}
 
 # tmux
 # TODO When starting a new session use tmg as default
