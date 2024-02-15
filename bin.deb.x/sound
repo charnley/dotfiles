@@ -12,8 +12,6 @@ bindsym XF86AudioMute exec amixer -q set Master toggle; exec amixer -q set Headp
 
 from subprocess import Popen, PIPE
 import sys
-import numpy
-import re
 
 
 def shell(cmd, shell=False):
@@ -24,8 +22,8 @@ def shell(cmd, shell=False):
         cmd = cmd.split()
         p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 
-    output, err = p.communicate()
-    return output.decode("utf-8")
+    stdout, _ = p.communicate()
+    return stdout.decode("utf-8")
 
 
 if __name__ == "__main__":

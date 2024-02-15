@@ -86,6 +86,7 @@ return require('packer').startup(function(use)
     use 'neovim/nvim-lspconfig'
     use {'nvim-treesitter/nvim-treesitter', run= ':TSUpdate'}
     use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use 'nvim-treesitter/playground'
     use 'rafamadriz/friendly-snippets'
     use 'ray-x/lsp_signature.nvim'  --  https://github.com/ray-x/lsp_signature.nvim
     use 'danymat/neogen'  -- generate docstrings (with treesitter)
@@ -105,5 +106,25 @@ return require('packer').startup(function(use)
     use 'folke/zen-mode.nvim'
     use 'gaodean/autolist.nvim'
     -- use 'kamykn/spelunker.vim' -- Better spell checker
+
+    -- github copilot
+    -- use 'github/copilot.vim'
+
+    use {
+      "zbirenbaum/copilot.lua",
+      cmd = "Copilot",
+      event = "InsertEnter",
+      config = function()
+        require("copilot").setup({})
+      end,
+    }
+
+    use {
+        "zbirenbaum/copilot-cmp",
+        after = { "copilot.lua" },
+        config = function ()
+            require("copilot_cmp").setup()
+        end
+    }
 
 end)

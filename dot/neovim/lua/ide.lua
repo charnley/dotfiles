@@ -90,6 +90,7 @@ cmp.setup({
         ['<Tab>'] = cmp.mapping.confirm({ select = true }),
     },  -- end mapping
     sources = cmp.config.sources({
+        { name = 'copilot', group_index=2},
         { name = 'nvim_lsp' },
         { name = 'path' },
         { name = 'vsnip' },
@@ -220,7 +221,7 @@ vim.api.nvim_set_keymap("n", "<Leader>w", ":ZenMode<CR>", {noremap=true, silent=
 
 require'treesitter-context'.setup{
   enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-  max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+  max_lines = 3, -- How many lines the window should span. Values <= 0 mean no limit.
   min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
   line_numbers = true,
   multiline_threshold = 1, -- Maximum number of lines to show for a single context
@@ -246,5 +247,25 @@ vim.api.nvim_set_hl(0, "Normal", { ctermfg=White,  ctermbg=Black })
 vim.api.nvim_set_keymap("n", "<Leader>nc", ":TSContextToggle<CR>", {noremap=true, silent=true, desc="Toggle sticky scroll (context)"})
 
 
+require "nvim-treesitter.configs".setup {
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false, -- Whether the query persists across vim sessions
+    keybindings = {
+      toggle_query_editor = 'o',
+      toggle_hl_groups = 'i',
+      toggle_injected_languages = 't',
+      toggle_anonymous_nodes = 'a',
+      toggle_language_display = 'I',
+      focus_language = 'f',
+      unfocus_language = 'F',
+      update = 'R',
+      goto_node = '<cr>',
+      show_help = '?',
+    },
+  }
+}
 
 
