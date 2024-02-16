@@ -44,7 +44,7 @@ function git_fast_status() {
         fi
     fi
 
-    printf '%b' "$color$bname%{\e[0m%}"
+    printf '%b' "$color$bname%{\e[0m%} "
 }
 
 function mnml_git {
@@ -55,7 +55,7 @@ function mnml_git {
         if [ -n "$(git status --porcelain 2> /dev/null)" ]; then
             statc="%{\e[0;31m%}"
         fi
-        printf '%b' "$statc$bname%{\e[0m%}"
+        printf '%b' "$statc$bname%{\e[0m%} "
     fi
 }
 
@@ -64,10 +64,19 @@ function conda_env {
     then
         local basename=$(basename $CONDA_PREFIX)
         CONDA_ENV="($basename)"
-    else
-        CONDA_ENV=""
+        printf '%b' "$CONDA_ENV%{\e[0m%} "
     fi
-    print "%b" "$CONDA_ENV"
+}
+
+function proxy_env {
+
+    local color="%{\e[0;32m%}"
+
+    if test -n "$http_proxy" || test -n "$https_proxy"
+    then
+        printf '%b' "${color}P%{\e[0m%} "
+    fi
+
 }
 
 # %m hostname
@@ -80,7 +89,7 @@ function conda_env {
 PROMPT='→ '
 # RPROMPT='%1~ $(mnml_git)'
 # RPROMPT='$(conda_env) $(mnml_git) %(4~|.../%3~|%~)'
-RPROMPT='$(conda_env) $(git_fast_status) %(4~|.../%3~|%~)'
+RPROMPT='$(proxy_env)$(conda_env)$(git_fast_status)%(4~|.../%3~|%~)'
 
 # Is this a mac?
 if [[ "`uname`" == "Darwin" ]]
