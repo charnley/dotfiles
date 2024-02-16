@@ -93,6 +93,7 @@ return require('packer').startup(function(use)
 
     use 'airblade/vim-gitgutter' -- Git indication
     use 'apzelos/blamer.nvim' -- Git blame line
+    -- use 'lewis6991/gitsigns.nvim' TODO Try it out
 
     use 'nvim-treesitter/nvim-treesitter-context' -- Sticky scrolling
 
