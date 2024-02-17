@@ -40,8 +40,6 @@ test -d "$HOME/opt/anaconda3" && CONDA_PREFIX="$HOME/opt/anaconda3"
 test -d "$HOME/opt/miniconda3" && CONDA_PREFIX="$HOME/opt/miniconda3"
 test ! -z "$CONDA_PREFIX" && test -d $CONDA_PREFIX/etc/profile.d && source $CONDA_PREFIX/etc/profile.d/conda.sh
 unset CONDA_PREFIX  # don't activate by default
-if test -d "$HOME/berryconda3"; then export PATH="/home/charnley/berryconda3/bin:$PATH"; fi
-
 
 # Node Version Manager
 export NVM_DIR="$HOME/opt/nvm"
