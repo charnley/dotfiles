@@ -16,3 +16,22 @@ Then edit /usr/bin/start-pulseaudio-x11 and add the module load after the follow
     /usr/bin/pactl load-module module-bluetooth-discover
 
 Then the bluetooth discover module is loaded after x11 is started. Then you can use `blueman-applet` to connect, and the sound should be visible in `pavucontrol`.
+
+## USB sound not showing up in `pavucontrol`
+
+In my case, the card was shown in `pactl` sink list, but not showing up in `pavucontrol`/pulseaudio
+
+Find the card id in
+
+    aplay -l | grep card
+
+then add it to `/etc/pulse/default.pa` like this
+
+    load-module module-alsa-sink device=hw:0
+
+where `0` is the card id found before.
+
+## References
+
+- https://askubuntu.com/questions/687062/usb-audio-interface-not-showing-device-in-list-for-pulseaudio
+
