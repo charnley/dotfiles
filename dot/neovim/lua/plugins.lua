@@ -90,6 +90,7 @@ return require('packer').startup(function(use)
     use 'rafamadriz/friendly-snippets'
     use 'ray-x/lsp_signature.nvim'  --  https://github.com/ray-x/lsp_signature.nvim
     use 'danymat/neogen'  -- generate docstrings (with treesitter)
+    use 'ThePrimeagen/refactoring.nvim' -- refactor chunks of code fast
 
     use 'airblade/vim-gitgutter' -- Git indication
     use 'apzelos/blamer.nvim' -- Git blame line
