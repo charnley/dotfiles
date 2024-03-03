@@ -108,8 +108,9 @@ function git_use_novartis {
 }
 
 # cd and start working when I lost all my tmux sessions
-alias godev='cd `find $HOME/dev $HOME/git -maxdepth 2 -type d | fzf`'
-function gowork() {
+alias zgit='git rev-parse --show-toplevel && cd `git rev-parse --show-toplevel`'
+alias zcd='cd `find $HOME/dev $HOME/git $HOME/Dropbox/private -maxdepth 2 -type d | fzf`'
+function ztmux() {
 
     # Exit if any command fails
     set -e
@@ -161,7 +162,18 @@ if [[ $TMUX ]]; then
     alias clear='clear && tmux clear-history'
 fi
 
-# TODO Set cd alias to git root if deep in repo
+# function _tmux_completions() {
+#   local -a sessions
+#   sessions=($(tmux ls))
+#   compadd -a sessions
+# }
+# compdef _tmux_completions tma
+
+function _tma_complete() {
+    IFS=$'\n'
+    COMPREPLY=($(tmux list-sessions -F '#{session_name}'))
+}
+complete -F _tma_complete tma
 
 alias cd.='cd ..'
 alias cd..='cd ..'
