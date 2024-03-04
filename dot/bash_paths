@@ -38,6 +38,7 @@ if test -d "$HOME/opt/redis"; then PATH="$HOME/opt/redis/bin:$PATH"; fi
 # Setup conda generally
 test -d "$HOME/opt/anaconda3" && CONDA_PREFIX="$HOME/opt/anaconda3"
 test -d "$HOME/opt/miniconda3" && CONDA_PREFIX="$HOME/opt/miniconda3"
+test -d "$HOME/opt/miniforge" && CONDA_PREFIX="$HOME/opt/miniforge"
 test ! -z "$CONDA_PREFIX" && test -d $CONDA_PREFIX/etc/profile.d && source $CONDA_PREFIX/etc/profile.d/conda.sh
 unset CONDA_PREFIX  # don't activate by default
 
