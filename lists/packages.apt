@@ -1,6 +1,3 @@
-parallel
-dstat
-tree
 git
 curl
 zsh
