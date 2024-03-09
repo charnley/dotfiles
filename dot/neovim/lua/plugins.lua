@@ -91,6 +91,7 @@ return require('packer').startup(function(use)
     use 'ray-x/lsp_signature.nvim'  --  https://github.com/ray-x/lsp_signature.nvim
     use 'danymat/neogen'  -- generate docstrings (with treesitter)
     use 'ThePrimeagen/refactoring.nvim' -- refactor chunks of code fast
+    use 'nvim-lua/plenary.nvim' -- "all the lua function I don't want to write twice"
 
     use 'airblade/vim-gitgutter' -- Git indication
     use 'apzelos/blamer.nvim' -- Git blame line
