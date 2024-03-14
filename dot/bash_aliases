@@ -182,6 +182,11 @@ alias b='cd ..'
 
 function fast_edit()
 {
+
+    if test -z "$1"; then
+
+    fi
+
     # Quickly go to folder and find the files you want to edit
     if command -v bat &> /dev/null
     then
@@ -201,6 +206,7 @@ function fast_edit()
 
 alias e='fast_edit'
 alias vi='vim'
+alias eg='vim `git diff --name-only`'
 
 # easy rsync
 alias rs='rsync -azvh --progress'
