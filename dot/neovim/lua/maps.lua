@@ -165,3 +165,7 @@ nnoremap <Leader>ln    <cmd>lua vim.lsp.buf.rename()<CR>
 imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 ]], false)
+
+local opts = { noremap=true, silent=true }
+vim.api.nvim_set_keymap('n', '<Leader>lun', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<Leader>lup', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
