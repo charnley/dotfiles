@@ -99,8 +99,11 @@ return require('packer').startup(function(use)
 
     use 'nvim-treesitter/nvim-treesitter-context' -- Sticky scrolling
 
+    -- control
+    use 'ggandor/leap.nvim'
+
     -- Svelte development
-    use 'joosepalviste/nvim-ts-context-commentstring' -- for context comment
+    use 'joosepalviste/nvim-ts-contextcommentstring' -- for context comment
     use 'evanleck/vim-svelte'
     use 'pangloss/vim-javascript'
     use 'herringtondarkholme/yats.vim'

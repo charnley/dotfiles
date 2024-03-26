@@ -282,3 +282,11 @@ vim.keymap.set({ "n", "x" }, "<leader>ri", function() require('refactoring').ref
 vim.keymap.set("n", "<leader>rb", function() require('refactoring').refactor('Extract Block') end, {desc="Extract block"})
 vim.keymap.set("n", "<leader>rbf", function() require('refactoring').refactor('Extract Block To File') end, {desc="Extract block to file"})
 -- Extract block supports only normal mode
+
+
+-- Leap
+require('leap').create_default_mappings()
+-- Define equivalence classes for brackets and quotes, in addition to
+-- the default whitespace group.
+require('leap').opts.equivalence_classes = { ' \t\r\n', '([{', ')]}', '\'"`' }
+require('leap').opts.labels = 'sfnjklhodweimbuyvrgtaqpcxz'
