@@ -183,9 +183,9 @@ alias b='cd ..'
 function fast_edit()
 {
 
-    if test -z "$1"; then
+    # if test -z "$1"; then
 
-    fi
+    # fi
 
     # Quickly go to folder and find the files you want to edit
     if command -v bat &> /dev/null
