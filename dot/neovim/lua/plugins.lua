@@ -14,6 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
 
     -- General
+    {"junegunn/fzf", dir = "~/.fzf", build = "./install --all" },
     {'junegunn/fzf.vim'},
 
     -- Motion
