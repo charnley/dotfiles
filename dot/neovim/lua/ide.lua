@@ -9,7 +9,7 @@ require('nvim-autopairs').setup({})
 require("which-key").setup({})
 
 -- Be able to comment html and js in same file
-require('ts_context_commentstring').setup({})
+-- require('ts_context_commentstring').setup({})
 
 -- Auto signature hints
 require('lsp_signature').setup({

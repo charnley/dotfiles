@@ -1,6 +1,5 @@
-
-require 'plugins' -- Install all plugins
 require 'base' -- Standard VIM settings
+require 'plugins' -- Install all plugins
 require 'maps' -- Most key mappings
 
 -- Check if vim is being installed for the first time
