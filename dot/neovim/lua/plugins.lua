@@ -38,7 +38,7 @@ local plugins = {
     {'hrsh7th/vim-vsnip'},
     {'kabouzeid/nvim-lspinstall'},
     {'neovim/nvim-lspconfig'},
-    {'nvim-treesitter/nvim-treesitter', build= ':TSUpdate'},
+    {'nvim-treesitter/nvim-treesitter'}, -- build=':TSUpdate'
     {'nvim-treesitter/nvim-treesitter-textobjects'},
     {'nvim-treesitter/playground'},
     {'rafamadriz/friendly-snippets'},
