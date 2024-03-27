@@ -25,13 +25,13 @@ endif
 .PHONY: vim_plugins install clean dotfiles directories
 
 # Default targets
-all: dotfiles bin vim_plugins tmux_plugins
+all: dotfiles bin tmux_plugins
 
 vim_benchmark:
 	${HOME}/bin/vim -c 'StartupTime'
 
-vim_plugins:
-	NEOVIM_SETUP=1 ${HOME}/bin/vim --headless -c 'autocmd User PackerComplete quitall' -c 'silent PackerSync'
+# vim_plugins:
+# 	NEOVIM_SETUP=1 ${HOME}/bin/vim --headless -c 'autocmd User PackerComplete quitall' -c 'silent PackerSync'
 
 tmux_plugins:
 	bash ./setup/tmux_plugins.sh
