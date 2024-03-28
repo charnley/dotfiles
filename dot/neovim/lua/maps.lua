@@ -140,17 +140,6 @@ vim.api.nvim_set_keymap('n', '<leader>d', '""dd', {noremap = true, desc='Cut lin
 vim.api.nvim_set_keymap('v', '<leader>d', '""d', {noremap = true, desc='Cut'})
 vim.api.nvim_set_keymap('n', '<leader>D', '""D', {noremap = true, desc='Cut rest of line'})
 
--- Sneak settings
-vim.api.nvim_exec([[
-let g:sneak#label = 1
-let g:sneak#target_labels = 'qwertasdfgzxcv'
-
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-map t <Plug>Sneak_t
-map T <Plug>Sneak_T
-]], false)
-
 -- Lsp key bindings
 vim.api.nvim_exec([[
 nnoremap <Leader>ld    <cmd>lua vim.lsp.buf.definition()<CR>
