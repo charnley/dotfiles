@@ -28,35 +28,35 @@ local plugins = {
     {'folke/which-key.nvim'},  -- I can't remember what <leader><char> does
 
     -- IDE
-    {'numToStr/Comment.nvim'}, -- For Commenting gcc & gc (Treesitter support)
+    {'ThePrimeagen/refactoring.nvim'}, -- refactor chunks of code fast
+    {'danymat/neogen'},  -- generate docstrings (with treesitter)
     {'gorkunov/smartpairs.vim'}, -- Extend visual selection of bracket
+    {'kabouzeid/nvim-lspinstall'},
+    {'neovim/nvim-lspconfig'},
+    {'numToStr/Comment.nvim'}, -- For Commenting gcc & gc (Treesitter support)
+    {'nvim-lua/plenary.nvim'}, -- "all the lua function I don't want to write twice"
+    {'nvim-treesitter/nvim-treesitter'}, -- build=':TSUpdate'
+    {'nvim-treesitter/nvim-treesitter-context'}, -- Sticky scrolling
+    {'nvim-treesitter/nvim-treesitter-textobjects'},
+    {'nvim-treesitter/playground'},
+    {'ray-x/lsp_signature.nvim'},  --  https://github.com/ray-x/lsp_signature.nvim
     {'windwp/nvim-autopairs'},
+
+    -- autocompletion
     {'hrsh7th/cmp-buffer'},
     {'hrsh7th/cmp-nvim-lsp'},
     {'hrsh7th/cmp-path'},
     {'hrsh7th/cmp-vsnip'},
     {'hrsh7th/nvim-cmp'},
     {'hrsh7th/vim-vsnip'},
-    {'kabouzeid/nvim-lspinstall'},
-    {'neovim/nvim-lspconfig'},
-    {'nvim-treesitter/nvim-treesitter'}, -- build=':TSUpdate'
-    {'nvim-treesitter/nvim-treesitter-textobjects'},
-    {'nvim-treesitter/playground'},
+
+    -- snippets
     {'rafamadriz/friendly-snippets'},
-    {'ray-x/lsp_signature.nvim'},  --  https://github.com/ray-x/lsp_signature.nvim
-    {'danymat/neogen'},  -- generate docstrings (with treesitter)
-    {'ThePrimeagen/refactoring.nvim'}, -- refactor chunks of code fast
-    {'nvim-lua/plenary.nvim'}, -- "all the lua function I don't want to write twice"
-    {'nvim-treesitter/nvim-treesitter-context'}, -- Sticky scrolling
 
     -- github copilot
     -- :Copilot auth
-    {
-          "zbirenbaum/copilot.lua",
-          cmd = "Copilot",
-          event = "InsertEnter",
-    },
-    {"zbirenbaum/copilot-cmp",},
+    {"zbirenbaum/copilot.lua", cmd = "Copilot", event = "InsertEnter",},
+    {"zbirenbaum/copilot-cmp",}, -- cmp auto completion
 
     -- Git
     {'airblade/vim-gitgutter'}, -- Git indication
