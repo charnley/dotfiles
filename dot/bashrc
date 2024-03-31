@@ -78,25 +78,33 @@ Jobs="\j"
 
 # export PS1="$Blue\h$Color_Off $Cyan\W$Color_Off"
 
-case $HOSTNAME in
-    *login10* )
-        export PS1="$Red\h$Color_Off $Cyan\W$Color_Off"
-        export TERM=xterm
-        export PS1NOGIT="True";;
-    sunray )
-        export PS1="$Red\h$Color_Off $Cyan\W$Color_Off";;
-    london )
-        export PS1="$Black\h$Color_Off $Cyan\W$Color_Off";;
-    macragge )
-        export PS1="$Black\h$Color_Off $Cyan\W$Color_Off";;
-    fend0[1-5].cluster )
-        export PS1="$Yellow\h$Color_Off $Cyan\W$Color_Off"
-        export PS1NOGIT="True";;
-    laptop )
-        export PS1="$Blue\h $Cyan\W$Color_Off";;
-    * )
-        export PS1="$Yellow\h$Color_Off $Cyan\W$Color_Off";;
-esac
+# Default prompt
+export PS1="$Blue\h $Cyan\W$Color_Off";;
+
+# If shell is over SSH
+if test -z "$SSH_TTY"
+    export PS1="$Yello\h$Color_Off $Cyan\W$Color_Off";;
+fi
+
+# case $HOSTNAME in
+#     *login10* )
+#         export PS1="$Red\h$Color_Off $Cyan\W$Color_Off"
+#         export TERM=xterm
+#         export PS1NOGIT="True";;
+#     sunray )
+#         export PS1="$Red\h$Color_Off $Cyan\W$Color_Off";;
+#     london )
+#         export PS1="$Black\h$Color_Off $Cyan\W$Color_Off";;
+#     macragge )
+#         export PS1="$Black\h$Color_Off $Cyan\W$Color_Off";;
+#     fend0[1-5].cluster )
+#         export PS1="$Yellow\h$Color_Off $Cyan\W$Color_Off"
+#         export PS1NOGIT="True";;
+#     laptop )
+#         export PS1="$Blue\h $Cyan\W$Color_Off";;
+#     * )
+#         export PS1="$Yellow\h$Color_Off $Cyan\W$Color_Off";;
+# esac
 
 # If this is on interactive node, change color
 if test ! -z $JOB_ID; then
