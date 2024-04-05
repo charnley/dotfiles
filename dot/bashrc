@@ -79,11 +79,12 @@ Jobs="\j"
 # export PS1="$Blue\h$Color_Off $Cyan\W$Color_Off"
 
 # Default prompt
-export PS1="$Blue\h $Cyan\W$Color_Off";;
+export PS1="$Blue\h $Cyan\W$Color_Off";
 
 # If shell is over SSH
-if test -z "$SSH_TTY"
-    export PS1="$Yello\h$Color_Off $Cyan\W$Color_Off";;
+if test ! -z "$SSH_TTY"
+then
+    export PS1="$Yello\h$Color_Off $Cyan\W$Color_Off";
 fi
 
 # case $HOSTNAME in
