@@ -99,21 +99,20 @@ else
     is_mac="0"
 fi
 
+if test -z "$SSH_TTY"
+then
+    is_ssh="0"
+else
+    is_ssh="1"
+fi
+
 # If non-default hostname
-valid_hostnames=(laptop baerbar)
-if [[ "$is_mac" == "1" || "`hostname`" == "baerbar" ]];
+if [[ "$is_ssh" == "0" ]];
 then
     PROMPT='→ '
 else
-    needle=`hostname`
-    echo $needle
-    if [[ ${valid_hostnames[(ie)$needle]} -le ${#valid_hostnames} ]]
-    then
-        PROMPT='> '
-    else
-        # PROMPT='%F{blue}%m > '
-        PROMPT='%m > '
-    fi
+    PROMPT='%F{blue}%m > '
+    #PROMPT='%m > '
 fi
 
 # If non-default username
