@@ -158,3 +158,8 @@ imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 local opts = { noremap=true, silent=true }
 vim.api.nvim_set_keymap('n', '<Leader>lun', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<Leader>lup', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+
+-- Crate file nest to current buffer
+vim.api.nvim_exec([[
+map ,e :e <C-R>=expand("%:p:h") . "/" <CR>
+]], false)
