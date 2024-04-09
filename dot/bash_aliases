@@ -206,7 +206,7 @@ function fast_edit()
 
 alias e='fast_edit'
 alias vi='vim'
-alias eg='vim `git diff --name-only`'
+alias eg='vim `git diff --name-only --relative`'
 
 # easy rsync
 alias rs='rsync -azvh --progress'
