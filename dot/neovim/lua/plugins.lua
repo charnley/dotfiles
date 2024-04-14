@@ -73,6 +73,15 @@ local plugins = {
     {'folke/zen-mode.nvim'},
     {'gaodean/autolist.nvim'},
 
+
+    -- Files
+    {
+      'stevearc/oil.nvim',
+      opts = {},
+      -- Optional dependencies
+      -- dependencies = { "nvim-tree/nvim-web-devicons" },
+    }
+
 }
 
 require('lazy').setup(plugins, {})
