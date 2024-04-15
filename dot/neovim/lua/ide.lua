@@ -290,3 +290,6 @@ require('leap').create_default_mappings()
 -- the default whitespace group.
 require('leap').opts.equivalence_classes = { ' \t\r\n', '([{', ')]}', '\'"`' }
 require('leap').opts.labels = 'sfnjklhodweimbuyvrgtaqpcxz'
+
+-- Setup oil
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
