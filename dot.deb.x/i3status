@@ -81,10 +81,13 @@ battery 0 {
     low_threshold = 11
     threshold_type = percentage
     hide_seconds = true
-    status_chr = "⚡"
-    status_bat = "🔋"
-    status_unk = "🙂"
-    status_full = "💙"
+    status_chr = "C"
+    status_bat = "B"
+    status_unk = " "
+    status_full = "F"
+    # status_bat = "🔋"
+    # status_unk = "🙂"
+    # status_full = "💙"
 
 }
 
