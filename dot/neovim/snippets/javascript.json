@@ -32,5 +32,11 @@
             "console.log(\"${1}\", ${1})"
         ],
         "description": "debug"
+    },
+    "type_variables": {
+        "prefix": "type",
+        "body": [
+            "/** @type {${1}} */"
+        ]
     }
 }

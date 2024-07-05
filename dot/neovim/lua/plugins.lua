@@ -1,16 +1,3 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
-
 local plugins = {
 
     -- General
@@ -30,6 +17,7 @@ local plugins = {
     -- IDE
     {'ThePrimeagen/refactoring.nvim'}, -- refactor chunks of code fast
     {'danymat/neogen'},  -- generate docstrings (with treesitter)
+    -- {"kkoomen/vim-doge"}, -- Generate docstrings
     {'gorkunov/smartpairs.vim'}, -- Extend visual selection of bracket
     {'kabouzeid/nvim-lspinstall'},
     {'neovim/nvim-lspconfig'},

@@ -9,7 +9,7 @@ require('nvim-autopairs').setup({})
 require("which-key").setup({})
 
 -- Be able to comment html and js in same file
--- require('ts_context_commentstring').setup({})
+require('ts_context_commentstring').setup({})
 
 -- Auto signature hints
 require('lsp_signature').setup({
@@ -31,7 +31,6 @@ local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 cmp.event:on( 'confirm_done',
     cmp_autopairs.on_confirm_done({  map_char = { tex = '' } })
 )
-
 
 -- comment
 require("Comment").setup {
@@ -56,8 +55,17 @@ require("Comment").setup {
 
 -- docstring
 -- generate docstring
-require('neogen').setup()
+require('neogen').setup({
+    languages = {
+        -- TODO This does not work, super annoying
+        ['svelte'] = require('neogen.configurations.javascript')
+    }
+})
 vim.api.nvim_set_keymap("n", "<Leader>nd", ":lua require('neogen').generate()<CR>", {noremap=true, silent=true, desc="Generate docstring"})
+
+-- Doge
+-- Open nvim and run :call doge#install()
+-- vim.keymap.set('n', '<Leader>nd', '<Plug>(doge-generate)')
 
 -- setup completion
 cmp.setup({
@@ -129,14 +137,14 @@ require'nvim-treesitter.configs'.setup {
         "html",
         "javascript",
         "python",
+        "svelte",
         "tsx",
         "typescript",
         "vue",
-        "svelte",
     },
 
     highlight = { -- enable highlighting for all file types
-      -- enable = true,
+      enable = true,
     },
 
     -- need for proper indentation handling (especially for bracket pairs)
@@ -173,18 +181,7 @@ require'nvim-treesitter.configs'.setup {
     },
 }
 
--- local autolist = require("autolist")
--- autolist.setup()
--- autolist.create_mapping_hook("i", "<cr>", autolist.new)
--- autolist.create_mapping_hook("i", "<Tab>", autolist.indent)
--- autolist.create_mapping_hook("i", "<S-Tab>", autolist.indent, "<C-D>")
--- autolist.create_mapping_hook("n", "o", autolist.new)
--- autolist.create_mapping_hook("n", "O", autolist.new_before)
--- autolist.create_mapping_hook("n", ">>", autolist.indent)
--- autolist.create_mapping_hook("n", "<<", autolist.indent)
--- autolist.create_mapping_hook("n", "<leader>r", autolist.force_recalculate)
--- autolist.create_mapping_hook("n", "<leader>x", autolist.invert_entry, "")
-
+-- Write mode
 require("autolist").setup()
 vim.keymap.set("n", "<leader><tab>", "<cmd>AutolistTab<cr>")
 vim.keymap.set("n", "<leader><s-tab>", "<cmd>AutolistShiftTab<cr>")
@@ -194,8 +191,6 @@ vim.keymap.set("n", "<leader>x", "<cmd>AutolistToggleCheckbox<cr>")
 -- vim.keymap.set("n", "<<", "<<<cmd>AutolistRecalculate<cr>")
 -- vim.keymap.set("n", "dd", "dd<cmd>AutolistRecalculate<cr>")
 -- vim.keymap.set("v", "d", "d<cmd>AutolistRecalculate<cr>")
-
-
 require("zen-mode").setup{
     window = {
         width = 0.5,
@@ -213,12 +208,9 @@ require("zen-mode").setup{
     vim.api.nvim_exec([[set nowrap]], false)
   end,
 }
-
--- Write mode
 vim.api.nvim_set_keymap("n", "<Leader>w", ":ZenMode<CR>", {noremap=true, silent=true, desc="Write mode"})
 
 -- Sticky scrolling
-
 require'treesitter-context'.setup{
   enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
   max_lines = 3, -- How many lines the window should span. Values <= 0 mean no limit.
