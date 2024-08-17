@@ -53,6 +53,9 @@ require("Comment").setup {
   end,
 }
 
+local ft = require('Comment.ft')
+ft.set('fortran', '!%s')
+
 -- docstring
 -- generate docstring
 require('neogen').setup({
