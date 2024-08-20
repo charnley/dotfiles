@@ -3,4 +3,3 @@
 cat /etc/timezone
 
 sudo dpkg-reconfigure tzdata
-
