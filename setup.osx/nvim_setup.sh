@@ -8,11 +8,8 @@ cd ~/opt
 mkdir -p neovim
 cd neovim
 
-# version="nightly"
-# version="latest"
-version="v0.10.0"
-
-url=https://github.com/neovim/neovim/releases/download/$version/nvim-macos-arm64.tar.gz
+tag=latest
+url=https://github.com/neovim/neovim/releases/$tag/download/nvim-macos-arm64.tar.gz
 
 curl -LO $url
 tar xzf nvim-macos-arm64.tar.gz
