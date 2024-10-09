@@ -1,7 +1,7 @@
 {
     "ignore": {
         "prefix": "ignore",
-        "body": ["  # type: ignore"],
+        "body": [" # type: ignore"],
         "description": "ignore type"
     },
     "logging_init": {

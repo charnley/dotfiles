@@ -130,6 +130,7 @@ nnoremap <A-Up> :m .-2<CR>==
 nnoremap d "_d
 nnoremap D "_D
 vnoremap d "_d
+nnoremap c "_c
 
 " keep me centered when jumping
 nnoremap n nzzzv
