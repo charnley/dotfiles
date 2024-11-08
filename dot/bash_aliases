@@ -134,6 +134,7 @@ function ztm() {
     tmux attach -t $name
 
 }
+alias ze='vi $(git diff --name-only)'
 
 # tmux
 # TODO When starting a new session use tmg as default
