@@ -163,3 +163,6 @@ vim.api.nvim_set_keymap('n', '<Leader>lup', '<cmd>lua vim.lsp.diagnostic.goto_ne
 vim.api.nvim_exec([[
 map ,e :e <C-R>=expand("%:p:h") . "/" <CR>
 ]], false)
+
+-- Surround text with html tag
+-- TODO vim.api.nvim_set_keymap('n', '<leader>ns', '<tag></tag>?>p', {noremap = true, desc='Surround text with html tag'})

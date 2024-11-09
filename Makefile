@@ -187,6 +187,9 @@ install_apt_x:
 install_fonts:
 	bash ./fonts/setup_mononoki.sh
 
+install_fonts_post_deb:
+	fc-cache -f -v
+
 symlink_clean:
 	# TODO if there and is symlink, rm. For example, if symlink points to dotfiles, but is deprecated
 

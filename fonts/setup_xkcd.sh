@@ -20,3 +20,5 @@ else
     cp $src/xkcd-script/font/*.ttf ${HOME}/Library/Fonts/
     cp $src/xkcd/build/* ${HOME}/Library/Fonts/
 fi
+
+rm -fr $src
