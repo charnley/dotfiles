@@ -288,6 +288,7 @@ work()
     # Activate node and activate python env
     nvm use node
     test -d ./env && cona
+    test -f .venv/bin/activate && source .venv/bin/activate
 }
 
 dework(){
