@@ -288,3 +288,11 @@ require('leap').opts.labels = 'sfnjklhodweimbuyvrgtaqpcxz'
 
 -- Setup oil
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+
+-- Copilot
+require("copilot").setup({
+  suggestion = { enabled = false },
+  panel = { enabled = false },
+})
+require("copilot_cmp").setup()
