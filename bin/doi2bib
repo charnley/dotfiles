@@ -1,0 +1,4 @@
+#!/bin/bash
+# https://gist.github.com/mlund/4609288
+curl -LH "Accept: application/x-bibtex;q=1" http://dx.doi.org/$1
+echo
