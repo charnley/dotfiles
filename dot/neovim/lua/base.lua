@@ -173,8 +173,8 @@ endif
 ]], false)
 
 -- Disable filetype plugin (it overwrites tab/indentation settings)
-vim.api.nvim_exec([[filetype plugin off]], false)
--- vim.api.nvim_exec([[filetype plugin on]], false) -- needed for doge#generate
+-- vim.api.nvim_exec([[filetype plugin off]], false)
+vim.api.nvim_exec([[filetype plugin on]], false) -- needed for doge#generate
 
 -- Spelling
 vim.opt.spelllang="en"

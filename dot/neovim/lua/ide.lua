@@ -68,7 +68,7 @@ vim.api.nvim_set_keymap("n", "<Leader>nd", ":lua require('neogen').generate()<CR
 
 -- Doge
 -- Open nvim and run :call doge#install()
--- vim.keymap.set('n', '<Leader>nd', '<Plug>(doge-generate)')
+vim.keymap.set('n', '<Leader>nd', '<Plug>(doge-generate)')
 
 -- setup completion
 cmp.setup({

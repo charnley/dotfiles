@@ -63,4 +63,12 @@ if test -d $HOME/intel/licenses; then
     source $HOME/intel/bin/compilervars.sh intel64
 fi
 
+# if local hosts file, use it
+# TODO Find a better way to make it work with ping and ssh
+test -f $HOME/.hosts && export HOSTALIASES=$HOME/.hosts
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias tar=gtar
+fi
+
 export PATH

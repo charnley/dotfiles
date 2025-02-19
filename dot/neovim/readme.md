@@ -84,3 +84,4 @@ where osc52 (~/bin/yank) makes the local terminal put content in local clipboard
 - TODO https://github.com/folke/zen-mode.nvim
 - TODO https://github.com/mizlan/dotfiles/blob/master/.config/nvim/init.lua
 - TODO https://github.com/romainl/vim-cool
+- TODO https://github.com/kevinhwang91/nvim-hlslens

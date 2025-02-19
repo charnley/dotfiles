@@ -17,7 +17,7 @@ local plugins = {
     -- IDE
     {'ThePrimeagen/refactoring.nvim'}, -- refactor chunks of code fast
     {'danymat/neogen'},  -- generate docstrings (with treesitter)
-    -- {"kkoomen/vim-doge"}, -- Generate docstrings
+    {"kkoomen/vim-doge"}, -- Generate docstrings, :call doge#install()
     {'gorkunov/smartpairs.vim'}, -- Extend visual selection of bracket
     {'kabouzeid/nvim-lspinstall'},
     {'neovim/nvim-lspconfig'},
