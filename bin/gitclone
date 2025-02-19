@@ -11,3 +11,4 @@ fi
 
 git clone $1 $out
 
+cd $out
