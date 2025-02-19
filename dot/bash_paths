@@ -22,6 +22,9 @@ if test -d "$HOME/.rbenv/"; then PATH="$HOME/.rbenv/bin:$PATH"; fi
 if test -d "$HOME/.rbenv/"; then PATH="$HOME/.rbenv/versions/$rubyver/bin:$PATH"; fi
 if test -d "$HOME/.gem/"; then PATH="$HOME/.gem/ruby/$rubyver/bin:$PATH"; fi
 
+rubyver=3.0.0
+test -d $HOME/.local/share/gem/ruby/${rubyver}/bin && PATH="$PATH:$HOME/.local/share/gem/ruby/${rubyver}/bin"
+
 # Global bins
 if test -d "/opt/bin"; then PATH="/opt/bin:$PATH"; fi
 if test -d "/opt/sbin"; then PATH="/opt/sbin:$PATH"; fi
