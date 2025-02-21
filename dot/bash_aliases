@@ -215,7 +215,7 @@ alias eg='vim `git diff --name-only --relative`'
 alias rs='rsync -azvh --progress'
 
 # download a song easy
-alias youtube-audio='youtube-dl --extract-audio --audio-format best'
+alias youtube-audio='yt-dlp -f bestaudio -x --audio-format mp3'
 
 # spotify
 # alias spotplay="dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
