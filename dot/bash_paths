@@ -9,6 +9,10 @@ test -f "$HOME/.git-prompt.sh" && source $HOME/.git-prompt.sh
 
 # brew
 test -d /opt/homebrew/ && PATH="/opt/homebrew/bin:$PATH"
+# Overwrite mac's default, with gnu
+for dir in `echo /opt/homebrew/opt/gnu-*`; do
+    test -d $dir/libexec/gnubin && PATH="$dir/libexec/gnubin:$PATH"
+done
 
 # Pip installed packages
 if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi
