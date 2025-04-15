@@ -196,8 +196,8 @@ vim.keymap.set("n", "<leader>x", "<cmd>AutolistToggleCheckbox<cr>")
 -- vim.keymap.set("v", "d", "d<cmd>AutolistRecalculate<cr>")
 require("zen-mode").setup{
     window = {
-        width = 0.5,
-        height = 0.5,
+        width = 0.7,
+        height = 0.7,
         options = {
             signcolumn = "no", -- disable signcolumn
             number = false, -- disable number column
