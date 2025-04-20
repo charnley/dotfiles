@@ -296,3 +296,8 @@ require("copilot").setup({
   panel = { enabled = false },
 })
 require("copilot_cmp").setup()
+
+-- Better handling of inline errors
+require("tiny-inline-diagnostic").setup({
+    preset = "minimal",
+})
