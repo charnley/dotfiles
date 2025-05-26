@@ -1,0 +1,1 @@
+- Better split in tmux https://github.com/sunaku/home/blob/master/bin/tmux-layout-dwindle#L276
