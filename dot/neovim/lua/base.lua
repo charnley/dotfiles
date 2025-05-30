@@ -19,7 +19,7 @@ vim.opt.softtabstop=0
 vim.opt.tabstop=4
 
 vim.opt.ignorecase=true -- Case-insensitive searching
-vim.opt.lazyredraw=true -- will buffer screen updates instead of updating all the time.:help 'ttyfast'
+vim.opt.lazyredraw=false -- will buffer screen updates instead of updating all the time.:help 'ttyfast'
 vim.opt.list=true -- Highlight unwanted spaces
 vim.opt.listchars = {
     tab = '│·',

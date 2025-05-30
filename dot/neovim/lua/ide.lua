@@ -1,9 +1,5 @@
 
 -- More like IDE
-require('lspconfig').pyright.setup({})
-require('lspconfig').bashls.setup({})
-require('lspconfig').ts_ls.setup({})
-require('lspconfig').svelte.setup({})
 
 require('nvim-autopairs').setup({})
 require("which-key").setup({})
@@ -291,13 +287,44 @@ vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 
 -- Copilot
-require("copilot").setup({
-  suggestion = { enabled = false },
-  panel = { enabled = false },
-})
-require("copilot_cmp").setup()
+if vim.fn.executable("node") == 1 then
+    require("copilot").setup({
+      suggestion = { enabled = false },
+      panel = { enabled = false },
+    })
+    require("copilot_cmp").setup()
+
+    -- LSP servers only avail. if node is there
+    require('lspconfig').pyright.setup({})
+    require('lspconfig').bashls.setup({})
+    require('lspconfig').ts_ls.setup({})
+    require('lspconfig').svelte.setup({})
+
+else
+  vim.notify("Node.js not found, skipping Node-dependent config", vim.log.levels.ERR)
+end
 
 -- Better handling of inline errors
 require("tiny-inline-diagnostic").setup({
     preset = "minimal",
+})
+
+-- Better information
+require("noice").setup({
+  lsp = {
+    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+    override = {
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+      ["vim.lsp.util.stylize_markdown"] = true,
+      ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+    },
+  },
+  -- you can enable a preset for easier configuration
+  presets = {
+    bottom_search = true, -- use a classic bottom cmdline for search
+    command_palette = true, -- position the cmdline and popupmenu together
+    long_message_to_split = true, -- long messages will be sent to a split
+    inc_rename = false, -- enables an input dialog for inc-rename.nvim
+    lsp_doc_border = false, -- add a border to hover docs and signature help
+  },
 })
