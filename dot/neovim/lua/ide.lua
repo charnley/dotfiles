@@ -286,8 +286,10 @@ require('leap').opts.labels = 'sfnjklhodweimbuyvrgtaqpcxz'
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 
--- Copilot
+-- Node dependent plugins
 if vim.fn.executable("node") == 1 then
+
+    -- Copilot
     require("copilot").setup({
       suggestion = { enabled = false },
       panel = { enabled = false },
@@ -301,7 +303,10 @@ if vim.fn.executable("node") == 1 then
     require('lspconfig').svelte.setup({})
 
 else
-  vim.notify("Node.js not found, skipping Node-dependent config", vim.log.levels.ERR)
+
+  -- vim.notify = require("notify")
+  vim.notify("Node.js not found, skipping Node-dependent config", vim.log.levels.WARN)
+
 end
 
 -- Better handling of inline errors
@@ -309,7 +314,7 @@ require("tiny-inline-diagnostic").setup({
     preset = "minimal",
 })
 
--- Better information
+-- Better information / popups, instead of having to press "ok"
 require("noice").setup({
   lsp = {
     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
