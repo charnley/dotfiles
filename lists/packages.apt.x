@@ -4,6 +4,7 @@ blueman
 cmake
 eog
 evince
+flameshot
 i3
 libfontconfig1-dev
 libfreetype6-dev

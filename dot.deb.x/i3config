@@ -33,6 +33,7 @@ bindsym $mod+shift+l exec i3lock -c 000000 -d & systemctl suspend
 
 # Print Screen = Screenshot
 bindsym Print exec scrot -u -q 100 ~/img/screenshots/screenshot-%y%m%d-%H%M%S.png
+bindsym $mod+Print exec flameshot gui
 
 # volume bindings
 bindsym Control+Up              exec ~/bin/sound "+1"
