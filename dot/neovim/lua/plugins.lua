@@ -41,24 +41,6 @@ local plugins = {
 		},
 	},
 
-	-- Vibe coding
-	{
-		"yetone/avante.nvim",
-		dependencies = {
-			"echasnovski/mini.icons",
-			"stevearc/dressing.nvim",
-			"nvim-lua/plenary.nvim",
-			"MunifTanjim/nui.nvim",
-			{
-				"MeanderingProgrammer/render-markdown.nvim",
-				opts = { file_types = { "Avante" } },
-				ft = { "Avante" },
-			},
-		},
-		build = "make",
-		opts = { provider = "copilot" },
-	},
-
 	-- autocompletion
 	{ "hrsh7th/cmp-buffer" },
 	{ "hrsh7th/cmp-nvim-lsp" },
