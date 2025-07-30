@@ -2,13 +2,13 @@
 
 # Useful little script to kill hanging process for node development
 
+port="$1:-8000"
+
 set -e
 set -u
 set -x
 
-port=8080
-
-jobid=`netstat -vanp tcp | grep $port | awk '{ print $9 }'`
+jobid=`netstat -vanp tcp | grep $port | awk '{ print $11 }'`
 
 test -z "$jobid" && echo "error, no port found" && exit 1
 

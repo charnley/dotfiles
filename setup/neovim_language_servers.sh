@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # bash
-npm i -g bash-language-server
+npm install --global bash-language-server
 
 # python
-npm i -g pyright
+npm install --global pyright
 
 # javascript
-npm install -g svelte-language-server
-npm install -g typescript typescript-language-server
+npm install --global svelte-language-server
+npm install --global typescript typescript-language-server
 # npm install -g vls  # Vue
