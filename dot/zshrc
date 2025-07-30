@@ -214,6 +214,3 @@ else
     alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
 fi
 unset __mamba_setup
-
-# opencode
-export PATH=/Users/kromaji1/.opencode/bin:$PATH
