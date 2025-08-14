@@ -6,6 +6,6 @@
 set -e
 set -u
 
-# Query cheat.sh in new tmux window 
+# Query cheat.sh in new tmux window
 
 tmux neww -n "cheat" bash -c "cheat.sh"

@@ -5,4 +5,3 @@ now=`date +%F--%H-%I-%S`
 # TODO Only capture window
 
 screencapture -Jselection ~/img/screenshots/screencapture_${now}.png
-

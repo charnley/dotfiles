@@ -10,7 +10,7 @@ set -u
 
 # TODO Make use of vim :set syntax=javascript for cheat output, based on query
 # NOTE would be better if cheat.sh returns #shabang, but doubt
-# NOTE some languages has been shortend, like js is javascript 
+# NOTE some languages has been shortend, like js is javascript
 
 chtargs="T"
 curlargs="--silent"

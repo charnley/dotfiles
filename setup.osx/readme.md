@@ -17,7 +17,7 @@ I Manage all my brew packages in a Brewfile located in `lists`.
 I use Yabai, Skhd and alacritty. Yabai is the window manager, and skhd is the shortcut manager.
 To install alacritty without having Mac OSX complain about the unsafe application use.
 
-    export HOMEBREW_CASK_OPTS="--no-quarantine" 
+    export HOMEBREW_CASK_OPTS="--no-quarantine"
 
 Install the packages
 

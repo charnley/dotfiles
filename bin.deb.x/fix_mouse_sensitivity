@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
-from subprocess import Popen, PIPE
-import sys
-import numpy
 import re
+import sys
+from subprocess import PIPE, Popen
+
+import numpy
+
 
 def shell(cmd, shell=False):
 
@@ -27,20 +29,20 @@ if __name__ == "__main__":
     # cmd = 'xinput --set-prop {} "libinput Accel Speed" -0.7'
     cmd = 'xinput --set-prop {} "libinput Accel Speed" -1.0'
 
-    xrandr = shell('xrandr | grep connected | grep -v dis', shell=True)
+    xrandr = shell("xrandr | grep connected | grep -v dis", shell=True)
     xrandr = [monitor.strip() for monitor in xrandr.split("\n")[:-1]]
     for monitor in xrandr:
         monitor = monitor.split()
-        if "x" not in monitor[2]: continue
+        if "x" not in monitor[2]:
+            continue
 
         res = monitor[2]
-        res = res.split('x')
-        if res[0] == '2560':
+        res = res.split("x")
+        if res[0] == "2560":
             cmd = 'xinput --set-prop {} "libinput Accel Speed" -0.9'
 
         # if res[0] == '1920':
-            # cmd = 'xinput --set-prop {} "libinput Accel Speed" -1.0'
-
+        # cmd = 'xinput --set-prop {} "libinput Accel Speed" -1.0'
 
     # Define external mouses i want to change
     externals = [
@@ -53,21 +55,21 @@ if __name__ == "__main__":
         "SteelSeries Rival Gaming Mouse",
     ]
 
-
     # Find out if they are connected
     for external in externals:
-        xinputs = shell('xinput | grep "'+external+'" | grep pointer', shell=True)
-        xinputs = xinputs.split('\n')
+        xinputs = shell('xinput | grep "' + external + '" | grep pointer', shell=True)
+        xinputs = xinputs.split("\n")
         xinputs = [xinput.strip() for xinput in xinputs]
 
         # for every id entry, change prop
         for xinput in xinputs:
 
-            if xinput == "": continue
+            if xinput == "":
+                continue
 
             # a bit hacky, but whatever
-            xinput = xinput.split('id=')
-            xinput = xinput[-1].split('[')
+            xinput = xinput.split("id=")
+            xinput = xinput[-1].split("[")
             xinput = int(xinput[0])
 
             truecmd = cmd.format(xinput)

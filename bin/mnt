@@ -3,4 +3,3 @@
 host=$1
 
 sshfs $host:/home/$USER ~/mnt/$host
-

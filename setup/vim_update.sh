@@ -6,4 +6,3 @@
 # so no settings are used
 
 vim +PlugInstall +PlugUpgrade +PlugClean! +qall
-

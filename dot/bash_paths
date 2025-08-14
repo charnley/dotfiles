@@ -19,7 +19,7 @@ fi
 # Pip installed packages
 if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi
 
-# Compiled 
+# Compiled
 if test -d "$HOME/opt/local/bin"; then PATH="$HOME/opt/local/bin:$PATH"; fi
 
 # Gem installed packages

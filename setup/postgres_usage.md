@@ -5,7 +5,7 @@ https://stackoverflow.com/questions/38466190/cant-connect-to-postgresql-on-port-
 
 
     You have to edit pg_hba.conf to accept all requests within the network
-    #TYPE  DATABASE        USER            ADDRESS                 METHOD 
+    #TYPE  DATABASE        USER            ADDRESS                 METHOD
     host    all             all             0.0.0.0/0                trust
     host    all             all             ::1/128                  trust
 
@@ -21,5 +21,3 @@ https://stackoverflow.com/questions/38466190/cant-connect-to-postgresql-on-port-
 
     # run
     postgres -D /large/file/system
-
-

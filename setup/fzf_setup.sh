@@ -6,5 +6,3 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 # --[no-]completion    Enable/disable fuzzy completion (bash & zsh)
 # --[no-]update-rc     Whether or not to update shell configuration files
 ~/.fzf/install --key-bindings --completion --no-update-rc
-
-

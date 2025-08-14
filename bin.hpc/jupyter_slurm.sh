@@ -9,4 +9,3 @@ ssh -N -f -R $port:localhost:$port $frontend
 
 # Load modules?
 jupyter lab --no-browser --port $port
-

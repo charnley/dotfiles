@@ -76,7 +76,7 @@
 # A REFERENCE ONLY, WHEN MAKING YOUR OWN CONFIGURATION..          #
 # ############################################################### #
 
-# Reload 
+# Reload
 cmd + shift - R : bash ~/reload_wm_env.sh
 
 # New term

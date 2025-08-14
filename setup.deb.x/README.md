@@ -34,4 +34,3 @@ where `0` is the card id found before.
 ## References
 
 - https://askubuntu.com/questions/687062/usb-audio-interface-not-showing-device-in-list-for-pulseaudio
-

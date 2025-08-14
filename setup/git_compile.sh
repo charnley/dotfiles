@@ -16,4 +16,3 @@ make configure
 make all doc info
 
 make install
-

@@ -1,0 +1,39 @@
+repos:
+  # General hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+
+  # Python formatting and imports
+  - repo: https://github.com/psf/black
+    rev: 24.10.0
+    hooks:
+      - id: black
+        language_version: python3
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: ["--profile", "black"]
+
+  # # Lua formatting
+  # - repo: https://github.com/JohnnyMorganz/StyLua
+  #   rev: v2.1.0
+  #   hooks:
+  #     - id: stylua-github
+
+  # # Makefile
+  # - repo: https://github.com/mrtazz/checkmake
+  #   rev: 0.2.2
+  #   hooks:
+  #     - id: checkmake

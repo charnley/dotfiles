@@ -15,4 +15,3 @@ cd $tododir
 vim \
 -c 'ZenMode' \
 todo_$today.md
-

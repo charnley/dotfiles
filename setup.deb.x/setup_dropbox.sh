@@ -11,4 +11,3 @@ dpkg -i dropbox_2015_10_28_amd64.deb
 
 # Remove installation file
 rm      dropbox_2015_10_28_amd64.deb
-

@@ -54,4 +54,3 @@ make prefix=~/.local
 
 # install to prefix
 make install prefix=~/.local
-
