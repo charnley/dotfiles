@@ -7,7 +7,7 @@ set -u
 days_offset="${1:-0}"
 
 tododir="$HOME/todo"
-today=`gdate --date="${days_offset} days" +%Y-%m-%d`
+today=`date --date="${days_offset} days" +%Y-%m-%d`
 
 mkdir -p $tododir
 cd $tododir
