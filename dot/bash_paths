@@ -83,4 +83,7 @@ fi
 # sst / opencode
 test -d "$HOME/.opencode/" && PATH="$HOME/.opencode/bin:$PATH"
 
+# notes path (zk)
+test -d "$HOME/notes/" && export ZK_NOTEBOOK_DIR="$HOME/notes"
+
 export PATH
