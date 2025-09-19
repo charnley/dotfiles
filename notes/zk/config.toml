@@ -59,5 +59,7 @@ n = 'zk new'
 todo = 'zk new --group daily --no-input "$ZK_NOTEBOOK_DIR/todo" --template daily.md'
 meeting = 'zk new --group meeting'
 
+# index =
 update = "cd $ZK_NOTEBOOK_DIR; git add -A; git commit -am 'updating'; git push; cd -"
 rm = "zk list --interactive --quiet --format path --delimiter0 $argv | xargs -0 rm -vf --"
+clean = "# TODO remove empty template-based notes. Diff with no white, remove of white"

@@ -157,14 +157,21 @@ ${HOME}/.config/dunstrc: ./dot.deb.x/dunstrc
 ${HOME}/.config/i3status/config: ./dot.deb.x/i3status
 ${HOME}/.config/i3/config: ./dot.deb.x/i3config
 
-#
-
 ${HOME}/.fzf:
 	bash ./setup/fzf_setup.sh
 
+${HOME}/note: ${HOME}/bin/zk
+	mkdir -p $@
+	ln -s `pwd`/.zk $@/.zk
+	cd $@ && git init
+
+${HOME}/bin/zk:
+	bash ./setup/setup_zettelkasten.sh
+	ln -s ${HOME}/opt/zk.git/zk ${HOME}/bin/zk
+
 # Meta
 
-install: dotfiles bin ${HOME}/opt/neovim ${HOME}/.fzf ${HOME}/opt/tmux-3.2a ${HOME}/.oh-my-zsh
+install: dotfiles bin ${HOME}/opt/neovim ${HOME}/.fzf ${HOME}/opt/tmux-3.2a ${HOME}/.oh-my-zsh ${HOME}/bin/zk ${HOME}/note
 
 install_osx: ${HOME}/opt/homebrew
 	brew bundle --file ./lists/gnu.Brewfile
@@ -172,9 +179,6 @@ install_osx: ${HOME}/opt/homebrew
 
 ${HOME}/opt/homebrew:
 	bash ./setup.osx/setup_brew.sh
-
-install_deb:
-	@#
 
 install_laptop: install_apt install_apt_x install_fonts
 
