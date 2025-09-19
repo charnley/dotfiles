@@ -7,7 +7,7 @@ then
     export OPENSSL_ROOT_DIR=`brew --prefix openssl`
 fi
 
-TMUX_VERSION="3.2a"
+TMUX_VERSION="3.5a"
 NCURSES_VERSION="6.3"
 LIBEVENT_VERSION="2.1.12"
 
