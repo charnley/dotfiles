@@ -17,6 +17,16 @@ Then edit /usr/bin/start-pulseaudio-x11 and add the module load after the follow
 
 Then the bluetooth discover module is loaded after x11 is started. Then you can use `blueman-applet` to connect, and the sound should be visible in `pavucontrol`.
 
+## Bluetooth re-connects
+
+Bluetooth on blueman-applet is a bit buggy at times.
+Especially when it auto-connectes/pairs.
+
+so in the following conf, find the ReconnectAttempts and disable it.
+
+    # /etc/bluetooth/main.conf
+    ReconnectAttempts=0
+
 ## USB sound not showing up in `pavucontrol`
 
 In my case, the card was shown in `pactl` sink list, but not showing up in `pavucontrol`/pulseaudio
