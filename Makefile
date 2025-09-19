@@ -167,7 +167,7 @@ ${HOME}/note:
 
 ${HOME}/bin/zk:
 	bash ./setup/setup_zettelkasten.sh
-	ln -s ${HOME}/opt/zk.git/zk ${HOME}/bin/zk
+	test ! -f ${HOME}/bin/zk && ln -s ${HOME}/opt/zk.git/zk ${HOME}/bin/zk
 
 # Meta
 
