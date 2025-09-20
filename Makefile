@@ -160,7 +160,7 @@ ${HOME}/.config/i3/config: ./dot.deb.x/i3config
 ${HOME}/.fzf:
 	bash ./setup/fzf_setup.sh
 
-${HOME}/note:
+${HOME}/notes:
 	mkdir -p $@
 	ln -s `pwd`/.zk $@/.zk
 	cd $@ && git init
