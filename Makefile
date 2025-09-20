@@ -155,7 +155,7 @@ ${HOME}/notes:
 	ln -s `pwd`/.zk $@/.zk
 	cd $@ && git init
 
-${HOME}/bin/zk:
+${HOME}/bin/zk: has_go
 	bash ./setup/setup_zettelkasten.sh
 	# test ! -f ${HOME}/bin/zk && ln -s ${HOME}/opt/zk.git/zk ${HOME}/bin/zk
 
@@ -183,6 +183,11 @@ install_fonts:
 
 install_fonts_post_deb:
 	fc-cache -f -v
+
+# Languages
+
+has_go:
+	bash ./setup/install-go.sh
 
 symlink_clean:
 	# TODO if there and is symlink, rm. For example, if symlink points to dotfiles, but is deprecated
