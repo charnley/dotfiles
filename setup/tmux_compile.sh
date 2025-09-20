@@ -63,6 +63,7 @@ cd ..
 # tmux install flags
 FLAGS1="-I$LIBDIR/include -I$LIBDIR/include/ncurses"
 FLAGS2="-L$LIBDIR/lib -L$LIBDIR/include/ncurses -L$LIBDIR/include"
+FLAGS3=""
 
 # setup tmux
 cd tmux-${TMUX_VERSION}
