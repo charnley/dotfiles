@@ -1,11 +1,15 @@
 #!/bin/bash
 
+set -x
 set -e
+set -u
 
 if command -v brew
 then
     export OPENSSL_ROOT_DIR=`brew --prefix openssl`
 fi
+
+export CURL_OPTIONS="--silent --show-error"
 
 TMUX_VERSION="3.5a"
 NCURSES_VERSION="6.3"
@@ -44,7 +48,7 @@ cd libevent-release-${LIBEVENT_VERSION}-stable
 # ./configure --prefix=$LIBDIR --disable-shared
 mkdir -p build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX:PATH=$LIBDIR ..
+cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_INSTALL_PREFIX:PATH=$LIBDIR ..
 make
 make install
 cd ..
