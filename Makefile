@@ -25,7 +25,7 @@ endif
 .PHONY: vim_plugins install clean dotfiles directories
 
 # Default targets
-all: dotfiles bin tmux_plugins
+all: dotfiles bin
 
 vim_benchmark:
 	${HOME}/bin/vim -c 'StartupTime'
@@ -188,6 +188,12 @@ install_fonts_post_deb:
 
 has_go:
 	bash ./setup/install-go.sh
+
+has_lua:
+	# TODO
+
+has_rust:
+	# TODO
 
 symlink_clean:
 	# TODO if there and is symlink, rm. For example, if symlink points to dotfiles, but is deprecated

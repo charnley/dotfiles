@@ -35,10 +35,10 @@ filename="$version.$os-$arch.tar.gz"
 
 # Download the Go tarball using curl
 echo "Downloading Go $version for $os/$arch..."
-curl -L -o "$filename" "https://dl.google.com/go/$filename"
+curl --silent --show-error -L -o "$filename" "https://dl.google.com/go/$filename"
 
 # Extract the tarball
-tar -xvf "$filename"
+tar -xf "$filename"
 
 # Install: move to ~/opt and symlink
 mv go ~/opt/go
