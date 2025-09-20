@@ -186,14 +186,16 @@ install_fonts_post_deb:
 
 # Languages
 
-has_go:
+has_go: ${HOME}/opt/go
+has_rust: ${HOME}/.cargo
+
+${HOME}/opt/go:
 	bash ./setup/install-go.sh
 
-has_lua:
-	# TODO
+${HOME}/.cargo:
+	bash ./setup/install-rust.sh
 
-has_rust:
-	# TODO
+# Clean
 
 symlink_clean:
 	# TODO if there and is symlink, rm. For example, if symlink points to dotfiles, but is deprecated
