@@ -29,16 +29,6 @@ all: dotfiles bin tmux_plugins
 
 vim_benchmark:
 	${HOME}/bin/vim -c 'StartupTime'
-
-# vim_plugins:
-# 	NEOVIM_SETUP=1 ${HOME}/bin/vim --headless -c 'autocmd User PackerComplete quitall' -c 'silent PackerSync'
-
-tmux_plugins:
-	bash ./setup/tmux_plugins.sh
-
-tmux_tpm:
-	bash ./setup/tmux_tpm.sh
-
 # Directories
 
 ${HOME}/bin:
