@@ -71,7 +71,7 @@ ${HOME}/bin/vim:
 ${HOME}/opt/neovim: ${HOME}/opt/nvm
 	bash setup.$(OS)/nvim_setup.sh
 
-${HOME}/opt/tmux-3.2a:
+${HOME}/opt/tmux:
 	bash ./setup/tmux_compile.sh 1> /dev/null
 	bash ./setup/tmux_tpm.sh
 	bash ./setup/tmux_plugins.sh
@@ -171,7 +171,7 @@ ${HOME}/bin/zk:
 
 # Meta
 
-install: dotfiles bin ${HOME}/opt/neovim ${HOME}/.fzf ${HOME}/opt/tmux-3.2a ${HOME}/.oh-my-zsh ${HOME}/bin/zk ${HOME}/note
+install: dotfiles bin ${HOME}/opt/neovim ${HOME}/.fzf ${HOME}/opt/tmux ${HOME}/.oh-my-zsh ${HOME}/bin/zk ${HOME}/note
 
 install_osx: ${HOME}/opt/homebrew
 	brew bundle --file ./lists/gnu.Brewfile

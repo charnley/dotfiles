@@ -65,4 +65,8 @@ cd tmux-${TMUX_VERSION}
 ./configure CFLAGS="${FLAGS1}" LDFLAGS="${FLAGS2}"
 CPPFLAGS="$FLAGS3" LDFLAGS="-static ${FLAGS2}" make
 
+cd ..
+
+mv tmux-${TMUX_VERSION} tmux
+
 echo "done"
