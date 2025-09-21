@@ -208,3 +208,6 @@ clean_neovim:
 	mv ~/bin/vim ~/tmp/trash/
 	mv ~/.local/share/nvim/ ~/tmp/trash/
 	rm -rf ~/tmp/trash/
+
+format:
+	pre-commit run --all-files

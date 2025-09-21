@@ -26,11 +26,10 @@ repos:
       - id: isort
         args: ["--profile", "black"]
 
-  # # Lua formatting
-  # - repo: https://github.com/JohnnyMorganz/StyLua
-  #   rev: v2.1.0
-  #   hooks:
-  #     - id: stylua-github
+  - repo: https://github.com/JohnnyMorganz/StyLua
+    rev: v2.1.0
+    hooks:
+      - id: stylua # or stylua-system / stylua-github
 
   # # Makefile
   # - repo: https://github.com/mrtazz/checkmake
