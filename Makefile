@@ -151,9 +151,9 @@ ${HOME}/.fzf:
 	bash ./setup/fzf_setup.sh
 
 ${HOME}/notes:
-	mkdir -p $@
-	ln -s `pwd`/.zk $@/.zk
-	cd $@ && git init
+	mkdir $@
+	ln -s `pwd`/notes/zk $@/.zk
+	# TODO Automatic create git?
 
 ${HOME}/bin/zk: has_go
 	bash ./setup/setup_zettelkasten.sh
