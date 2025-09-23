@@ -1,34 +1,49 @@
-# Note setup using cli
+# Zettelkasten Workflow with zk
 
-- neovim
-- tmux
-- fzf
-- tk
+Knowledge management system using [zk](https://zk-org.github.io/zk/) CLI tool.
 
-https://zk-org.github.io/zk/tips/getting-started.html
+## Dependencies
 
----
+- `zk` - CLI zettelkasten tool
+- `neovim` - text editor
+- `fzf` - fuzzy finder for interactive selection
+- `bat` - file previewer
+- `rg` - like grep, for searching in files
 
-## Config
+## Workflow
 
-Spread between `bash_aliases`, neovim configuration/plugins and `tk` configuration.
+### Creating Notes
 
----
+**Quick note creation:**
+```bash
+zk n                # new note with default template
+zk todo             # new daily todo note
+zk meeting          # new meeting note
+```
 
-## Setup
+**Note groups and templates:**
+- **Default notes**: Date-based filename with metadata template
+- **Daily todos**: Simple checklist format in `todo/` directory  
+- **Meetings**: Structured format with agenda and action items
 
-- all files in ~/notes
-- Use #hashtag and tags
-- Use ´tk´ to search for tags
-- edit everything in neovim with markdown syntax
+### Finding & Editing Notes
 
----
+```bash
+zk ls               # interactive search of all notes
+zk recent           # notes from last 7 days
+zk recent-month     # notes from last 30 days
+zk f                # filter by tag (interactive)
+zk edlast           # edit most recently modified note
+```
 
-# Macros
+### Organization
 
-- [ ] Open up all files as buffers with project tag, in cronological order
-- [ ] `todo` opens up a daily template in neovim write mode
-- [ ] `meeting` opens up neovim with meeting template
-- [ ] Auto all notes to a git repository
-- [ ] remindme tomorrow "Finish the project"
+- **Hashtags**: Use `#tag` syntax for categorization
+- **Frontmatter**: YAML metadata with date, title, tags
+- **File naming**: Auto-generated with date and ID (`YYYY-MM-DD-xxxxxxxx.md`)
 
+### Git Integration
+
+```bash
+zk update           # commit and push all changes, if your notes folder has a git remote
+```
