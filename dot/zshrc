@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+test -f ~/.bashrc_local && source ~/.bashrc_local
+
 #zmodload zsh/zprof
 
 # Disable auto-update prompt

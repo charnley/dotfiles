@@ -23,7 +23,7 @@ zk meeting          # new meeting note
 
 **Note groups and templates:**
 - **Default notes**: Date-based filename with metadata template
-- **Daily todos**: Simple checklist format in `todo/` directory  
+- **Daily todos**: Simple checklist format in `todo/` directory
 - **Meetings**: Structured format with agenda and action items
 
 ### Finding & Editing Notes

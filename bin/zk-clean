@@ -1,0 +1,191 @@
+#!/usr/bin/env bash
+# bin/zk-clean - Clean up empty notes from zettelkasten
+
+set -euo pipefail
+
+if [[ -z "${ZK_NOTEBOOK_DIR:-}" ]]; then
+    echo "Error: ZK_NOTEBOOK_DIR environment variable not set" >&2
+    exit 1
+fi
+
+ZK_DIR="$ZK_NOTEBOOK_DIR"
+TEMPLATES_DIR="$ZK_DIR/.zk/templates"
+DRY_RUN=false
+VERBOSE=false
+
+usage() {
+    cat << EOF
+Usage: $(basename "$0") [OPTIONS]
+
+Clean up empty or template-only notes from zettelkasten.
+
+OPTIONS:
+    -d, --dry-run    Show what would be deleted without actually deleting
+    -v, --verbose    Show detailed output
+    -h, --help       Show this help message
+
+DETECTION CRITERIA:
+    1. Files containing only whitespace
+    2. Files identical to any template (ignoring date/title placeholders)
+    3. Files with only template placeholders unchanged (*** markers, "Untitled")
+
+ENVIRONMENT:
+    ZK_NOTEBOOK_DIR  Path to zettelkasten directory (required)
+EOF
+}
+
+is_empty_or_whitespace() {
+    local file="$1"
+    [[ ! -s "$file" ]] || ! grep -q '[^[:space:]]' "$file"
+}
+
+normalize_template_content() {
+    local content="$1"
+    local title="${2:-Untitled}"
+    local date
+    date=$(date '+%B %d, %Y')
+
+    # Replace template placeholders with normalized values
+    content="${content//\{\{ format-date now \'long\' \}\}/$date}"
+    content="${content//\{\{ format-date now \"long\" \}\}/$date}"
+    content="${content//\{\{ title \}\}/$title}"
+
+    echo "$content"
+}
+
+is_template_only() {
+    local file="$1"
+    local note_content
+    local title
+    local template_file
+
+    note_content=$(cat "$file")
+
+    # Extract title from frontmatter or use default
+    title=$(grep -m1 '^title:' "$file" 2>/dev/null | sed 's/^title: *//' || echo "Untitled")
+
+    # Check against all template files
+    for template_file in "$TEMPLATES_DIR"/*.md; do
+        [[ -f "$template_file" ]] || continue
+
+        local template_content
+        local normalized_template
+
+        template_content=$(cat "$template_file")
+        normalized_template=$(normalize_template_content "$template_content" "$title")
+
+        # Check if note content matches this normalized template
+        if [[ "$note_content" == "$normalized_template" ]]; then
+            [[ "$VERBOSE" == true ]] && echo "  Matches template: $(basename "$template_file")"
+            return 0
+        fi
+    done
+
+    return 1
+}
+
+has_only_template_markers() {
+    local file="$1"
+    local content
+    content=$(cat "$file")
+
+    # Remove frontmatter
+    content=$(echo "$content" | sed '/^---$/,/^---$/d')
+
+    # Remove whitespace
+    content=$(echo "$content" | sed 's/[[:space:]]//g')
+
+    # Check if only contains template markers
+    content="${content//\*\*\*/}"
+    content="${content//Untitled/}"
+    content="${content//-\[\]/}"  # Empty checkboxes
+    content="${content//##/}"     # Headers
+    content="${content//-/}"      # Bullets
+
+    [[ -z "$content" ]]
+}
+
+find_empty_notes() {
+    local empty_files=()
+
+    # Find all markdown files in the notes directory
+    while IFS= read -r -d '' file; do
+        if is_empty_or_whitespace "$file"; then
+            empty_files+=("$file")
+            [[ "$VERBOSE" == true ]] && echo "Empty/whitespace: $file"
+        elif is_template_only "$file"; then
+            empty_files+=("$file")
+            [[ "$VERBOSE" == true ]] && echo "Template-only: $file"
+        elif has_only_template_markers "$file"; then
+            empty_files+=("$file")
+            [[ "$VERBOSE" == true ]] && echo "Template markers only: $file"
+        fi
+    done < <(find "$ZK_DIR" -name "*.md" -not -path "*/templates/*" -print0)
+
+    printf '%s\n' "${empty_files[@]}"
+}
+
+main() {
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -d|--dry-run)
+                DRY_RUN=true
+                shift
+                ;;
+            -v|--verbose)
+                VERBOSE=true
+                shift
+                ;;
+            -h|--help)
+                usage
+                exit 0
+                ;;
+            *)
+                echo "Unknown option: $1" >&2
+                usage >&2
+                exit 1
+                ;;
+        esac
+    done
+
+    if [[ ! -d "$ZK_DIR" ]]; then
+        echo "Error: Notes directory not found: $ZK_DIR" >&2
+        exit 1
+    fi
+
+    if [[ ! -d "$TEMPLATES_DIR" ]]; then
+        echo "Error: Templates directory not found: $TEMPLATES_DIR" >&2
+        exit 1
+    fi
+
+    echo "Scanning for empty notes in: $ZK_DIR"
+
+    mapfile -t empty_files < <(find_empty_notes)
+
+    if [[ ${#empty_files[@]} -eq 0 ]]; then
+        echo "No empty notes found."
+        exit 0
+    fi
+
+    echo "Found ${#empty_files[@]} empty note(s):"
+    printf '  %s\n' "${empty_files[@]}"
+
+    if [[ "$DRY_RUN" == true ]]; then
+        echo "Dry run - no files deleted."
+    else
+        echo
+        read -p "Delete these files? [y/N] " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            for file in "${empty_files[@]}"; do
+                rm -f "$file"
+                echo "Deleted: $file"
+            done
+            echo "Cleanup complete."
+        else
+            echo "Cleanup cancelled."
+        fi
+    fi
+}
+
+main "$@"
