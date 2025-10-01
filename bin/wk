@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Work notebook wrapper for zk
+
+export ZK_NOTEBOOK_DIR="$HOME/notes-work"
+exec zk "$@"
