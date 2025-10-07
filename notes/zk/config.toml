@@ -1,5 +1,4 @@
 [note]
-
 language = "en"
 default-title = "Untitled"
 filename = "{{format-date now '%Y-%m-%d'}}-{{id}}"
@@ -43,11 +42,7 @@ editor = "vim -c \"call search('Untitled')\" "
 pager = "less -FIRX"
 fzf-preview = "bat -p --color always {-1}"
 
-# [filter]
-# recents = "--sort created- --created-after 'last two weeks'"
-
 [alias]
-
 edlast = "zk edit --limit 1 --sort modified- $argv"
 recent = "zk edit --sort created- --created-after 'last 7 days' --interactive"
 recent-month = "zk edit --sort created- --created-after 'last 30 days' --interactive"
@@ -59,9 +54,6 @@ n = 'zk new'
 todo = 'zk new --group daily --no-input "$ZK_NOTEBOOK_DIR/todo" --template daily.md'
 meeting = 'zk new --group meeting'
 
-# index =
 update = "cd $ZK_NOTEBOOK_DIR; git add -A; git commit -am 'updating'; git push; cd -"
-# rm = "zk list --quiet --format path --delimiter0 $argv | fzf # | xargs -0 rm -vf --"
-# rm = "zk list --quiet --format path | fzf --preview 'bat -p --color always {-1}' --multi "
 clean = "zk-clean"
 clean-dry = "zk-clean --dry-run"
