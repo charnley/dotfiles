@@ -4,3 +4,5 @@ tap "koekeishiya/formulae"
 brew "skhd"
 brew "yabai"
 cask "alacritty"
+
+cask "moc"
