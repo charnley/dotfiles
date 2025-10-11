@@ -39,15 +39,21 @@ is_empty_or_whitespace() {
     [[ ! -s "$file" ]] || ! grep -q '[^[:space:]]' "$file"
 }
 
+strip_frontmatter() {
+    local content="$1"
+    
+    # Remove frontmatter (everything between --- lines)
+    echo "$content" | sed '/^---$/,/^---$/d'
+}
+
 normalize_template_content() {
     local content="$1"
     local title="${2:-Untitled}"
-    local date
-    date=$(date '+%B %d, %Y')
-
+    
+    # Strip frontmatter first
+    content=$(strip_frontmatter "$content")
+    
     # Replace template placeholders with normalized values
-    content="${content//\{\{ format-date now \'long\' \}\}/$date}"
-    content="${content//\{\{ format-date now \"long\" \}\}/$date}"
     content="${content//\{\{ title \}\}/$title}"
 
     echo "$content"
@@ -56,10 +62,14 @@ normalize_template_content() {
 is_template_only() {
     local file="$1"
     local note_content
+    local note_content_no_frontmatter
     local title
     local template_file
 
     note_content=$(cat "$file")
+    
+    # Strip frontmatter from note content for comparison
+    note_content_no_frontmatter=$(strip_frontmatter "$note_content")
 
     # Extract title from frontmatter or use default
     title=$(grep -m1 '^title:' "$file" 2>/dev/null | sed 's/^title: *//' || echo "Untitled")
@@ -74,8 +84,8 @@ is_template_only() {
         template_content=$(cat "$template_file")
         normalized_template=$(normalize_template_content "$template_content" "$title")
 
-        # Check if note content matches this normalized template
-        if [[ "$note_content" == "$normalized_template" ]]; then
+        # Check if note content (without frontmatter) matches this normalized template
+        if [[ "$note_content_no_frontmatter" == "$normalized_template" ]]; then
             [[ "$VERBOSE" == true ]] && echo "  Matches template: $(basename "$template_file")"
             return 0
         fi
