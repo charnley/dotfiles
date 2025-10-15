@@ -10,14 +10,6 @@ id-case = "lower"
 
 [group]
 
-[group.standup]
-paths = ["notes/standup"]
-
-[group.standup.note]
-filename = "{{format-date now}}"
-extension = "md"
-template = "standup.md"
-
 [group.daily]
 paths = ["todo"]
 
@@ -54,7 +46,8 @@ n = 'zk new'
 todo = 'zk new --group daily --no-input "$ZK_NOTEBOOK_DIR/todo" --template daily.md'
 meeting = 'zk new --group meeting'
 
-update = "set -x; cd $ZK_NOTEBOOK_DIR; git pull; git add -A; git commit -am 'updating'; git push; cd -"
+update = "cd $ZK_NOTEBOOK_DIR; git add -A; git commit -am 'updating'; git push; cd -"
+
 clean = "zk-clean"
 clean-dry = "zk-clean --dry-run"
 
