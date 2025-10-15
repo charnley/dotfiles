@@ -51,4 +51,4 @@ update = "cd $ZK_NOTEBOOK_DIR; git add -A; git commit -am 'updating'; git push; 
 clean = "zk-clean"
 clean-dry = "zk-clean --dry-run"
 
-open-tasks = "cd $ZK_NOTEBOOK_DIR; wk list --tag $(zk tag --quiet | fzf | awk '{print $1}') --format {{path}} --quiet | xargs rg --no-heading --with-filename -F '[ ]'"
+open-tasks = "cd $ZK_NOTEBOOK_DIR; zk list --tag $(zk tag --quiet | fzf | awk '{print $1}') --format {{path}} --quiet | xargs rg --no-heading --with-filename -F '[ ]'"
