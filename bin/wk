@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 # Work notebook wrapper for zk
 
+set -e
+
 export ZK_NOTEBOOK_DIR="$HOME/notes-work"
+
+test -d "$ZK_NOTEBOOK_DIR" || echo "You are not at work"; exit 1
+
 exec zk "$@"
