@@ -183,18 +183,10 @@ main() {
     if [[ "$DRY_RUN" == true ]]; then
         echo "Dry run - no files deleted."
     else
-        echo
-        read -p "Delete these files? [y/N] " -n 1 -r
-        echo
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
-            for file in "${empty_files[@]}"; do
-                rm -f "$file"
-                echo "Deleted: $file"
-            done
-            echo "Cleanup complete."
-        else
-            echo "Cleanup cancelled."
-        fi
+        for file in "${empty_files[@]}"; do
+            rm -f "$file"
+            echo "Deleted: $file"
+        done
     fi
 }
 
