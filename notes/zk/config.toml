@@ -35,20 +35,28 @@ pager = "less -FIRX"
 fzf-preview = "bat -p --color always {-1}"
 
 [alias]
-edlast = "zk edit --limit 1 --sort modified- $argv"
-recent = "zk edit --sort created- --created-after 'last 7 days' --interactive"
-recent-month = "zk edit --sort created- --created-after 'last 30 days' --interactive"
-ls = "zk edit --interactive"
-f = "zk edit --interactive --tag $(zk tag | fzf | awk '{print $1}')"
-t = "zk edit --tag $(zk tag | fzf | awk '{print $1}')"
 
+# Create new note, from templates
 n = 'zk new'
 todo = 'zk new --group daily --no-input "$ZK_NOTEBOOK_DIR/todo" --template daily.md'
 meeting = 'zk new --group meeting'
 
-update = "cd $ZK_NOTEBOOK_DIR; git add -A; git commit -am 'updating'; git pull; git push; cd -"
+# Find and edit
+edlast = "zk edit --limit 1 --sort modified- $argv"
+recent = "zk edit --sort created- --created-after 'last 7 days' --interactive"
+recent-month = "zk edit --sort created- --created-after 'last 30 days' --interactive"
+ls = "zk edit --interactive --sort created"
+t = "zk edit --interactive --tag $(zk tag --quiet | fzf | awk '{print $1}')"
+ta = "zk edit --tag $(zk tag --quiet | fzf | awk '{print $1}')"
 
+# Multi tag support (work-in-progress)
+# ta = "zk tag --quiet | fzf --multi | awk '{print \"--tag\", $1}' | xargs zk edit"
+# t = "zk tag --quiet | fzf --multi | awk '{print \"--tag\", $1}' | xargs zk edit --interactive"
+
+# Manage the notes
+update = "cd $ZK_NOTEBOOK_DIR; git add -A; git commit -am 'updating'; git pull; git push; cd -"
 clean = "zk-clean"
 clean-dry = "zk-clean --dry-run"
 
+# Find all unresolved tasks within a zk tag
 open-tasks = "cd $ZK_NOTEBOOK_DIR; zk list --tag $(zk tag --quiet | fzf | awk '{print $1}') --format {{path}} --quiet | xargs rg --no-heading --with-filename -F '[ ]'"

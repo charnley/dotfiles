@@ -45,5 +45,11 @@ zk edlast           # edit most recently modified note
 ### Git Integration
 
 ```bash
-zk update           # commit and push all changes, if your notes folder has a git remote
+# commit, pull and push all changes, if your notes folder has a git remote
+zk update
 ```
+
+## TODO
+
+- [ ] What if I want to publish a note? For example planning
+- [ ] What if I want to read a note on the go? For example recipe
