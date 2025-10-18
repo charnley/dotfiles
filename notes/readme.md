@@ -32,8 +32,10 @@ zk meeting          # new meeting note
 zk ls               # interactive search of all notes
 zk recent           # notes from last 7 days
 zk recent-month     # notes from last 30 days
-zk f                # filter by tag (interactive)
+zk t                # filter by tag (interactive)
+zk ta               # filter by tag, open all
 zk edlast           # edit most recently modified note
+zk open-tasks       # filter by tag, find all unresolved tasks (e.i. [ ])
 ```
 
 ### Organization
@@ -42,11 +44,12 @@ zk edlast           # edit most recently modified note
 - **Frontmatter**: YAML metadata with date, title, tags
 - **File naming**: Auto-generated with date and ID (`YYYY-MM-DD-xxxxxxxx.md`)
 
-### Git Integration
+### Management
 
 ```bash
-# commit, pull and push all changes, if your notes folder has a git remote
-zk update
+zk update # commit, pull and push all changes, if your notes folder has a git remote
+zk clean # find empty notes and remove them
+zk sync # do both tasks above
 ```
 
 ## TODO
