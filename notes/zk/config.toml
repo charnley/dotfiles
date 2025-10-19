@@ -10,10 +10,10 @@ id-case = "lower"
 
 [group]
 
-[group.daily]
+[group.today]
 paths = ["todo"]
 
-[group.daily.note]
+[group.today.note]
 filename = "{{format-date now '%Y-%m-%d'}}"
 extension = "md"
 template = "daily.md"
@@ -39,7 +39,8 @@ fzf-options = "--multi"
 
 # Create new note, from templates
 n = 'zk new'
-todo = 'zk new --group daily --no-input "$ZK_NOTEBOOK_DIR/todo" --template daily.md'
+today = 'zk new --group today --no-input "$ZK_NOTEBOOK_DIR/todo" --template daily.md'
+# tomorrow = 'zk new --group tomorrow --no-input "$ZK_NOTEBOOK_DIR/todo" --template daily.md'
 meeting = 'zk new --group meeting'
 
 # Find and edit
