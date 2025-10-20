@@ -51,10 +51,6 @@ ls = "zk edit --interactive --sort created"
 t = "zk edit --interactive --tag $(zk tag --quiet | fzf | awk '{print $1}')"
 ta = "zk edit --tag $(zk tag --quiet | fzf | awk '{print $1}')"
 
-# Multi tag support (work-in-progress)
-# ta = "zk tag --quiet | fzf --multi | awk '{print \"--tag\", $1}' | xargs zk edit"
-# t = "zk tag --quiet | fzf --multi | awk '{print \"--tag\", $1}' | xargs zk edit --interactive"
-
 # Manage the notes
 update = "cd $ZK_NOTEBOOK_DIR; git add -A; git commit -am 'updating'; git pull; git push; cd -"
 clean = "zk-clean"
