@@ -5,6 +5,6 @@ set -e
 
 export ZK_NOTEBOOK_DIR="$HOME/notes-work"
 
-test -d "$ZK_NOTEBOOK_DIR" || echo "You are not at work"; exit 1
+test -d "$ZK_NOTEBOOK_DIR" || echo "You are not at work"
 
 exec zk "$@"
