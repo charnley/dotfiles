@@ -14,6 +14,7 @@ alias gco='git commit'
 alias gca='git commit -a'
 alias gad='git add .'
 alias gamend='git commit --amend'
+alias gconflicts='git diff --name-only --diff-filter=U --relative | xargs vim'
 
 alias gd='git diff --color-words'
 alias gdc='git diff --cached'

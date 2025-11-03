@@ -45,4 +45,5 @@ put "\033]52;c;$( printf %s "$buf" | head -c $max | base64 | tr -d '\r\n' )\a"
 test -n "$TMUX" && tmux set-buffer "$buf" ||:
 
 # also copy via X11
-test -n "$DISPLAY" && printf %s "$buf" | { xsel -i -b || xclip -sel c ;} ||:
+# TODO Break on WSL2
+# test -n "$DISPLAY" && printf %s "$buf" | { xsel -i -b || xclip -sel c ;} ||:

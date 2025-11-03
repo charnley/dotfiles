@@ -1,0 +1,6 @@
+{
+    "task": {
+        "prefix": "task",
+        "body": ["- [ ] ${1:task}"]
+    }
+}
