@@ -37,3 +37,4 @@ Setup
     # Check for updated dotfiles and check all plugins (e.g. VIM plugin update)
     git pull # Get latest changed
     make # Check all symlinks and plugins
+
