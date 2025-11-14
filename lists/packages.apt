@@ -1,7 +1,8 @@
-git
-curl
-zsh
-make
 cmake
-openssl
+curl
+git
 libssl-dev
+make
+openssl
+ruby
+zsh
