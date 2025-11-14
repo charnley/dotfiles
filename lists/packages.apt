@@ -1,8 +1,10 @@
+build-essential
 cmake
 curl
 git
 libssl-dev
 make
 openssl
-ruby
+ruby-full
+zlib1g-dev
 zsh

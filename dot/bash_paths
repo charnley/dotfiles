@@ -31,6 +31,10 @@ if test -d "$HOME/.gem/"; then PATH="$HOME/.gem/ruby/$rubyver/bin:$PATH"; fi
 rubyver=3.0.0
 test -d $HOME/.local/share/gem/ruby/${rubyver}/bin && PATH="$PATH:$HOME/.local/share/gem/ruby/${rubyver}/bin"
 
+# Ruby default
+export GEM_HOME="$HOME/.gems"
+if test -d "$HOME/.gems/"; then PATH="$HOME/.gems/bin:$PATH"; fi
+
 # Global bins
 if test -d "/opt/bin"; then PATH="/opt/bin:$PATH"; fi
 if test -d "/opt/sbin"; then PATH="/opt/sbin:$PATH"; fi
