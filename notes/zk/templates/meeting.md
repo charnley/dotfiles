@@ -1,11 +1,8 @@
 ---
 date: {{ format-date now 'long' }}
 title: {{ title }}
-tags: []
+tags: [Untitled]
 ---
 
+Untitled
 
-
-## Actions
-
-- [ ] ***
