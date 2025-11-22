@@ -44,7 +44,7 @@ today = 'zk new --group today --no-input "$ZK_NOTEBOOK_DIR/todo" --template dail
 meeting = 'zk new --group meeting'
 
 # Find and edit
-edlast = "zk edit --limit 1 --sort modified- $argv"
+last = "zk edit --limit 1 --sort modified- $argv"
 recent = "zk edit --sort created- --created-after 'last 7 days' --interactive"
 recent-month = "zk edit --sort created- --created-after 'last 30 days' --interactive"
 ls = "zk edit --interactive --sort created"
