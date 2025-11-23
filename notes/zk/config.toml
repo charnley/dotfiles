@@ -40,8 +40,14 @@ fzf-options = "--multi --tiebreak begin --exact --tabstop 4 --height 100% --no-h
 # Create new note, from templates
 n = 'zk new'
 today = 'zk new --group today --no-input "$ZK_NOTEBOOK_DIR/todo" --template daily.md'
-# tomorrow = 'zk new --group tomorrow --no-input "$ZK_NOTEBOOK_DIR/todo" --template daily.md'
 meeting = 'zk new --group meeting'
+m = 'zk meeting'
+
+# Usage:
+# - zk todo next friday
+# - zk todo tomorrow
+# - zk todo yesterday
+todo = 'zk new --group today --no-input --date "$(date -d "$*" +%Y-%m-%d)" "$ZK_NOTEBOOK_DIR/todo" --template daily.md'
 
 # Find and edit
 last = "zk edit --limit 1 --sort modified- $argv"
