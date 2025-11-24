@@ -15,6 +15,7 @@ if test -d /opt/homebrew; then
         test -d $dir/libexec/gnubin && PATH="$dir/libexec/gnubin:$PATH"
     done
 fi
+test -d /opt/homebrew/opt/coreutils/libexec/gnubin && PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 
 # Pip installed packages
 if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi

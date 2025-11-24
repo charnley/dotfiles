@@ -18,6 +18,22 @@ filename = "{{format-date now '%Y-%m-%d'}}"
 extension = "md"
 template = "daily.md"
 
+[group.tomorrow]
+paths = ["todo"]
+
+[group.tomorrow.note]
+filename = "{{format-date now '%Y-%m-%d'}}"
+extension = "md"
+template = "daily.md"
+
+[group.yesterday]
+paths = ["todo"]
+
+[group.yesterday.note]
+filename = "{{format-date now '%Y-%m-%d'}}"
+extension = "md"
+template = "daily.md"
+
 [group.meeting]
 paths = ["meetings"]
 
