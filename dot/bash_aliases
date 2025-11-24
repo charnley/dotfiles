@@ -31,13 +31,8 @@ alias cg='cd $(git rev-parse --show-toplevel)'
 
 alias egd='vim $(git diff --name-only)'
 
-# Annoying mac uses different ls
-if [[ $(uname -s) == Linux ]]
-then
-    alias ls='ls --color'
-else
-    alias ls='ls -G'
-fi
+# Annoying mac uses different ls, so I changed it to use GNU tools in bash_paths
+alias ls='ls --color'
 alias l='ls -lh'
 
 
