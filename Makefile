@@ -140,10 +140,10 @@ dotfiles_deb: ${HOME}/.inputrc
 
 ${HOME}/.inputrc: ./dot.deb/inputrc
 
-dotfiles_deb.x: ${HOME}/.Xresources ${HOME}/.config/dunstrc ${HOME}/.config/i3status/config ${HOME}/.config/i3/config
+dotfiles_deb.x: ${HOME}/.Xresources ${HOME}/.config/dunst/dunstrc ${HOME}/.config/i3status/config ${HOME}/.config/i3/config
 
 ${HOME}/.Xresources: ./dot.deb.x/Xresources
-${HOME}/.config/dunstrc: ./dot.deb.x/dunstrc
+${HOME}/.config/dunst/dunstrc: ./dot.deb.x/dunstrc
 ${HOME}/.config/i3status/config: ./dot.deb.x/i3status
 ${HOME}/.config/i3/config: ./dot.deb.x/i3config
 

@@ -1,5 +1,5 @@
 [global]
-    font = Mononoki 24
+    font = Mononoki 13
 
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -150,8 +150,9 @@
     icon_folders = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
 
 [frame]
-    width = 0 # no frame
-    color = "#333333"
+    width = 2 # no frame
+    # color = "#333333"
+    color = "#0373bb"
 
 [shortcuts]
 
@@ -183,7 +184,8 @@
 
 [urgency_normal]
     # background = "#179C48"
-    background = "#0373bb"
+    # background = "#0373bb"
+    background = "#111111"
     foreground = "#ffffff"
     timeout = 5
 
