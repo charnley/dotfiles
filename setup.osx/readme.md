@@ -1,123 +1,243 @@
-# Mac OSX
+# Mac OSX Setup
 
-So you want to have a Debian i3wm-like workflow on mac? Too bad.
-Well, this is as close you will get. First to do anything you'll need brew and standard GNU tools.
-And before that you'll need to setup xcode.
+So you want to have a Debian i3wm-like workflow on Mac? Too bad.
+Well, this is as close as you'll get.
 
-    xcode-select --install
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+## Prerequisites
 
-with xcode and brew setup, we can then install all the standard tools you are use too.
-I Manage all my brew packages in a Brewfile located in `lists`.
+Before anything else, you'll need Xcode Command Line Tools and Homebrew (Mac's package manager).
 
-    brew bundle --file ./lists/gnu.Brewfile  # install all expected terminal tools
+### 1. Install Xcode Command Line Tools
 
-## Window manager and i3-like setup
+```bash
+xcode-select --install
+```
 
-I use Yabai, Skhd and alacritty. Yabai is the window manager, and skhd is the shortcut manager.
-To install alacritty without having Mac OSX complain about the unsafe application use.
+This will prompt a dialog box - click "Install" and wait for it to complete.
 
-    export HOMEBREW_CASK_OPTS="--no-quarantine"
+### 2. Install Homebrew
 
-Install the packages
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
 
-    brew bundle --file ./lists/i3like.Brewfile  # install window manager, and terminal to make it feel like i3wm
+Follow the on-screen instructions. After installation, you may need to add Homebrew to your PATH (the installer will tell you how).
 
-Then start the services. When starting each service the first time you will be prompted by Mac to add the service in
+### 3. Install Standard GNU Tools
 
-    System Preferences -> Security & Privacy -> Accessbility
+With Xcode and Homebrew set up, install the standard Linux/GNU tools you're used to. All brew packages are managed in Brewfiles located in the `lists/` directory.
 
-Please check of each service when prompted
+```bash
+brew bundle --file ./lists/gnu.Brewfile
+```
 
-    brew services start yabai
-    brew services start skhd
+This installs GNU versions of common tools (grep, sed, find, etc.)
 
-Some shortcuts are not manageable with skhd. Let's setup Desktop switching. First create all 10 Desktops. Press Ctrl - Up and find the "+" on the right side. Add until you have 1-9 Desktops. Then to fix shortcuts goto
+## Window Manager and i3-like Setup
 
-    System Preferences -> Keyboard -> Shortcuts -> Mission Control
-    Select each "Switch to Desktop X" and change it to Cmd + X
+This setup uses three main tools:
+- **Yabai**: Tiling window manager (like i3wm)
+- **skhd**: Keyboard shortcut daemon (like i3's keybindings)
+- **Alacritty**: Fast, GPU-accelerated terminal emulator
 
-Fix spaces reordering automatically.
+### 1. Install the i3-like Stack
 
-    System Preferences -> Mission Control
-    uncheck the option "Automatically rearrange Spaces based on most recent use".
+First, prevent macOS from complaining about "unsafe applications":
 
-Note, yabai will only work with "Displays have seperate Spaces" enabled
+```bash
+export HOMEBREW_CASK_OPTS="--no-quarantine"
+```
 
-    System Preferences -> Mission Control
-    check the option "Displays have seperate Spaces".
+Then install everything:
 
-There are other settings that might be worth changing see https://github.com/koekeishiya/yabai/wiki/Tips-and-tricks
+```bash
+brew bundle --file ./lists/i3like.Brewfile
+```
+
+### 2. Start the Services
+
+Start Yabai and skhd:
+
+```bash
+brew services start yabai
+brew services start skhd
+```
+
+**Important**: The first time you start each service, macOS will prompt you to grant permissions.
+
+Go to: **System Preferences → Security & Privacy → Accessibility**
+
+Check the box for each service when prompted (yabai and skhd).
+
+### 3. Configure Desktop Switching
+
+Some shortcuts aren't manageable with skhd, so we'll configure them in macOS settings.
+
+#### Create Multiple Desktops (Spaces)
+
+1. Press <kbd>Ctrl</kbd> + <kbd>Up</kbd> to open Mission Control
+2. Click the **"+"** button in the top-right corner
+3. Repeat until you have 9 desktops (labeled 1-9)
+
+#### Set Keyboard Shortcuts
+
+Go to: **System Preferences → Keyboard → Shortcuts → Mission Control**
+
+For each "Switch to Desktop X" option:
+- Check the box to enable it
+- Click on the shortcut and press <kbd>Cmd</kbd> + <kbd>[number]</kbd>
+
+Example: "Switch to Desktop 1" should be <kbd>Cmd</kbd> + <kbd>1</kbd>
+
+#### Fix Desktop Auto-Reordering
+
+macOS likes to rearrange your desktops based on usage. This is annoying for tiling workflows.
+
+Go to: **System Preferences → Mission Control**
+
+- **Uncheck**: "Automatically rearrange Spaces based on most recent use"
+- **Check**: "Displays have separate Spaces" (required for Yabai to work properly)
+
+**Additional tips**: See https://github.com/koekeishiya/yabai/wiki/Tips-and-tricks for more configuration options.
 
 ## Extra Mac Settings
 
-Change the default colour look for mac
+### Appearance
 
-    System Preferences -> General
-    Set "Appearance" to "Dark"
+Make macOS look better and feel snappier:
 
-Disable the animation when switching desktops and reduce transparency.
+**Go to: System Preferences → General**
+- Set "Appearance" to **Dark**
 
-    System Preferences -> Accesibility -> Display
-    Check "Reduce motion"
-    Check "Reduce transparency"
+**Go to: System Preferences → Accessibility → Display**
+- **Check**: "Reduce motion" (disables animations when switching desktops)
+- **Check**: "Reduce transparency" (improves performance and readability)
 
+### Dock
 
-The mac bar at the bottom is taking a lot of space. Let's remove it by default
+The Dock at the bottom takes up valuable screen space. Hide it by default:
 
-    System Preferences -> Dock & Menu Bar
-    Check "Automatically hide and show the Dock"
-    Uncheck "Animate opening applications"
-    Change "Size" to your liking
+**Go to: System Preferences → Dock & Menu Bar**
+- **Check**: "Automatically hide and show the Dock"
+- **Uncheck**: "Animate opening applications"
+- Adjust **Size** to your preference (smaller is better for tiling workflows)
 
-For editing documents (especially in the browser), home & end jumps to the bottom of the page.
-This can be changed by https://damieng.com/blog/2015/04/24/make-home-end-keys-behave-like-windows-on-mac-os-x/
+### Fix Home/End Key Behavior
 
-## Mac hardware
+By default on Mac, **Home** and **End** jump to the beginning/end of the entire document (not the line). This is annoying when editing code or documents.
+
+Fix it by following this guide: https://damieng.com/blog/2015/04/24/make-home-end-keys-behave-like-windows-on-mac-os-x/
+
+**TL;DR**: Create a key bindings file at `~/Library/KeyBindings/DefaultKeyBinding.dict` to make Home/End behave like they do on Linux/Windows.
+
+## Hardware Configuration
 
 ### Mouse
 
-To change the direction of the mouse scroll
+If you're coming from Linux/Windows, Mac's "natural" scroll direction will feel backwards.
 
-    System Preferences -> Mouse -> Scroll direction (uncheck)
+**Go to: System Preferences → Mouse**
+- **Uncheck**: "Scroll direction: Natural"
+
+Now scrolling down moves content down (like every other OS).
 
 ### Keyboard
 
-If you are like me, and never use Caps for anything, change it to Cmd (Super) for extra easy modifier
-This needs to be done per-new external keyboard.
+#### Remap Caps Lock to Command
 
-    System Preferences -> Keyboard -> Modifiers
-    Select keyboard
-    Change caps to command
+If you never use Caps Lock (and who does?), remap it to **Command** for an easier-to-reach modifier key.
 
+**Go to: System Preferences → Keyboard → Modifier Keys**
+1. Select your keyboard from the dropdown
+2. Change **Caps Lock** to **Command**
 
-### Mac shortcuts
+**Note**: You'll need to do this for each external keyboard you connect.
 
-The default keyboard shortcut for screenshot is pretty f*cked on mac. Change it.
+#### Fix Screenshot Shortcuts
 
-    System Preferences -> Keyboard -> Shortcuts -> Screenshots
-    Change "Save picture of selected area as a file"
+Mac's default screenshot shortcuts are unnecessarily complex and conflict with useful shortcuts.
 
-My default is "Cmd + p". Uncheck the rest, as you probably use those shortcuts for other things.
+**Go to: System Preferences → Keyboard → Shortcuts → Screenshots**
 
-# TODO
+1. Find "Save picture of selected area as a file"
+2. Change it to something simple like <kbd>Cmd</kbd> + <kbd>P</kbd> (or your preference)
+3. Uncheck the other screenshot shortcuts you won't use
 
-    yabai float toggle shortcut
-    yabai reset layout, useful for when moving between docks/screen
+**Why?** The default is <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>4</kbd>, which is hard to press and you probably won't remember it.
 
-    disable ALL BELL, turned down system bell
+## Menu Bar (Top Status Bar)
 
-    pageup / pagedown / home / end on mac keyboard
+Clean up the menu bar to reduce clutter:
 
-    pull-down termina, cmd+shift+enter = open a tmp terminal for fast commands
+**Go to: System Preferences → Control Centre → Menu Bar Only**
 
-    timer.py, from terminal "set timer with note" fast
+Remove unnecessary items like:
+- Siri
+- Spotlight
+- Day of the week from the clock
 
+Keep only what you actually use (battery, Wi-Fi, volume, clock).
 
-# Tips
+## Control Auto-Start Apps
 
- - Set paste-without-format to a more sane default. Instead of pressing
-   `Cmd+V`, press `Opt+Shft+Cmd+V` to paste text without any formatting.
+Prevent unnecessary apps from launching at startup:
 
-- Problems with command after pipe?
-  https://superuser.com/questions/1012574/why-is-bash-reporting-command-not-found-in-some-cases-in-the-terminal-but-not
+**Go to: System Preferences → General → Login Items**
+
+Review the list and disable anything you don't need running at startup. This speeds up boot time and reduces background processes.
+
+## Tips and Tricks
+
+### Paste Without Formatting
+
+When you copy formatted text (from a website, PDF, etc.) and want to paste it as plain text:
+
+- **Default paste**: <kbd>Cmd</kbd> + <kbd>V</kbd> (keeps formatting)
+- **Paste without format**: <kbd>Opt</kbd> + <kbd>Shift</kbd> + <kbd>Cmd</kbd> + <kbd>V</kbd> (plain text only)
+
+This is incredibly useful when pasting code or text into documents.
+
+### Command Not Found After Pipe?
+
+If you're getting "command not found" errors after using pipes (`|`) in the terminal, see this explanation: https://superuser.com/questions/1012574/why-is-bash-reporting-command-not-found-in-some-cases-in-the-terminal-but-not
+
+**TL;DR**: It's usually a PATH issue with how macOS handles shell initialization.
+
+---
+
+## TODO / Future Improvements
+
+These are things I'm still working on or want to add:
+
+- [ ] Pull-down terminal setup (<kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>Enter</kbd> for quick terminal access)
+
+---
+
+## Troubleshooting
+
+### Yabai or skhd not working after macOS update
+
+macOS updates sometimes reset permissions. Re-grant Accessibility permissions:
+
+**Go to: System Preferences → Security & Privacy → Accessibility**
+
+Remove and re-add Yabai and skhd.
+
+### Desktop shortcuts not working
+
+Make sure you've:
+1. Created the desktops in Mission Control (<kbd>Ctrl</kbd> + <kbd>Up</kbd>)
+2. Set the keyboard shortcuts (System Preferences → Keyboard → Shortcuts → Mission Control)
+3. Disabled "Automatically rearrange Spaces" in Mission Control settings
+
+### Homebrew command not found
+
+After installing Homebrew, you may need to add it to your PATH. The installer provides instructions, but typically you need to add this to your `~/.zshrc` or `~/.bash_profile`:
+
+```bash
+eval "$(/opt/homebrew/bin/brew shellenv)"  # For Apple Silicon Macs
+# OR
+eval "$(/usr/local/bin/brew shellenv)"      # For Intel Macs
+```
+
+Then reload your shell: `source ~/.zshrc`
