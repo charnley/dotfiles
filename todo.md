@@ -1,1 +1,6 @@
-- Better split in tmux https://github.com/sunaku/home/blob/master/bin/tmux-layout-dwindle#L276
+
+# Dotfiles todo
+
+## Mac OSX
+
+- [ ] Explore https://github.com/nikitabobko/AeroSpace & https://github.com/omerxx/dotfiles
