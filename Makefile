@@ -150,18 +150,13 @@ ${HOME}/.config/i3/config: ./dot.deb.x/i3config
 ${HOME}/.fzf:
 	bash ./setup/fzf_setup.sh
 
-${HOME}/notes:
-	mkdir $@
-	ln -s `pwd`/notes/zk $@/.zk
-	# TODO Automatic create git?
-
 ${HOME}/bin/zk: has_go
 	bash ./setup/setup_zettelkasten.sh
 	# test ! -f ${HOME}/bin/zk && ln -s ${HOME}/opt/zk.git/zk ${HOME}/bin/zk
 
 # Meta
 
-install: dotfiles bin ${HOME}/opt/neovim ${HOME}/.fzf ${HOME}/opt/tmux ${HOME}/.oh-my-zsh ${HOME}/bin/zk ${HOME}/notes
+install: dotfiles bin ${HOME}/opt/neovim ${HOME}/.fzf ${HOME}/opt/tmux ${HOME}/.oh-my-zsh ${HOME}/bin/zk
 
 install_osx: ${HOME}/opt/homebrew
 	brew bundle --file ./lists/gnu.Brewfile
