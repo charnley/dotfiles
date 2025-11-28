@@ -1,9 +1,3 @@
-# MTS Configuration
-
-# Inspiration
-# - https://github.com/Plonq/dotfiles/blob/master/i3/.config/i3/config
-# - http://kumarcode.com/Colorful-i3/
-# - http://pastebin.com/tQwS1heu
 
 # Modification Keys:
 #
@@ -48,7 +42,6 @@ bindsym XF86AudioPrev exec ~/bin/spot "prev"
 bindsym XF86AudioNext exec ~/bin/spot "next"
 bindsym XF86AudioStop exec ~/bin/spot "stop"
 
-
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp     exec xbacklight -inc 2 # increase screen brightness
 bindsym XF86MonBrightnessDown   exec xbacklight -dec 2 # decrease screen brightness
@@ -64,10 +57,6 @@ floating_modifier $mod
 # NOTE add +aw for no wordwrap in stdout
 # bindsym $mod+Return exec rxvt # -e ~/bin/start_tmux --noclose
 bindsym $mod+Return exec alacritty
-
-# start a sunray terminal
-# bindsym $mod+Shift+Return exec rxvt -e ~/bin/sunray --noclose
-# bindsym $mod+shift+t exec --no-startup-id rxvt -geometry 80x26 -name "floating_urxvt" for_window [class="URxvt" instance="floating_urxvt$"] floating toggle
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -142,7 +131,6 @@ bindsym $mod+Shift+parenleft move workspace 8
 bindsym $mod+Shift+parenright move workspace 9
 bindsym $mod+Shift+equal move workspace 10
 
-
 # Setup if dual-monitor setup is present
 workspace 1 output HDMI1
 workspace 2 output HDMI1
@@ -200,14 +188,11 @@ bindsym $mod+r mode "resize"
 # AUTOSTART
 # automatically starting applications on i3 startup
 
-# Resoulution
-exec --no-startup-id ~/bin/monitor --undock
-# exec --no-startup-id bash 'xrandr --output "eDP1" --mode "1600x900"'
-
+exec --no-startup-id ~/bin/monitor --undock # Resolution fix
 exec --no-startup-id dropbox start # Start Dropbox
 exec --no-startup-id pactl load-module module-bluetooth-discover # Bluetooth policies
 exec --no-startup-id nm-applet -sm-disable # Start  Network Manager
-# exec --no-startup-id blueman-applet # Start bluetooth manager
+exec --no-startup-id blueman-applet # Start bluetooth manager
 
 # Disable Screen saver
 exec --no-startup-id xset s off
