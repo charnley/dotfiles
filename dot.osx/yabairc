@@ -58,4 +58,8 @@ yabai -m rule --add app='^System Preferences$' manage=off
 yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus recent || yabai -m window --focus first"
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus recent || yabai -m window --focus first"
 
+
+# Start pretty borders
+borders &
+
 echo "yabai configuration loaded.."

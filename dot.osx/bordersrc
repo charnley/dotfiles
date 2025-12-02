@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# https://github.com/FelixKratz/JankyBorders/wiki/Man-Page
+
+options=(
+	style=square
+	width=6.0
+	hidpi=off
+	active_color=0xffe1e3e4
+	inactive_color=0xff33333
+)
+
+borders "${options[@]}"
