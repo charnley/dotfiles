@@ -47,6 +47,7 @@ hashtags = true
 
 [tool]
 editor = "vim -c \"silent! /Untitled\" -c 'call search(\"Untitled\")' "
+# editor = "code -r" # vscode users
 pager = "less -FIRX"
 fzf-preview = "bat -p --color always {-1}"
 fzf-options = "--multi --tiebreak begin --exact --tabstop 4 --height 100% --no-hscroll --color hl:-1,hl+:-1 --preview-window wrap"
