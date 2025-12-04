@@ -36,7 +36,8 @@ window:
   padding:
     x: 5
     y: 5
-  decorations: None # remove title-bar
+  # decorations: None # remove title-bar
+  decorations: buttonless
 
 visual_bell:
   animation: EaseOutExpo

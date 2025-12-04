@@ -74,7 +74,8 @@ mods = "Control|Alt"
 save_to_clipboard = true
 
 [window]
-decorations = "None"
+# decorations = "None"
+decorations = "buttonless"
 
 [window.dimensions]
 columns = 80
