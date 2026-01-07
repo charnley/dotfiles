@@ -51,6 +51,12 @@ m = 'zk meeting'
 # - zk todo yesterday
 todo = 'zk new --group todo --no-input --date "$(date -d "$*" +%Y-%m-%d)" "$ZK_NOTEBOOK_DIR/todo" --template todo.md'
 
+# Usage:
+# - zk todos last month - open all todos for the last month
+# - zk 2 weeks ago - open all todos over the last two weeks
+# - zk -2 week - open all todos over the last two weeks
+todos = 'zk edit --sort created- --created-after "$(date -d "$*" +%Y-%m-%d)" todo'
+
 # Find and edit
 last = "zk edit --limit 1 --sort modified- $argv"
 recent = "zk edit --sort created- --created-after 'last 7 days' --interactive"
