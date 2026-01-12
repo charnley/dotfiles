@@ -93,4 +93,7 @@ test -d "$HOME/notes" && export ZK_NOTEBOOK_DIR="$HOME/notes"
 test -d "$HOME/notes-private" && export ZK_NOTEBOOK_DIR="$HOME/notes-private"
 test -d "$HOME/notes-work" && export ZK_NOTEBOOK_DIR="$HOME/notes-work"
 
+# demo
+# export ZK_NOTEBOOK_DIR="$HOME/notes-example/"
+
 export PATH

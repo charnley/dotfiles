@@ -10,29 +10,13 @@ id-case = "lower"
 
 [group]
 
-[group.today]
+[group.todo]
 paths = ["todo"]
 
-[group.today.note]
+[group.todo.note]
 filename = "{{format-date now '%Y-%m-%d'}}"
 extension = "md"
-template = "daily.md"
-
-[group.tomorrow]
-paths = ["todo"]
-
-[group.tomorrow.note]
-filename = "{{format-date now '%Y-%m-%d'}}"
-extension = "md"
-template = "daily.md"
-
-[group.yesterday]
-paths = ["todo"]
-
-[group.yesterday.note]
-filename = "{{format-date now '%Y-%m-%d'}}"
-extension = "md"
-template = "daily.md"
+template = "todo.md"
 
 [group.meeting]
 paths = ["meetings"]
@@ -47,6 +31,7 @@ hashtags = true
 
 [tool]
 editor = "vim -c \"silent! /Untitled\" -c 'call search(\"Untitled\")' "
+# editor = "vim --clean -c 'syntax on' -c 'hi Normal ctermbg=NONE guibg=NONE' -c \"silent! /Untitled\" -c 'call search(\"Untitled\")' "
 # editor = "code -r" # vscode users
 pager = "less -FIRX"
 fzf-preview = "bat -p --color always {-1}"
@@ -56,15 +41,21 @@ fzf-options = "--multi --tiebreak begin --exact --tabstop 4 --height 100% --no-h
 
 # Create new note, from templates
 n = 'zk new'
-today = 'zk new --group today --no-input "$ZK_NOTEBOOK_DIR/todo" --template daily.md'
 meeting = 'zk new --group meeting'
 m = 'zk meeting'
 
 # Usage:
+# - zk todo - open's todays todo list
 # - zk todo next friday
 # - zk todo tomorrow
 # - zk todo yesterday
-todo = 'zk new --group today --no-input --date "$(date -d "$*" +%Y-%m-%d)" "$ZK_NOTEBOOK_DIR/todo" --template daily.md'
+todo = 'zk new --group todo --no-input --date "$(date -d "$*" +%Y-%m-%d)" "$ZK_NOTEBOOK_DIR/todo" --template todo.md'
+
+# Usage:
+# - zk todos last month - open all todos for the last month
+# - zk 2 weeks ago - open all todos over the last two weeks
+# - zk -2 week - open all todos over the last two weeks
+todos = 'zk edit --sort created- --created-after "$(date -d "$*" +%Y-%m-%d)" todo'
 
 # Find and edit
 last = "zk edit --limit 1 --sort modified- $argv"

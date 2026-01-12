@@ -20,6 +20,9 @@ then
     isort $1
     black $1
     exit 0
+elif test $filetype == "md"
+then
+    mdformat $1
 else
     npx prettier --write $1
     exit $?
