@@ -1,9 +1,10 @@
 tap "gromgit/fuse"
 
+brew "jj"
 brew "openjdk"
 brew "qcachegrind"
 brew "sshfs"
 brew "tldr"
 cask "db-browser-for-sqlite"
 cask "macfuse"
-brew "jj"
+cask "mactex"
