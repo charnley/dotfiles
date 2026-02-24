@@ -186,6 +186,12 @@ Prevent unnecessary apps from launching at startup:
 
 Review the list and disable anything you don't need running at startup. This speeds up boot time and reduces background processes.
 
+Furthermore, if during reboot/system update you see a lot of applications getting thrown in your face, you can disable it by
+
+```bash
+defaults write -g ApplePersistence -bool no
+```
+
 ## Tips and Tricks
 
 ### Paste Without Formatting
