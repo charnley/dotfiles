@@ -189,8 +189,14 @@ Review the list and disable anything you don't need running at startup. This spe
 Furthermore, if during reboot/system update you see a lot of applications getting thrown in your face, you can disable it by
 
 ```bash
-defaults write -g ApplePersistence -bool no
+defaults write -g ApplePersistence -bool no # Actually, doesn't work
 ```
+
+## Disable Show Desktop
+
+Annoying when working with yabai, if you use mouse to select a different monitor it will jump around with the windows.
+
+    System Settings -> Desktop and Dock -> Click wallpaper to reveal desktop -> Only in Stage Manager
 
 ## Tips and Tricks
 
