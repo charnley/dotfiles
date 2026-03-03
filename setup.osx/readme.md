@@ -136,7 +136,7 @@ Fix it by following this guide: https://damieng.com/blog/2015/04/24/make-home-en
 
 If you're coming from Linux/Windows, Mac's "natural" scroll direction will feel backwards.
 
-**Go to: System Preferences → Mouse**
+**Go to: System Preferences → Trackpad → Scroll & Zoom**
 - **Uncheck**: "Scroll direction: Natural"
 
 Now scrolling down moves content down (like every other OS).
