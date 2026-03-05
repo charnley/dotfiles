@@ -18,11 +18,10 @@ local plugins = {
   { "danymat/neogen" }, -- generate docstrings (with treesitter)
   { "kkoomen/vim-doge" }, -- Generate docstrings, :call doge#install()
   { "gorkunov/smartpairs.vim" }, -- Extend visual selection of bracket
-  { "kabouzeid/nvim-lspinstall" },
   { "neovim/nvim-lspconfig" },
   { "numToStr/Comment.nvim" }, -- For Commenting gcc & gc (Treesitter support)
   { "nvim-lua/plenary.nvim" }, -- "all the lua function I don't want to write twice"
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  { "nvim-treesitter/nvim-treesitter", lazy = false, build = ":TSUpdate" },
   { "nvim-treesitter/nvim-treesitter-context" }, -- Sticky scrolling
   { "nvim-treesitter/nvim-treesitter-textobjects" },
   { "ray-x/lsp_signature.nvim", event = "InsertEnter" },
@@ -49,32 +48,7 @@ local plugins = {
   { "hrsh7th/vim-vsnip" },
 
   -- Notes
-  -- {
-  --   "epwalsh/obsidian.nvim",
-  --   version = "*",
-  --   lazy = true,
-  --   ft = "markdown",
-  --   opts = {
-  --     workspaces = {
-  --       {
-  --         name = "notes",
-  --         path = "~/notes",
-  --       },
-  --     },
-  --     daily_notes = {
-  --       -- Optional, if you keep daily notes in a separate directory.
-  --       folder = "notes/dailies",
-  --       -- Optional, if you want to change the date format for the ID of daily notes.
-  --       date_format = "%Y-%m-%d",
-  --       -- Optional, if you want to change the date format of the default alias of daily notes.
-  --       alias_format = "%B %-d, %Y",
-  --       -- Optional, default tags to add to each new daily note created.
-  --       default_tags = { "daily-notes" },
-  --       -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
-  --       template = nil,
-  --     },
-  --   },
-  -- },
+  -- TODO Do this
 
   -- snippets
   { "rafamadriz/friendly-snippets" },
@@ -103,8 +77,6 @@ local plugins = {
   {
     "stevearc/oil.nvim",
     opts = {},
-    -- Optional dependencies
-    -- dependencies = { "nvim-tree/nvim-web-devicons" },
   },
 
   {
@@ -112,7 +84,7 @@ local plugins = {
     event = "VeryLazy", -- Or `LspAttach`
     priority = 1000, -- needs to be loaded in first
     config = function()
-      require("tiny-inline-diagnostic").setup()
+      require("tiny-inline-diagnostic").setup({ preset = "minimal" })
       vim.diagnostic.config({ virtual_text = false }) -- Only if needed in your configuration, if you already have native LSP diagnostics
     end,
   },

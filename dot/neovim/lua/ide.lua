@@ -22,7 +22,7 @@ local cmp = require("cmp")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
 -- add brackets after auto-complete
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 -- comment
 require("Comment").setup({
@@ -65,7 +65,7 @@ vim.api.nvim_set_keymap(
 
 -- Doge
 -- Open nvim and run :call doge#install()
-vim.keymap.set("n", "<Leader>nd", "<Plug>(doge-generate)")
+vim.keymap.set("n", "<Leader>nD", "<Plug>(doge-generate)", { desc = "Doge generate docstring" })
 
 -- setup completion
 cmp.setup({
@@ -118,9 +118,8 @@ cmp.setup({
 })
 
 -- lsp setup
--- Set Default Prefix.
--- Note: You can set a prefix per lsp server in the lv-globals.lua file
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+-- Configure diagnostics display
+vim.diagnostic.config({
   virtual_text = {
     prefix = "!",
     spacing = 2,
@@ -135,18 +134,18 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 require("nvim-treesitter").setup({})
 
 -- Install parsers (async, no-op if already installed)
-require("nvim-treesitter").install({
-  "bash",
-  "css",
-  "html",
-  "javascript",
-  "python",
-  "svelte",
-  "tsx",
-  "typescript",
-  "vue",
-  "groovy",
-})
+-- require("nvim-treesitter").install({
+--   "bash",
+--   "css",
+--   "html",
+--   "javascript",
+--   "python",
+--   "svelte",
+--   "tsx",
+--   "typescript",
+--   "vue",
+--   "groovy",
+-- })
 
 -- Highlighting: Neovim builtin, enabled via FileType autocmd
 vim.api.nvim_create_autocmd("FileType", {
@@ -202,10 +201,10 @@ require("zen-mode").setup({
     },
   },
   on_open = function(win)
-    vim.api.nvim_exec([[set wrap]], false)
+    vim.opt.wrap = true
   end,
   on_close = function()
-    vim.api.nvim_exec([[set nowrap]], false)
+    vim.opt.wrap = false
   end,
 })
 vim.api.nvim_set_keymap("n", "<Leader>w", ":ZenMode<CR>", { noremap = true, silent = true, desc = "Write mode" })
@@ -226,16 +225,10 @@ require("treesitter-context").setup({
   on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 })
 
-vim.api.nvim_exec(
-  [[
-hi TreesitterContextBottom gui=underline guisp=Grey
-hi TreesitterContextLineNumberBottom gui=underline guisp=Grey
-hi TreesitterContextLineNumberBottom gui=underline guisp=Grey
-]],
-  false
-)
+vim.api.nvim_set_hl(0, "TreesitterContextBottom", { underline = true, sp = "Grey" })
+vim.api.nvim_set_hl(0, "TreesitterContextLineNumberBottom", { underline = true, sp = "Grey" })
 
-vim.api.nvim_set_hl(0, "Normal", { ctermfg = White, ctermbg = Black })
+vim.api.nvim_set_hl(0, "Normal", { ctermfg = "White", ctermbg = "Black" })
 -- vim.keymap.set("n", "[c", function()
 --   require("treesitter-context").go_to_context(vim.v.count1)
 -- end, { silent = true })
@@ -274,12 +267,12 @@ vim.keymap.set("n", "<leader>rbf", function()
 end, { desc = "Extract block to file" })
 -- Extract block supports only normal mode
 
--- Leap
-require("leap").create_default_mappings()
--- Define equivalence classes for brackets and quotes, in addition to
--- the default whitespace group.
-require("leap").opts.equivalence_classes = { " \t\r\n", "([{", ")]}", "'\"`" }
-require("leap").opts.labels = "sfnjklhodweimbuyvrgtaqpcxz"
+-- -- Leap
+-- require("leap").create_default_mappings()
+-- -- Define equivalence classes for brackets and quotes, in addition to
+-- -- the default whitespace group.
+-- require("leap").opts.equivalence_classes = { " \t\r\n", "([{", ")]}", "'\"`" }
+-- require("leap").opts.labels = "sfnjklhodweimbuyvrgtaqpcxz"
 
 -- Setup oil
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
@@ -302,11 +295,6 @@ else
   -- vim.notify = require("notify")
   vim.notify("Node.js not found, skipping Node-dependent config", vim.log.levels.WARN)
 end
-
--- Better handling of inline errors
-require("tiny-inline-diagnostic").setup({
-  preset = "minimal",
-})
 
 -- Better information / popups, instead of having to press "ok"
 require("noice").setup({
