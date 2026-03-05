@@ -146,6 +146,13 @@ Now scrolling down moves content down (like every other OS).
 
 ### Keyboard
 
+#### Make ctrl+arrow available to the terminal
+
+You need to disable Mission Move, which is taking control of <kbd>ctrl<kbd>+arrow.
+
+    goto Keyboard -> Keyboard Shortcuts... -> Mission Control -> Mission Control
+    disable "Move left a space" and "Move right a space"
+
 #### Remap Caps Lock to Command
 
 If you never use Caps Lock (and who does?), remap it to **Command** for an easier-to-reach modifier key.
