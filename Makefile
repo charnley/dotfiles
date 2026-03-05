@@ -62,21 +62,20 @@ ${HOME}/opt/neovim: ${HOME}/opt/nvm
 	bash setup.$(OS)/nvim_setup.sh
 
 ${HOME}/opt/tmux:
-	bash ./setup/tmux_compile.sh 1> /dev/null
-	bash ./setup/tmux_tpm.sh
-	bash ./setup/tmux_plugins.sh
+	bash ./setup/install-tmux-compile.sh 1> /dev/null
+	bash ./setup/install-tmux-tpm.sh
+	bash ./setup/install-tmux-plugins.sh
 
 ${HOME}/opt/nvm:
-	bash ./setup/javascript_nvm.sh
-	bash ./setup/javascript_node.sh
-	bash ./setup/javascript_yarn.sh
+	bash ./setup/install-node-nvm.sh
+	bash ./setup/install-node-default.sh
 
 ${HOME}/bin/zsh:
-	bash ./setup/zsh_install.sh
+	bash ./setup/install-zsh.sh
 
 ${HOME}/.oh-my-zsh:
-	bash ./setup/zsh_ohmyzsh.sh
-	bash ./setup/zsh_ohmyzsh_plugins.sh
+	bash ./setup/install-zsh-ohmyzsh.sh
+	bash ./setup/install-zsh-ohmyzsh-plugins.sh
 
 # TODO for bin folder, I should probably use CMakefile for rule generation
 bin: ${HOME}/bin bindir_default bindir_$(OS) bindir_dev
@@ -156,10 +155,10 @@ ${HOME}/.config/i3status/config: ./dot.deb.x/i3status
 ${HOME}/.config/i3/config: ./dot.deb.x/i3config
 
 ${HOME}/.fzf:
-	bash ./setup/fzf_setup.sh
+	bash ./setup/install-fzf.sh
 
 ${HOME}/bin/zk: has_go
-	bash ./setup/setup_zettelkasten.sh
+	bash ./setup/install-zettelkasten.sh
 	# test ! -f ${HOME}/bin/zk && ln -s ${HOME}/opt/zk.git/zk ${HOME}/bin/zk
 
 # Meta
