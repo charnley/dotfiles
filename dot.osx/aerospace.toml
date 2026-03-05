@@ -1,5 +1,3 @@
-# Reference: https://github.com/i3/i3/blob/next/etc/config
-
 config-version = 2
 
 # In i3, all workspaces are phantom
@@ -22,15 +20,15 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     cmd-h = 'exec-and-forget true'
 
     # i3 wraps focus by default
-    alt-left  = 'focus --boundaries-action wrap-around-the-workspace left'
-    alt-down  = 'focus --boundaries-action wrap-around-the-workspace down'
-    alt-up    = 'focus --boundaries-action wrap-around-the-workspace up'
-    alt-right = 'focus --boundaries-action wrap-around-the-workspace right'
+    cmd-left  = 'focus --boundaries-action wrap-around-the-workspace left'
+    cmd-down  = 'focus --boundaries-action wrap-around-the-workspace down'
+    cmd-up    = 'focus --boundaries-action wrap-around-the-workspace up'
+    cmd-right = 'focus --boundaries-action wrap-around-the-workspace right'
 
-    alt-shift-left  = 'move left'
-    alt-shift-down  = 'move down'
-    alt-shift-up    = 'move up'
-    alt-shift-right = 'move right'
+    cmd-shift-left  = 'move left'
+    cmd-shift-down  = 'move down'
+    cmd-shift-up    = 'move up'
+    cmd-shift-right = 'move right'
 
     # Consider using 'join-with' command as a 'split' replacement if you want to enable
     # normalizations
