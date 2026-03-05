@@ -130,11 +130,19 @@ ${HOME}/.config/nvim/init.lua: ./dot/neovim/init.lua
 ${HOME}/.config/nvim/lua: ./dot/neovim/lua
 ${HOME}/.vsnip: ./dot/neovim/snippets
 
-dotfiles_osx: ${HOME}/.yabairc ${HOME}/.skhdrc ${HOME}/.gitignore ${HOME}/.ssh ${HOME}/.ssh/config
+# TODO DefaultKeyBinding
 
+dotfiles_osx: ${HOME}/.gitignore ${HOME}/.ssh ${HOME}/.ssh/config
+dotfiles_osx_yabai: ${HOME}/.yabairc ${HOME}/.skhdrc
+dotfiles_osx_aerospace: ${HOME}/.config/aerospace ${HOME}/.config/aerospace/aerospace.toml
+
+${HOME}/.gitignore: ./dot.osx/gitignore
+${HOME}/.config/aerospace:
+	mkdir ${HOME}/.config/aerospace
+
+${HOME}/.config/aerospace/aerospace.toml: ./dot.osx/aerospace.toml
 ${HOME}/.yabairc: ./dot.osx/yabairc
 ${HOME}/.skhdrc: ./dot.osx/skhdrc
-${HOME}/.gitignore: ./dot.osx/gitignore
 
 dotfiles_deb: ${HOME}/.inputrc
 
@@ -160,7 +168,7 @@ install: dotfiles bin ${HOME}/opt/neovim ${HOME}/.fzf ${HOME}/opt/tmux ${HOME}/.
 
 install_osx:
 	brew bundle --file ./lists/gnu.Brewfile
-	HOMEBREW_CASK_OPTS="--no-quarantine" brew bundle --file ./lists/i3like.Brewfile
+	# HOMEBREW_CASK_OPTS="--no-quarantine" brew bundle --file ./lists/i3like.Brewfile
 
 ${HOME}/opt/homebrew:
 	bash ./setup.osx/setup_brew.sh
