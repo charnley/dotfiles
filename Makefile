@@ -166,11 +166,8 @@ ${HOME}/bin/zk: has_go
 install: dotfiles bin ${HOME}/opt/neovim ${HOME}/.fzf ${HOME}/opt/tmux ${HOME}/.oh-my-zsh ${HOME}/bin/zk
 
 install_osx:
-	brew bundle --file ./lists/gnu.Brewfile
-	# HOMEBREW_CASK_OPTS="--no-quarantine" brew bundle --file ./lists/i3like.Brewfile
-
-${HOME}/opt/homebrew:
-	bash ./setup.osx/setup_brew.sh
+	bash ./setup.osx/install-homebrew.sh
+	$(MAKE) install-brew-packages
 
 install_laptop: install_apt install_apt_x install_fonts
 
@@ -196,6 +193,14 @@ ${HOME}/opt/go:
 
 ${HOME}/.cargo:
 	bash ./setup/install-rust.sh
+
+# Global packages
+
+install-rust-packages:
+	xargs cargo install < ./lists/packages.rust
+
+install-brew-packages:
+	brew bundle --file ./lists/gnu.Brewfile
 
 # Clean
 
