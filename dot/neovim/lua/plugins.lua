@@ -7,7 +7,7 @@ local plugins = {
   -- Motion
   { "chaoren/vim-wordmotion" }, -- Better word motion
   { "MattesGroeger/vim-bookmarks" }, -- Easy bookmark shortcuts
-  { "ggandor/leap.nvim" },
+  -- { "ggandor/leap.nvim" }, -- TODO Moved to codeberg
 
   -- Visual / Interface
   { "rebelot/kanagawa.nvim" }, -- colorscheme

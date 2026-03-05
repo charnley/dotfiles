@@ -33,7 +33,7 @@ blinking = "Off"
 TERM = "xterm-256color"
 
 [font]
-size = 13
+size = 15
 
 [font.bold]
 family = "Mononoki"
@@ -75,7 +75,7 @@ save_to_clipboard = true
 
 [window]
 # decorations = "None"
-decorations = "buttonless"
+# decorations = "buttonless"
 
 [window.dimensions]
 columns = 80

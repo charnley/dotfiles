@@ -130,7 +130,7 @@ ${HOME}/.config/nvim/init.lua: ./dot/neovim/init.lua
 ${HOME}/.config/nvim/lua: ./dot/neovim/lua
 ${HOME}/.vsnip: ./dot/neovim/snippets
 
-dotfiles_osx: ${HOME}/.yabairc ${HOME}/.skhdrc ${HOME}/.gitignore ${HOME}/.ssh/config
+dotfiles_osx: ${HOME}/.yabairc ${HOME}/.skhdrc ${HOME}/.gitignore ${HOME}/.ssh ${HOME}/.ssh/config
 
 ${HOME}/.yabairc: ./dot.osx/yabairc
 ${HOME}/.skhdrc: ./dot.osx/skhdrc
@@ -158,7 +158,7 @@ ${HOME}/bin/zk: has_go
 
 install: dotfiles bin ${HOME}/opt/neovim ${HOME}/.fzf ${HOME}/opt/tmux ${HOME}/.oh-my-zsh ${HOME}/bin/zk
 
-install_osx: ${HOME}/opt/homebrew
+install_osx:
 	brew bundle --file ./lists/gnu.Brewfile
 	HOMEBREW_CASK_OPTS="--no-quarantine" brew bundle --file ./lists/i3like.Brewfile
 
