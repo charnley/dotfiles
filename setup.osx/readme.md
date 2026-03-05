@@ -1,5 +1,7 @@
 # Mac OSX Setup
 
+TODO Fix cmd-h is not hiding windows
+
 So you want to have a Debian i3wm-like workflow on Mac? Too bad.
 Well, this is as close as you'll get.
 
