@@ -130,61 +130,56 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 })
 
 --- Treesitter
-require("nvim-treesitter.install").compilers = { "clang", "gcc" }
-require("nvim-treesitter.configs").setup({
-  -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
-  -- ensure_installed can be "all" or a list of languages { "python", "javascript" }
-  -- ensure_installed = "maintained",
-  ensure_installed = {
-    "bash",
-    "css",
-    "html",
-    "javascript",
-    "python",
-    "svelte",
-    "tsx",
-    "typescript",
-    "vue",
-    "groovy",
-  },
+-- The new nvim-treesitter rewrite no longer uses nvim-treesitter.configs.
+-- setup() only accepts { install_dir = "..." }; everything else is Neovim builtins.
+require("nvim-treesitter").setup({})
 
-  highlight = { -- enable highlighting for all file types
-    enable = true,
-  },
-
-  -- need for proper indentation handling (especially for bracket pairs)
-  indent = {
-    enable = true,
-  },
-
-  incremental_selection = {
-    enable = true, -- you can also use a table with list of langs here (e.g. { "python", "javascript" })
-    disable = { "cpp", "lua" },
-    keymaps = { -- mappings for incremental selection (visual mappings)
-      init_selection = "gnn", -- maps in normal mode to init the node/scope selection
-      node_incremental = "grn", -- increment to the upper named parent
-      scope_incremental = "grc", -- increment to the upper scope (as defined in locals.scm)
-      node_decremental = "grm", -- decrement to the previous node
-    },
-  },
-
-  textobjects = {
-    -- These are provided by
-    select = {
-      enable = true, -- you can also use a table with list of langs here (e.g. { "python", "javascript" })
-      keymaps = {
-        -- You can use the capture groups defined here:
-        -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects/blob/master/queries/c/textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ab"] = "@block.outer",
-        ["ib"] = "@block.inner",
-        ["as"] = "@statement.outer",
-        ["is"] = "@statement.inner",
-      },
-    },
-  },
+-- Install parsers (async, no-op if already installed)
+require("nvim-treesitter").install({
+  "bash",
+  "css",
+  "html",
+  "javascript",
+  "python",
+  "svelte",
+  "tsx",
+  "typescript",
+  "vue",
+  "groovy",
 })
+
+-- Highlighting: Neovim builtin, enabled via FileType autocmd
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    pcall(vim.treesitter.start) -- silently skip filetypes without a parser
+  end,
+})
+
+-- Indentation: nvim-treesitter provides indentexpr()
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    pcall(function()
+      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end)
+  end,
+})
+
+-- Textobjects: keymaps for nvim-treesitter-textobjects (af/if = function, ab/ib = block, as/is = statement)
+local textobj_maps = {
+  ["af"] = "@function.outer",
+  ["if"] = "@function.inner",
+  ["ab"] = "@block.outer",
+  ["ib"] = "@block.inner",
+  ["as"] = "@statement.outer",
+  ["is"] = "@statement.inner",
+}
+for lhs, capture in pairs(textobj_maps) do
+  vim.keymap.set({ "x", "o" }, lhs, function()
+    require("nvim-treesitter-textobjects.select").select_textobject(capture, "textobjects")
+  end, { desc = "TS textobject: " .. capture })
+end
 
 -- Write mode
 require("autolist").setup()
@@ -250,27 +245,6 @@ vim.api.nvim_set_keymap(
   ":TSContextToggle<CR>",
   { noremap = true, silent = true, desc = "Toggle sticky scroll (context)" }
 )
-
-require("nvim-treesitter.configs").setup({
-  playground = {
-    enable = true,
-    disable = {},
-    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-    persist_queries = false, -- Whether the query persists across vim sessions
-    keybindings = {
-      toggle_query_editor = "o",
-      toggle_hl_groups = "i",
-      toggle_injected_languages = "t",
-      toggle_anonymous_nodes = "a",
-      toggle_language_display = "I",
-      focus_language = "f",
-      unfocus_language = "F",
-      update = "R",
-      goto_node = "<cr>",
-      show_help = "?",
-    },
-  },
-})
 
 -- Refactor
 vim.keymap.set("x", "<leader>re", function()
