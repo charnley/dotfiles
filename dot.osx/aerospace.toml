@@ -22,36 +22,36 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     cmd-h = 'exec-and-forget true'
 
     # i3 wraps focus by default
-    cmd-left  = 'focus --boundaries-action wrap-around-the-workspace left'
-    cmd-down  = 'focus --boundaries-action wrap-around-the-workspace down'
-    cmd-up    = 'focus --boundaries-action wrap-around-the-workspace up'
-    cmd-right = 'focus --boundaries-action wrap-around-the-workspace right'
+    alt-left  = 'focus --boundaries-action wrap-around-the-workspace left'
+    alt-down  = 'focus --boundaries-action wrap-around-the-workspace down'
+    alt-up    = 'focus --boundaries-action wrap-around-the-workspace up'
+    alt-right = 'focus --boundaries-action wrap-around-the-workspace right'
 
-    cmd-shift-left  = 'move left'
-    cmd-shift-down  = 'move down'
-    cmd-shift-up    = 'move up'
-    cmd-shift-right = 'move right'
+    alt-shift-left  = 'move left'
+    alt-shift-down  = 'move down'
+    alt-shift-up    = 'move up'
+    alt-shift-right = 'move right'
 
     # Consider using 'join-with' command as a 'split' replacement if you want to enable
     # normalizations
-    cmd-shift-h = 'split horizontal'
-    cmd-v       = 'split vertical'
+    alt-h = 'split horizontal'
+    alt-v = 'split vertical'
 
-    cmd-f = 'fullscreen'
+    alt-f = 'fullscreen'
 
-    cmd-s = 'layout v_accordion' # 'layout stacking' in i3
-    cmd-w = 'layout h_accordion' # 'layout tabbed' in i3
-    cmd-e = 'layout tiles horizontal vertical' # 'layout toggle split' in i3
+    alt-s = 'layout v_accordion' # 'layout stacking' in i3
+    alt-t = 'layout h_accordion' # 'layout tabbed' in i3
+    alt-e = 'layout tiles horizontal vertical' # 'layout toggle split' in i3
 
-    cmd-shift-space = 'layout floating tiling' # 'floating toggle' in i3
+    alt-shift-space = 'layout floating tiling' # 'floating toggle' in i3
 
     # Not supported, because this command is redundant in AeroSpace mental model.
     # See: https://nikitabobko.github.io/AeroSpace/guide#floating-windows
-    #cmd-space = 'focus toggle_tiling_floating'
+    #alt-space = 'focus toggle_tiling_floating'
 
     # `focus parent`/`focus child` are not yet supported, and it's not clear whether they
     # should be supported at all https://github.com/nikitabobko/AeroSpace/issues/5
-    # cmd-a = 'focus parent'
+    # alt-a = 'focus parent'
 
     cmd-1 = 'workspace 1'
     cmd-2 = 'workspace 2'
@@ -75,9 +75,9 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     cmd-shift-9 = 'move-node-to-workspace 9'
     cmd-shift-0 = 'move-node-to-workspace 10'
 
-    cmd-shift-c = 'reload-config'
+    alt-shift-c = 'reload-config'
 
-    cmd-r = 'mode resize'
+    alt-r = 'mode resize'
 
 [mode.resize.binding]
     left  = 'resize width -50'
