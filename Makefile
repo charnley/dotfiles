@@ -21,14 +21,30 @@ ifeq ($(detected_OS),Linux) # Linux
 	OS = deb
 endif
 
+# Bin directory symlink targets
+BIN_DEFAULT_FILES   := $(wildcard bin/*)
+BIN_DEV_FILES       := $(wildcard bin.dev/*)
+BIN_OSX_FILES       := $(wildcard bin.osx/*)
+BIN_DEB_FILES       := $(wildcard bin.deb/*)
+BIN_DEB_X_FILES     := $(wildcard bin.deb.x/*)
+BIN_HPC_FILES       := $(wildcard bin.hpc/*)
+
+BIN_DEFAULT_TARGETS := $(patsubst bin/%,$(HOME)/bin/%,$(BIN_DEFAULT_FILES))
+BIN_DEV_TARGETS     := $(patsubst bin.dev/%,$(HOME)/bin/%,$(BIN_DEV_FILES))
+BIN_OSX_TARGETS     := $(patsubst bin.osx/%,$(HOME)/bin/%,$(BIN_OSX_FILES))
+BIN_DEB_TARGETS     := $(patsubst bin.deb/%,$(HOME)/bin/%,$(BIN_DEB_FILES))
+BIN_DEB_X_TARGETS   := $(patsubst bin.deb.x/%,$(HOME)/bin/%,$(BIN_DEB_X_FILES))
+BIN_HPC_TARGETS     := $(patsubst bin.hpc/%,$(HOME)/bin/%,$(BIN_HPC_FILES))
+
 # Dummy targets
-.PHONY: vim_plugins install clean dotfiles directories
+.PHONY: vim_plugins install clean dotfiles directories bin
 
 # Default targets
 all: dotfiles bin
 
 vim_benchmark:
 	${HOME}/bin/vim -c 'StartupTime'
+
 # Directories
 
 ${HOME}/bin:
@@ -76,28 +92,44 @@ ${HOME}/.oh-my-zsh:
 	bash ./setup/install-zsh-ohmyzsh.sh
 	bash ./setup/install-zsh-ohmyzsh-plugins.sh
 
-# TODO for bin folder, I should probably use CMakefile for rule generation
-bin: ${HOME}/bin bindir_default bindir_$(OS) bindir_dev
+#
+# Bin folder
+#
 
-bindir_default:
-	@bash ./setup/install_bin_directories.sh bin
+bin:
+	$(MAKE) ${HOME}/bin
+	$(MAKE) install-bin-links
+	$(MAKE) install-bin-links-$(OS)
+	$(MAKE) install-bin-links-dev
 
-bindir_dev:
-	@bash ./setup/install_bin_directories.sh bin.dev
+install-bin-links: $(BIN_DEFAULT_TARGETS)
+install-bin-links-dev: $(BIN_DEV_TARGETS)
+install-bin-links-deb: $(BIN_DEB_TARGETS)
+install-bin-links-deb-x: $(BIN_DEB_X_TARGETS)
+install-bin-links-osx: $(BIN_OSX_TARGETS)
+install-bin-links-hpc: $(BIN_HPC_TARGETS)
 
-bindir_deb:
-	@bash ./setup/install_bin_directories.sh bin.deb
+$(HOME)/bin/%: bin/%
+	ln -s $(CURDIR)/bin/$* $@
 
-bindir_deb.x:
-	@bash ./setup/install_bin_directories.sh bin.deb.x
+$(HOME)/bin/%: bin.dev/%
+	ln -s $(CURDIR)/bin.dev/$* $@
 
-bindir_osx:
-	@bash ./setup/install_bin_directories.sh bin.osx
+$(HOME)/bin/%: bin.osx/%
+	ln -s $(CURDIR)/bin.osx/$* $@
 
-bindir_hpc:
-	@bash ./setup/install_bin_directories.sh bin.hpc
+$(HOME)/bin/%: bin.deb/%
+	ln -s $(CURDIR)/bin.deb/$* $@
 
+$(HOME)/bin/%: bin.deb.x/%
+	ln -s $(CURDIR)/bin.deb.x/$* $@
+
+$(HOME)/bin/%: bin.hpc/%
+	ln -s $(CURDIR)/bin.hpc/$* $@
+
+#
 # Dotfiles
+#
 
 dotfiles: directories dotfiles_defaults dotfiles_$(OS)
 
@@ -105,7 +137,7 @@ dotfiles.x: directories.x bindir_deb.x dotfiles_deb.x
 
 ${HOME}/.%:
 	test -f $@ && mv $@ $@.bk;:
-	ln -s `pwd`/$< $@
+	ln -s $(CURDIR)/$< $@
 
 dotfiles_defaults: ${HOME}/.bashrc ${HOME}/.bash_profile ${HOME}/.bash_aliases ${HOME}/.bash_paths ${HOME}/.condarc ${HOME}/.gitconfig ${HOME}/.tmux.conf ${HOME}/.tmux-osx ${HOME}/.tmux-linux ${HOME}/.config/nvim/init.lua ${HOME}/.config/nvim/lua ${HOME}/.vsnip ${HOME}/.zshrc ${HOME}/.config/alacritty ${HOME}/.config/neofetch ${HOME}/.hushlogin
 
