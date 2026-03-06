@@ -25,9 +25,12 @@ gci() {
         echo "requires path argument"
         return 1
     fi
-    local msg
-    msg=$(git diff HEAD -- "${paths[@]}" | git-commit-msg)
-    git commit --edit --message "$msg" "${flags[@]}" -- "${paths[@]}"
+    local tmpfile
+    tmpfile=$(mktemp)
+    git diff HEAD -- "${paths[@]}" | git-commit-msg > $tmpfile
+    echo >> $tmpfile
+    git commit --template="$tmpfile" "${flags[@]}" -- "${paths[@]}"
+    rm "$tmpfile"
 }
 alias gad='git add .'
 alias gamend='git commit --amend'
