@@ -27,11 +27,7 @@ gci() {
     fi
     local msg
     msg=$(git diff HEAD -- "${paths[@]}" | git-commit-msg)
-    if test -z "$msg"; then
-        git commit "${flags[@]}" -- "${paths[@]}"
-    else
-        git commit --edit --message "$msg" "${flags[@]}" -- "${paths[@]}"
-    fi
+    git commit --edit --message "$msg" "${flags[@]}" -- "${paths[@]}"
 }
 alias gad='git add .'
 alias gamend='git commit --amend'
