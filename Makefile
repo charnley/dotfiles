@@ -68,7 +68,6 @@ ${HOME}/opt/tmux:
 
 ${HOME}/opt/nvm:
 	bash ./setup/install-node-nvm.sh
-	bash ./setup/install-node-default.sh
 
 ${HOME}/bin/zsh:
 	bash ./setup/install-zsh.sh
