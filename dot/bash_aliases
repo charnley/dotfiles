@@ -21,12 +21,16 @@ gci() {
             paths+=("$arg")
         fi
     done
+    if test ${#paths[@]} -eq 0; then
+        echo "requires path argument"
+        return 1
+    fi
     local msg
     msg=$(git diff HEAD -- "${paths[@]}" | git-commit-msg)
     if test -z "$msg"; then
-        echo git commit "${flags[@]}" -- "${paths[@]}"
+        git commit "${flags[@]}" -- "${paths[@]}"
     else
-        echo git commit --edit --message "$msg" "${flags[@]}" -- "${paths[@]}"
+        git commit --edit --message "$msg" "${flags[@]}" -- "${paths[@]}"
     fi
 }
 alias gad='git add .'
