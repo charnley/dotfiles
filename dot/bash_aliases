@@ -12,6 +12,23 @@ alias cls="clear; printf '\e[3J'"
 # Git Shortcuts
 alias gco='git commit'
 alias gca='git commit -a'
+gci() {
+    local -a flags paths
+    for arg in "$@"; do
+        if test "${arg#-}" != "$arg"; then
+            flags+=("$arg")
+        else
+            paths+=("$arg")
+        fi
+    done
+    local msg
+    msg=$(git diff --staged -- "${paths[@]}" | git-commit-msg)
+    if test -z "$msg"; then
+        git commit "${flags[@]}" -- "${paths[@]}"
+    else
+        git commit --edit --message "$msg" "${flags[@]}" -- "${paths[@]}"
+    fi
+}
 alias gad='git add .'
 alias gamend='git commit --amend'
 alias gconflicts='git diff --name-only --diff-filter=U --relative | xargs vim'

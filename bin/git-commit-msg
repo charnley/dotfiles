@@ -1,67 +1,23 @@
 #!/usr/bin/env bash
-# git-commit-msg — generate a short commit message from a diff using opencode
-#
-# Usage:
-#   git diff --staged | git-commit-msg          # from staged changes
-#   git diff          | git-commit-msg          # from unstaged changes
-#   git diff HEAD~1   | git-commit-msg          # from last commit
-#
-# Example workflow:
-#   git commit -m "$(git diff --staged | git-commit-msg)"
+
+# How to
+# git commit -m "$(git diff --staged | git-commit-msg)"
+# git diff --staged -- src/foo.py | git-commit-msg
+# git diff --staged | git-commit-msg
+# git commit -m "add git-commit-msg script for AI-generated commit messages"
 
 set -euo pipefail
 
-# ── guards ────────────────────────────────────────────────────────────────────
-
-if ! command -v opencode >/dev/null 2>&1; then
-    exit 0
-fi
-
-if ! command -v python3 >/dev/null 2>&1; then
-    exit 0
-fi
-
-# ── read diff from stdin ──────────────────────────────────────────────────────
-
 diff_content=$(cat)
-
-if [[ -z "$diff_content" ]]; then
-    >&2 echo "git-commit-msg: no diff on stdin — pipe a diff first"
-    >&2 echo "  e.g. git diff --staged | git-commit-msg"
-    exit 1
-fi
-
-# ── build prompt ──────────────────────────────────────────────────────────────
 
 prompt="Write a short, plain-English git commit message for the following diff.
 Rules:
-- One line only, no punctuation at the end
-- Start with a lowercase verb (add, fix, update, remove, refactor, etc.)
+- One line only, no punctuation at the end, features seperated by comma
+- Start with a capitalized verb (Added, Fixed, Updated, Removed, Refactored, etc.)
 - Be specific but concise (max ~72 chars)
 - Output ONLY the commit message, nothing else
 
 Diff:
 ${diff_content}"
 
-# ── call opencode and extract text ───────────────────────────────────────────
-
-echo $prompt
-
-# opencode run "$prompt" --format json 
-
-# 2>/dev/null \
-#     | python3 -c "
-# import sys, json
-# for line in sys.stdin:
-#     line = line.strip()
-#     if not line:
-#         continue
-#     try:
-#         obj = json.loads(line)
-#         if obj.get('type') == 'text':
-#             text = obj.get('part', {}).get('text', '').strip()
-#             if text:
-#                 print(text)
-#     except json.JSONDecodeError:
-#         pass
-# "
+opencode run "$prompt" --format json | jq -rj 'select(.type == "text") | .part.text'
