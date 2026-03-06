@@ -22,11 +22,11 @@ gci() {
         fi
     done
     local msg
-    msg=$(git diff --staged -- "${paths[@]}" | git-commit-msg)
+    msg=$(git diff HEAD -- "${paths[@]}" | git-commit-msg)
     if test -z "$msg"; then
-        git commit "${flags[@]}" -- "${paths[@]}"
+        echo git commit "${flags[@]}" -- "${paths[@]}"
     else
-        git commit --edit --message "$msg" "${flags[@]}" -- "${paths[@]}"
+        echo git commit --edit --message "$msg" "${flags[@]}" -- "${paths[@]}"
     fi
 }
 alias gad='git add .'

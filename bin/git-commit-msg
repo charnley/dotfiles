@@ -20,4 +20,6 @@ Rules:
 Diff:
 ${diff_content}"
 
+echo $diff_content
+
 opencode run "$prompt" --format json | jq -rj 'select(.type == "text") | .part.text'
