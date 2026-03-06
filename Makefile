@@ -59,7 +59,7 @@ ${HOME}/bin/vim:
 	ln -fs `pwd`/bin.$(OS)/vim ${HOME}/bin/vim
 
 ${HOME}/opt/neovim: ${HOME}/opt/nvm
-	bash setup.$(OS)/nvim_setup.sh
+	bash setup.$(OS)/install-neovim.sh
 
 ${HOME}/opt/tmux:
 	bash ./setup/install-tmux-compile.sh 1> /dev/null
