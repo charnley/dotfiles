@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import logging
-import random
+import math
 import time
 
 import pyautogui
@@ -9,6 +9,22 @@ import pyautogui
 logger = logging.getLogger(__name__)
 
 __version__ = 1.0
+
+RADIUS = 200
+STEPS = 360
+STEP_DELAY = 0.01  # seconds between each cursor step
+
+
+def infinity_path(cx, cy, radius=RADIUS, steps=STEPS):
+    """Generate (x, y) points along a lemniscate of Bernoulli (infinity shape)."""
+    points = []
+    for i in range(steps):
+        t = 2 * math.pi * i / steps
+        denom = 1 + math.sin(t) ** 2
+        x = cx + radius * math.cos(t) / denom
+        y = cy + radius * math.sin(t) * math.cos(t) / denom
+        points.append((x, y))
+    return points
 
 
 def main(args=None):
@@ -18,22 +34,35 @@ def main(args=None):
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-v", "--version", action="version", version=__version__)
-    parser.add_argument("-s", "--sleep", type=int, default=60)
+    parser.add_argument(
+        "-s",
+        "--sleep",
+        type=float,
+        default=5,
+        help="seconds to pause between full infinity loops (default: 0)",
+    )
     args = parser.parse_args(args)
 
+    screen_w, screen_h = pyautogui.size()
+    cx, cy = screen_w / 2, screen_h / 2
+
+    logger.debug("Screen size: %dx%d, center: (%g, %g)", screen_w, screen_h, cx, cy)
+
+    path = infinity_path(cx, cy)
+    loop = 0
+
     while True:
+        for x, y in path:
+            pyautogui.moveTo(x, y, _pause=False)
+            time.sleep(STEP_DELAY)
 
-        x = random.randint(0, 1000)
-        y = random.randint(0, 1000)
-
-        pyautogui.moveTo(x, y)
-
+        loop += 1
         localtime = time.localtime()
         result = time.strftime("%I:%M:%S %p", localtime)
+        logger.info(f"Loop {loop} completed at {result}")
 
-        print("Moved at " + str(result) + " (" + str(x) + ", " + str(y) + ")")
-
-        time.sleep(args.sleep)
+        if args.sleep > 0:
+            time.sleep(args.sleep)
 
 
 if __name__ == "__main__":
