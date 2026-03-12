@@ -280,19 +280,18 @@ vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 -- Node dependent plugins
 if vim.fn.executable("node") == 1 then
   -- Copilot
-  require("copilot").setup({
-    suggestion = { enabled = false },
-    panel = { enabled = false },
-  })
-  require("copilot_cmp").setup()
+  -- require("copilot").setup({
+  --   suggestion = { enabled = false },
+  --   panel = { enabled = false },
+  -- })
+  -- require("copilot_cmp").setup()
 
-  -- LSP servers only avail. if node is there
-  require("lspconfig").pyright.setup({})
-  require("lspconfig").bashls.setup({})
-  require("lspconfig").ts_ls.setup({})
-  require("lspconfig").svelte.setup({})
+  -- Mason: install and manage LSP servers
+  require("mason").setup()
+  require("mason-lspconfig").setup({
+    ensure_installed = { "pyright", "bashls", "ts_ls", "svelte" },
+  })
 else
-  -- vim.notify = require("notify")
   vim.notify("Node.js not found, skipping Node-dependent config", vim.log.levels.WARN)
 end
 

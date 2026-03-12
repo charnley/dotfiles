@@ -19,6 +19,8 @@ local plugins = {
   { "kkoomen/vim-doge" }, -- Generate docstrings, :call doge#install()
   { "gorkunov/smartpairs.vim" }, -- Extend visual selection of bracket
   { "neovim/nvim-lspconfig" },
+  { "mason-org/mason.nvim" },
+  { "mason-org/mason-lspconfig.nvim" },
   { "numToStr/Comment.nvim" }, -- For Commenting gcc & gc (Treesitter support)
   { "nvim-lua/plenary.nvim" }, -- "all the lua function I don't want to write twice"
   { "nvim-treesitter/nvim-treesitter", lazy = false, build = ":TSUpdate" },
