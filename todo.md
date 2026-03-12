@@ -4,4 +4,3 @@
 ## Mac OSX
 
 - [x] Explore https://github.com/nikitabobko/AeroSpace & https://github.com/omerxx/dotfiles
-

@@ -44,7 +44,7 @@ def get_monitors():
     return monitors, resolutions
 
 
-def set_monitor(monitor, resolution="auto", position=None, debug=False):
+def set_monitor(monitor, resolution="auto", position=None, primary=False, debug=False):
 
     cmd = ["xrandr"]
     cmd += ["--output " + monitor]
@@ -58,6 +58,9 @@ def set_monitor(monitor, resolution="auto", position=None, debug=False):
 
     if position is not None:
         cmd += [position]
+
+    if primary:
+        cmd += ["--primary"]
 
     cmd = " ".join(cmd)
 
@@ -94,6 +97,11 @@ def main():
     parser.add_argument("--native", type=str, help="", default="eDP-1", metavar="X")
     parser.add_argument("--refresh", "-r", action="store_true")
     parser.add_argument("--dock", "-d", action="store_true")
+    parser.add_argument(
+        "--dock-left",
+        action="store_true",
+        help="external monitor primary, laptop to the left",
+    )
     parser.add_argument("--undock", "-u", action="store_true")
     parser.add_argument(
         "--debug", action="store_true", help="Print all xrandr commands"
@@ -154,6 +162,30 @@ def main():
             previous = monitor
 
         set_monitor(args.native, resolution="off", debug=args.debug)
+
+    elif args.dock_left:
+
+        if len(external_monitors) == 0:
+            quit("No external monitors")
+
+        external = external_monitors[0]
+
+        set_monitor(
+            external,
+            resolution="auto",
+            position="--pos 0x0",
+            primary=True,
+            debug=args.debug,
+        )
+
+        # Force i3 workspaces to external monitor
+        set_monitor(args.native, resolution="off", debug=args.debug)
+        set_monitor(
+            args.native,
+            resolution=native_res,
+            position="--left-of " + external,
+            debug=args.debug,
+        )
 
     else:
 
