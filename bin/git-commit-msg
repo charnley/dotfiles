@@ -20,4 +20,9 @@ Rules:
 Diff:
 ${diff_content}"
 
-opencode run "$prompt" --format json | jq -rj 'select(.type == "text") | .part.text'
+model_flag=""
+if [[ -n "${GIT_COMMIT_MSG_MODEL:-}" ]]; then
+    model_flag="--model ${GIT_COMMIT_MSG_MODEL}"
+fi
+
+opencode run "$prompt" $model_flag --format json | jq -rj 'select(.type == "text") | .part.text'
