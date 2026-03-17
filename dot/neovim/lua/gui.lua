@@ -6,19 +6,6 @@ vim.opt.showcmd = true
 vim.opt.laststatus = 2
 vim.opt.cmdheight = 1
 
--- -- Set colorscheme to jellybeans
--- vim.api.nvim_exec([[
--- let g:jellybeans_overrides = {'background': { 'ctermbg': 'none', '256ctermbg': 'none' },}
--- try
---     colorscheme jellybeans
--- catch /^Vim\%((\a\+)\)\=:E185/
---     " Probably first installation
--- endtry
-
--- highlight clear SignColumn  " fix bg color for SignColumn (for jellybeans)
--- highlight Pmenu ctermbg=none
--- ]], false)
-
 require("kanagawa").setup({
   compile = false, -- enable compiling the colorscheme
   undercurl = true, -- enable undercurls
@@ -36,49 +23,27 @@ require("kanagawa").setup({
     } },
   },
   overrides = function(colors) -- add/modify highlights
+    local palette = colors.palette
     return {
       NormalFloat = { bg = "none" },
       FloatBorder = { bg = "none" },
       FloatTitle = { bg = "none" },
-      GitGutterAdd = { fg = "green" },
-      GitGutterChange = { fg = "yellow" },
-      GitGutterDelete = { fg = "red" },
+      GitGutterAdd = { fg = palette.springGreen },
+      GitGutterChange = { fg = palette.carpYellow },
+      GitGutterDelete = { fg = palette.peachRed },
     }
   end,
   background = {
-    dark = "none",
-    light = "none",
+    dark = "wave",
+    light = "lotus",
   },
 })
 
 vim.cmd("colorscheme kanagawa-wave")
--- vim.api.nvim_exec([[
--- colorscheme kanagawa-wave
--- ]], false)
 
 -- fzf visual
-vim.api.nvim_exec(
-  [[
-let $FZF_DEFAULT_OPTS='--reverse'
-let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
-]],
-  false
-)
-
--- -- Airline theme
--- vim.api.nvim_exec([[
--- let g:airline#extensions#tabline#enabled = 1
--- let g:airline#extensions#tabline#formatter = 'unique_tail'
--- let g:airline#extensions#tabline#show_close_button = 0
--- let g:airline_skip_empty_sections = 1
--- let g:airline#extensions#tabline#tab_min_count = 2  " ignored : (
--- let g:airline#extensions#tabline#left_sep = ' '
--- let g:airline#extensions#tabline#left_alt_sep = ''
--- let g:airline#extensions#tabline#right_sep = ' '
--- let g:airline#extensions#tabline#right_alt_sep = ''
--- let g:airline_powerline_fonts = 0
--- au User AirlineAfterInit  :let g:airline_section_z = airline#section#create(['%3p%% %L:%3v'])
--- ]], false)
+vim.env.FZF_DEFAULT_OPTS = "--reverse"
+vim.g.fzf_layout = { window = { width = 0.8, height = 0.8 } }
 
 require("hardline").setup({
   bufferline = true, -- disable bufferline
@@ -103,23 +68,14 @@ require("hardline").setup({
 })
 
 -- bookmark
-vim.api.nvim_exec(
-  [[
-let g:bookmark_sign = '•'
-]],
-  false
-)
+vim.g.bookmark_sign = "•"
 
---  Git
-vim.api.nvim_exec(
-  [[
-let g:gitgutter_sign_added = '|'
-let g:gitgutter_sign_modified = '|'
-let g:gitgutter_sign_removed = '|'
-let g:gitgutter_sign_modified_removed = '|'
-highlight GitGutterAdd ctermfg=green
-highlight GitGutterChange ctermfg=yellow
-highlight GitGutterDelete ctermfg=red
-]],
-  false
-)
+-- Git gutter signs
+vim.g.gitgutter_sign_added = "|"
+vim.g.gitgutter_sign_modified = "|"
+vim.g.gitgutter_sign_removed = "|"
+vim.g.gitgutter_sign_modified_removed = "|"
+-- Gutter highlight colors (cterm fallback for terminals without true color)
+vim.api.nvim_set_hl(0, "GitGutterAdd", { ctermfg = "green" })
+vim.api.nvim_set_hl(0, "GitGutterChange", { ctermfg = "yellow" })
+vim.api.nvim_set_hl(0, "GitGutterDelete", { ctermfg = "red" })

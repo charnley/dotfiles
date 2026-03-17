@@ -41,7 +41,7 @@ is_empty_or_whitespace() {
 
 strip_frontmatter() {
     local content="$1"
-    
+
     # Remove frontmatter (everything between --- lines)
     echo "$content" | sed '/^---$/,/^---$/d'
 }
@@ -49,10 +49,10 @@ strip_frontmatter() {
 normalize_template_content() {
     local content="$1"
     local title="${2:-Untitled}"
-    
+
     # Strip frontmatter first
     content=$(strip_frontmatter "$content")
-    
+
     # Replace template placeholders with normalized values
     content="${content//\{\{ title \}\}/$title}"
 
@@ -67,7 +67,7 @@ is_template_only() {
     local template_file
 
     note_content=$(cat "$file")
-    
+
     # Strip frontmatter from note content for comparison
     note_content_no_frontmatter=$(strip_frontmatter "$note_content")
 

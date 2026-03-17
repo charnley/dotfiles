@@ -124,9 +124,6 @@ vim.keymap.set(
 -- Format buffer
 vim.api.nvim_set_keymap("n", "<Leader>nf", ":!format %<cr>", { silent = true, noremap = true, desc = "Format file" })
 
--- Use paste mode
-vim.api.nvim_set_keymap("n", "<Leader>p", ":set invpaste<cr>", { desc = "Toggle pastemode" }) -- for that stackoverflow
-
 -- Spelling
 -- Add word: zg
 -- Correct word: z=
@@ -136,7 +133,7 @@ vim.api.nvim_set_keymap("n", "<Leader>z", ":set spell!<cr>", { desc = "Toggle sp
 vim.api.nvim_set_keymap("n", "<leader>gu", ":GitGutterUndoHunk<cr>", { noremap = true, desc = "Undo git hunk" })
 vim.api.nvim_set_keymap("n", "<leader>gn", ":GitGutterNextHunk<cr>", { noremap = true, desc = "Next git hunk" })
 vim.api.nvim_set_keymap("n", "<leader>gp", ":GitGutterPrevHunk<cr>", { noremap = true, desc = "Prev git hunk" })
-vim.api.nvim_set_keymap("n", "<leader>gh", ":GitGutterPreviewsHunk<cr>", { noremap = true, desc = "Diff hunk" }) -- what changed in this hunk (close with :pclose)
+vim.api.nvim_set_keymap("n", "<leader>gh", ":GitGutterPreviewHunk<cr>", { noremap = true, desc = "Diff hunk" }) -- what changed in this hunk (close with :pclose)
 vim.api.nvim_set_keymap("n", "<leader>gb", ":BlameToggle<cr>", { noremap = true, desc = "Toggle git blame" }) -- Undo block of git changes
 
 -- Cut commands
@@ -145,34 +142,48 @@ vim.api.nvim_set_keymap("v", "<leader>d", '""d', { noremap = true, desc = "Cut" 
 vim.api.nvim_set_keymap("n", "<leader>D", '""D', { noremap = true, desc = "Cut rest of line" })
 
 -- Lsp key bindings
-vim.api.nvim_exec(
-  [[
-nnoremap <Leader>ld    <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <Leader>lD    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <Leader>lr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <Leader>li    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <Leader>lh    <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <Leader>lf    <cmd>lua vim.lsp.buf.formatting()<CR>
-nnoremap <Leader>ln    <cmd>lua vim.lsp.buf.rename()<CR>
+vim.keymap.set("n", "<Leader>ld", vim.lsp.buf.definition, { desc = "LSP definition" })
+vim.keymap.set("n", "<Leader>lD", vim.lsp.buf.declaration, { desc = "LSP declaration" })
+vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.references, { desc = "LSP references" })
+vim.keymap.set("n", "<Leader>li", vim.lsp.buf.implementation, { desc = "LSP implementation" })
+vim.keymap.set("n", "<Leader>lh", vim.lsp.buf.signature_help, { desc = "LSP signature help" })
+vim.keymap.set("n", "<Leader>lf", function()
+  vim.lsp.buf.format()
+end, { desc = "LSP format" })
+vim.keymap.set("n", "<Leader>ln", vim.lsp.buf.rename, { desc = "LSP rename" })
 
-" Jump forward or backward in snippets
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-]],
-  false
+-- Jump forward or backward in snippets
+vim.keymap.set(
+  "i",
+  "<Tab>",
+  "vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'",
+  { expr = true, desc = "Snippet jump next" }
+)
+vim.keymap.set(
+  "i",
+  "<S-Tab>",
+  "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
+  { expr = true, desc = "Snippet jump prev" }
 )
 
 local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap("n", "<Leader>lun", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-vim.api.nvim_set_keymap("n", "<Leader>lup", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-
--- Crate file nest to current buffer
-vim.api.nvim_exec(
-  [[
-map ,e :e <C-R>=expand("%:p:h") . "/" <CR>
-]],
-  false
+vim.keymap.set(
+  "n",
+  "<Leader>lun",
+  vim.diagnostic.goto_next,
+  vim.tbl_extend("force", opts, { desc = "Next diagnostic" })
 )
+vim.keymap.set(
+  "n",
+  "<Leader>lup",
+  vim.diagnostic.goto_prev,
+  vim.tbl_extend("force", opts, { desc = "Prev diagnostic" })
+)
+
+-- Create file next to current buffer
+vim.keymap.set("n", ",e", function()
+  return ":e " .. vim.fn.expand("%:p:h") .. "/"
+end, { expr = true, desc = "Edit file in current dir" })
 
 -- Surround text with html tag
 -- TODO vim.api.nvim_set_keymap('n', '<leader>ns', '<tag></tag>?>p', {noremap = true, desc='Surround text with html tag'})

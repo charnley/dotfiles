@@ -6,11 +6,6 @@ general {
     interval = 5
 }
 
-#    color_good = "#049cfb"
-#    color_bad = "#cc3366"
-#    color_degraded = "#999999"
-
-
 order += "wireless wlp4s0"
 order += "ethernet enxe04f435d2fd2"
 order += "ethernet enxe04f435cf9fb"
@@ -24,9 +19,6 @@ order += "cpu_temperature 0"
 order += "load"
 order += "tztime day"
 order += "tztime hour"
-
-
-
 
 wireless wlan0 {
     format_up = " (%quality %essid %ip) "

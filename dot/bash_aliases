@@ -12,6 +12,26 @@ alias cls="clear; printf '\e[3J'"
 # Git Shortcuts
 alias gco='git commit'
 alias gca='git commit -a'
+gci() {
+    local -a flags paths
+    for arg in "$@"; do
+        if test "${arg#-}" != "$arg"; then
+            flags+=("$arg")
+        else
+            paths+=("$arg")
+        fi
+    done
+    if test ${#paths[@]} -eq 0; then
+        echo "requires path argument"
+        return 1
+    fi
+    local tmpfile
+    tmpfile=$(mktemp)
+    git diff HEAD -- "${paths[@]}" | git-commit-msg > $tmpfile
+    echo >> $tmpfile
+    git commit --template="$tmpfile" "${flags[@]}" -- "${paths[@]}"
+    rm "$tmpfile"
+}
 alias gad='git add .'
 alias gamend='git commit --amend'
 alias gconflicts='git diff --name-only --diff-filter=U --relative | xargs vim'
@@ -96,12 +116,12 @@ gh() {
 alias gc='gitclone' # from bin
 
 function git_use_private {
-    git config user.name "Jimmy Charnley Kromann"
+    git config user.name "Jimmy Kromann"
     git config user.email "jimmy@charnley.dk"
 }
 
 function git_use_novartis {
-    git config user.name "Jimmy Charnley Kromann"
+    git config user.name "Jimmy Kromann"
     git config user.email "jimmy.kromann@novartis.com"
 }
 

@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+# autoload -U +X bashcompinit && bashcompinit
+# autoload -U +X compinit && compinit
+
 test -f ~/.bashrc_local && source ~/.bashrc_local
 
 #zmodload zsh/zprof

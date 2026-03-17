@@ -21,14 +21,30 @@ ifeq ($(detected_OS),Linux) # Linux
 	OS = deb
 endif
 
+# Bin directory symlink targets
+BIN_DEFAULT_FILES   := $(wildcard bin/*)
+BIN_DEV_FILES       := $(wildcard bin.dev/*)
+BIN_OSX_FILES       := $(wildcard bin.osx/*)
+BIN_DEB_FILES       := $(wildcard bin.deb/*)
+BIN_DEB_X_FILES     := $(wildcard bin.deb.x/*)
+BIN_HPC_FILES       := $(wildcard bin.hpc/*)
+
+BIN_DEFAULT_TARGETS := $(patsubst bin/%,$(HOME)/bin/%,$(BIN_DEFAULT_FILES))
+BIN_DEV_TARGETS     := $(patsubst bin.dev/%,$(HOME)/bin/%,$(BIN_DEV_FILES))
+BIN_OSX_TARGETS     := $(patsubst bin.osx/%,$(HOME)/bin/%,$(BIN_OSX_FILES))
+BIN_DEB_TARGETS     := $(patsubst bin.deb/%,$(HOME)/bin/%,$(BIN_DEB_FILES))
+BIN_DEB_X_TARGETS   := $(patsubst bin.deb.x/%,$(HOME)/bin/%,$(BIN_DEB_X_FILES))
+BIN_HPC_TARGETS     := $(patsubst bin.hpc/%,$(HOME)/bin/%,$(BIN_HPC_FILES))
+
 # Dummy targets
-.PHONY: vim_plugins install clean dotfiles directories
+.PHONY: vim_plugins install clean dotfiles directories bin
 
 # Default targets
 all: dotfiles bin
 
 vim_benchmark:
 	${HOME}/bin/vim -c 'StartupTime'
+
 # Directories
 
 ${HOME}/bin:
@@ -59,47 +75,61 @@ ${HOME}/bin/vim:
 	ln -fs `pwd`/bin.$(OS)/vim ${HOME}/bin/vim
 
 ${HOME}/opt/neovim: ${HOME}/opt/nvm
-	bash setup.$(OS)/nvim_setup.sh
+	bash setup.$(OS)/install-neovim.sh
 
 ${HOME}/opt/tmux:
-	bash ./setup/tmux_compile.sh 1> /dev/null
-	bash ./setup/tmux_tpm.sh
-	bash ./setup/tmux_plugins.sh
+	bash ./setup/install-tmux-compile.sh 1> /dev/null
+	bash ./setup/install-tmux-tpm.sh
+	bash ./setup/install-tmux-plugins.sh
 
 ${HOME}/opt/nvm:
-	bash ./setup/javascript_nvm.sh
-	bash ./setup/javascript_node.sh
-	bash ./setup/javascript_yarn.sh
+	bash ./setup/install-node-nvm.sh
 
 ${HOME}/bin/zsh:
-	bash ./setup/zsh_install.sh
+	bash ./setup/install-zsh.sh
 
 ${HOME}/.oh-my-zsh:
-	bash ./setup/zsh_ohmyzsh.sh
-	bash ./setup/zsh_ohmyzsh_plugins.sh
+	bash ./setup/install-zsh-ohmyzsh.sh
+	bash ./setup/install-zsh-ohmyzsh-plugins.sh
 
-# TODO for bin folder, I should probably use CMakefile for rule generation
-bin: ${HOME}/bin bindir_default bindir_$(OS) bindir_dev
+#
+# Bin folder
+#
 
-bindir_default:
-	@bash ./setup/install_bin_directories.sh bin
+bin:
+	$(MAKE) ${HOME}/bin
+	$(MAKE) install-bin-links
+	$(MAKE) install-bin-links-$(OS)
+	$(MAKE) install-bin-links-dev
 
-bindir_dev:
-	@bash ./setup/install_bin_directories.sh bin.dev
+install-bin-links: $(BIN_DEFAULT_TARGETS)
+install-bin-links-dev: $(BIN_DEV_TARGETS)
+install-bin-links-deb: $(BIN_DEB_TARGETS)
+install-bin-links-deb-x: $(BIN_DEB_X_TARGETS)
+install-bin-links-osx: $(BIN_OSX_TARGETS)
+install-bin-links-hpc: $(BIN_HPC_TARGETS)
 
-bindir_deb:
-	@bash ./setup/install_bin_directories.sh bin.deb
+$(HOME)/bin/%: bin/%
+	ln -s $(CURDIR)/bin/$* $@
 
-bindir_deb.x:
-	@bash ./setup/install_bin_directories.sh bin.deb.x
+$(HOME)/bin/%: bin.dev/%
+	ln -s $(CURDIR)/bin.dev/$* $@
 
-bindir_osx:
-	@bash ./setup/install_bin_directories.sh bin.osx
+$(HOME)/bin/%: bin.osx/%
+	ln -s $(CURDIR)/bin.osx/$* $@
 
-bindir_hpc:
-	@bash ./setup/install_bin_directories.sh bin.hpc
+$(HOME)/bin/%: bin.deb/%
+	ln -s $(CURDIR)/bin.deb/$* $@
 
+$(HOME)/bin/%: bin.deb.x/%
+	ln -s $(CURDIR)/bin.deb.x/$* $@
+
+$(HOME)/bin/%: bin.hpc/%
+	ln -s $(CURDIR)/bin.hpc/$* $@
+
+#
 # Dotfiles
+#
 
 dotfiles: directories dotfiles_defaults dotfiles_$(OS)
 
@@ -107,7 +137,7 @@ dotfiles.x: directories.x bindir_deb.x dotfiles_deb.x
 
 ${HOME}/.%:
 	test -f $@ && mv $@ $@.bk;:
-	ln -s `pwd`/$< $@
+	ln -s $(CURDIR)/$< $@
 
 dotfiles_defaults: ${HOME}/.bashrc ${HOME}/.bash_profile ${HOME}/.bash_aliases ${HOME}/.bash_paths ${HOME}/.condarc ${HOME}/.gitconfig ${HOME}/.tmux.conf ${HOME}/.tmux-osx ${HOME}/.tmux-linux ${HOME}/.config/nvim/init.lua ${HOME}/.config/nvim/lua ${HOME}/.vsnip ${HOME}/.zshrc ${HOME}/.config/alacritty ${HOME}/.config/neofetch ${HOME}/.hushlogin
 
@@ -130,11 +160,19 @@ ${HOME}/.config/nvim/init.lua: ./dot/neovim/init.lua
 ${HOME}/.config/nvim/lua: ./dot/neovim/lua
 ${HOME}/.vsnip: ./dot/neovim/snippets
 
-dotfiles_osx: ${HOME}/.yabairc ${HOME}/.skhdrc ${HOME}/.gitignore ${HOME}/.ssh/config
+# TODO DefaultKeyBinding
 
+dotfiles_osx: ${HOME}/.gitignore ${HOME}/.ssh ${HOME}/.ssh/config
+dotfiles_osx_yabai: ${HOME}/.yabairc ${HOME}/.skhdrc
+dotfiles_osx_aerospace: ${HOME}/.config/aerospace ${HOME}/.config/aerospace/aerospace.toml
+
+${HOME}/.gitignore: ./dot.osx/gitignore
+${HOME}/.config/aerospace:
+	mkdir ${HOME}/.config/aerospace
+
+${HOME}/.config/aerospace/aerospace.toml: ./dot.osx/aerospace.toml
 ${HOME}/.yabairc: ./dot.osx/yabairc
 ${HOME}/.skhdrc: ./dot.osx/skhdrc
-${HOME}/.gitignore: ./dot.osx/gitignore
 
 dotfiles_deb: ${HOME}/.inputrc
 
@@ -148,22 +186,19 @@ ${HOME}/.config/i3status/config: ./dot.deb.x/i3status
 ${HOME}/.config/i3/config: ./dot.deb.x/i3config
 
 ${HOME}/.fzf:
-	bash ./setup/fzf_setup.sh
+	bash ./setup/install-fzf.sh
 
 ${HOME}/bin/zk: has_go
-	bash ./setup/setup_zettelkasten.sh
+	bash ./setup/install-zettelkasten.sh
 	# test ! -f ${HOME}/bin/zk && ln -s ${HOME}/opt/zk.git/zk ${HOME}/bin/zk
 
 # Meta
 
 install: dotfiles bin ${HOME}/opt/neovim ${HOME}/.fzf ${HOME}/opt/tmux ${HOME}/.oh-my-zsh ${HOME}/bin/zk
 
-install_osx: ${HOME}/opt/homebrew
-	brew bundle --file ./lists/gnu.Brewfile
-	HOMEBREW_CASK_OPTS="--no-quarantine" brew bundle --file ./lists/i3like.Brewfile
-
-${HOME}/opt/homebrew:
-	bash ./setup.osx/setup_brew.sh
+install_osx:
+	bash ./setup.osx/install-homebrew.sh
+	$(MAKE) install-brew-packages
 
 install_laptop: install_apt install_apt_x install_fonts
 
@@ -189,6 +224,14 @@ ${HOME}/opt/go:
 
 ${HOME}/.cargo:
 	bash ./setup/install-rust.sh
+
+# Global packages
+
+install-rust-packages:
+	xargs cargo install < ./lists/packages.rust
+
+install-brew-packages:
+	brew bundle --file ./lists/gnu.Brewfile
 
 # Clean
 

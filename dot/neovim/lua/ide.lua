@@ -22,7 +22,7 @@ local cmp = require("cmp")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
 -- add brackets after auto-complete
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 -- comment
 require("Comment").setup({
@@ -65,7 +65,7 @@ vim.api.nvim_set_keymap(
 
 -- Doge
 -- Open nvim and run :call doge#install()
-vim.keymap.set("n", "<Leader>nd", "<Plug>(doge-generate)")
+vim.keymap.set("n", "<Leader>nD", "<Plug>(doge-generate)", { desc = "Doge generate docstring" })
 
 -- setup completion
 cmp.setup({
@@ -118,9 +118,8 @@ cmp.setup({
 })
 
 -- lsp setup
--- Set Default Prefix.
--- Note: You can set a prefix per lsp server in the lv-globals.lua file
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+-- Configure diagnostics display
+vim.diagnostic.config({
   virtual_text = {
     prefix = "!",
     spacing = 2,
@@ -130,61 +129,56 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 })
 
 --- Treesitter
-require("nvim-treesitter.install").compilers = { "clang", "gcc" }
-require("nvim-treesitter.configs").setup({
-  -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
-  -- ensure_installed can be "all" or a list of languages { "python", "javascript" }
-  -- ensure_installed = "maintained",
-  ensure_installed = {
-    "bash",
-    "css",
-    "html",
-    "javascript",
-    "python",
-    "svelte",
-    "tsx",
-    "typescript",
-    "vue",
-    "groovy",
-  },
+-- The new nvim-treesitter rewrite no longer uses nvim-treesitter.configs.
+-- setup() only accepts { install_dir = "..." }; everything else is Neovim builtins.
+require("nvim-treesitter").setup({})
 
-  highlight = { -- enable highlighting for all file types
-    enable = true,
-  },
+-- Install parsers (async, no-op if already installed)
+-- require("nvim-treesitter").install({
+--   "bash",
+--   "css",
+--   "html",
+--   "javascript",
+--   "python",
+--   "svelte",
+--   "tsx",
+--   "typescript",
+--   "vue",
+--   "groovy",
+-- })
 
-  -- need for proper indentation handling (especially for bracket pairs)
-  indent = {
-    enable = true,
-  },
-
-  incremental_selection = {
-    enable = true, -- you can also use a table with list of langs here (e.g. { "python", "javascript" })
-    disable = { "cpp", "lua" },
-    keymaps = { -- mappings for incremental selection (visual mappings)
-      init_selection = "gnn", -- maps in normal mode to init the node/scope selection
-      node_incremental = "grn", -- increment to the upper named parent
-      scope_incremental = "grc", -- increment to the upper scope (as defined in locals.scm)
-      node_decremental = "grm", -- decrement to the previous node
-    },
-  },
-
-  textobjects = {
-    -- These are provided by
-    select = {
-      enable = true, -- you can also use a table with list of langs here (e.g. { "python", "javascript" })
-      keymaps = {
-        -- You can use the capture groups defined here:
-        -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects/blob/master/queries/c/textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ab"] = "@block.outer",
-        ["ib"] = "@block.inner",
-        ["as"] = "@statement.outer",
-        ["is"] = "@statement.inner",
-      },
-    },
-  },
+-- Highlighting: Neovim builtin, enabled via FileType autocmd
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    pcall(vim.treesitter.start) -- silently skip filetypes without a parser
+  end,
 })
+
+-- Indentation: nvim-treesitter provides indentexpr()
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    pcall(function()
+      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end)
+  end,
+})
+
+-- Textobjects: keymaps for nvim-treesitter-textobjects (af/if = function, ab/ib = block, as/is = statement)
+local textobj_maps = {
+  ["af"] = "@function.outer",
+  ["if"] = "@function.inner",
+  ["ab"] = "@block.outer",
+  ["ib"] = "@block.inner",
+  ["as"] = "@statement.outer",
+  ["is"] = "@statement.inner",
+}
+for lhs, capture in pairs(textobj_maps) do
+  vim.keymap.set({ "x", "o" }, lhs, function()
+    require("nvim-treesitter-textobjects.select").select_textobject(capture, "textobjects")
+  end, { desc = "TS textobject: " .. capture })
+end
 
 -- Write mode
 require("autolist").setup()
@@ -207,10 +201,10 @@ require("zen-mode").setup({
     },
   },
   on_open = function(win)
-    vim.api.nvim_exec([[set wrap]], false)
+    vim.opt.wrap = true
   end,
   on_close = function()
-    vim.api.nvim_exec([[set nowrap]], false)
+    vim.opt.wrap = false
   end,
 })
 vim.api.nvim_set_keymap("n", "<Leader>w", ":ZenMode<CR>", { noremap = true, silent = true, desc = "Write mode" })
@@ -231,16 +225,10 @@ require("treesitter-context").setup({
   on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 })
 
-vim.api.nvim_exec(
-  [[
-hi TreesitterContextBottom gui=underline guisp=Grey
-hi TreesitterContextLineNumberBottom gui=underline guisp=Grey
-hi TreesitterContextLineNumberBottom gui=underline guisp=Grey
-]],
-  false
-)
+vim.api.nvim_set_hl(0, "TreesitterContextBottom", { underline = true, sp = "Grey" })
+vim.api.nvim_set_hl(0, "TreesitterContextLineNumberBottom", { underline = true, sp = "Grey" })
 
-vim.api.nvim_set_hl(0, "Normal", { ctermfg = White, ctermbg = Black })
+vim.api.nvim_set_hl(0, "Normal", { ctermfg = "White", ctermbg = "Black" })
 -- vim.keymap.set("n", "[c", function()
 --   require("treesitter-context").go_to_context(vim.v.count1)
 -- end, { silent = true })
@@ -250,27 +238,6 @@ vim.api.nvim_set_keymap(
   ":TSContextToggle<CR>",
   { noremap = true, silent = true, desc = "Toggle sticky scroll (context)" }
 )
-
-require("nvim-treesitter.configs").setup({
-  playground = {
-    enable = true,
-    disable = {},
-    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-    persist_queries = false, -- Whether the query persists across vim sessions
-    keybindings = {
-      toggle_query_editor = "o",
-      toggle_hl_groups = "i",
-      toggle_injected_languages = "t",
-      toggle_anonymous_nodes = "a",
-      toggle_language_display = "I",
-      focus_language = "f",
-      unfocus_language = "F",
-      update = "R",
-      goto_node = "<cr>",
-      show_help = "?",
-    },
-  },
-})
 
 -- Refactor
 vim.keymap.set("x", "<leader>re", function()
@@ -300,12 +267,12 @@ vim.keymap.set("n", "<leader>rbf", function()
 end, { desc = "Extract block to file" })
 -- Extract block supports only normal mode
 
--- Leap
-require("leap").create_default_mappings()
--- Define equivalence classes for brackets and quotes, in addition to
--- the default whitespace group.
-require("leap").opts.equivalence_classes = { " \t\r\n", "([{", ")]}", "'\"`" }
-require("leap").opts.labels = "sfnjklhodweimbuyvrgtaqpcxz"
+-- -- Leap
+-- require("leap").create_default_mappings()
+-- -- Define equivalence classes for brackets and quotes, in addition to
+-- -- the default whitespace group.
+-- require("leap").opts.equivalence_classes = { " \t\r\n", "([{", ")]}", "'\"`" }
+-- require("leap").opts.labels = "sfnjklhodweimbuyvrgtaqpcxz"
 
 -- Setup oil
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
@@ -313,26 +280,20 @@ vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 -- Node dependent plugins
 if vim.fn.executable("node") == 1 then
   -- Copilot
-  require("copilot").setup({
-    suggestion = { enabled = false },
-    panel = { enabled = false },
-  })
-  require("copilot_cmp").setup()
+  -- require("copilot").setup({
+  --   suggestion = { enabled = false },
+  --   panel = { enabled = false },
+  -- })
+  -- require("copilot_cmp").setup()
 
-  -- LSP servers only avail. if node is there
-  require("lspconfig").pyright.setup({})
-  require("lspconfig").bashls.setup({})
-  require("lspconfig").ts_ls.setup({})
-  require("lspconfig").svelte.setup({})
+  -- Mason: install and manage LSP servers
+  require("mason").setup()
+  require("mason-lspconfig").setup({
+    ensure_installed = { "pyright", "bashls", "ts_ls", "svelte" },
+  })
 else
-  -- vim.notify = require("notify")
   vim.notify("Node.js not found, skipping Node-dependent config", vim.log.levels.WARN)
 end
-
--- Better handling of inline errors
-require("tiny-inline-diagnostic").setup({
-  preset = "minimal",
-})
 
 -- Better information / popups, instead of having to press "ok"
 require("noice").setup({

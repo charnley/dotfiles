@@ -1,2 +1,4 @@
 HostkeyAlgorithms +ssh-rsa
 PubkeyAcceptedAlgorithms +ssh-rsa
+
+Include config_local

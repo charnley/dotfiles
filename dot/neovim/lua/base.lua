@@ -11,7 +11,6 @@
 
 vim.opt.autoindent = true
 vim.opt.expandtab = true
-vim.opt.indentexpr = O
 vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
 vim.opt.smarttab = true
@@ -19,7 +18,6 @@ vim.opt.softtabstop = 0
 vim.opt.tabstop = 4
 
 vim.opt.ignorecase = true -- Case-insensitive searching
-vim.opt.lazyredraw = false -- will buffer screen updates instead of updating all the time.:help 'ttyfast'
 vim.opt.list = true -- Highlight unwanted spaces
 vim.opt.listchars = {
   tab = "│·",
@@ -91,133 +89,125 @@ _G._autocommands.find_indent_width = function(lines)
   vim.opt_local.tabstop = whitespace
 end
 
--- TODO Is there a lua interface for BufReadPost?
-vim.api.nvim_exec(
-  [[
-autocmd BufReadPost * lua _autocommands.is_space_or_tab()
-]],
-  false
-)
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = "*",
+  callback = function()
+    _G._autocommands.is_space_or_tab()
+  end,
+})
 
 -- Overwrite default behavior
-vim.api.nvim_exec([[ command W w ]], false) -- common typo
-vim.api.nvim_exec([[ command Q q ]], false) -- common typo
-vim.api.nvim_exec(
-  [[
-" More sane undo (undo breakpoints on char)
-inoremap " "<c-g>u
-inoremap ( (<c-g>u
-inoremap , ,<c-g>u
-inoremap . .<c-g>u
-inoremap [ [<c-g>u
+vim.api.nvim_create_user_command("W", "w", {}) -- common typo
+vim.api.nvim_create_user_command("Q", "q", {}) -- common typo
 
-" I feel like going back a word should be consistent with w
-nnoremap W b
-vnoremap W b
+-- More sane undo (undo breakpoints on char)
+vim.keymap.set("i", '"', '"<C-g>u')
+vim.keymap.set("i", "(", "(<C-g>u")
+vim.keymap.set("i", ",", ",<C-g>u")
+vim.keymap.set("i", ".", ".<C-g>u")
+vim.keymap.set("i", "[", "[<C-g>u")
 
-" Move marked text (Sorry Peter, I use arrow)
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
-inoremap <C-j> <esc>:m .+1<CR>==i
-inoremap <C-k> <esc>:m .-2<CR>==i
-nnoremap <C-j> :m .+1<CR>==
-nnoremap <C-k> :m .-2<CR>==
-vnoremap <A-Down> :m '>+1<CR>gv=gv
-vnoremap <A-Up> :m '<-2<CR>gv=gv
-inoremap <A-Down> <esc>:m .+1<CR>==i
-inoremap <A-Up> <esc>:m .-2<CR>==i
-nnoremap <A-Down> :m .+1<CR>==
-nnoremap <A-Up> :m .-2<CR>==
+-- I feel like going back a word should be consistent with w
+vim.keymap.set({ "n", "v" }, "W", "b")
 
-" Delete without yank
-nnoremap d "_d
-nnoremap D "_D
-vnoremap d "_d
-nnoremap c "_c
+-- Move marked text (Sorry Peter, I use arrow)
+vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv")
+vim.keymap.set("i", "<C-j>", "<esc>:m .+1<CR>==i")
+vim.keymap.set("i", "<C-k>", "<esc>:m .-2<CR>==i")
+vim.keymap.set("n", "<C-j>", ":m .+1<CR>==")
+vim.keymap.set("n", "<C-k>", ":m .-2<CR>==")
+vim.keymap.set("v", "<A-Down>", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "<A-Up>", ":m '<-2<CR>gv=gv")
+vim.keymap.set("i", "<A-Down>", "<esc>:m .+1<CR>==i")
+vim.keymap.set("i", "<A-Up>", "<esc>:m .-2<CR>==i")
+vim.keymap.set("n", "<A-Down>", ":m .+1<CR>==")
+vim.keymap.set("n", "<A-Up>", ":m .-2<CR>==")
 
-" keep me centered when jumping
-nnoremap n nzzzv
-nnoremap N Nzzzv
-nnoremap J mzJ`z
+-- Delete without yank
+vim.keymap.set("n", "d", '"_d')
+vim.keymap.set("n", "D", '"_D')
+vim.keymap.set("v", "d", '"_d')
+vim.keymap.set("n", "c", '"_c')
 
-" keep me centered when going up and down
-nnoremap <C-u> <C-u>zz
-nnoremap <C-d> <C-d>zz
-nnoremap <C-b> <C-b>zz
-nnoremap <C-f> <C-f>zz
-nnoremap <PageUp> <PageUp>zz
-nnoremap <PageDown> <PageDown>zz
+-- Keep me centered when jumping
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("n", "J", "mzJ`z")
 
-" Reselect visual selection after indenting
-vnoremap < <gv
-vnoremap > >gv
+-- Keep me centered when going up and down
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-b>", "<C-b>zz")
+vim.keymap.set("n", "<C-f>", "<C-f>zz")
+vim.keymap.set("n", "<PageUp>", "<PageUp>zz")
+vim.keymap.set("n", "<PageDown>", "<PageDown>zz")
 
-" Maintain the cursor position when yanking a visual selection
-" http://ddrscott.github.io/blog/2016/yank-without-jank/
-vnoremap y myy`y
+-- Reselect visual selection after indenting
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
 
-]],
-  true
-)
+-- Maintain the cursor position when yanking a visual selection
+-- http://ddrscott.github.io/blog/2016/yank-without-jank/
+vim.keymap.set("v", "y", "myy`y")
 
 -- Set default behavior for filetypes
-vim.api.nvim_exec(
-  [[
-au BufRead,BufNewFile *.md,*.mdx,*.markdown setfiletype markdown
-au BufRead,BufNewFile Jenkinsfile,*.Jenkinsfile setfiletype groovy
-au BufRead,BufNewFile *.src setfiletype fortran
-let fortran_more_precise=1
-let fortran_dialect = "f77"
-let s:extfname = expand("%:e")
-if s:extfname ==? "f90"
-    let fortran_free_source=1
-    unlet! fortran_fixed_source
-else
-    let fortran_fixed_source=1
-    unlet! fortran_free_source
-endif
-]],
-  false
-)
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*.md", "*.mdx", "*.markdown" },
+  callback = function()
+    vim.bo.filetype = "markdown"
+  end,
+})
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "Jenkinsfile", "*.Jenkinsfile" },
+  callback = function()
+    vim.bo.filetype = "groovy"
+  end,
+})
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.src",
+  callback = function()
+    vim.bo.filetype = "fortran"
+  end,
+})
 
--- Disable filetype plugin (it overwrites tab/indentation settings)
--- vim.api.nvim_exec([[filetype plugin off]], false)
-vim.api.nvim_exec([[filetype plugin on]], false) -- needed for doge#generate
+-- Fortran globals
+vim.g.fortran_more_precise = 1
+vim.g.fortran_dialect = "f77"
+
+-- Filetype detection (needed for doge#generate)
+vim.cmd("filetype plugin on")
 
 -- Spelling
 vim.opt.spelllang = "en"
 vim.opt.spellsuggest = "best,10" -- show only the top 10 candidates
 
-vim.opt.autoread = true -- Update buffer if file has changed
-vim.api.nvim_exec(
-  [[
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
-]],
-  false
-)
+-- Update buffer if file has changed on disk
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  pattern = "*",
+  callback = function()
+    if vim.fn.mode() ~= "c" then
+      vim.cmd("checktime")
+    end
+  end,
+})
 
 -- Useful commands
--- - SortWords sorts words split by space
--- - Sw Sudo write to file
-vim.api.nvim_exec(
-  [[
-command -nargs=0 -range SortWords <line1>,<line2>call setline('.',join(sort(split(getline('.'),' ')),' '))
-command! -nargs=0 Sw w !sudo tee % > /dev/null
-]],
-  false
-)
+-- SortWords: sort words on current line split by space
+-- Sw: sudo write to file
+vim.api.nvim_create_user_command("SortWords", function(opts)
+  local line = vim.fn.getline(opts.line1)
+  vim.fn.setline(opts.line1, table.concat(vim.fn.sort(vim.split(line, " ")), " "))
+end, { range = true })
+vim.api.nvim_create_user_command("Sw", "w !sudo tee % > /dev/null", {})
 
--- if diff, ignore whitespace
-if vim.api.nvim_win_get_option(0, "diff") then
+-- If diff mode, ignore whitespace
+if vim.wo.diff then
   vim.opt.diffopt:append("iwhite")
 end
 
--- qoute words
-vim.api.nvim_exec(
-  [[
-nnoremap <Leader>q" ciw""<Esc>P
-nnoremap <Leader>q' ciw''<Esc>P
-nnoremap <Leader>qd daW"=substitute(@@,"'\\\|\"","","g")<CR>P
-]],
-  false
-)
+-- Quote words
+vim.keymap.set("n", '<Leader>q"', 'ciw""<Esc>P', { desc = "Surround word with double quotes" })
+vim.keymap.set("n", "<Leader>q'", "ciw''<Esc>P", { desc = "Surround word with single quotes" })
+vim.keymap.set("n", "<Leader>qd", 'daW"=substitute(@@,"\'\\|"","","g")<CR>P', { desc = "Remove surrounding quotes" })

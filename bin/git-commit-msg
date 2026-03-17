@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# How to
+# git commit -m "$(git diff --staged | git-commit-msg)"
+# git diff --staged -- src/foo.py | git-commit-msg
+# git diff --staged | git-commit-msg
+# git commit -m "add git-commit-msg script for AI-generated commit messages"
+
+set -euo pipefail
+
+diff_content=$(cat)
+
+prompt="Write a short, plain-English git commit message for the following diff.
+Rules:
+- One line only, no punctuation at the end, features seperated by comma
+- Start with a capitalized verb (Added, Fixed, Updated, Removed, Refactored, etc.)
+- Be specific but concise (max ~72 chars)
+- Output ONLY the commit message, nothing else
+
+Diff:
+${diff_content}"
+
+model_flag=""
+if [[ -n "${GIT_COMMIT_MSG_MODEL:-}" ]]; then
+    model_flag="--model ${GIT_COMMIT_MSG_MODEL}"
+fi
+
+opencode run "$prompt" $model_flag --format json | jq -rj 'select(.type == "text") | .part.text'
