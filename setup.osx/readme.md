@@ -134,6 +134,7 @@ Furthermore, if during reboot/system update you see a lot of applications gettin
 
 ```bash
 defaults write -g ApplePersistence -bool no # Actually, doesn't work
+defaults write -g NSQuitAlwaysKeepsWindows -bool false
 ```
 
 ## Disable Show Desktop
