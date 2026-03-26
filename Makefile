@@ -65,7 +65,10 @@ ${HOME}/.config/i3:
 ${HOME}/.config/i3status: ${HOME}/.config
 	mkdir $@
 
-directories: ${HOME}/bin ${HOME}/.config/nvim
+${HOME}/.moc:
+	mkdir -p $@
+
+directories: ${HOME}/bin ${HOME}/.config/nvim ${HOME}/.moc
 
 directories.x: ${HOME}/.config/i3status ${HOME}/.config/i3
 
@@ -139,7 +142,7 @@ ${HOME}/.%:
 	test -f $@ && mv $@ $@.bk;:
 	ln -s $(CURDIR)/$< $@
 
-dotfiles_defaults: ${HOME}/.bashrc ${HOME}/.bash_profile ${HOME}/.bash_aliases ${HOME}/.bash_paths ${HOME}/.condarc ${HOME}/.gitconfig ${HOME}/.tmux.conf ${HOME}/.tmux-osx ${HOME}/.tmux-linux ${HOME}/.config/nvim/init.lua ${HOME}/.config/nvim/lua ${HOME}/.vsnip ${HOME}/.zshrc ${HOME}/.config/alacritty ${HOME}/.config/neofetch ${HOME}/.hushlogin
+dotfiles_defaults: ${HOME}/.bashrc ${HOME}/.bash_profile ${HOME}/.bash_aliases ${HOME}/.bash_paths ${HOME}/.condarc ${HOME}/.gitconfig ${HOME}/.tmux.conf ${HOME}/.tmux-osx ${HOME}/.tmux-linux ${HOME}/.config/nvim/init.lua ${HOME}/.config/nvim/lua ${HOME}/.vsnip ${HOME}/.zshrc ${HOME}/.config/alacritty ${HOME}/.config/neofetch ${HOME}/.hushlogin ${HOME}/.moc/themes
 
 ${HOME}/.bash_aliases: ./dot/bash_aliases
 ${HOME}/.bash_paths: ./dot/bash_paths
@@ -156,6 +159,8 @@ ${HOME}/.ssh/config: ./dot/ssh_config
 
 ${HOME}/.config/neofetch: ./dot/neofetch
 ${HOME}/.config/alacritty: ./dot/alacritty
+${HOME}/.moc/themes: ${HOME}/.moc ./dot/mocp_themes
+	ln -sf $(CURDIR)/dot/mocp_themes $@
 ${HOME}/.config/nvim/init.lua: ./dot/neovim/init.lua
 ${HOME}/.config/nvim/lua: ./dot/neovim/lua
 ${HOME}/.vsnip: ./dot/neovim/snippets
