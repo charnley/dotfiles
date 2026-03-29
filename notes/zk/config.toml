@@ -65,6 +65,8 @@ ls = "zk edit --interactive --sort created"
 t = "zk edit --interactive --tag $(zk tag --quiet | fzf | awk '{print $1}')"
 ta = "zk edit --tag $(zk tag --quiet | fzf | awk '{print $1}')"
 
+_ls = "zk list --interactive --sort created --quiet --format {{path}}"
+
 # Manage the notes
 update = "cd $ZK_NOTEBOOK_DIR; git add -A; git commit -am 'updating'; git pull; git push; cd -"
 clean = "zk-clean"

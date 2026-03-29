@@ -50,7 +50,42 @@ local plugins = {
   { "hrsh7th/vim-vsnip" },
 
   -- Notes
-  -- TODO Do this
+  {
+    "nvim-telescope/telescope.nvim",
+    version = "*",
+    dependencies = {
+
+      "nvim-lua/plenary.nvim",
+      -- optional but recommended
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    },
+  },
+  {
+    "zk-org/zk-nvim",
+    name = "zk",
+    opts = {
+      -- Can be "telescope", "fzf", "fzf_lua", "minipick", "snacks_picker",
+      -- or select" (`vim.ui.select`).
+      picker = "fzf",
+
+      lsp = {
+        -- `config` is passed to `vim.lsp.start(config)`
+        config = {
+          name = "zk",
+          cmd = { "zk", "lsp" },
+          filetypes = { "markdown" },
+          -- on_attach = ...
+          -- etc, see `:h vim.lsp.start()`
+        },
+
+        -- automatically attach buffers in a zk notebook that match the given filetypes
+        auto_attach = {
+
+          enabled = true,
+        },
+      },
+    },
+  },
 
   -- snippets
   { "rafamadriz/friendly-snippets" },
