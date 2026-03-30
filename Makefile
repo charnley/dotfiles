@@ -37,15 +37,32 @@ BIN_DEB_X_TARGETS   := $(patsubst bin.deb.x/%,$(HOME)/bin/%,$(BIN_DEB_X_FILES))
 BIN_HPC_TARGETS     := $(patsubst bin.hpc/%,$(HOME)/bin/%,$(BIN_HPC_FILES))
 
 # Dummy targets
-.PHONY: vim_plugins install clean dotfiles directories bin
+.PHONY: all bin vim-benchmark \
+	directories directories-x \
+	dotfiles dotfiles-defaults \
+	dotfiles-deb dotfiles-deb-x \
+	dotfiles-osx dotfiles-osx-yabai dotfiles-osx-aerospace \
+	install-bin-links install-bin-links-dev \
+	install-bin-links-deb install-bin-links-deb-x \
+	install-bin-links-osx install-bin-links-hpc \
+	install install-deb-x install-osx install-laptop \
+	install-apt install-apt-x \
+	install-fonts install-fonts-post-deb \
+	install-dev-langs install-dev-envs \
+	has-go has-rust \
+	install-rust-packages install-brew-packages \
+	clean clean-symlinks clean-neovim \
+	format
 
-# Default targets
+# Default target
 all: dotfiles bin
 
-vim_benchmark:
+vim-benchmark:
 	${HOME}/bin/vim -c 'StartupTime'
 
+#
 # Directories
+#
 
 ${HOME}/bin:
 	mkdir -p $@
@@ -63,16 +80,21 @@ ${HOME}/.config/i3:
 	mkdir -p $@
 
 ${HOME}/.config/i3status: ${HOME}/.config
-	mkdir $@
+	mkdir -p $@
+
+${HOME}/.config/dunst: ${HOME}/.config
+	mkdir -p $@
 
 ${HOME}/.moc:
 	mkdir -p $@
 
 directories: ${HOME}/bin ${HOME}/.config/nvim ${HOME}/.moc
 
-directories.x: ${HOME}/.config/i3status ${HOME}/.config/i3
+directories-x: ${HOME}/.config/i3status ${HOME}/.config/i3 ${HOME}/.config/dunst
 
+#
 # Executables
+#
 
 ${HOME}/bin/vim:
 	ln -fs `pwd`/bin.$(OS)/vim ${HOME}/bin/vim
@@ -134,15 +156,15 @@ $(HOME)/bin/%: bin.hpc/%
 # Dotfiles
 #
 
-dotfiles: directories dotfiles_defaults dotfiles_$(OS)
+# Base: OS-agnostic dotfiles from dot/
+dotfiles: directories dotfiles-defaults
 
-dotfiles.x: directories.x bindir_deb.x dotfiles_deb.x
+# Leaf: symlinks from dot/
+dotfiles-defaults: ${HOME}/.bashrc ${HOME}/.bash_profile ${HOME}/.bash_aliases ${HOME}/.bash_paths ${HOME}/.condarc ${HOME}/.gitconfig ${HOME}/.tmux.conf ${HOME}/.tmux-osx ${HOME}/.tmux-linux ${HOME}/.config/nvim/init.lua ${HOME}/.config/nvim/lua ${HOME}/.vsnip ${HOME}/.zshrc ${HOME}/.config/alacritty ${HOME}/.config/neofetch ${HOME}/.hushlogin ${HOME}/.moc/themes
 
 ${HOME}/.%:
 	test -f $@ && mv $@ $@.bk;:
 	ln -s $(CURDIR)/$< $@
-
-dotfiles_defaults: ${HOME}/.bashrc ${HOME}/.bash_profile ${HOME}/.bash_aliases ${HOME}/.bash_paths ${HOME}/.condarc ${HOME}/.gitconfig ${HOME}/.tmux.conf ${HOME}/.tmux-osx ${HOME}/.tmux-linux ${HOME}/.config/nvim/init.lua ${HOME}/.config/nvim/lua ${HOME}/.vsnip ${HOME}/.zshrc ${HOME}/.config/alacritty ${HOME}/.config/neofetch ${HOME}/.hushlogin ${HOME}/.moc/themes
 
 ${HOME}/.bash_aliases: ./dot/bash_aliases
 ${HOME}/.bash_paths: ./dot/bash_paths
@@ -167,9 +189,24 @@ ${HOME}/.vsnip: ./dot/neovim/snippets
 
 # TODO DefaultKeyBinding
 
-dotfiles_osx: ${HOME}/.gitignore ${HOME}/.ssh ${HOME}/.ssh/config
-dotfiles_osx_yabai: ${HOME}/.yabairc ${HOME}/.skhdrc
-dotfiles_osx_aerospace: ${HOME}/.config/aerospace ${HOME}/.config/aerospace/aerospace.toml
+# deb: base + dot.deb/ symlinks
+dotfiles-deb: dotfiles ${HOME}/.inputrc
+
+${HOME}/.inputrc: ./dot.deb/inputrc
+
+# deb-x: deb + X11 dirs + dot.deb.x/ symlinks + deb.x bin links
+dotfiles-deb-x: dotfiles-deb directories-x ${HOME}/.Xresources ${HOME}/.config/dunst/dunstrc ${HOME}/.config/i3status/config ${HOME}/.config/i3/config install-bin-links-deb-x
+
+${HOME}/.Xresources: ./dot.deb.x/Xresources
+${HOME}/.config/dunst/dunstrc: ./dot.deb.x/dunstrc
+${HOME}/.config/i3status/config: ./dot.deb.x/i3status
+${HOME}/.config/i3/config: ./dot.deb.x/i3config
+
+# osx: base + dot.osx/ symlinks
+dotfiles-osx: dotfiles ${HOME}/.gitignore ${HOME}/.ssh ${HOME}/.ssh/config
+
+dotfiles-osx-yabai: ${HOME}/.yabairc ${HOME}/.skhdrc
+dotfiles-osx-aerospace: ${HOME}/.config/aerospace ${HOME}/.config/aerospace/aerospace.toml
 
 ${HOME}/.gitignore: ./dot.osx/gitignore
 ${HOME}/.config/aerospace:
@@ -179,50 +216,54 @@ ${HOME}/.config/aerospace/aerospace.toml: ./dot.osx/aerospace.toml
 ${HOME}/.yabairc: ./dot.osx/yabairc
 ${HOME}/.skhdrc: ./dot.osx/skhdrc
 
-dotfiles_deb: ${HOME}/.inputrc
-
-${HOME}/.inputrc: ./dot.deb/inputrc
-
-dotfiles_deb.x: ${HOME}/.Xresources ${HOME}/.config/dunst/dunstrc ${HOME}/.config/i3status/config ${HOME}/.config/i3/config
-
-${HOME}/.Xresources: ./dot.deb.x/Xresources
-${HOME}/.config/dunst/dunstrc: ./dot.deb.x/dunstrc
-${HOME}/.config/i3status/config: ./dot.deb.x/i3status
-${HOME}/.config/i3/config: ./dot.deb.x/i3config
+#
+# Installers
+#
 
 ${HOME}/.fzf:
 	bash ./setup/install-fzf.sh
 
-${HOME}/bin/zk: has_go
+${HOME}/bin/zk: has-go
 	bash ./setup/install-zettelkasten.sh
-	# test ! -f ${HOME}/bin/zk && ln -s ${HOME}/opt/zk.git/zk ${HOME}/bin/zk
 
-# Meta
+# Full install: auto-dispatches dotfiles-deb or dotfiles-osx via $(OS)
+install: dotfiles-$(OS) bin ${HOME}/opt/neovim ${HOME}/.fzf ${HOME}/opt/tmux ${HOME}/.oh-my-zsh ${HOME}/bin/zk
 
-install: dotfiles bin ${HOME}/opt/neovim ${HOME}/.fzf ${HOME}/opt/tmux ${HOME}/.oh-my-zsh ${HOME}/bin/zk
+# Full deb+X11 install: one command to rule them all
+install-deb-x: install-apt-x install dotfiles-deb-x install-dev-envs install-fonts install-fonts-post-deb
 
-install_osx:
+install-osx:
 	bash ./setup.osx/install-homebrew.sh
 	$(MAKE) install-brew-packages
 
-install_laptop: install_apt install_apt_x install_fonts
+install-laptop: install-apt-x install-fonts
 
-install_apt:
-	apt install $$(cat ./lists/packages.apt) -y
+#
+# Apt packages
+#
 
-install_apt_x:
-	apt install $$(cat ./lists/packages.apt.x) -y
+install-apt:
+	sudo apt install $$(cat ./lists/packages.apt) -y
 
-install_fonts:
+install-apt-x: install-apt
+	sudo apt install $$(cat ./lists/packages.apt.x) -y
+
+#
+# Fonts
+#
+
+install-fonts:
 	bash ./fonts/setup_mononoki.sh
 
-install_fonts_post_deb:
+install-fonts-post-deb:
 	fc-cache -f -v
 
+#
 # Languages
+#
 
-has_go: ${HOME}/opt/go
-has_rust: ${HOME}/.cargo
+has-go: ${HOME}/opt/go
+has-rust: ${HOME}/.cargo
 
 ${HOME}/opt/go:
 	bash ./setup/install-go.sh
@@ -230,27 +271,44 @@ ${HOME}/opt/go:
 ${HOME}/.cargo:
 	bash ./setup/install-rust.sh
 
-# Global packages
+# Language runtimes
+install-dev-langs: has-rust ${HOME}/opt/nvm
+	bash ./setup/install-node-default.sh
+	bash ./setup/install-python-uv.sh
+	bash ./setup/install-lua.sh
+	$(MAKE) has-go
 
+# Dev environment tools (require language runtimes)
+install-dev-envs: install-dev-langs
+	bash ./setup/install-neovim-language_servers.sh
+	bash ./setup/install-opencode.sh
+
+# Global packages
 install-rust-packages:
 	xargs cargo install < ./lists/packages.rust
 
 install-brew-packages:
 	brew bundle --file ./lists/gnu.Brewfile
 
+#
 # Clean
+#
 
-symlink_clean:
+clean-symlinks:
 	# TODO if there and is symlink, rm. For example, if symlink points to dotfiles, but is deprecated
 
-clean: symlink_clean
+clean: clean-symlinks
 
-clean_neovim:
+clean-neovim:
 	mkdir -p ~/tmp/trash/
 	mv ~/opt/neovim/ ~/tmp/trash/
 	mv ~/bin/vim ~/tmp/trash/
 	mv ~/.local/share/nvim/ ~/tmp/trash/
 	rm -rf ~/tmp/trash/
+
+#
+# Misc
+#
 
 format:
 	pre-commit run --all-files
