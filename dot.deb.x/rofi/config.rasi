@@ -1,0 +1,78 @@
+configuration {
+    font: "mononoki 13";
+    show-icons: false;
+    sidebar-mode: false;
+}
+
+* {
+    bg:       #121212;
+    fg:       #ffffff;
+    fg-dim:   #888888;
+    accent:   #0373bb;
+    urgent:   #900000;
+
+    background-color: transparent;
+    text-color:       @fg;
+}
+
+window {
+    background-color: @bg;
+    border:           2px;
+    border-color:     @accent;
+    border-radius:    0px;
+    padding:          8px;
+    width:            480px;
+}
+
+mainbox {
+    background-color: @bg;
+    spacing:          0px;
+}
+
+inputbar {
+    background-color: @bg;
+    padding:          6px 8px;
+    spacing:          8px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    text-color: @accent;
+}
+
+entry {
+    text-color:   @fg;
+    placeholder:  "run...";
+    placeholder-color: @fg-dim;
+}
+
+listview {
+    background-color: @bg;
+    lines:            8;
+    padding:          4px 0px;
+    scrollbar:        false;
+}
+
+element {
+    padding:    4px 8px;
+    spacing:    0px;
+}
+
+element normal.normal {
+    background-color: @bg;
+    text-color:       @fg-dim;
+}
+
+element selected.normal {
+    background-color: @accent;
+    text-color:       @fg;
+}
+
+element normal.urgent {
+    text-color: @urgent;
+}
+
+element selected.urgent {
+    background-color: @urgent;
+    text-color:       @fg;
+}

@@ -85,12 +85,15 @@ ${HOME}/.config/i3status: ${HOME}/.config
 ${HOME}/.config/dunst: ${HOME}/.config
 	mkdir -p $@
 
+${HOME}/.config/rofi: ${HOME}/.config
+	mkdir -p $@
+
 ${HOME}/.moc:
 	mkdir -p $@
 
 directories: ${HOME}/bin ${HOME}/.config/nvim ${HOME}/.moc
 
-directories-x: ${HOME}/.config/i3status ${HOME}/.config/i3 ${HOME}/.config/dunst
+directories-x: ${HOME}/.config/i3status ${HOME}/.config/i3 ${HOME}/.config/dunst ${HOME}/.config/rofi
 
 #
 # Executables
@@ -195,12 +198,13 @@ dotfiles-deb: dotfiles ${HOME}/.inputrc
 ${HOME}/.inputrc: ./dot.deb/inputrc
 
 # deb-x: deb + X11 dirs + dot.deb.x/ symlinks + deb.x bin links
-dotfiles-deb-x: dotfiles-deb directories-x ${HOME}/.Xresources ${HOME}/.config/dunst/dunstrc ${HOME}/.config/i3status/config ${HOME}/.config/i3/config install-bin-links-deb-x
+dotfiles-deb-x: dotfiles-deb directories-x ${HOME}/.Xresources ${HOME}/.config/dunst/dunstrc ${HOME}/.config/i3status/config ${HOME}/.config/i3/config ${HOME}/.config/rofi/config.rasi install-bin-links-deb-x
 
 ${HOME}/.Xresources: ./dot.deb.x/Xresources
 ${HOME}/.config/dunst/dunstrc: ./dot.deb.x/dunstrc
 ${HOME}/.config/i3status/config: ./dot.deb.x/i3status
 ${HOME}/.config/i3/config: ./dot.deb.x/i3config
+${HOME}/.config/rofi/config.rasi: ./dot.deb.x/rofi/config.rasi
 
 # osx: base + dot.osx/ symlinks
 dotfiles-osx: dotfiles ${HOME}/.gitignore ${HOME}/.ssh ${HOME}/.ssh/config
