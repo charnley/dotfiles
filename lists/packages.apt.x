@@ -21,6 +21,7 @@ pcmanfm
 pkg-config
 powertop
 powertop
+pulseaudio-utils
 python3-dev
 rofi
 rxvt-unicode

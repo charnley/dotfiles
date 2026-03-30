@@ -6,9 +6,9 @@ general {
     interval = 5
 }
 
-order += "wireless wlp4s0"
-order += "ethernet enxe04f435d2fd2"
-order += "ethernet enxe04f435cf9fb"
+order += "wireless wlp0s20f3"
+#order += "ethernet enxe04f435d2fd2"
+#order += "ethernet enxe04f435cf9fb"
 #order += "ethernet enx0050b6561b6a"
 #order += "ethernet enp0s31f6"
 order += "path_exists VPN"
@@ -19,6 +19,11 @@ order += "cpu_temperature 0"
 order += "load"
 order += "tztime day"
 order += "tztime hour"
+
+wireless wlp0s20f3 {
+    format_up = " (%quality %essid %ip) "
+    format_down = " wifi "
+}
 
 wireless wlan0 {
     format_up = " (%quality %essid %ip) "
