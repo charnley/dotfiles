@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+yt-dlp -f "bestaudio[ext=m4a]/bestaudio[protocol!=sabr]/bestaudio" -x --audio-format mp3 "$@"

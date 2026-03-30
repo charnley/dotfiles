@@ -1,5 +1,5 @@
 #!/bin/bash
 
-brew services start jack
+brew services list | grep -q "^jack.*started" || brew services start jack
 
 mocp --theme ~/.moc/themes/tty
