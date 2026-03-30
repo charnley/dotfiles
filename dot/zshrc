@@ -209,3 +209,5 @@ test -f $HOME/.zshrc.local && source $HOME/.zshrc.local
 
 # Profile
 #zprof
+
+. "$HOME/.local/bin/env"

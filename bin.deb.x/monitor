@@ -110,6 +110,7 @@ def main():
 
     # native_res=1920x1080
     native_res = "1600x900"
+    native_res = "1680x1050"
 
     if len(sys.argv) == 1:
         for monitor, resolution in zip(*get_monitors()):
