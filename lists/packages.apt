@@ -1,6 +1,8 @@
 build-essential
 cmake
 curl
+vim
+wget
 git
 libssl-dev
 make
