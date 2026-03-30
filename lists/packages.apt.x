@@ -1,7 +1,7 @@
 alacritty
-acpi-call-dkms
 arc-theme
 blueman
+chrony
 cmake
 eog
 evince
