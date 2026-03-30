@@ -61,7 +61,7 @@ todos = 'zk edit --sort created- --created-after "$(date -d "$*" +%Y-%m-%d)" tod
 last = "zk edit --limit 1 --sort modified- $argv"
 recent = "zk edit --sort created- --created-after 'last 7 days' --interactive"
 recent-month = "zk edit --sort created- --created-after 'last 30 days' --interactive"
-ls = "zk edit --interactive --sort created"
+ls = "zk edit --interactive --sort created --exclude todo"
 t = "zk edit --interactive --tag $(zk tag --quiet | fzf | awk '{print $1}')"
 ta = "zk edit --tag $(zk tag --quiet | fzf | awk '{print $1}')"
 
