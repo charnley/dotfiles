@@ -257,7 +257,7 @@ install-apt-x: install-apt
 #
 
 install-fonts:
-	bash ./fonts/setup_mononoki.sh
+	bash ./fonts/install-mononoki.sh
 
 install-fonts-post-deb:
 	fc-cache -f -v
