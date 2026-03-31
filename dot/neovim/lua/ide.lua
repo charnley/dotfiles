@@ -104,7 +104,6 @@ cmp.setup({
     ["<Tab>"] = cmp.mapping.confirm({ select = true }),
   }, -- end mapping
   sources = cmp.config.sources({
-    { name = "copilot", group_index = 2 },
     { name = "nvim_lsp" },
     { name = "path" },
     { name = "vsnip" },
@@ -279,13 +278,6 @@ vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- Node dependent plugins
 if vim.fn.executable("node") == 1 then
-  -- Copilot
-  -- require("copilot").setup({
-  --   suggestion = { enabled = false },
-  --   panel = { enabled = false },
-  -- })
-  -- require("copilot_cmp").setup()
-
   -- Mason: install and manage LSP servers
   require("mason").setup()
   require("mason-lspconfig").setup({

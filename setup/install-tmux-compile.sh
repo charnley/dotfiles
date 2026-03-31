@@ -11,7 +11,7 @@ fi
 
 export CURL_OPTIONS="--silent --show-error"
 
-TMUX_VERSION="3.2a"
+TMUX_VERSION="3.6a"
 NCURSES_VERSION="6.3"
 LIBEVENT_VERSION="2.1.12"
 

@@ -90,11 +90,6 @@ local plugins = {
   -- snippets
   { "rafamadriz/friendly-snippets" },
 
-  -- github copilot
-  -- :Copilot auth
-  { "zbirenbaum/copilot.lua", cmd = "Copilot", event = "InsertEnter" },
-  { "zbirenbaum/copilot-cmp" }, -- cmp auto completion
-
   -- Git
   { "airblade/vim-gitgutter" }, -- Git indication
   { "apzelos/blamer.nvim" }, -- Git blame line
