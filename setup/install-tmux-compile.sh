@@ -67,7 +67,7 @@ FLAGS3=""
 
 # setup tmux
 cd tmux-${TMUX_VERSION}
-./configure CFLAGS="${FLAGS1}" LDFLAGS="${FLAGS2}"
+./configure --disable-utf8proc CFLAGS="${FLAGS1}" LDFLAGS="${FLAGS2}"
 CPPFLAGS="$FLAGS3" LDFLAGS="-static ${FLAGS2}" make
 
 cd ..
