@@ -111,9 +111,9 @@ ${HOME}/.oh-my-zsh:
 
 bin:
 	$(MAKE) ${HOME}/bin
-	$(MAKE) install-bin-links
-	$(MAKE) install-bin-links-$(OS)
-	$(MAKE) install-bin-links-dev
+	$(MAKE) install-bin
+	$(MAKE) install-bin-$(OS)
+	$(MAKE) install-bin-dev
 
 install-bin: $(BIN_DEFAULT_TARGETS)
 install-bin-dev: $(BIN_DEV_TARGETS)
