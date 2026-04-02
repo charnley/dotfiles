@@ -190,9 +190,9 @@ bindsym $mod+r mode "resize"
 # automatically starting applications on i3 startup
 
 exec --no-startup-id ~/bin/monitor --undock # Resolution fix
-#exec --no-startup-id dropbox start # Start Dropbox
-#exec --no-startup-id pactl load-module module-bluetooth-discover # Bluetooth policies
-#exec --no-startup-id nm-applet -sm-disable # Start  Network Manager
+# exec --no-startup-id dropbox start # Start Dropbox
+# exec --no-startup-id pactl load-module module-bluetooth-discover # Bluetooth policies
+# exec --no-startup-id nm-applet -sm-disable # Start  Network Manager
 exec --no-startup-id nm-tray # qt network manager
 exec --no-startup-id blueman-applet # Start bluetooth manager
 
