@@ -1,13 +1,4 @@
-
-# Note
-# $@ - sources
-# $< - target
-
-# Check operating system
-ifeq '$(findstring ;,$(PATH))' ';' # Windows
-	detected_OS := Windows
-else
-	detected_OS := $(shell uname 2>/dev/null || echo Unknown)
+ev/null || echo Unknown)
 	detected_OS := $(patsubst CYGWIN%,Cygwin,$(detected_OS))
 	detected_OS := $(patsubst MSYS%,MSYS,$(detected_OS))
 	detected_OS := $(patsubst MINGW%,MSYS,$(detected_OS))
@@ -21,7 +12,6 @@ ifeq ($(detected_OS),Linux) # Linux
 	OS = deb
 endif
 
-# Bin directory symlink targets
 BIN_DEFAULT_FILES   := $(wildcard bin/*)
 BIN_DEV_FILES       := $(wildcard bin.dev/*)
 BIN_OSX_FILES       := $(wildcard bin.osx/*)
@@ -36,14 +26,9 @@ BIN_DEB_TARGETS     := $(patsubst bin.deb/%,$(HOME)/bin/%,$(BIN_DEB_FILES))
 BIN_DEB_X_TARGETS   := $(patsubst bin.deb.x/%,$(HOME)/bin/%,$(BIN_DEB_X_FILES))
 BIN_HPC_TARGETS     := $(patsubst bin.hpc/%,$(HOME)/bin/%,$(BIN_HPC_FILES))
 
-# Dummy targets
 .PHONY: all bin dotfiles
 
-# Default target
 all: dotfiles bin
-
-vim-benchmark:
-	${HOME}/bin/vim -c 'StartupTime'
 
 #
 # Directories
@@ -144,10 +129,8 @@ $(HOME)/bin/%: bin.hpc/%
 # Dotfiles
 #
 
-# Base: OS-agnostic dotfiles from dot/
 dotfiles: directories dotfiles-defaults
 
-# Leaf: symlinks from dot/
 dotfiles-defaults: ${HOME}/.bashrc ${HOME}/.bash_profile ${HOME}/.bash_aliases ${HOME}/.bash_paths ${HOME}/.condarc ${HOME}/.gitconfig ${HOME}/.tmux.conf ${HOME}/.tmux-osx ${HOME}/.tmux-linux ${HOME}/.config/nvim/init.lua ${HOME}/.config/nvim/lua ${HOME}/.vsnip ${HOME}/.zshrc ${HOME}/.config/alacritty ${HOME}/.config/neofetch ${HOME}/.hushlogin ${HOME}/.moc/themes
 
 ${HOME}/.%:
@@ -175,14 +158,10 @@ ${HOME}/.config/nvim/init.lua: ./dot/neovim/init.lua
 ${HOME}/.config/nvim/lua: ./dot/neovim/lua
 ${HOME}/.vsnip: ./dot/neovim/snippets
 
-# TODO DefaultKeyBinding
-
-# deb: base + dot.deb/ symlinks
 dotfiles-deb: dotfiles ${HOME}/.inputrc
 
 ${HOME}/.inputrc: ./dot.deb/inputrc
 
-# deb-x: deb + X11 dirs + dot.deb.x/ symlinks + deb.x bin links
 dotfiles-deb-x: dotfiles-deb directories-x ${HOME}/.Xresources ${HOME}/.config/dunst/dunstrc ${HOME}/.config/i3status/config ${HOME}/.config/i3/config ${HOME}/.config/rofi/config.rasi install-bin-deb-x
 
 ${HOME}/.Xresources: ./dot.deb.x/Xresources
@@ -191,7 +170,6 @@ ${HOME}/.config/i3status/config: ./dot.deb.x/i3status
 ${HOME}/.config/i3/config: ./dot.deb.x/i3config
 ${HOME}/.config/rofi/config.rasi: ./dot.deb.x/rofi/config.rasi
 
-# osx: base + dot.osx/ symlinks
 dotfiles-osx: dotfiles ${HOME}/.gitignore ${HOME}/.ssh ${HOME}/.ssh/config
 
 dotfiles-osx-yabai: ${HOME}/.yabairc ${HOME}/.skhdrc
@@ -215,10 +193,8 @@ ${HOME}/.fzf:
 ${HOME}/bin/zk: has-go
 	bash ./setup/install-zettelkasten.sh
 
-# Full install: auto-dispatches dotfiles-deb or dotfiles-osx via $(OS)
 install: dotfiles-$(OS) bin ${HOME}/opt/neovim ${HOME}/.fzf ${HOME}/opt/tmux ${HOME}/.oh-my-zsh ${HOME}/bin/zk
 
-# Full deb+X11 install: one command to rule them all
 install-deb-x: install-apt-x install dotfiles-deb-x install-dev-envs install-fonts install-fonts-post-deb
 
 install-osx:
@@ -260,19 +236,16 @@ ${HOME}/opt/go:
 ${HOME}/.cargo:
 	bash ./setup/install-rust.sh
 
-# Language runtimes
 install-dev-langs: has-rust ${HOME}/opt/nvm
 	bash ./setup/install-node-default.sh
 	bash ./setup/install-python-uv.sh
 	bash ./setup/install-lua.sh
 	$(MAKE) has-go
 
-# Dev environment tools (require language runtimes)
 install-dev-envs: install-dev-langs
 	bash ./setup/install-neovim-language_servers.sh
 	bash ./setup/install-opencode.sh
 
-# Global packages
 install-rust-packages:
 	xargs cargo install < ./lists/packages.rust
 
