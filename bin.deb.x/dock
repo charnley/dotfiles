@@ -1,0 +1,7 @@
+#!/bin/bash
+
+monitor --dock-left
+fix_keyboard_capslock
+fix_mouse_sensitivity
+
+
