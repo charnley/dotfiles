@@ -37,22 +37,7 @@ BIN_DEB_X_TARGETS   := $(patsubst bin.deb.x/%,$(HOME)/bin/%,$(BIN_DEB_X_FILES))
 BIN_HPC_TARGETS     := $(patsubst bin.hpc/%,$(HOME)/bin/%,$(BIN_HPC_FILES))
 
 # Dummy targets
-.PHONY: all bin vim-benchmark \
-	directories directories-x \
-	dotfiles dotfiles-defaults \
-	dotfiles-deb dotfiles-deb-x \
-	dotfiles-osx dotfiles-osx-yabai dotfiles-osx-aerospace \
-	install-bin-links install-bin-links-dev \
-	install-bin-links-deb install-bin-links-deb-x \
-	install-bin-links-osx install-bin-links-hpc \
-	install install-deb-x install-osx install-laptop \
-	install-apt install-apt-x \
-	install-fonts install-fonts-post-deb \
-	install-dev-langs install-dev-envs \
-	has-go has-rust \
-	install-rust-packages install-brew-packages \
-	clean clean-symlinks clean-neovim \
-	format
+.PHONY: all bin dotfiles
 
 # Default target
 all: dotfiles bin
@@ -130,12 +115,12 @@ bin:
 	$(MAKE) install-bin-links-$(OS)
 	$(MAKE) install-bin-links-dev
 
-install-bin-links: $(BIN_DEFAULT_TARGETS)
-install-bin-links-dev: $(BIN_DEV_TARGETS)
-install-bin-links-deb: $(BIN_DEB_TARGETS)
-install-bin-links-deb-x: $(BIN_DEB_X_TARGETS)
-install-bin-links-osx: $(BIN_OSX_TARGETS)
-install-bin-links-hpc: $(BIN_HPC_TARGETS)
+install-bin: $(BIN_DEFAULT_TARGETS)
+install-bin-dev: $(BIN_DEV_TARGETS)
+install-bin-deb: $(BIN_DEB_TARGETS)
+install-bin-deb-x: $(BIN_DEB_X_TARGETS)
+install-bin-osx: $(BIN_OSX_TARGETS)
+install-bin-hpc: $(BIN_HPC_TARGETS)
 
 $(HOME)/bin/%: bin/%
 	ln -s $(CURDIR)/bin/$* $@
@@ -198,7 +183,7 @@ dotfiles-deb: dotfiles ${HOME}/.inputrc
 ${HOME}/.inputrc: ./dot.deb/inputrc
 
 # deb-x: deb + X11 dirs + dot.deb.x/ symlinks + deb.x bin links
-dotfiles-deb-x: dotfiles-deb directories-x ${HOME}/.Xresources ${HOME}/.config/dunst/dunstrc ${HOME}/.config/i3status/config ${HOME}/.config/i3/config ${HOME}/.config/rofi/config.rasi install-bin-links-deb-x
+dotfiles-deb-x: dotfiles-deb directories-x ${HOME}/.Xresources ${HOME}/.config/dunst/dunstrc ${HOME}/.config/i3status/config ${HOME}/.config/i3/config ${HOME}/.config/rofi/config.rasi install-bin-deb-x
 
 ${HOME}/.Xresources: ./dot.deb.x/Xresources
 ${HOME}/.config/dunst/dunstrc: ./dot.deb.x/dunstrc
