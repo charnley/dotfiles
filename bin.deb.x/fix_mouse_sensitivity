@@ -1,11 +1,6 @@
 #!/usr/bin/env python3
 
-import re
-import sys
 from subprocess import PIPE, Popen
-
-import numpy
-
 
 def shell(cmd, shell=False):
 
@@ -15,8 +10,8 @@ def shell(cmd, shell=False):
         cmd = cmd.split()
         p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 
-    output, err = p.communicate()
-    return output.decode("utf-8")
+    stdout, _ = p.communicate()
+    return stdout.decode("utf-8")
 
 
 if __name__ == "__main__":
@@ -26,8 +21,8 @@ if __name__ == "__main__":
     # xinput --list-props 14
     # xinput --set-prop 14 "libinput Accel
 
-    # cmd = 'xinput --set-prop {} "libinput Accel Speed" -0.7'
-    cmd = 'xinput --set-prop {} "libinput Accel Speed" -1.0'
+    cmd = 'xinput --set-prop {} "libinput Accel Speed" -0.9'
+    # cmd = 'xinput --set-prop {} "libinput Accel Speed" -1.0'
 
     xrandr = shell("xrandr | grep connected | grep -v dis", shell=True)
     xrandr = [monitor.strip() for monitor in xrandr.split("\n")[:-1]]
