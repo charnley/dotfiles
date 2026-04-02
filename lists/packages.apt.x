@@ -5,6 +5,7 @@ chrony
 cmake
 eog
 evince
+ffmpeg
 flameshot
 i3
 libfontconfig1-dev

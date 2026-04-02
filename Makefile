@@ -278,3 +278,10 @@ clean-neovim:
 
 format:
 	pre-commit run --all-files
+
+
+# For some of the dotfile python script
+.venv:
+	uv venv
+	uv pip install pip yt-dlp pyautogui
+
