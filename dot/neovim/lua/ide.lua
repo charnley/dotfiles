@@ -4,7 +4,8 @@ require("nvim-autopairs").setup({})
 require("which-key").setup({})
 
 -- Be able to comment html and js in same file
-require("ts_context_commentstring").setup({})
+-- require("ts_context_commentstring").setup({})
+require("ts_context_commentstring").setup({ enable_autocmd = false })
 
 -- Auto signature hints
 require("lsp_signature").setup({
@@ -27,22 +28,23 @@ cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 -- comment
 require("Comment").setup({
   ignore = "^$",
-  pre_hook = function(ctx)
-    local U = require("Comment.utils")
+  pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook()
+  -- pre_hook = function(ctx)
+  --   local U = require("Comment.utils")
 
-    local location = nil
-    if ctx.ctype == U.ctype.blockwise then
-      location = require("ts_context_commentstring.utils").get_cursor_location()
-    elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-      location = require("ts_context_commentstring.utils").get_visual_start_location()
-    end
+  --   local location = nil
+  --   if ctx.ctype == U.ctype.blockwise then
+  --     location = require("ts_context_commentstring.utils").get_cursor_location()
+  --   elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
+  --     location = require("ts_context_commentstring.utils").get_visual_start_location()
+  --   end
 
-    local commentstr = require("ts_context_commentstring.internal").calculate_commentstring({
-      key = ctx.ctype == U.ctype.linewise and "__default" or "__multiline",
-      location = location,
-    })
-    return commentstr
-  end,
+  --   local commentstr = require("ts_context_commentstring.internal").calculate_commentstring({
+  --     key = ctx.ctype == U.ctype.linewise and "__default" or "__multiline",
+  --     location = location,
+  --   })
+  --   return commentstr
+  -- end,
 })
 
 local ft = require("Comment.ft")
@@ -133,18 +135,18 @@ vim.diagnostic.config({
 require("nvim-treesitter").setup({})
 
 -- Install parsers (async, no-op if already installed)
--- require("nvim-treesitter").install({
---   "bash",
---   "css",
---   "html",
---   "javascript",
---   "python",
---   "svelte",
---   "tsx",
---   "typescript",
---   "vue",
---   "groovy",
--- })
+require("nvim-treesitter").install({
+  "bash",
+  "css",
+  "html",
+  "javascript",
+  "python",
+  "svelte",
+  "tsx",
+  "typescript",
+  "vue",
+  "groovy",
+})
 
 -- Highlighting: Neovim builtin, enabled via FileType autocmd
 vim.api.nvim_create_autocmd("FileType", {
