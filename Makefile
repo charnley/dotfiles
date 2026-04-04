@@ -166,8 +166,9 @@ dotfiles-deb: dotfiles ${HOME}/.inputrc
 
 ${HOME}/.inputrc: ./dot.deb/inputrc
 
-dotfiles-deb-x: dotfiles-deb directories-x ${HOME}/.Xresources ${HOME}/.config/dunst/dunstrc ${HOME}/.config/i3status/config ${HOME}/.config/i3/config ${HOME}/.config/rofi/config.rasi install-bin-deb-x
+dotfiles-deb-x: dotfiles-deb directories-x ${HOME}/.Xresources ${HOME}/.config/dunst/dunstrc ${HOME}/.config/i3status/config ${HOME}/.config/i3/config ${HOME}/.config/rofi/config.rasi ${HOME}/.xprofile install-bin-deb-x
 
+${HOME}/.xprofile: ./dot.deb.x/xprofile
 ${HOME}/.Xresources: ./dot.deb.x/Xresources
 ${HOME}/.config/dunst/dunstrc: ./dot.deb.x/dunstrc
 ${HOME}/.config/i3status/config: ./dot.deb.x/i3status

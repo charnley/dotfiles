@@ -41,6 +41,12 @@ then add it to `/etc/pulse/default.pa` like this
 
 where `0` is the card id found before.
 
+## Styleing
+
+Style both gnome and qt applications, selecting icons etc.
+
+    sudo apt install qt6ct lxappearance
+
 ## References
 
 - https://askubuntu.com/questions/687062/usb-audio-interface-not-showing-device-in-list-for-pulseaudio
