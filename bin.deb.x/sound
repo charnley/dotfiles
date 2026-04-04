@@ -10,173 +10,136 @@ bindsym XF86AudioMute exec amixer -q set Master toggle; exec amixer -q set Headp
 
 """
 
-import sys
 from subprocess import PIPE, Popen
 
 
-def shell(cmd, shell=False):
+# Sinks matching any of these substrings are silently ignored (e.g. microphones)
+SINK_IGNORE = ["RODE_NT-USB", "R__DE", "VideoMic"]
 
-    if shell:
-        p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
-    else:
-        cmd = cmd.split()
-        p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+# Ordered highest to lowest priority. First matched label wins.
+SINK_PRIORITY = [
+    {"label": "bluetooth", "match": ["blue"],    "default_volume": 36},
+    {"label": "dock",      "match": ["C-Media"], "default_volume": 40},
+    {"label": "laptop",    "match": ["pci"],     "default_volume": 50},
+]
 
-    stdout, _ = p.communicate()
-    return stdout.decode("utf-8")
+
+def shell(cmd):
+
+    cmd = cmd.split()
+    p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+
+    stdout, stderr = p.communicate()
+
+    if stderr:
+        print(f"err: {stderr}")
+
+    return stdout.decode("utf-8", errors="replace")
+
+
+def classify_sink(name):
+    """Return the priority label for a sink name, or None if it should be ignored."""
+    for pattern in SINK_IGNORE:
+        if pattern in name:
+            return None
+    for entry in SINK_PRIORITY:
+        for pattern in entry["match"]:
+            if pattern in name:
+                return entry["label"]
+    return "unknown"
+
+
+def parse_sinks(raw):
+    sinks = []
+    for line in raw.strip().splitlines():
+        parts = line.split()
+        if len(parts) < 2:
+            continue
+        if not parts[0].isdigit():
+            continue
+        sinks.append({"id": parts[0], "name": parts[1]})
+    return sinks
+
+
+def parse_pactl_info(raw):
+    info = {}
+    for line in raw.strip().splitlines():
+        if ": " in line:
+            key, _, value = line.partition(": ")
+            info[key.strip()] = value.strip()
+    return info
 
 
 if __name__ == "__main__":
 
-    args = sys.argv[1:]
-    nargs = len(args)
-
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-l", "--list", action="store_true", help="List sinks and cards"
-    )
+    parser.add_argument("-l", "--list", action="store_true", help="List sinks and cards")
     parser.add_argument("change", nargs="?", help="Change volume", default="")
-
     args = parser.parse_args()
 
-    # shell('notify-send " " "volume changed"', shell=True)
+    sinks = parse_sinks(shell("pactl list short sinks"))
+    cards = parse_sinks(shell("pactl list cards short"))
+    pactl = parse_pactl_info(shell("pactl info"))
 
-    sinks = shell("pactl list short sinks")
-    sinks = sinks.split("\n")
-    sinks = [sink.strip() for sink in sinks]
-    sinks = list(filter(None, sinks))
-
-    cards = shell("pactl list cards short")
-    cards = cards.split("\n")
-    cards = [card.strip() for card in cards]
-    cards = list(filter(None, cards))
-
-    pactl_info = shell("pactl info")
-    pactl_info = pactl_info.split("\n")
-    pactl = {}
-
-    for info in pactl_info:
-        info = info.strip()
-        if info == "":
-            continue
-        info = info.split(": ")
-        pactl[info[0]] = info[1]
-
-    laptop_speaker_id = "X"
-    bluetooth_headset_id = "X"
-    dock_id = "X"
-    dock_name = None
-
-    if args.list or nargs == 0:
-        print("Usage: sound <change>")
+    if args.list or not args.change:
+        print("Usage: sound <volume%>")
         print()
-        for key in pactl:
-            if "Sink" not in key:
-                continue
-            print(key + ":", "\n", pactl[key])
-
+        for key, value in pactl.items():
+            if "Sink" in key:
+                print(f"{key}: {value}")
         print()
-        print("found", len(sinks), "sinks:")
+        print(f"found {len(sinks)} sinks:")
         for sink in sinks:
-            print(" ".join(sink.split()[:2]))
-
+            label = classify_sink(sink["name"])
+            tag = f"[{label}]" if label else "[ignored]"
+            print(f"  {sink['id']:>4}  {tag:<12}  {sink['name']}")
         print()
-        print("found", len(cards), "cards:")
+        print(f"found {len(cards)} cards:")
         for card in cards:
-            print(" ".join(card.split()[:2]))
-
+            print(f"  {card['id']:>4}  {card['name']}")
         quit()
 
+    # Classify all sinks
+    classified = {}  # label -> first matching sink
     for sink in sinks:
-
-        # bluetooth
-        if "blue" in sink:
-            sink = sink.split()
-            bluetooth_headset_id = sink[0]
-
-        # laptop speaker
-        elif "pci" in sink:
-            sink = sink.split()
-            laptop_speaker_id = sink[0]
-            dock_id = sink[0]
-            dock_name = sink[1]
-
-        # dock output
-        elif "Dock" in sink:
+        label = classify_sink(sink["name"])
+        if label is None:
+            continue  # ignored
+        if label == "unknown":
+            print(f"warning: unrecognized sink {sink['name']}")
             continue
-            sink = sink.split()
-            dock_id = sink[0]
-            dock_name = sink[1]
+        if label not in classified:
+            classified[label] = sink
 
-        # microphone
-        elif "RODE_NT-USB" in sink:
-            # ignore
-            continue
+    # Pick highest-priority available sink
+    chosen = None
+    chosen_entry: dict | None = None
+    for entry in SINK_PRIORITY:
+        label = entry["label"]
+        if label in classified:
+            chosen = classified[label]
+            chosen_entry = entry
+            break
 
-        elif "usb-041e" in sink:
-            sink = sink.split()
-            dock_id = sink[0]
-            dock_name = sink[1]
+    if chosen is None:
+        print("error: no usable sink found")
+        quit(1)
 
-        elif "HD_USB" in sink:
-            sink = sink.split()
-            dock_id = sink[0]
-            dock_name = sink[1]
-
-        elif "iFi" in sink:
-            sink = sink.split()
-            dock_id = sink[0]
-            dock_name = sink[1]
-
-        else:
-            print("error, not bluetooth or default")
-            print(sink)
-            continue
-
-    # get change
     change = args.change
-
     if change == "mute":
-        change = 0
+        change = "0"
 
-    if len(sinks) == 1:
-        sink = laptop_speaker_id
-        shell("pactl set-sink-volume {} {}%".format(sink, change))
-        quit()
+    assert chosen_entry is not None
 
-    if bluetooth_headset_id != "X":
+    # Switch default sink if needed, and apply safe default volume on first switch
+    if pactl.get("Default Sink") != chosen["name"]:
+        shell(f"pactl set-default-sink {chosen['id']}")
+        change = str(chosen_entry["default_volume"])
 
-        sink = bluetooth_headset_id
-
-        # check if bluetooth is default output
-        if "blue" not in pactl["Default Sink"]:
-            shell("pactl set-default-sink {}".format(sink))
-
-            # Set default sound volume to 30%
-            # so it does not blow my head off
-            change = "36"
-
-        shell("pactl set-sink-volume {} {}%".format(sink, change))
-
-        for sink in sinks:
-            sink = sink.split()
-            sink = sink[0]
-            if sink == bluetooth_headset_id:
-                continue
-            shell("pactl set-sink-volume {} {}%".format(sink, 0))
-
-    else:
-
-        sink = dock_id
-
-        if pactl["Default Sink"] != dock_name:
-            print("not default")
-            shell("pactl set-default-sink {}".format(sink))
-
-            # Set default sound volume to 30%
-            # so it does not blow my head off
-            change = "40"
-
-        shell("pactl set-sink-volume {} {}%".format(sink, change))
+    # Set volume on chosen sink, mute all others
+    shell(f"pactl set-sink-volume {chosen['id']} {change}%")
+    for sink in sinks:
+        if sink["id"] != chosen["id"]:
+            shell(f"pactl set-sink-volume {sink['id']} 0%")
