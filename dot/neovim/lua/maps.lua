@@ -59,10 +59,13 @@ vim.api.nvim_set_keymap("n", "<leader>gp", ":GitGutterPrevHunk<cr>", { noremap =
 vim.api.nvim_set_keymap("n", "<leader>gh", ":GitGutterPreviewHunk<cr>", { noremap = true, desc = "Diff hunk" }) -- what changed in this hunk (close with :pclose)
 vim.api.nvim_set_keymap("n", "<leader>gb", ":BlameToggle<cr>", { noremap = true, desc = "Toggle git blame" }) -- Undo block of git changes
 
--- Cut commands
-vim.api.nvim_set_keymap("n", "<leader>d", '""dd', { noremap = true, desc = "Cut line" })
-vim.api.nvim_set_keymap("v", "<leader>d", '""d', { noremap = true, desc = "Cut" })
-vim.api.nvim_set_keymap("n", "<leader>D", '""D', { noremap = true, desc = "Cut rest of line" })
+-- Visual change: delete without yanking
+vim.api.nvim_set_keymap("v", "c", '"_c', { noremap = true, desc = "Change without yanking" })
+
+-- Cut to clipboard commands
+vim.api.nvim_set_keymap("n", "<leader>d", '"+dd', { noremap = true, desc = "Cut line to clipboard" })
+vim.api.nvim_set_keymap("v", "<leader>d", '"+d', { noremap = true, desc = "Cut to clipboard" })
+vim.api.nvim_set_keymap("n", "<leader>D", '"+D', { noremap = true, desc = "Cut rest of line to clipboard" })
 
 -- Lsp key bindings
 vim.keymap.set("n", "<Leader>ld", vim.lsp.buf.definition, { desc = "LSP definition" })
