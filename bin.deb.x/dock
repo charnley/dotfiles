@@ -1,7 +1,12 @@
 #!/bin/bash
 
+set -x
+set -e
+set -u
+
 monitor --dock-left
 fix_keyboard_capslock
 fix_mouse_sensitivity
 
+ibus engine xkb:dk::dan
 

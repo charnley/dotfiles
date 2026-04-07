@@ -1,4 +1,8 @@
 #!/bin/bash
 
+set -x
+set -e
+set -u
 
 monitor --undock
+ibus engine xkb:us::eng
