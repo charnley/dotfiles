@@ -163,6 +163,7 @@ ${HOME}/.config/nvim/lua: ./dot/neovim/lua
 ${HOME}/.vsnip: ./dot/neovim/snippets
 
 dotfiles-deb: dotfiles ${HOME}/.inputrc
+	ln -sf $(CURDIR)/dot/alacritty/alacritty-deb.toml ${HOME}/.config/alacritty/alacritty-local.toml
 
 ${HOME}/.inputrc: ./dot.deb/inputrc
 
@@ -179,6 +180,7 @@ ${HOME}/.config/wireplumber/wireplumber.conf.d/50-usb-audio.conf: ./dot.deb.x/wi
 	ln -sf $(CURDIR)/$< $@
 
 dotfiles-osx: dotfiles ${HOME}/.gitignore ${HOME}/.ssh ${HOME}/.ssh/config
+	ln -sf $(CURDIR)/dot/alacritty/alacritty-osx.toml ${HOME}/.config/alacritty/alacritty-local.toml
 
 dotfiles-osx-yabai: ${HOME}/.yabairc ${HOME}/.skhdrc
 dotfiles-osx-aerospace: ${HOME}/.config/aerospace ${HOME}/.config/aerospace/aerospace.toml
