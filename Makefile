@@ -41,34 +41,6 @@ all: dotfiles bin
 ${HOME}/bin:
 	mkdir -p $@
 
-${HOME}/.config:
-	mkdir -p $@
-
-${HOME}/.config/nvim: ${HOME}/.config
-	mkdir -p $@
-
-${HOME}/.ssh:
-	mkdir -p $@
-
-${HOME}/.config/i3:
-	mkdir -p $@
-
-${HOME}/.config/i3status: ${HOME}/.config
-	mkdir -p $@
-
-${HOME}/.config/dunst: ${HOME}/.config
-	mkdir -p $@
-
-${HOME}/.config/rofi: ${HOME}/.config
-	mkdir -p $@
-
-${HOME}/.moc:
-	mkdir -p $@
-
-directories: ${HOME}/bin ${HOME}/.config/nvim ${HOME}/.moc
-
-directories-x: ${HOME}/.config/i3status ${HOME}/.config/i3 ${HOME}/.config/dunst ${HOME}/.config/rofi
-
 #
 # Executables
 #
@@ -133,12 +105,13 @@ $(HOME)/bin/%: bin.hpc/%
 # Dotfiles
 #
 
-dotfiles: directories dotfiles-defaults
+dotfiles: dotfiles-defaults
 
 dotfiles-defaults: ${HOME}/.bashrc ${HOME}/.bash_profile ${HOME}/.bash_aliases ${HOME}/.bash_paths ${HOME}/.condarc ${HOME}/.gitconfig ${HOME}/.tmux.conf ${HOME}/.tmux-osx ${HOME}/.tmux-linux ${HOME}/.config/nvim/init.lua ${HOME}/.config/nvim/lua ${HOME}/.vsnip ${HOME}/.zshrc ${HOME}/.config/alacritty ${HOME}/.config/neofetch ${HOME}/.hushlogin ${HOME}/.moc/themes
 
 ${HOME}/.%:
 	test -f $@ && mv $@ $@.bk;:
+	mkdir -p $(dir $@)
 	ln -s $(CURDIR)/$< $@
 
 ${HOME}/.bash_aliases: ./dot/bash_aliases
@@ -156,18 +129,19 @@ ${HOME}/.ssh/config: ./dot/ssh_config
 
 ${HOME}/.config/neofetch: ./dot/neofetch
 ${HOME}/.config/alacritty: ./dot/alacritty
-${HOME}/.moc/themes: ${HOME}/.moc ./dot/mocp_themes
+${HOME}/.moc/themes:
+	mkdir -p $(dir $@)
 	ln -sf $(CURDIR)/dot/mocp_themes $@
 ${HOME}/.config/nvim/init.lua: ./dot/neovim/init.lua
 ${HOME}/.config/nvim/lua: ./dot/neovim/lua
 ${HOME}/.vsnip: ./dot/neovim/snippets
 
 dotfiles-deb: dotfiles ${HOME}/.inputrc
-	ln -sf $(CURDIR)/dot/alacritty/alacritty-deb.toml ${HOME}/.config/alacritty/alacritty-local.toml
 
+${HOME}/.config/alacritty/alacritty-local.toml: $(CURDIR)/dot/alacritty/alacritty-$(OS).toml
 ${HOME}/.inputrc: ./dot.deb/inputrc
 
-dotfiles-deb-x: dotfiles-deb directories-x ${HOME}/.Xresources ${HOME}/.config/dunst/dunstrc ${HOME}/.config/i3status/config ${HOME}/.config/i3/config ${HOME}/.config/rofi/config.rasi ${HOME}/.xprofile ${HOME}/.config/wireplumber/wireplumber.conf.d/50-usb-audio.conf install-bin-deb-x
+dotfiles-deb-x: dotfiles-deb ${HOME}/.Xresources ${HOME}/.config/dunst/dunstrc ${HOME}/.config/i3status/config ${HOME}/.config/i3/config ${HOME}/.config/rofi/config.rasi ${HOME}/.xprofile ${HOME}/.config/wireplumber/wireplumber.conf.d/50-usb-audio.conf ${HOME}/.config/alacritty/alacritty-local.toml install-bin-deb-x
 
 ${HOME}/.xprofile: ./dot.deb.x/xprofile
 ${HOME}/.Xresources: ./dot.deb.x/Xresources
@@ -179,16 +153,11 @@ ${HOME}/.config/wireplumber/wireplumber.conf.d/50-usb-audio.conf: ./dot.deb.x/wi
 	mkdir -p $(dir $@)
 	ln -sf $(CURDIR)/$< $@
 
-dotfiles-osx: dotfiles ${HOME}/.gitignore ${HOME}/.ssh ${HOME}/.ssh/config
-	ln -sf $(CURDIR)/dot/alacritty/alacritty-osx.toml ${HOME}/.config/alacritty/alacritty-local.toml
-
+dotfiles-osx: dotfiles ${HOME}/.gitignore ${HOME}/.ssh ${HOME}/.ssh/config ${HOME}/.config/alacritty/alacritty-local.toml
 dotfiles-osx-yabai: ${HOME}/.yabairc ${HOME}/.skhdrc
-dotfiles-osx-aerospace: ${HOME}/.config/aerospace ${HOME}/.config/aerospace/aerospace.toml
+dotfiles-osx-aerospace: ${HOME}/.config/aerospace/aerospace.toml
 
 ${HOME}/.gitignore: ./dot.osx/gitignore
-${HOME}/.config/aerospace:
-	mkdir ${HOME}/.config/aerospace
-
 ${HOME}/.config/aerospace/aerospace.toml: ./dot.osx/aerospace.toml
 ${HOME}/.yabairc: ./dot.osx/yabairc
 ${HOME}/.skhdrc: ./dot.osx/skhdrc
