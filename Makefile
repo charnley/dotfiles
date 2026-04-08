@@ -169,7 +169,7 @@ ${HOME}/.skhdrc: ./dot.osx/skhdrc
 ${HOME}/.fzf:
 	bash ./setup/install-fzf.sh
 
-${HOME}/bin/zk: has-go
+${HOME}/bin/zk:
 	bash ./setup/install-zettelkasten.sh
 
 install: dotfiles-$(OS) bin ${HOME}/opt/neovim ${HOME}/.fzf ${HOME}/opt/tmux ${HOME}/.oh-my-zsh ${HOME}/bin/zk

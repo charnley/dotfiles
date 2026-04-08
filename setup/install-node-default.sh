@@ -5,6 +5,4 @@ set -e
 
 source ~/opt/nvm/nvm.sh
 
-nvm use node
-
-npm install --global bun pnpm tree-sitter-cli
+npm install --global bun pnpm

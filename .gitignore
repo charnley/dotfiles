@@ -1,3 +1,4 @@
 *.log
 *.Brewfile.lock.json
 dot/neovim/snippets/svelte.json
+dot/alacritty/alacritty-local.toml
