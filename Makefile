@@ -222,7 +222,7 @@ install-dev-langs: has-rust ${HOME}/opt/nvm
 	bash ./setup/install-node-nvm.sh
 	bash ./setup/install-node-default.sh
 	bash ./setup/install-python-uv.sh
-	bash ./setup/install-lua.sh
+	# bash ./setup/install-lua.sh
 	bash ./setup/install-go.sh
 
 install-dev-envs: install-dev-langs
