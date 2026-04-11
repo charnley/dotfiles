@@ -9,6 +9,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - run: make install-dev-languages
+      - run: make install-dev-langs
       - run: make install
       - run: make
