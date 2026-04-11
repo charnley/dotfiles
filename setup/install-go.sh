@@ -4,9 +4,10 @@ set -x
 set -e
 set -u
 
-test ! -d ~/opt/go/
-
+mkdir -p ~/opt
+mkdir -p ~/bin
 mkdir -p ~/deb
+
 cd ~/deb/
 
 # Fetch latest Go version
