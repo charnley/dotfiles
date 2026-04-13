@@ -3,14 +3,14 @@ Dotfiles
 
 For OSX, Debian and whatever HPC I need to work on. Some dotfiles are OS dependent. Check `Makefile` for dependencies, install and symlink setup.
 
-I use `Makefile` to coordinate everything. You should too. `Make` everything.
+I use `Makefile` to coordinate everything. You should too. `make` everything.
 
 Mac OSX
 -------
 
 |macosx|
 
-window manager: yabai
+window manager: AereoSpace
 
 Debian
 ------
