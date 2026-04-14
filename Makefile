@@ -232,6 +232,9 @@ install-dev-envs: install-dev-langs
 install-rust-packages:
 	xargs cargo install < ./lists/packages.rust
 
+install-go-packages:
+	xargs -I{} go install {} < ./lists/packages.go
+
 install-brew-packages:
 	brew bundle --file ./lists/gnu.Brewfile
 
