@@ -23,7 +23,7 @@ local plugins = {
   { "mason-org/mason-lspconfig.nvim" },
   { "numToStr/Comment.nvim" }, -- For Commenting gcc & gc (Treesitter support)
   { "nvim-lua/plenary.nvim" }, -- "all the lua function I don't want to write twice"
-  { "nvim-treesitter/nvim-treesitter", lazy = false, build = ":TSUpdate" },
+  { "nvim-treesitter/nvim-treesitter", branch = "main", lazy = false, build = ":TSUpdate" },
   { "nvim-treesitter/nvim-treesitter-context" }, -- Sticky scrolling
   { "nvim-treesitter/nvim-treesitter-textobjects" },
   { "ray-x/lsp_signature.nvim", event = "InsertEnter" },

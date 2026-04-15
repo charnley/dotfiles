@@ -2,4 +2,4 @@ bat
 du-dust
 exa
 ripgrep
-tree-sitter-cli
+fd-find
