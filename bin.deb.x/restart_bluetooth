@@ -1,0 +1,7 @@
+#!/bin/bash
+systemctl stop bluetooth.service
+rmmod btintel_pcie btintel bluetooth
+modprobe bluetooth
+modprobe btintel
+modprobe btintel_pcie
+systemctl start bluetooth.service
