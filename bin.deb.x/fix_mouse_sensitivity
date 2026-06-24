@@ -42,10 +42,12 @@ if __name__ == "__main__":
     # Define external mouses i want to change
     externals = [
         "ASUS ROG SPATHA",
+        "Keychron Keychron M3 mini 4K",
+        "Keychron Keychron 4K Link",
+        "Logitech G",
         "Logitech M705",
         "Logitech MX",
         "Logitech USB",
-        "Logitech G",
         "PS/2 Generic Mouse",
         "SteelSeries Rival Gaming Mouse",
     ]
