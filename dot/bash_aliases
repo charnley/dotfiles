@@ -159,7 +159,7 @@ alias ze='vi $(git diff --name-only)'
 alias tm='tmux'
 alias tma='tmux_attach'
 alias tml='tmux ls'
-alias tmk='tmux kill-session -t $1'
+alias tmk='tmux kill-session -t'
 alias tmg='tmux new -s $(basename $(pwd))'
 
 function tmux_attach()
