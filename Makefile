@@ -153,11 +153,10 @@ ${HOME}/.config/wireplumber/wireplumber.conf.d/50-usb-audio.conf: ./dot.deb.x/wi
 	mkdir -p $(dir $@)
 	ln -sf $(CURDIR)/$< $@
 
-dotfiles-osx: dotfiles ${HOME}/.gitignore ${HOME}/.ssh ${HOME}/.ssh/config ${HOME}/.config/alacritty/alacritty-local.toml
+dotfiles-osx: dotfiles ${HOME}/.ssh ${HOME}/.ssh/config ${HOME}/.config/alacritty/alacritty-local.toml
 dotfiles-osx-yabai: ${HOME}/.yabairc ${HOME}/.skhdrc
 dotfiles-osx-aerospace: ${HOME}/.config/aerospace/aerospace.toml
 
-${HOME}/.gitignore: ./dot.osx/gitignore
 ${HOME}/.config/aerospace/aerospace.toml: ./dot.osx/aerospace.toml
 ${HOME}/.yabairc: ./dot.osx/yabairc
 ${HOME}/.skhdrc: ./dot.osx/skhdrc
@@ -199,7 +198,7 @@ install-apt-x: install-apt
 install-fonts:
 	bash ./fonts/install-mononoki.sh
 	bash ./fonts/install-fira-sans.sh
-	bash ./fonts/install-fontawesome.sh
+	bash ./fonts/install-fontawesome6.sh
 	command -v fc-cache > /dev/null 2>&1 && fc-cache -f || true
 
 install-fonts-post-deb:
