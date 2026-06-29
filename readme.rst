@@ -29,7 +29,7 @@ Setup
 
     # fresh installation on new system
 
-    make install_apt # only for systems you have sudo
+    make install-apt # only for systems you have sudo
     make install # Compile and download dependencies (such as tmux and neovim)
 
 .. code-block:: bash
