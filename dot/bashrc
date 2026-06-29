@@ -1,4 +1,9 @@
 
+# Detect dotfiles location
+DOTFILES_DIR=""
+test -d "$HOME/git/dotfiles.git" && DOTFILES_DIR="$HOME/git/dotfiles.git"
+test -d "$HOME/git/dotfiles" && DOTFILES_DIR="$HOME/git/dotfiles"
+
 # Preserve bash history in multiple terminal windows
 export HISTCONTROL=ignoredups:erasedups:ignorespace
 export HISTIGNORE='ls:bf:fg:history:l:sound:dock:undock:headphones:top:l:mocp:rm'
@@ -15,8 +20,8 @@ if test -f ~/.bash_aliases; then . ~/.bash_aliases; fi
 
 # bash completion
 if test -f /etc/bash_completion; then . /etc/bash_completion; fi
-if test -f $HOME/git/dotfiles.git/bash_completion/tma; then . $HOME/git/dotfiles.git/bash_completion/tma; fi
-if test -f $HOME/git/dotfiles.git/bash_completion/tmk; then . $HOME/git/dotfiles.git/bash_completion/tmk; fi
+if test -f "$DOTFILES_DIR/dot/bash_completion/tma"; then . "$DOTFILES_DIR/dot/bash_completion/tma"; fi
+if test -f "$DOTFILES_DIR/dot/bash_completion/tmk"; then . "$DOTFILES_DIR/dot/bash_completion/tmk"; fi
 
 # source and export paths
 source $HOME/.bash_paths
