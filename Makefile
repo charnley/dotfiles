@@ -200,7 +200,7 @@ install-fonts:
 	bash ./fonts/install-mononoki.sh
 	bash ./fonts/install-fira-sans.sh
 	bash ./fonts/install-fontawesome.sh
-	test command -v fc-cache > /dev/null 2>&1 && fc-fache -f || true
+	command -v fc-cache > /dev/null 2>&1 && fc-cache -f || true
 
 install-fonts-post-deb:
 	fc-cache -f -v
