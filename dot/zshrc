@@ -163,12 +163,10 @@ ZSH_HIGHLIGHT_STYLES[path]=none
 ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
 # all my aliases
-source ${HOME}/.bash_aliases
+if test -f ~/.bash_aliases; then . ~/.bash_aliases; fi
 
 # all my paths
 source ${HOME}/.bash_paths
-
-if test -f ~/.bash_aliases; then . ~/.bash_aliases; fi
 
 if test -d "$HOME/.local/bin"; then PATH="$HOME/.local/bin:$PATH"; fi
 if test -d "/opt/bin"; then PATH="/opt/bin:$PATH"; fi
