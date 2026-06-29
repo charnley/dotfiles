@@ -200,11 +200,6 @@ CONDA_DIR="$HOME/opt/anaconda3"
 test ! -d $CONDA_DIR && CONDA_DIR="$HOME/opt/miniconda3/"
 test -d $CONDA_DIR && source $CONDA_DIR/etc/profile.d/conda.sh
 
-# Node Version Manager
-export NVM_DIR="$HOME/opt/nvm"
-test -s "$NVM_DIR/nvm.sh" && source "$NVM_DIR/nvm.sh"  --no-use  # This loads nvm
-# test -s "$NVM_DIR/bash_completion" && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 test -f $HOME/.zshrc.local && source $HOME/.zshrc.local
 
 # Profile
