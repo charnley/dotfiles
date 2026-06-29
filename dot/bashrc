@@ -1,9 +1,4 @@
 
-# Detect dotfiles location
-DOTFILES_DIR=""
-test -d "$HOME/git/dotfiles.git" && DOTFILES_DIR="$HOME/git/dotfiles.git"
-test -d "$HOME/git/dotfiles" && DOTFILES_DIR="$HOME/git/dotfiles"
-
 # Preserve bash history in multiple terminal windows
 export HISTCONTROL=ignoredups:erasedups:ignorespace
 export HISTIGNORE='ls:bf:fg:history:l:sound:dock:undock:headphones:top:l:mocp:rm'

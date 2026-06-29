@@ -1,10 +1,15 @@
 #!/bin/bash
 
+# Detect dotfiles location
+DOTFILES_DIR=""
+test -d "$HOME/git/dotfiles.git" && DOTFILES_DIR="$HOME/git/dotfiles.git"
+test -d "$HOME/git/dotfiles" && DOTFILES_DIR="$HOME/git/dotfiles"
+
 # Set standard editor
 export EDITOR=vim
 
 # Easy access
-alias dotfiles='cd $HOME/git/dotfiles'
+alias dotfiles='cd $DOTFILES_DIR'
 
 # Term
 alias cls="clear; printf '\e[3J'"
