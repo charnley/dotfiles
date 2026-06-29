@@ -4,7 +4,7 @@ set -x
 set -e
 set -u
 
-test ! -z "${ZK_NOTEBOOK_DIR}"
+test ! -z "${ZK_NOTEBOOK_DIR:-}"
 
 DOTFILES_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 NOTES_ZK_DIR="${DOTFILES_DIR}/notes/zk"

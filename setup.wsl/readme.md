@@ -10,7 +10,6 @@
     sudo apt install make
 
     make install_apt
-    make install_snap
     make install
     make
 

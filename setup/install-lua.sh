@@ -15,4 +15,4 @@ cd lua-$version
 
 make linux test
 
-# make install
+make install

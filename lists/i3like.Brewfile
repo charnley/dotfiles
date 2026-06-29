@@ -6,7 +6,7 @@ brew "skhd"
 brew "yabai"
 cask "alacritty"
 
-cask moc
+brew "moc"
 brew jack
 
 brew borders
