@@ -20,11 +20,33 @@ Go to: **System Preferences → Privacy & Security → Accessibility**
 
 Add and enable AeroSpace.
 
-## 3. Start AeroSpace
+## 3. Window Borders (JankyBorders)
+
+AeroSpace does not draw window borders. Use [JankyBorders](https://github.com/FelixKratz/JankyBorders) for i3-like borders.
+
+```bash
+brew install borders
+```
+
+Config lives at `dot.osx/bordersrc`. Copy or symlink it:
+
+```bash
+ln -sf ~/git/dotfiles/dot.osx/bordersrc ~/.bordersrc
+```
+
+Start borders with AeroSpace — add to AeroSpace's `after-startup-command` in `~/.aerospace.toml`:
+
+```toml
+after-startup-command = ['exec-and-forget borders']
+```
+
+Or launch it manually: `borders &`
+
+## 4. Start AeroSpace
 
 AeroSpace can be launched from Spotlight or set to start at login via its menu bar icon. It does not run as a `brew service`.
 
-## 4. Configure Desktop Switching
+## 5. Configure Desktop Switching
 
 AeroSpace manages workspaces natively — no need to create Spaces in Mission Control or set keyboard shortcuts there. Workspace switching is handled entirely in `~/.aerospace.toml`.
 

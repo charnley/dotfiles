@@ -7,6 +7,6 @@ brew "yabai"
 cask "alacritty"
 
 brew "moc"
-brew jack
+brew "jack"
 
-brew borders
+brew "borders"
