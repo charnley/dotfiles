@@ -3,7 +3,7 @@
 # https://github.com/FelixKratz/JankyBorders/wiki/Man-Page
 
 options=(
-	style=square
+	style=round
 	width=6.0
 	hidpi=off
 	active_color=0xffe1e3e4

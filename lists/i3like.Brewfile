@@ -1,6 +1,5 @@
-tap "homebrew/cask"
 tap "koekeishiya/formulae"
-tap FelixKratz/formulae
+tap "FelixKratz/formulae"
 
 # brew "skhd"   # replaced by aerospace
 # brew "yabai"  # replaced by aerospace

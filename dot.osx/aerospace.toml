@@ -16,6 +16,14 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 # Better indication of active window
 after-startup-command = ['exec-and-forget borders']
 
+[gaps]
+    inner.horizontal = 6
+    inner.vertical   = 6
+    outer.left       = 6
+    outer.bottom     = 6
+    outer.top        = 6
+    outer.right      = 6
+
 [mode.main.binding]
     cmd-enter = 'exec-and-forget open -na Alacritty'
 
