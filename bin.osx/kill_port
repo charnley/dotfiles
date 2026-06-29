@@ -2,7 +2,7 @@
 
 # Useful little script to kill hanging process for node development
 
-port="$1:-8000"
+port="${1:-8000}"
 
 set -e
 set -u
