@@ -161,4 +161,4 @@ if [[ "$current_shell" == *"bash"* ]]; then
     fi
 fi
 
-. "$HOME/.local/bin/env"
+

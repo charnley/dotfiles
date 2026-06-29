@@ -95,3 +95,6 @@ test -d "$HOME/notes" && export ZK_NOTEBOOK_DIR="$HOME/notes"
 # export ZK_NOTEBOOK_DIR="$HOME/notes-example/"
 
 export PATH
+
+# uv / sst env
+test -f "$HOME/.local/bin/env" && . "$HOME/.local/bin/env"
