@@ -1,4 +1,7 @@
-HostkeyAlgorithms +ssh-rsa
-PubkeyAcceptedAlgorithms +ssh-rsa
+# Legacy HPC / old servers that still use ssh-rsa (SHA-1).
+# Add hostnames here, do NOT enable globally.
+# Host old-hpc.example.com login*.cluster.example.com
+#     HostkeyAlgorithms +ssh-rsa
+#     PubkeyAcceptedAlgorithms +ssh-rsa
 
 Include config_local
