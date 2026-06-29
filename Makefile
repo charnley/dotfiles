@@ -155,9 +155,10 @@ ${HOME}/.config/wireplumber/wireplumber.conf.d/50-usb-audio.conf: ./dot.deb.x/wi
 
 dotfiles-osx: dotfiles ${HOME}/.ssh ${HOME}/.ssh/config ${HOME}/.config/alacritty/alacritty-local.toml
 dotfiles-osx-yabai: ${HOME}/.yabairc ${HOME}/.skhdrc
-dotfiles-osx-aerospace: ${HOME}/.config/aerospace/aerospace.toml
+dotfiles-osx-aerospace: ${HOME}/.config/aerospace/aerospace.toml ${HOME}/.bordersrc
 
 ${HOME}/.config/aerospace/aerospace.toml: ./dot.osx/aerospace.toml
+${HOME}/.bordersrc: ./dot.osx/bordersrc
 ${HOME}/.yabairc: ./dot.osx/yabairc
 ${HOME}/.skhdrc: ./dot.osx/skhdrc
 
@@ -178,6 +179,7 @@ install-deb-x: install-apt-x install dotfiles-deb-x install-dev-envs install-fon
 install-osx:
 	bash ./setup.osx/install-homebrew.sh
 	$(MAKE) install-brew-packages
+	$(MAKE) install-brew-i3like
 
 install-laptop: install-apt-x install-fonts
 
@@ -236,6 +238,9 @@ install-go-packages:
 
 install-brew-packages:
 	brew bundle --file ./lists/gnu.Brewfile
+
+install-brew-i3like:
+	brew bundle --file ./lists/i3like.Brewfile
 
 #
 # Clean

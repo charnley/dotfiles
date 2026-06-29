@@ -28,19 +28,13 @@ AeroSpace does not draw window borders. Use [JankyBorders](https://github.com/Fe
 brew install borders
 ```
 
-Config lives at `dot.osx/bordersrc`. Copy or symlink it:
-
-```bash
-ln -sf ~/git/dotfiles/dot.osx/bordersrc ~/.bordersrc
-```
+Config lives at `dot.osx/bordersrc`.
 
 Start borders with AeroSpace — add to AeroSpace's `after-startup-command` in `~/.aerospace.toml`:
 
 ```toml
 after-startup-command = ['exec-and-forget borders']
 ```
-
-Or launch it manually: `borders &`
 
 ## 4. Start AeroSpace
 

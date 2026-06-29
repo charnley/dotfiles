@@ -13,6 +13,9 @@ enable-normalization-opposite-orientation-for-nested-containers = false
 # Mouse follows focus when focused monitor changes
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
+# Better indication of active window
+after-startup-command = ['exec-and-forget borders']
+
 [mode.main.binding]
     cmd-enter = 'exec-and-forget open -na Alacritty'
 
