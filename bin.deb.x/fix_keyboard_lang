@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -x
+set -e
+set -u
+
+if test -n "${1:-}"; then
+    KEYBOARD_LANG=$1
+
+elif ls /dev/input/by-id/usb-Logitech_USB_Receiver-event-kbd >/dev/null 2>&1; then
+    KEYBOARD_LANG=dan
+
+else
+    KEYBOARD_LANG=eng
+
+fi
+
+case $KEYBOARD_LANG in
+    eng) layout=us ;;
+    dan) layout=dk ;;
+    *)   echo "unknown lang: $KEYBOARD_LANG (use eng|dan)" >&2; exit 1 ;;
+esac
+
+ibus engine xkb:${layout}::${KEYBOARD_LANG}
+
+fix_keyboard_capslock
