@@ -17,6 +17,7 @@ if test -f ~/.bash_aliases; then . ~/.bash_aliases; fi
 if test -f /etc/bash_completion; then . /etc/bash_completion; fi
 if test -f "$DOTFILES_DIR/dot/bash_completion/tma"; then . "$DOTFILES_DIR/dot/bash_completion/tma"; fi
 if test -f "$DOTFILES_DIR/dot/bash_completion/tmk"; then . "$DOTFILES_DIR/dot/bash_completion/tmk"; fi
+if test -f ~/.git-prompt.sh; then . ~/.git-prompt.sh; fi
 
 # source and export paths
 source $HOME/.bash_paths
@@ -157,3 +158,7 @@ if [[ "$current_shell" == *"bash"* ]]; then
 fi
 
 
+
+export NVM_DIR="$HOME/opt/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
