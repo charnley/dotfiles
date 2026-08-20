@@ -62,7 +62,7 @@ test -s "$NVM_DIR/nvm.sh" && source "$NVM_DIR/nvm.sh" --no-use
 test -s "$NVM_DIR/bash_completion" && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Native rust
-test -f "$HOME/.cargo/bin" && PATH="$HOME/.cargo/bin:$PATH"
+test -d "$HOME/.cargo/bin" && PATH="$HOME/.cargo/bin:$PATH"
 
 # Rust manager
 test -f "$HOME/opt/cargo/env" && source $HOME/opt/cargo/env
