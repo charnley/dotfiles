@@ -5,3 +5,5 @@ modprobe bluetooth
 modprobe btintel
 modprobe btintel_pcie
 systemctl start bluetooth.service
+sleep 1
+systemctl --user restart wireplumber

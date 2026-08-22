@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -x
+set -e
+set -u
+
+tex=${1}
+
+rg -o -r '$1' '\\cite\{([^}]*)\}' ${tex}  | tr ',' '\n'  | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'  | sort -u
+
