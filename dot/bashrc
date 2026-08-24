@@ -142,9 +142,6 @@ esac
 # fuzzy search
 test -f $HOME/.fzf.bash && source ~/.fzf.bash
 
-# Dont send me messages
-if `tty -s`; then mesg n; fi
-
 # Source local bashrc if present
 if test -f $HOME/.bashrc_local; then source $HOME/.bashrc_local; fi
 
@@ -156,9 +153,3 @@ if [[ "$current_shell" == *"bash"* ]]; then
         complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
     fi
 fi
-
-
-
-export NVM_DIR="$HOME/opt/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

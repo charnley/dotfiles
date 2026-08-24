@@ -7,6 +7,5 @@ git
 libssl-dev
 make
 openssl
-ruby-full
 zlib1g-dev
 zsh

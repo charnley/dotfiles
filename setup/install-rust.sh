@@ -31,7 +31,7 @@ set -u
 
 args="--no-modify-path -y --quiet"
 
-curl https://sh.rustup.rs -sSf | sh -s -- $args
+curl -k https://sh.rustup.rs -sSf | sh -s -- $args
 
 # TODO Add rust to PATHS for update
 
