@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Recursively filter notes by tags via fzf, then open interactively
+set -euo pipefail
+
+tags=()
+
+while true; do
+    tag=$(zk tag --quiet | awk '{print $1}' | fzf --prompt="Tag filter (ESC to stop)> " || true)
+    [[ -z "$tag" ]] && break
+    tags+=("--tag" "$tag")
+done
+
+if [[ ${#tags[@]} -eq 0 ]]; then
+    exit 0
+fi
+
+zk edit --interactive "${tags[@]}"
