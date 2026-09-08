@@ -141,7 +141,7 @@ dotfiles-deb: dotfiles ${HOME}/.inputrc
 ${HOME}/.config/alacritty/alacritty-local.toml: $(CURDIR)/dot/alacritty/alacritty-$(OS).toml
 ${HOME}/.inputrc: ./dot.deb/inputrc
 
-dotfiles-deb-x: dotfiles-deb ${HOME}/.Xresources ${HOME}/.config/dunst/dunstrc ${HOME}/.config/i3status/config ${HOME}/.config/i3/config ${HOME}/.config/rofi/config.rasi ${HOME}/.xprofile ${HOME}/.config/wireplumber/wireplumber.conf.d/50-usb-audio.conf ${HOME}/.config/alacritty/alacritty-local.toml install-bin-deb-x
+dotfiles-deb-x: dotfiles-deb ${HOME}/.Xresources ${HOME}/.config/dunst/dunstrc ${HOME}/.config/i3status/config ${HOME}/.config/i3/config ${HOME}/.config/rofi/config.rasi ${HOME}/.xprofile ${HOME}/.config/alacritty/alacritty-local.toml ${HOME}/.config/hypr/hyprland.conf ${HOME}/.config/hypr/hyprlock.conf ${HOME}/.config/hypr/hypridle.conf ${HOME}/.config/waybar/config ${HOME}/.config/waybar/style.css install-bin-deb-x
 
 ${HOME}/.xprofile: ./dot.deb.x/xprofile
 ${HOME}/.Xresources: ./dot.deb.x/Xresources
@@ -150,6 +150,26 @@ ${HOME}/.config/i3status/config: ./dot.deb.x/i3status
 ${HOME}/.config/i3/config: ./dot.deb.x/i3config
 ${HOME}/.config/rofi/config.rasi: ./dot.deb.x/rofi/config.rasi
 ${HOME}/.config/wireplumber/wireplumber.conf.d/50-usb-audio.conf: ./dot.deb.x/wireplumber/50-usb-audio.conf
+	mkdir -p $(dir $@)
+	ln -sf $(CURDIR)/$< $@
+
+${HOME}/.config/hypr/hyprland.conf: ./dot.deb.x/hypr/hyprland.conf
+	mkdir -p $(dir $@)
+	ln -sf $(CURDIR)/$< $@
+
+${HOME}/.config/hypr/hyprlock.conf: ./dot.deb.x/hypr/hyprlock.conf
+	mkdir -p $(dir $@)
+	ln -sf $(CURDIR)/$< $@
+
+${HOME}/.config/hypr/hypridle.conf: ./dot.deb.x/hypr/hypridle.conf
+	mkdir -p $(dir $@)
+	ln -sf $(CURDIR)/$< $@
+
+${HOME}/.config/waybar/config: ./dot.deb.x/waybar/config
+	mkdir -p $(dir $@)
+	ln -sf $(CURDIR)/$< $@
+
+${HOME}/.config/waybar/style.css: ./dot.deb.x/waybar/style.css
 	mkdir -p $(dir $@)
 	ln -sf $(CURDIR)/$< $@
 

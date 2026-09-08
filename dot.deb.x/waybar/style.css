@@ -1,0 +1,76 @@
+/* Waybar style — mirrors i3bar colors */
+
+* {
+    font-family: mononoki, monospace;
+    font-size: 13px;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: #121212;
+    color: #049cfb;
+}
+
+.modules-right {
+    color: #049cfb;
+}
+
+/* Workspace buttons */
+#workspaces button {
+    padding: 0 6px;
+    background-color: transparent;
+    color: #888888;
+    border-bottom: 2px solid transparent;
+}
+
+#workspaces button.active {
+    color: #ffffff;
+    border-bottom: 2px solid #0373bb;
+}
+
+#workspaces button.urgent {
+    color: #0373bb;
+    background-color: #900000;
+}
+
+#workspaces button:hover {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+/* Right modules — separator between each */
+#network,
+#custom-vpn,
+#pulseaudio,
+#disk,
+#battery,
+#temperature,
+#cpu,
+#clock {
+    padding: 0 8px;
+    color: #049cfb;
+    border-left: 1px solid #222222;
+}
+
+/* Battery states */
+#battery.warning {
+    color: #ffaa00;
+}
+
+#battery.critical {
+    color: #ff4444;
+}
+
+/* CPU/temp critical */
+#temperature.critical {
+    color: #ff4444;
+}
+
+/* VPN status */
+#custom-vpn {
+    color: #888888;
+}

@@ -1,0 +1,92 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 24,
+    "spacing": 4,
+
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": [],
+    "modules-right": [
+        "network",
+        "custom/vpn",
+        "pulseaudio",
+        "disk",
+        "battery",
+        "temperature",
+        "cpu",
+        "clock#date",
+        "clock#time"
+    ],
+
+    "hyprland/workspaces": {
+        "format": "{id}",
+        "on-click": "activate",
+        "sort-by-number": true
+    },
+
+    "network": {
+        "interface": "wlp0s20f3",
+        "format-wifi": "W: ({signalStrength}%) {ipAddr}",
+        "format-disconnected": "W: down",
+        "format-disabled": "W: off",
+        "tooltip-format": "{essid} {signalStrength}% {ipAddr}",
+        "interval": 5
+    },
+
+    "custom/vpn": {
+        "exec": "test -d /proc/sys/net/ipv4/conf/wg0-mullvad && echo 'VPN: up' || echo 'VPN: --'",
+        "interval": 10,
+        "format": "{}"
+    },
+
+    "pulseaudio": {
+        "format": "♪ {volume}%",
+        "format-muted": "♪ mute",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "scroll-step": 1
+    },
+
+    "disk": {
+        "path": "/",
+        "format": "/ {free}",
+        "interval": 30
+    },
+
+    "battery": {
+        "format": "B: {capacity}% {status}",
+        "format-charging": "B: {capacity}% C",
+        "format-discharging": "B: {capacity}% {time}",
+        "format-full": "B: {capacity}% F",
+        "format-time": "{H}:{M:02d}",
+        "states": {
+            "warning": 20,
+            "critical": 11
+        },
+        "interval": 30
+    },
+
+    "temperature": {
+        "thermal-zone": 0,
+        "format": "T: {temperatureC}°C",
+        "critical-threshold": 80,
+        "interval": 10
+    },
+
+    "cpu": {
+        "format": "L: {load}",
+        "interval": 10,
+        "tooltip": false
+    },
+
+    "clock#date": {
+        "format": "{:%Y-%m-%d}",
+        "interval": 60,
+        "tooltip": false
+    },
+
+    "clock#time": {
+        "format": "{:%H:%M}",
+        "interval": 60,
+        "tooltip": false
+    }
+}
