@@ -5,24 +5,81 @@
 # git diff --staged -- src/foo.py | git-commit-msg
 # git diff --staged | git-commit-msg
 # git commit -m "add git-commit-msg script for AI-generated commit messages"
+#
+# Env:
+#   GIT_COMMIT_MSG_MODEL      model to use (provider/model)
+#   GIT_COMMIT_MSG_MAX_BYTES  truncate diff to this many bytes (default 100000)
+#   GIT_COMMIT_MSG_TIMEOUT    give up after this many seconds (default 90)
 
 set -euo pipefail
 
-diff_content=$(cat)
+max_bytes="${GIT_COMMIT_MSG_MAX_BYTES:-100000}"
 
-prompt="Write a short, plain-English git commit message for the following diff.
+# Spool stdin to a file. Never hold the diff in a bash variable: bash string
+# ops are quadratic and stall for minutes on multi-MB diffs.
+tmp=$(mktemp)
+trap 'rm -f "$tmp"' EXIT
+cat > "$tmp"
+
+if ! grep -q '[^[:space:]]' "$tmp"; then
+    echo "git-commit-msg: empty diff on stdin" >&2
+    exit 1
+fi
+
+total_bytes=$(wc -c < "$tmp")
+
+# Builds the text sent to the model: full diff, or (if too big) a per-file
+# summary of the whole diff followed by the truncated diff.
+build_input() {
+    if (( total_bytes <= max_bytes )); then
+        cat "$tmp"
+        return
+    fi
+    echo "NOTE: diff is ${total_bytes} bytes, truncated to ${max_bytes}."
+    echo "Changed files (+added/-removed lines) across the WHOLE diff:"
+    awk '
+        /^diff --git / { f = $NF; sub(/^b\//, "", f); files[++n] = f; next }
+        /^\+\+\+ |^--- / { next }
+        /^\+/ { add[f]++ } /^-/ { del[f]++ }
+        END { for (i = 1; i <= n; i++) printf "  %s +%d -%d\n", files[i], add[files[i]], del[files[i]] }
+    ' "$tmp" | head -n 300
+    echo
+    echo "Truncated diff:"
+    head -c "$max_bytes" "$tmp"
+    echo
+    echo "[... diff truncated ...]"
+}
+
+prompt="Write a short, plain-English git commit message for the diff provided below.
 Rules:
 - One line only, no punctuation at the end, features seperated by comma
 - Start with a capitalized verb (Added, Fixed, Updated, Removed, Refactored, etc.)
 - Be specific but concise (max ~72 chars)
-- Output ONLY the commit message, nothing else
+- Output ONLY the commit message, nothing else"
 
-Diff:
-${diff_content}"
-
-model_flag=""
+model_args=()
 if [[ -n "${GIT_COMMIT_MSG_MODEL:-}" ]]; then
-    model_flag="--model ${GIT_COMMIT_MSG_MODEL}"
+    model_args=(--model "$GIT_COMMIT_MSG_MODEL")
 fi
 
-opencode run "$prompt" $model_flag --format json | jq -rj 'select(.type == "text") | .part.text'
+timeout_secs="${GIT_COMMIT_MSG_TIMEOUT:-90}"
+
+# Deny all tools: the model should only answer, never read files / run commands.
+# Otherwise a tool call can block forever on a permission prompt that is
+# invisible in --format json mode.
+export OPENCODE_CONFIG_CONTENT='{"permission":{"*":"deny"}}'
+
+# Diff goes via stdin (not argv) to avoid "Argument list too long"
+msg=$(build_input \
+    | timeout "$timeout_secs" opencode run "$prompt" "${model_args[@]}" --format json \
+    | jq -rj 'select(.type == "text") | .part.text') || {
+    echo "git-commit-msg: opencode failed or timed out after ${timeout_secs}s" >&2
+    exit 1
+}
+
+if [[ -z "$msg" ]]; then
+    echo "git-commit-msg: model returned no text" >&2
+    exit 1
+fi
+
+printf '%s' "$msg"

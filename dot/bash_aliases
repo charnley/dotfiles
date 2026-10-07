@@ -32,6 +32,7 @@ gci() {
     fi
     local tmpfile
     tmpfile=$(mktemp)
+    echo "Generating commit message..." >&2
     git diff HEAD -- "${paths[@]}" | git-commit-msg > $tmpfile
     echo >> $tmpfile
     git commit --template="$tmpfile" "${flags[@]}" -- "${paths[@]}"
