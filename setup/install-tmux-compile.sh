@@ -11,8 +11,8 @@ fi
 
 export CURL_OPTIONS="--silent --show-error"
 
-TMUX_VERSION="3.6a"
-NCURSES_VERSION="6.3"
+TMUX_VERSION="3.8"
+NCURSES_VERSION="6.5"
 LIBEVENT_VERSION="2.1.12"
 
 INSTALL_DIR="$HOME/opt"
@@ -28,20 +28,23 @@ cd $INSTALL_DIR
 if test ! -f $DWNLLDIR/tmux-${TMUX_VERSION}.tar.gz
 then
     curl -L -o $DWNLLDIR/tmux-${TMUX_VERSION}.tar.gz https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz
-    tar xzf $DWNLLDIR/tmux-${TMUX_VERSION}.tar.gz --directory $INSTALL_DIR
 fi
 
 if test ! -f $DWNLLDIR/libevent-${LIBEVENT_VERSION}.tar.gz
 then
     curl -L -o $DWNLLDIR/libevent-${LIBEVENT_VERSION}.tar.gz https://github.com/libevent/libevent/archive/refs/tags/release-${LIBEVENT_VERSION}-stable.tar.gz
-    tar xzf $DWNLLDIR/libevent-${LIBEVENT_VERSION}.tar.gz --directory $INSTALL_DIR
 fi
 
 if test ! -f $DWNLLDIR/ncurses-${NCURSES_VERSION}.tar.gz
 then
     curl -L -o $DWNLLDIR/ncurses-${NCURSES_VERSION}.tar.gz https://ftp.gnu.org/gnu/ncurses/ncurses-${NCURSES_VERSION}.tar.gz
-    tar xzf $DWNLLDIR/ncurses-${NCURSES_VERSION}.tar.gz --directory $INSTALL_DIR
 fi
+
+# Always extract into fresh source trees so reruns don't reuse stale builds
+rm -rf tmux-${TMUX_VERSION} libevent-release-${LIBEVENT_VERSION}-stable ncurses-${NCURSES_VERSION}
+tar xzf $DWNLLDIR/tmux-${TMUX_VERSION}.tar.gz --directory $INSTALL_DIR
+tar xzf $DWNLLDIR/libevent-${LIBEVENT_VERSION}.tar.gz --directory $INSTALL_DIR
+tar xzf $DWNLLDIR/ncurses-${NCURSES_VERSION}.tar.gz --directory $INSTALL_DIR
 
 # setup libevent
 cd libevent-release-${LIBEVENT_VERSION}-stable
@@ -55,23 +58,39 @@ cd ..
 cd ..
 # setup ncurses
 cd ncurses-${NCURSES_VERSION}
-./configure --prefix=$LIBDIR
+# GCC 15+ defaults to C23 where 'bool' is a keyword; ncurses' configure then
+# fails to detect stdbool and curses.h redefines bool, breaking C/C++ builds.
+# Pin C17 and skip parts tmux doesn't need (C++ binding, tests, Ada, manpages).
+./configure --prefix=$LIBDIR CFLAGS="-std=gnu17" \
+    --without-cxx --without-cxx-binding --without-tests --without-ada --without-manpages \
+    --enable-pc-files --with-pkg-config-libdir=$LIBDIR/lib/pkgconfig
 make
 make install
 cd ..
 
 # tmux install flags
-FLAGS1="-I$LIBDIR/include -I$LIBDIR/include/ncurses"
-FLAGS2="-L$LIBDIR/lib -L$LIBDIR/include/ncurses -L$LIBDIR/include"
+FLAGS1="-I$LIBDIR/include -I$LIBDIR/include/ncursesw -I$LIBDIR/include/ncurses"
+FLAGS2="-L$LIBDIR/lib"
 FLAGS3=""
+
+# let tmux's configure find our libevent and ncursesw via pkg-config
+export PKG_CONFIG_PATH="$LIBDIR/lib/pkgconfig"
 
 # setup tmux
 cd tmux-${TMUX_VERSION}
-./configure --disable-utf8proc CFLAGS="${FLAGS1}" LDFLAGS="${FLAGS2}"
+# Release tarballs ship a pre-generated cmd-parse.c, so yacc is only needed to
+# satisfy configure's check. Skip the check if no yacc/bison is installed.
+YACC_OVERRIDE=""
+if ! command -v yacc &> /dev/null && ! command -v bison &> /dev/null
+then
+    YACC_OVERRIDE="found_yacc=yes"
+fi
+./configure --disable-utf8proc CPPFLAGS="${FLAGS1}" CFLAGS="${FLAGS1}" LDFLAGS="${FLAGS2}" ${YACC_OVERRIDE}
 CPPFLAGS="$FLAGS3" LDFLAGS="-static ${FLAGS2}" make
 
 cd ..
 
+rm -rf tmux
 mv tmux-${TMUX_VERSION} tmux
 
 echo "done"
