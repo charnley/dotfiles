@@ -1,9 +1,19 @@
 #!/bin/bash
-systemctl stop bluetooth.service
-rmmod btintel_pcie btintel bluetooth
-modprobe bluetooth
-modprobe btintel
-modprobe btintel_pcie
-systemctl start bluetooth.service
-sleep 1
-systemctl --user restart wireplumber
+
+set -x
+set -e
+set -u
+
+sudo systemctl stop bluetooth
+sudo modprobe -r btintel_pcie btintel
+sudo modprobe btintel_pcie
+sudo systemctl start bluetooth
+
+# systemctl stop bluetooth.service
+# rmmod btintel_pcie btintel bluetooth
+# modprobe bluetooth
+# modprobe btintel
+# modprobe btintel_pcie
+# systemctl start bluetooth.service
+# sleep 1
+# systemctl --user restart wireplumber

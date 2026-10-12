@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -x
+set -e
+set -u
+
+if [[ -n "${BT_DEVICES:-}" ]]; then
+    list="$BT_DEVICES"
+else
+    echo "error, no devices"
+    exit 4
+fi
+
+choice=$(printf '%s\n' "$list" | sed '/^\s*$/d' | fzf --prompt="bluetooth> ") || exit 1
+mac=$(awk '{print $1}' <<< "$choice")
+
+bluetoothctl connect "$mac"
