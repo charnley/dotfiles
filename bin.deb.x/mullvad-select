@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -x
+set -e
+set -u
+
+choice=$(mullvad relay list | grep -E '^[^[:space:]].*\([a-z]{2}\)$' | fzf --prompt="mullvad country> ") || exit 1
+
+code=$(sed -E 's/.*\(([a-z]{2})\)$/\1/' <<< "$choice")
+
+mullvad relay set location "$code"
+mullvad status
