@@ -3,14 +3,27 @@
 set -x
 set -e
 
-cd ~/opt
+case "$(uname -m)" in
+    x86_64) arch=x86_64 ;;
+    aarch64|arm64) arch=arm64 ;;
+    *) echo "unsupported architecture: $(uname -m)"; exit 1 ;;
+esac
 
-mkdir -p neovim
-cd neovim
+# Official build requires glibc >= 2.34, older systems (e.g. RHEL 8) use neovim-releases
+glibc=$(ldd --version | head -1 | grep -oE '[0-9]+\.[0-9]+$')
+if printf '2.34\n%s\n' "$glibc" | sort -CV
+then
+    repo=neovim/neovim
+else
+    repo=neovim/neovim-releases
+fi
 
-filename="nvim.appimage"
+filename="nvim-linux-${arch}.tar.gz"
 
-# wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.appimage -O $filename
-wget https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage -O $filename
+mkdir -p ~/opt/neovim
+cd ~/opt/neovim
 
-chmod u+x $filename
+rm -rf bin lib share
+wget https://github.com/$repo/releases/latest/download/$filename -O $filename
+tar xzf $filename --strip-components=1
+rm $filename
