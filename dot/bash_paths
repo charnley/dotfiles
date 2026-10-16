@@ -56,6 +56,8 @@ test -d "$HOME/opt/miniforge" && CONDA_PREFIX="$HOME/opt/miniforge"
 test ! -z "$CONDA_PREFIX" && test -d $CONDA_PREFIX/etc/profile.d && source $CONDA_PREFIX/etc/profile.d/conda.sh
 unset CONDA_PREFIX  # don't activate by default
 
+test -d "$HOME/opt/libatomic/usr/lib64" && export LD_LIBRARY_PATH="$HOME/opt/libatomic/usr/lib64${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
 # Node Version Manager
 export NVM_DIR="$HOME/opt/nvm"
 test -s "$NVM_DIR/nvm.sh" && source "$NVM_DIR/nvm.sh" --no-use
