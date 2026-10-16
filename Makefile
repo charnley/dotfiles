@@ -16,6 +16,8 @@ ifeq ($(detected_OS),Linux) # Linux
 	OS = deb
 endif
 
+HAS_ZSH := $(shell command -v zsh 2> /dev/null)
+
 BIN_DEFAULT_FILES   := $(wildcard bin/*)
 BIN_DEV_FILES       := $(wildcard bin.dev/*)
 BIN_OSX_FILES       := $(wildcard bin.osx/*)
@@ -192,7 +194,7 @@ ${HOME}/.fzf:
 ${HOME}/bin/zk:
 	bash ./setup/install-zettelkasten.sh
 
-install: dotfiles-$(OS) bin ${HOME}/opt/neovim ${HOME}/.fzf ${HOME}/opt/tmux ${HOME}/.oh-my-zsh
+install: dotfiles-$(OS) bin ${HOME}/opt/neovim ${HOME}/.fzf ${HOME}/opt/tmux $(if $(HAS_ZSH),${HOME}/.oh-my-zsh)
 
 install-deb-x: install-apt-x install dotfiles-deb-x install-dev-envs install-fonts install-fonts-post-deb
 
