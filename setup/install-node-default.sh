@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# set -x
+set -x
 set -e
 
 source ~/opt/nvm/nvm.sh
