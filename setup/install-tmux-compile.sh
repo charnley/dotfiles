@@ -48,6 +48,12 @@ tar xzf $DWNLLDIR/ncurses-${NCURSES_VERSION}.tar.gz --directory $INSTALL_DIR
 
 # setup libevent
 cd libevent-release-${LIBEVENT_VERSION}-stable
+# glibc 2.36+ headers declare arc4random*() in <stdlib.h>, which clashes with
+# libevent 2.1.12's bundled static arc4random.c ("static declaration of
+# 'arc4random_buf' follows non-static declaration"). Rename libevent's private
+# copies right before arc4random.c is included (after stdlib.h is already in).
+sed -i 's|^#include "./arc4random.c"|#define arc4random_stir evutil_arc4random_stir\n#define arc4random_addrandom evutil_arc4random_addrandom\n#define arc4random_buf evutil_arc4random_buf\n#define arc4random_uniform evutil_arc4random_uniform\n#define arc4random evutil_arc4random\n&|' evutil_rand.c
+grep -q 'define arc4random_buf evutil_arc4random_buf' evutil_rand.c
 # ./configure --prefix=$LIBDIR --disable-shared
 mkdir -p build
 cd build
