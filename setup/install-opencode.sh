@@ -1,7 +1,3 @@
 #!/bin/bash
 
-source ${NVM_DIR}/nvm.sh
-
-nvm use node
-
-npm install --global opencode-ai
+npm install --global --allow-scripts=opencode-ai opencode-ai
