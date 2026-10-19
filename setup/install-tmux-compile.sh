@@ -67,16 +67,22 @@ LIB_FLAGS="-L$LIBDIR/lib"
 (
     cd "$TMUX_SRC"
 
+    EXTRA_FLAGS=()
+
     # Release tarballs ship a pre-generated cmd-parse.c, so yacc is only needed
     # to satisfy configure's check.
-    YACC_OVERRIDE=()
     if ! command -v yacc > /dev/null && ! command -v bison > /dev/null; then
-        YACC_OVERRIDE=("found_yacc=yes")
+        EXTRA_FLAGS+=("found_yacc=yes")
+    fi
+
+    # tmux 3.8 on macOS refuses to configure without an explicit jemalloc choice.
+    if [ "$(uname)" = "Darwin" ]; then
+        EXTRA_FLAGS+=("--disable-jemalloc")
     fi
 
     ./configure --disable-utf8proc \
         CPPFLAGS="$INCLUDE_FLAGS" CFLAGS="$INCLUDE_FLAGS" LDFLAGS="$LIB_FLAGS" \
-        "${YACC_OVERRIDE[@]+"${YACC_OVERRIDE[@]}"}"
+        "${EXTRA_FLAGS[@]+"${EXTRA_FLAGS[@]}"}"
     make
 )
 
