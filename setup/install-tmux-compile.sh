@@ -20,6 +20,18 @@ LIBEVENT_SRC="libevent-${LIBEVENT_VERSION}-stable"
 mkdir -p "$INSTALL_DIR" "$LIBDIR" "$DWNLDIR"
 cd "$INSTALL_DIR"
 
+# macOS: xcrun may pick a newer SDK than the installed linker can read (e.g. a
+# leftover beta SDK), so nothing links. If so, fall back to the default
+# MacOSX.sdk symlink, which matches the installed toolchain.
+if [ "$(uname)" = "Darwin" ] && [ -z "${SDKROOT:-}" ]; then
+    probe="$(mktemp -d)"
+    printf 'int main(void){return 0;}\n' > "$probe/t.c"
+    if ! cc "$probe/t.c" -o "$probe/t" 2> /dev/null; then
+        export SDKROOT="$(xcode-select -p)/SDKs/MacOSX.sdk"
+    fi
+    rm -rf "$probe"
+fi
+
 # fetch <url> <source-dir>: download tarball and extract it, unless already present
 fetch() {
     local url="$1"
