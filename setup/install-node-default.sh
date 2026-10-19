@@ -5,4 +5,4 @@ set -e
 
 source ~/opt/nvm/nvm.sh
 
-npm install --global bun pnpm
+npm install --allow-scripts=bun,pnpm --global bun pnpm
