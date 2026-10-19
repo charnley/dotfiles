@@ -37,6 +37,16 @@ For an i3wm-like tiling workflow on Mac, see one of the following:
 - **[readme_aerospace.md](readme_aerospace.md)** — AeroSpace: the modern approach. A single binary with a single config file. Recommended for new setups.
 - **[readme_yabai.md](readme_yabai.md)** — yabai + skhd: the older two-tool approach. More established but requires more configuration.
 
+## Setting up Alacritty
+
+```bash
+bash setup.osx/install-alacritty.sh
+```
+
+Builds `Alacritty.app` from source into `/Applications` (needed for Spotlight and the `cmd-enter` window manager binding),
+and creates the git-ignored `dot/alacritty/alacritty-local.toml` for machine-specific settings if missing.
+Requires `cargo`. The script works around a CLT/SDK mismatch, see the comment in the script.
+
 ## Extra Mac Settings
 
 ### Appearance
