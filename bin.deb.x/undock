@@ -6,5 +6,5 @@ set -u
 
 monitor --undock
 
-fix_keyboard_lang
+fix_keyboard_lang eng
 fix_mouse_sensitivity
