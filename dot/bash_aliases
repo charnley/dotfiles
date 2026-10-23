@@ -121,6 +121,113 @@ ghis() {
 
 alias gc='gitclone' # from bin
 
+# Git worktrees
+# gwt [branch]  - add worktree next to the current one as ../<repo>-<branch> and cd into it
+#   local <branch> exists   -> check it out
+#   origin/<branch> exists  -> new local branch tracking it
+#   otherwise               -> new branch from current HEAD
+#   no argument             -> fzf pick a remote branch
+
+# Prune worktrees whose folder was deleted, and say so if anything was pruned
+_gwt_prune() {
+    local p b
+    git worktree list --porcelain | awk '
+        /^worktree /{ p = substr($0, 10); b = ""; s = 0 }
+        /^branch /{ b = substr($0, 19) }
+        /^prunable/{ s = 1 }
+        /^$/{ if (s) print p "\t" b; s = 0 }
+        END{ if (s) print p "\t" b }' |
+    while IFS=$'\t' read -r p b; do
+        echo "${1:-gwt}: pruned stale worktree $p${b:+ (branch $b)}"
+    done
+    git worktree prune
+}
+
+gwt() {
+    is_in_git_repo || { echo "gwt: not in a git repo" >&2; return 1; }
+    local branch="$1" toplevel main repo dir
+    toplevel=$(git rev-parse --show-toplevel) || return 1
+    main=$(git worktree list --porcelain | awk '/^worktree /{print substr($0, 10); exit}')
+    repo=$(basename "$main")
+    repo=${repo%.git}
+
+    if git remote get-url origin > /dev/null 2>&1; then
+        git fetch origin --prune || return 1
+    fi
+    _gwt_prune gwt
+
+    if [[ -z "$branch" ]]; then
+        branch=$(git for-each-ref --format='%(refname:short)' refs/remotes/origin |
+            grep -v -e '^origin$' -e '^origin/HEAD$' |
+            fzf-down --prompt 'remote branch> ') || return 1
+    fi
+    branch=${branch#origin/}
+    [[ -n "$branch" ]] || return 1
+
+    dir="$(dirname "$toplevel")/$repo-${branch//\//-}"
+    if [[ -e "$dir" ]]; then
+        echo "gwt: $dir already exists" >&2
+        return 1
+    fi
+
+    if git show-ref --verify --quiet "refs/heads/$branch"; then
+        git worktree add "$dir" "$branch" || return 1
+    elif git show-ref --verify --quiet "refs/remotes/origin/$branch"; then
+        git worktree add --track -b "$branch" "$dir" "origin/$branch" || return 1
+    else
+        echo "gwt: new branch '$branch' from $(git rev-parse --abbrev-ref HEAD) ($(git rev-parse --short HEAD))"
+        git worktree add -b "$branch" "$dir" HEAD || return 1
+    fi
+    cd "$dir"
+}
+
+# gwtrm [--force] [path]  - remove a worktree (fzf pick if no path), then prune
+gwtrm() {
+    is_in_git_repo || { echo "gwtrm: not in a git repo" >&2; return 1; }
+    local -a flags
+    local target="" main branch prev="$PWD"
+    for arg in "$@"; do
+        if [[ "$arg" == -* ]]; then flags+=("$arg"); else target="$arg"; fi
+    done
+    main=$(git worktree list --porcelain | awk '/^worktree /{print substr($0, 10); exit}')
+
+    # Folder already deleted but still registered: just prune it
+    if [[ -n "$target" && ! -d "$target" ]]; then
+        local abs
+        abs="$(cd "$(dirname "$target")" 2> /dev/null && pwd -P)/$(basename "$target")"
+        if git worktree list --porcelain | grep -qxF -e "worktree $abs" -e "worktree $target"; then
+            _gwt_prune gwtrm
+            return 0
+        fi
+        echo "gwtrm: no such worktree" >&2
+        return 1
+    fi
+    _gwt_prune gwtrm
+
+    if [[ -z "$target" ]]; then
+        target=$(git worktree list --porcelain | awk '/^worktree /{print substr($0, 10)}' | tail -n +2 |
+            fzf-down --prompt 'remove worktree> ' --preview 'git -C {} status -sb') || return 1
+    fi
+    target=$(cd "$target" 2> /dev/null && pwd -P) || { echo "gwtrm: no such worktree" >&2; return 1; }
+    if [[ "$target" == "$(cd "$main" && pwd -P)" ]]; then
+        echo "gwtrm: refusing to remove the main worktree" >&2
+        return 1
+    fi
+    branch=$(git -C "$target" rev-parse --abbrev-ref HEAD 2> /dev/null)
+
+    # Step out if we are standing inside the worktree being removed
+    case "$(pwd -P)/" in "$target"/*) cd "$main" ;; esac
+
+    if ! git -C "$main" worktree remove "${flags[@]}" "$target"; then
+        cd "$prev"
+        return 1
+    fi
+    git -C "$main" worktree prune
+    echo "gwtrm: removed $target"
+    [[ -n "$branch" && "$branch" != "HEAD" ]] && echo "gwtrm: delete branch with: git branch -d $branch"
+    return 0
+}
+
 function git_use_private {
     git config user.name "Jimmy Kromann"
     git config user.email "jimmy@charnley.dk"
