@@ -181,7 +181,29 @@ gwt() {
     cd "$dir"
 }
 
+# tmux session name for a directory, as used by ztm
+_tm_session_name() {
+    basename "$1" | sed 's/[^a-zA-Z0-9\-\_]//g'
+}
+
+# Kill the tmux session belonging to a worktree path, unless we are inside it
+_gwtrm_kill_tmux() {
+    local session current
+    session=$(_tm_session_name "$1")
+    [[ -n "$session" ]] || return 0
+    tmux has-session -t "=$session" 2> /dev/null || return 0
+    if [[ -n "$TMUX" ]]; then
+        current=$(tmux display-message -p '#S' 2> /dev/null)
+        if [[ "$current" == "$session" ]]; then
+            echo "gwtrm: inside tmux session $session, not killing it" >&2
+            return 0
+        fi
+    fi
+    tmux kill-session -t "=$session" && echo "gwtrm: killed tmux session $session"
+}
+
 # gwtrm [--force] [path]  - remove a worktree (fzf pick if no path), then prune
+#   also kills the tmux session named after the worktree folder (see ztm)
 gwtrm() {
     is_in_git_repo || { echo "gwtrm: not in a git repo" >&2; return 1; }
     local -a flags
@@ -197,6 +219,7 @@ gwtrm() {
         abs="$(cd "$(dirname "$target")" 2> /dev/null && pwd -P)/$(basename "$target")"
         if git worktree list --porcelain | grep -qxF -e "worktree $abs" -e "worktree $target"; then
             _gwt_prune gwtrm
+            _gwtrm_kill_tmux "$target"
             return 0
         fi
         echo "gwtrm: no such worktree" >&2
@@ -225,6 +248,7 @@ gwtrm() {
     git -C "$main" worktree prune
     echo "gwtrm: removed $target"
     [[ -n "$branch" && "$branch" != "HEAD" ]] && echo "gwtrm: delete branch with: git branch -d $branch"
+    _gwtrm_kill_tmux "$target"
     return 0
 }
 
@@ -242,10 +266,7 @@ function ztm() {
     set -e
     set -x
 
-    name=$(basename $(pwd))
-
-    # Clean name for space and special characters
-    name=$(echo $name | sed 's/[^a-zA-Z0-9\-\_]//g')
+    name=$(_tm_session_name "$(pwd)")
 
     tmux set-option remain-on-exit on
     tmux new-session -d -s $name
