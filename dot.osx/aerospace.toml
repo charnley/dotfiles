@@ -84,6 +84,9 @@ after-startup-command = ['exec-and-forget borders']
     cmd-shift-9 = 'move-node-to-workspace 9'
     cmd-shift-0 = 'move-node-to-workspace 10'
 
+    # Focus the other monitor (its workspace has no number). Press again to come back.
+    cmd-alt-0 = 'focus-monitor --wrap-around next'
+
     alt-shift-c = 'reload-config'
 
     alt-r = 'mode resize'

@@ -81,6 +81,12 @@ The config at `dot.osx/aerospace.toml` mirrors i3wm keybindings as closely as po
 | <kbd>Cmd</kbd> + <kbd>1</kbd>–<kbd>9</kbd>, <kbd>0</kbd> | Switch to workspace 1–10 |
 | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>1</kbd>–<kbd>9</kbd>, <kbd>0</kbd> | Move window to workspace 1–10 |
 
+### Monitors
+
+| Key | Action |
+|-----|--------|
+| <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>0</kbd> | Focus the other monitor (press again to come back) |
+
 ### Layouts
 
 | Key | Action |
