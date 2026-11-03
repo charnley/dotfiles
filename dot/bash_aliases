@@ -430,17 +430,28 @@ extract () {
 
 use_python_env()
 {
-    # Better test what kind of env this is
-    test -f ./env/bin/activate && source ./env/bin/activate || cona
+    # $1: path to an env dir (venv or conda prefix)
+    local env_dir="${1:-./env}"
+    if test -f "$env_dir/bin/activate"; then
+        source "$env_dir/bin/activate"
+    else
+        conda activate "$env_dir"
+    fi
 }
 
 work()
 {
-    # Activate node and activate python env
+    # Activate node and activate python env found in path (default: cwd)
+    local dir="${1:-.}"
+    dir="${dir%/}"
+    if ! test -d "$dir"; then
+        echo "work: '$dir' is not a directory" >&2
+        return 1
+    fi
     nvm use node
-    test -d ./env && use_python_env ./env
-    test -f .venv/bin/activate && source .venv/bin/activate
-    test -f venv/bin/activate && source venv/bin/activate
+    test -d "$dir/env" && use_python_env "$dir/env"
+    test -f "$dir/.venv/bin/activate" && source "$dir/.venv/bin/activate"
+    test -f "$dir/venv/bin/activate" && source "$dir/venv/bin/activate"
 }
 
 dework()
