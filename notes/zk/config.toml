@@ -18,6 +18,14 @@ filename = "{{format-date now '%Y-%m-%d'}}"
 extension = "md"
 template = "todo.md"
 
+[group.task]
+paths = ["tasks"]
+
+[group.task.note]
+filename = "{{format-date now '%Y%m%d-%H%M%S'}}"
+extension = "md"
+template = "task.md"
+
 [group.meeting]
 paths = ["meetings"]
 
@@ -57,11 +65,20 @@ todo = 'zk new --group todo --no-input --date "$(date -d "$*" +%Y-%m-%d)" "$ZK_N
 # - zk -2 week - open all todos over the last two weeks
 todos = 'zk edit --sort created- --created-after "$(date -d "$*" +%Y-%m-%d)" todo'
 
+# Tasks (own notes in tasks/, excluded from ls/recent)
+# Usage:
+# - zk task fix the build   - new task with that title
+# - zk task-ls              - open tasks: path, priority, link, title
+# - zk task-link            - open the external (linear/jira) link of a picked task
+task = 'zk new --group task --title "$*" "$ZK_NOTEBOOK_DIR/tasks"'
+task-ls = "zk list tasks --quiet --sort created- --format '{{metadata.status}}|{{metadata.priority}}|{{path}}|{{metadata.link}}|{{title}}' | awk -F'|' '$1==\"open\"' | sort -t'|' -k2,2nr | column -t -s'|'"
+task-link = "zk list tasks --quiet --format '{{metadata.link}}|{{title}}' | grep -v '^|' | fzf | cut -d'|' -f1 | xargs xdg-open"
+
 # Find and edit
 last = "zk edit --limit 1 --sort modified- $argv"
-recent = "zk edit --sort created- --created-after 'last 7 days' --interactive"
-recent-month = "zk edit --sort created- --created-after 'last 30 days' --interactive"
-ls = "zk edit --interactive --sort created --exclude todo"
+recent = "zk edit --sort created- --created-after 'last 7 days' --interactive --exclude tasks"
+recent-month = "zk edit --sort created- --created-after 'last 30 days' --interactive --exclude tasks"
+ls = "zk edit --interactive --sort created --exclude todo --exclude tasks"
 t = "zk-tag-search"
 ta = "zk edit --tag $(zk tag --quiet | fzf | awk '{print $1}')"
 
