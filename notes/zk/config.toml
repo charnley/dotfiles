@@ -22,7 +22,7 @@ template = "todo.md"
 paths = ["tasks"]
 
 [group.task.note]
-filename = "{{format-date now '%Y%m%d-%H%M%S'}}"
+filename = "{{format-date now '%Y-%m-%d'}}-{{id}}"
 extension = "md"
 template = "task.md"
 
