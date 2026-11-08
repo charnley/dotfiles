@@ -1,17 +1,38 @@
 #!/usr/bin/env bash
-# Recursively filter notes by tags via fzf, then open interactively
+# Progressive tag narrowing: after each tag is selected, only tags shared by
+# notes matching all previously selected tags remain available. Stops when no
+# more common tags exist or user presses ESC.
 set -euo pipefail
 
-tags=()
+selected_tags=()
+tag_args=()
 
 while true; do
-    tag=$(zk tag --quiet | awk '{print $1}' | fzf --prompt="Tag filter (ESC to stop)> " || true)
+    if [[ ${#selected_tags[@]} -eq 0 ]]; then
+        mapfile -t available_tags < <(zk tag list --quiet | awk '{print $1}')
+    else
+        notes_json=$(zk list --quiet -f json "${tag_args[@]}")
+        if [[ -z "$notes_json" ]]; then
+            break
+        fi
+        mapfile -t tags_from_notes < <(echo "$notes_json" | jq -r '[.[].tags[]?] | unique | .[]' | sort)
+        # Exclude already-selected tags
+        mapfile -t available_tags < <(printf '%s\n' "${tags_from_notes[@]}" | grep -vFx -f <(printf '%s\n' "${selected_tags[@]}"))
+    fi
+
+    # Stop if nothing left in the intersection
+    if [[ ${#available_tags[@]} -eq 0 ]]; then
+        break
+    fi
+
+    tag=$(printf '%s\n' "${available_tags[@]}" | fzf --prompt="Tag filter (ESC to stop)> " || true)
     [[ -z "$tag" ]] && break
-    tags+=("--tag" "$tag")
+    selected_tags+=("$tag")
+    tag_args+=("--tag" "$tag")
 done
 
-if [[ ${#tags[@]} -eq 0 ]]; then
+if [[ ${#selected_tags[@]} -eq 0 ]]; then
     exit 0
 fi
 
-zk edit --interactive "${tags[@]}"
+zk edit --interactive "${tag_args[@]}"
