@@ -10,3 +10,5 @@ link:
 
 # {{title}}
 
+{{content}}
+
